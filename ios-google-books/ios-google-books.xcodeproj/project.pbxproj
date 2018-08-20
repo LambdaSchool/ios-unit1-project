@@ -12,7 +12,30 @@
 		138996FB212B67EB00AC5225 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138996F9212B67EB00AC5225 /* Main.storyboard */; };
 		138996FD212B67EC00AC5225 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138996FC212B67EC00AC5225 /* Assets.xcassets */; };
 		13899700212B67EC00AC5225 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138996FE212B67EC00AC5225 /* LaunchScreen.storyboard */; };
+		13899726212B794E00AC5225 /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13899720212B794300AC5225 /* AppAuth.framework */; };
+		13899727212B794E00AC5225 /* AppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 13899720212B794300AC5225 /* AppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		13899728212B794E00AC5225 /* GTMAppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13899722212B794300AC5225 /* GTMAppAuth.framework */; };
+		13899729212B794E00AC5225 /* GTMAppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 13899722212B794300AC5225 /* GTMAppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1389972A212B794E00AC5225 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13899721212B794300AC5225 /* GTMSessionFetcher.framework */; };
+		1389972B212B794E00AC5225 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 13899721212B794300AC5225 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1389971D212B778100AC5225 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				13899727212B794E00AC5225 /* AppAuth.framework in Embed Frameworks */,
+				1389972B212B794E00AC5225 /* GTMSessionFetcher.framework in Embed Frameworks */,
+				13899729212B794E00AC5225 /* GTMAppAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		138996F2212B67EB00AC5225 /* ios-google-books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-google-books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,6 +45,10 @@
 		138996FC212B67EC00AC5225 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		138996FF212B67EC00AC5225 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		13899701212B67EC00AC5225 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13899720212B794300AC5225 /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
+		13899721212B794300AC5225 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		13899722212B794300AC5225 /* GTMAppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMAppAuth.framework; sourceTree = "<group>"; };
+		1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +56,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13899726212B794E00AC5225 /* AppAuth.framework in Frameworks */,
+				1389972A212B794E00AC5225 /* GTMSessionFetcher.framework in Frameworks */,
+				13899728212B794E00AC5225 /* GTMAppAuth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,10 +88,22 @@
 				138996F7212B67EB00AC5225 /* ViewController.swift */,
 				138996F9212B67EB00AC5225 /* Main.storyboard */,
 				138996FC212B67EC00AC5225 /* Assets.xcassets */,
+				1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */,
 				138996FE212B67EC00AC5225 /* LaunchScreen.storyboard */,
 				13899701212B67EC00AC5225 /* Info.plist */,
+				13899707212B717500AC5225 /* Frameworks */,
 			);
 			path = "ios-google-books";
+			sourceTree = "<group>";
+		};
+		13899707212B717500AC5225 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13899720212B794300AC5225 /* AppAuth.framework */,
+				13899722212B794300AC5225 /* GTMAppAuth.framework */,
+				13899721212B794300AC5225 /* GTMSessionFetcher.framework */,
+			);
+			path = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,6 +116,7 @@
 				138996EE212B67EB00AC5225 /* Sources */,
 				138996EF212B67EB00AC5225 /* Frameworks */,
 				138996F0212B67EB00AC5225 /* Resources */,
+				1389971D212B778100AC5225 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,6 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				138996F8212B67EB00AC5225 /* ViewController.swift in Sources */,
 				138996F6212B67EB00AC5225 /* AppDelegate.swift in Sources */,
 			);
@@ -280,7 +324,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios-google-books/Frameworks",
+				);
 				INFOPLIST_FILE = "ios-google-books/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -288,8 +339,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Conner.Lambda.ios-google-books";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -297,7 +350,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_BITCODE = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ios-google-books/Frameworks",
+				);
 				INFOPLIST_FILE = "ios-google-books/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -305,8 +365,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Conner.Lambda.ios-google-books";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};
