@@ -18,6 +18,11 @@
 		3DA52427212B6A1900686391 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA5241F212B69FF00686391 /* GTMSessionFetcher.framework */; };
 		3DA52428212B6A1900686391 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA5241F212B69FF00686391 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DA5242B212B6A9E00686391 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5242A212B6A9E00686391 /* GoogleBooksAuthorizationClient.swift */; };
+		3DA52435212B789000686391 /* ExploreTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA52434212B789000686391 /* ExploreTableViewController.swift */; };
+		3DA52437212B78AF00686391 /* ExploreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA52436212B78AF00686391 /* ExploreTableViewCell.swift */; };
+		3DA52439212B853200686391 /* ExploreDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA52438212B853200686391 /* ExploreDetailViewController.swift */; };
+		3DA5243B212B88A600686391 /* CollectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5243A212B88A600686391 /* CollectionsTableViewController.swift */; };
+		3DA5243D212B88E300686391 /* BookSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA5243C212B88E300686391 /* BookSummaryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +52,11 @@
 		3DA5241E212B69FF00686391 /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
 		3DA5241F212B69FF00686391 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
 		3DA5242A212B6A9E00686391 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
+		3DA52434212B789000686391 /* ExploreTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewController.swift; sourceTree = "<group>"; };
+		3DA52436212B78AF00686391 /* ExploreTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreTableViewCell.swift; sourceTree = "<group>"; };
+		3DA52438212B853200686391 /* ExploreDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreDetailViewController.swift; sourceTree = "<group>"; };
+		3DA5243A212B88A600686391 /* CollectionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsTableViewController.swift; sourceTree = "<group>"; };
+		3DA5243C212B88E300686391 /* BookSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSummaryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +166,10 @@
 		3DA52432212B6E9800686391 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				3DA52434212B789000686391 /* ExploreTableViewController.swift */,
+				3DA52438212B853200686391 /* ExploreDetailViewController.swift */,
+				3DA5243A212B88A600686391 /* CollectionsTableViewController.swift */,
+				3DA5243C212B88E300686391 /* BookSummaryViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -163,6 +177,7 @@
 		3DA52433212B6E9B00686391 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3DA52436212B78AF00686391 /* ExploreTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -239,8 +254,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DA52435212B789000686391 /* ExploreTableViewController.swift in Sources */,
 				3DA5242B212B6A9E00686391 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				3DA5243D212B88E300686391 /* BookSummaryViewController.swift in Sources */,
 				3DA5240B212B65D700686391 /* AppDelegate.swift in Sources */,
+				3DA5243B212B88A600686391 /* CollectionsTableViewController.swift in Sources */,
+				3DA52439212B853200686391 /* ExploreDetailViewController.swift in Sources */,
+				3DA52437212B78AF00686391 /* ExploreTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
