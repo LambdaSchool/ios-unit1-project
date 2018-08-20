@@ -27,5 +27,4 @@ class BookSummaryViewController: UIViewController {
     @IBAction func markRead(_ sender: Any) {
     }
     
-
 }
