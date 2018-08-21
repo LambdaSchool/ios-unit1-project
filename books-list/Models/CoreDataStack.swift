@@ -32,7 +32,7 @@ class CoreDataStack {
         return container.viewContext
     }
     
-    func save(context: NSManagedObjectContext) -> Error? {
+    func save(context: NSManagedObjectContext) throws {
         var error: Error?
         context.performAndWait {
             do {
@@ -41,7 +41,7 @@ class CoreDataStack {
                 error = saveError
             }
         }
-        return error != nil ? error: nil
+        if let error = error { throw error }
     }
     
 }

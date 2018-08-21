@@ -11,8 +11,9 @@ import CoreData
 
 extension Book {
     
-    convenience init(title: String, authors: String, abstract: String?, image: Data? = nil, hasRead: Bool = false, pageCount: String?, averageRating: String?, ratingsCount: String?, timestamp: Date = Date(), context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(identifier: String = UUID().uuidString, title: String, authors: String, abstract: String?, image: Data? = nil, hasRead: Bool = false, pageCount: String?, averageRating: String?, ratingsCount: String?, timestamp: Date = Date(), context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
+        self.identifier = identifier
         self.title = title
         self.abstract = abstract ?? nil
         self.image = image ?? nil
@@ -32,6 +33,9 @@ extension Book {
                   averageRating: bookRepresentation.volumeInfo.averageRating != nil ? String(format: "%.1f", bookRepresentation.volumeInfo.averageRating!) : nil,
                   ratingsCount: bookRepresentation.volumeInfo.ratingsCount != nil ? String(bookRepresentation.volumeInfo.ratingsCount!) : nil,
                   context: context)
+        
+        self.identifier = UUID().uuidString
+        self.timestamp = Date()
         
         //TODO: ISBN
     }
