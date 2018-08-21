@@ -10,10 +10,22 @@ import UIKit
 
 class ExploreTableViewCell: UITableViewCell {
     
-    // - Properties
+    // MARK: - Properties
+    var book: BookRepresentation? {
+        didSet {
+            updateViews()
+        }
+    }
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookImageView: UIImageView!
     
+    // MARK: - Methods
+    private func updateViews() {
+        titleLabel?.text = book?.volumeInfo.title
+        authorLabel?.text = book?.volumeInfo.authors?.joined(separator: ", ")
+        
+        
+    }
 
 }

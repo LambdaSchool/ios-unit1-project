@@ -11,26 +11,28 @@ import CoreData
 
 extension Book {
     
-    convenience init(title: String, abstract: String, image: Data, hasRead: Bool = false, pages: String, price: String, timestamp: Date = Date(), context: NSManagedObjectContext) {
+    convenience init(title: String, authors: String, abstract: String?, image: Data? = nil, hasRead: Bool = false, pageCount: String?, averageRating: String?, ratingsCount: String?, timestamp: Date = Date(), context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.title = title
-        self.abstract = abstract
-        self.image = image
+        self.abstract = abstract ?? nil
+        self.image = image ?? nil
         self.hasRead = hasRead
-        self.pages = pages
-        self.price = price
+        self.pageCount = pageCount ?? nil
+        self.averageRating = averageRating ?? nil
+        self.ratingsCount = ratingsCount ?? nil
         self.timestamp = timestamp
+        //TODO: ISBN
     }
     
     convenience init?(bookRepresentation: BookRepresentation, context: NSManagedObjectContext) {
-        self.init(title: bookRepresentation.title,
-                  abstract: bookRepresentation.abstract,
-                  image: bookRepresentation.image,
-                  hasRead: bookRepresentation.hasRead,
-                  pages: bookRepresentation.pages,
-                  price: bookRepresentation.price,
-                  timestamp: bookRepresentation.timestamp,
+        self.init(title: bookRepresentation.volumeInfo.title,
+                  authors: (bookRepresentation.volumeInfo.authors != nil ? bookRepresentation.volumeInfo.authors!.joined(separator: ", ") : nil)!,
+                  abstract: bookRepresentation.volumeInfo.abstract ?? nil,
+                  pageCount: bookRepresentation.volumeInfo.pageCount != nil ? String(bookRepresentation.volumeInfo.pageCount!) : nil,
+                  averageRating: bookRepresentation.volumeInfo.averageRating != nil ? String(format: "%.1f", bookRepresentation.volumeInfo.averageRating!) : nil,
+                  ratingsCount: bookRepresentation.volumeInfo.ratingsCount != nil ? String(bookRepresentation.volumeInfo.ratingsCount!) : nil,
                   context: context)
+        
+        //TODO: ISBN
     }
-    
 }

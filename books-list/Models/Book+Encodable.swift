@@ -15,7 +15,7 @@ extension Book: Encodable {
         case abstract
         case image
         case hasRead
-        case pages
+        case pageCount
         case price
         case timestamp
     }
@@ -26,8 +26,7 @@ extension Book: Encodable {
         try container.encode(abstract, forKey: .abstract)
         try container.encode(image, forKey: .image)
         try container.encode(hasRead, forKey: .hasRead)
-        try container.encode(pages, forKey: .pages)
-        try container.encode(price, forKey: .price)
+        try container.encode(pageCount, forKey: .pageCount)
         try container.encode(timestamp, forKey: .timestamp)
     }
     

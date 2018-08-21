@@ -10,11 +10,15 @@ import Foundation
 import CoreData
 
 class CoreDataStack {
+
+    enum CoreDataModels: String {
+        case Book
+    }
     
     static let shared = CoreDataStack()
     
     lazy var container: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Book")
+        let container = NSPersistentContainer(name: CoreDataModels.Book.rawValue)
         container.loadPersistentStores  { (_, error) in
             if let error = error {
                 fatalError("Failed to load persistent store: \(error)")
