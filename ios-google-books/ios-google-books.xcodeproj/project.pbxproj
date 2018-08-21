@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1388AB96212C9D8F0019D9ED /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */; };
 		1388AB9A212CA8600019D9ED /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1388AB99212CA8600019D9ED /* BookTableViewCell.swift */; };
+		1388AB9D212CAC6E0019D9ED /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1388AB9C212CAC6E0019D9ED /* CoreDataManager.swift */; };
+		1388ABA0212CACB10019D9ED /* Books.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1388AB9E212CACB10019D9ED /* Books.xcdatamodeld */; };
 		138996F6212B67EB00AC5225 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138996F5212B67EB00AC5225 /* AppDelegate.swift */; };
 		138996FB212B67EB00AC5225 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 138996F9212B67EB00AC5225 /* Main.storyboard */; };
 		138996FD212B67EC00AC5225 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 138996FC212B67EC00AC5225 /* Assets.xcassets */; };
@@ -41,6 +43,8 @@
 /* Begin PBXFileReference section */
 		1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		1388AB99212CA8600019D9ED /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
+		1388AB9C212CAC6E0019D9ED /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		1388AB9F212CACB10019D9ED /* Books.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Books.xcdatamodel; sourceTree = "<group>"; };
 		138996F2212B67EB00AC5225 /* ios-google-books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ios-google-books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		138996F5212B67EB00AC5225 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		138996FA212B67EB00AC5225 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -83,6 +87,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		1388AB9B212CAC5D0019D9ED /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				1388AB9E212CACB10019D9ED /* Books.xcdatamodeld */,
+				1388AB9C212CAC6E0019D9ED /* CoreDataManager.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
 		138996E9212B67EB00AC5225 = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +115,7 @@
 		138996F4212B67EB00AC5225 /* ios-google-books */ = {
 			isa = PBXGroup;
 			children = (
+				1388AB9B212CAC5D0019D9ED /* Core Data */,
 				1388AB98212CA8440019D9ED /* Views */,
 				1388AB97212C9D960019D9ED /* View Controllers */,
 				138996F5212B67EB00AC5225 /* AppDelegate.swift */,
@@ -200,6 +214,8 @@
 				1388AB9A212CA8600019D9ED /* BookTableViewCell.swift in Sources */,
 				1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				1388AB96212C9D8F0019D9ED /* LibraryViewController.swift in Sources */,
+				1388AB9D212CAC6E0019D9ED /* CoreDataManager.swift in Sources */,
+				1388ABA0212CACB10019D9ED /* Books.xcdatamodeld in Sources */,
 				138996F6212B67EB00AC5225 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +430,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1388AB9E212CACB10019D9ED /* Books.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1388AB9F212CACB10019D9ED /* Books.xcdatamodel */,
+			);
+			currentVersion = 1388AB9F212CACB10019D9ED /* Books.xcdatamodel */;
+			path = Books.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 138996EA212B67EB00AC5225 /* Project object */;
 }
