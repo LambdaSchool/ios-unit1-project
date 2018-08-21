@@ -22,6 +22,10 @@
 		103DAEB6212CC33D004344F3 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 103DAEAD212CC238004344F3 /* GTMSessionFetcher.framework */; };
 		103DAEB7212CC33D004344F3 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 103DAEAD212CC238004344F3 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		103DAEBA212CC3CE004344F3 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEB9212CC3CD004344F3 /* GoogleBooksAuthorizationClient.swift */; };
+		103DAEBD212CD121004344F3 /* Book.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEBB212CD121004344F3 /* Book.xcdatamodeld */; };
+		103DAEC0212CD256004344F3 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEBF212CD256004344F3 /* Book+Convenience.swift */; };
+		103DAEC2212CD3D9004344F3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */; };
+		103DAEC4212CD58B004344F3 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC3212CD58B004344F3 /* BookRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -55,6 +59,10 @@
 		103DAEAD212CC238004344F3 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
 		103DAEAE212CC239004344F3 /* GTMAppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMAppAuth.framework; sourceTree = "<group>"; };
 		103DAEB9212CC3CD004344F3 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
+		103DAEBC212CD121004344F3 /* Book.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Book.xcdatamodel; sourceTree = "<group>"; };
+		103DAEBF212CD256004344F3 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
+		103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		103DAEC3212CD58B004344F3 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				103DAE9A212C9FBA004344F3 /* Storyboards */,
+				103DAEBE212CD12A004344F3 /* Model and Model Controller */,
 				103DAEAA212CBD32004344F3 /* View */,
 				103DAEA1212CBC9E004344F3 /* View Controllers */,
 				103DAE97212C9ED5004344F3 /* Resources */,
@@ -145,6 +154,17 @@
 				103DAEAD212CC238004344F3 /* GTMSessionFetcher.framework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		103DAEBE212CD12A004344F3 /* Model and Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */,
+				103DAEBB212CD121004344F3 /* Book.xcdatamodeld */,
+				103DAEBF212CD256004344F3 /* Book+Convenience.swift */,
+				103DAEC3212CD58B004344F3 /* BookRepresentation.swift */,
+			);
+			path = "Model and Model Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -222,9 +242,13 @@
 				103DAEBA212CC3CE004344F3 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				103DAE86212C9E82004344F3 /* AppDelegate.swift in Sources */,
 				103DAEA3212CBCE7004344F3 /* SearchTableViewController.swift in Sources */,
+				103DAEC4212CD58B004344F3 /* BookRepresentation.swift in Sources */,
+				103DAEC2212CD3D9004344F3 /* CoreDataStack.swift in Sources */,
 				103DAEA0212CBC99004344F3 /* BookshelvesTableViewController.swift in Sources */,
 				103DAEA5212CBCF6004344F3 /* DetailViewController.swift in Sources */,
+				103DAEC0212CD256004344F3 /* Book+Convenience.swift in Sources */,
 				103DAEA7212CBD1D004344F3 /* BookshelvesTableViewCell.swift in Sources */,
+				103DAEBD212CD121004344F3 /* Book.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +454,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		103DAEBB212CD121004344F3 /* Book.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				103DAEBC212CD121004344F3 /* Book.xcdatamodel */,
+			);
+			currentVersion = 103DAEBC212CD121004344F3 /* Book.xcdatamodel */;
+			path = Book.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 103DAE7A212C9E82004344F3 /* Project object */;
 }

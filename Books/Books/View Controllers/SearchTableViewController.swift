@@ -2,7 +2,7 @@
 //  SearchTableViewController.swift
 //  Books
 //
-//  Created by Andrew Dhan on 8/21/18.
+//  Created by Andrew Liao on 8/21/18.
 //  Copyright © 2018 Andrew Liao. All rights reserved.
 //
 
@@ -91,5 +91,6 @@ class SearchTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBOutlet var searchBar: UITableView!
+    
 }
