@@ -28,5 +28,17 @@ class CoreDataStack {
         return container.viewContext
     }
     
+    func save(context: NSManagedObjectContext) -> Error? {
+        var error: Error?
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch let saveError {
+                error = saveError
+            }
+        }
+        return error != nil ? error: nil
+    }
+    
 }
 
