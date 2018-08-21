@@ -30,7 +30,7 @@
         <!--My Library-->
         <scene sceneID="0Yw-Pb-438">
             <objects>
-                <viewController id="jbg-bq-Utu" sceneMemberID="viewController">
+                <viewController id="jbg-bq-Utu" customClass="LibraryViewController" customModule="ios_google_books" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U41-Lb-NPu">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -58,12 +58,15 @@
                                             <segment title="Reviewed"/>
                                         </segments>
                                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="segmentedControlAction:" destination="jbg-bq-Utu" eventType="valueChanged" id="uz2-x7-oqE"/>
+                                        </connections>
                                     </segmentedControl>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9q7-5R-eR5">
                                         <rect key="frame" x="0.0" y="117" width="375" height="461"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="110" id="GNa-tV-N9u">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookCell" rowHeight="110" id="GNa-tV-N9u" customClass="BookTableViewCell" customModule="ios_google_books" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GNa-tV-N9u" id="B2p-fD-BKM">
@@ -101,8 +104,17 @@
                                                         <constraint firstAttribute="bottom" secondItem="0tY-Zm-VI3" secondAttribute="bottom" constant="10" id="pNe-XX-qVG"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
+                                                <connections>
+                                                    <outlet property="bookAuthorLabel" destination="IxF-FQ-sja" id="Caw-Mz-shU"/>
+                                                    <outlet property="bookSynopsisLabel" destination="GjX-8T-DTy" id="VwS-Su-BGY"/>
+                                                    <outlet property="bookTitleLabel" destination="oIu-0H-O0F" id="lbj-nq-fZI"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="jbg-bq-Utu" id="fOg-bA-8vp"/>
+                                            <outlet property="delegate" destination="jbg-bq-Utu" id="RO8-PZ-CBg"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                             </stackView>
@@ -117,6 +129,10 @@
                         <viewLayoutGuide key="safeArea" id="5YK-Dx-ACG"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="My Library" id="0hz-fn-SZN"/>
+                    <connections>
+                        <outlet property="segmentedControl" destination="lod-hm-8DZ" id="CKT-wa-ux0"/>
+                        <outlet property="tableView" destination="9q7-5R-eR5" id="q6B-do-qX4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pqM-j2-kfp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
