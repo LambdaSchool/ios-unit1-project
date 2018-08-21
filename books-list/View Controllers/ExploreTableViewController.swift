@@ -53,7 +53,12 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "ShowBookDetail" {
+            guard let detailVC = segue.destination as? ExploreDetailViewController else { return }
+            if let indexPath = tableView.indexPathForSelectedRow {
+                detailVC.book = bookController.searchedBooks[indexPath.row]
+            }
+        }
     }
 
 }
