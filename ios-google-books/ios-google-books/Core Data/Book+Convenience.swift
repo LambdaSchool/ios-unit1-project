@@ -10,11 +10,16 @@ import Foundation
 import CoreData
 
 extension Book {
-  convenience init(title: String, author: String, synopsis: String, context: NSManagedObjectContext = CoreDataManager.shared.mainContext) {
+  convenience init(title: String,
+                   author: String,
+                   synopsis: String,
+                   hasRead: Bool,
+                   context: NSManagedObjectContext = CoreDataManager.shared.mainContext) {
     self.init(context: context)
     
     self.title = title
     self.author = author
     self.synopsis = synopsis
+    self.hasRead = hasRead
   }
 }
