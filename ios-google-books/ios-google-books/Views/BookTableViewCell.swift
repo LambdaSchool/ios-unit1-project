@@ -10,6 +10,7 @@ import UIKit
 
 class BookTableViewCell: UITableViewCell {
   
+  
   func updateViews() {
     
   }
