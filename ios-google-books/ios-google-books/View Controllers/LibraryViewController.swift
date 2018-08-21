@@ -12,7 +12,6 @@ import CoreData
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
   
   @IBOutlet var tableView: UITableView!
-  var sections: [String] = ["Read", "To Read"]
   
   override func viewDidLoad() {
     super.viewDidLoad()
