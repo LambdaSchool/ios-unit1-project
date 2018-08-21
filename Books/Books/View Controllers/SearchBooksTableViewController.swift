@@ -8,18 +8,37 @@
 
 import UIKit
 
-class SearchBooksTableViewController: UITableViewController, UISearchBarDelegate {
+class SearchBooksTableViewController: UITableViewController, UISearchBarDelegate, SearchBookTableViewCellDelegate {
+    
+    // MARK: - Properties
     
     let searchController = SearchController()
+    var bookController: BookController?
+    var bookshelf: Bookshelf?
+    
+    // MARK: - Outlets
     
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         searchBar.delegate = self
     }
+    
+    // MARK: - SearchBookTableViewCellDelegate
+    
+    func saveBook(for cell: SearchBookTableViewCell) {
+        guard let searchResult = cell.searchResult, let bookshelf = bookshelf else { return }
+        
+        // call create book from bookController
+        bookController?.createBook(with: searchResult, inBookshelf: bookshelf)
+    }
 
+    // MARK: - UISearchBarDelegate
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text, searchTerm.count > 0 else { return }
         
@@ -41,26 +60,15 @@ class SearchBooksTableViewController: UITableViewController, UISearchBarDelegate
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultCell", for: indexPath) as! SearchBookTableViewCell
 
-        let searchResult = searchController.searchResults[indexPath.row]
-        cell.textLabel?.text = searchResult.title
-        cell.detailTextLabel?.text = searchResult.authors.joined(separator: ", ")
+//        let searchResult = searchController.searchResults[indexPath.row]
+//        cell.textLabel?.text = searchResult.title
+//        cell.detailTextLabel?.text = searchResult.authors.joined(separator: ", ")
+        
+        cell.searchResult = searchController.searchResults[indexPath.row]
+        cell.delegate = self
 
         return cell
-    }
-   
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            
-        }
-    }
-    
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
 }

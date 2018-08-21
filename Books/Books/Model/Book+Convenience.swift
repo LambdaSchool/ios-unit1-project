@@ -7,3 +7,18 @@
 //
 
 import Foundation
+import CoreData
+
+extension Book {
+    convenience init(title: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        
+        self.init(context: context)
+        
+        self.title = title
+    }
+    
+    convenience init?(searchResult: SearchResult, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        
+        self.init(title: searchResult.title, context: context)
+    }
+}

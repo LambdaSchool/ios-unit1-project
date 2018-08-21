@@ -10,6 +10,9 @@ import UIKit
 
 class BookshelvesTableViewController: UITableViewController {
     
+    // MARK: - Properties
+    
+    let bookController = BookController()
     
     @IBAction func addBookshelf(_ sender: Any) {
     }

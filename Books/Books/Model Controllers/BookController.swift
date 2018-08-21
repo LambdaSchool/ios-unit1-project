@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+class BookController {
+    
+    // MARK: - Properties
+    
+    var searchResults: [SearchResult] = []
+    
+    // MARK: - CRUD
+    
+    func createBook(with searchResult: SearchResult, inBookshelf bookshelf: Bookshelf) {
+//        guard let book = Book(searchResult: searchResult) else { return }
+        let book = Book(searchResult: searchResult)
+        book?.bookshelf = bookshelf
+    }
+}
