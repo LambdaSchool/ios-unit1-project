@@ -18,6 +18,8 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         }
     }
     
+    var lastSelectedBook: Book?
+    
     @IBAction func renameBookshelf(_ sender: Any) {
         
         let alert = UIAlertController(title: "Rename Bookshelf", message: nil, preferredStyle: .alert)
@@ -50,6 +52,8 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
     
     func moreInfoButtonWasTapped(for cell: BookTableViewCell) {
         guard let book = cell.book else { return }
+    
+        lastSelectedBook = book
 
         let actionSheet = UIAlertController(title: "Book Actions", message: nil, preferredStyle: .actionSheet)
         
@@ -188,6 +192,11 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
             bookDetailVC.bookController = bookController
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             bookDetailVC.book = fetchedResultsController.object(at: indexPath)
+        }
+        
+        if let moveToVC = segue.destination as? MoveToTableViewController {
+            moveToVC.bookController = bookController
+            moveToVC.book = lastSelectedBook
         }
     }
 }

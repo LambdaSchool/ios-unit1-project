@@ -1,19 +1,18 @@
 //
-//  BookshelvesTableViewController.swift
+//  MoveToTableViewController.swift
 //  Books
 //
-//  Created by Linh Bouniol on 8/21/18.
+//  Created by Linh Bouniol on 8/22/18.
 //  Copyright © 2018 Linh Bouniol. All rights reserved.
 //
 
 import UIKit
 import CoreData
 
-class BookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class MoveToTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    // MARK: - Properties
-    
-    let bookController = BookController()
+    var book: Book?
+    var bookController: BookController?
     
     @IBAction func addBookshelf(_ sender: Any) {
         
@@ -25,7 +24,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { (action) in
             guard let name = alert.textFields![0].text, name.count > 0 else { return }
             
-            self.bookController.createBookshelf(with: name)
+            self.bookController?.createBookshelf(with: name)
             
             self.tableView.reloadData()
         }))
@@ -34,12 +33,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
         
         self.present(alert, animated: true, completion: nil)
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-    }
-    
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
         
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
@@ -47,7 +41,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         
         let moc = CoreDataStack.shared.mainContext
-       
+        
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: moc,
                                              sectionNameKeyPath: nil,
@@ -96,10 +90,10 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
             tableView.reloadRows(at: [indexPath], with: .automatic)
         case .move:
             guard let oldIndexPath = indexPath, let newIndexPath = newIndexPath else { return }
-            //            tableView.moveRow(at: oldIndexPath, to:  newIndexPath)
+            tableView.moveRow(at: oldIndexPath, to:  newIndexPath)
             // Doesn't work any more?
-            tableView.deleteRows(at: [oldIndexPath], with: .automatic)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+//            tableView.deleteRows(at: [oldIndexPath], with: .automatic)
+//            tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
     
@@ -110,7 +104,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ShowMoveVC", for: indexPath)
 
         let bookshelf = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = bookshelf.name
@@ -118,26 +112,11 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            let bookshelf = fetchedResultsController.object(at: indexPath)
-            bookController.delete(bookshelf: bookshelf)
-        }
-    }
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let booksTVC = segue.destination as? BooksTableViewController {
-            booksTVC.bookController = bookController
-            
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            booksTVC.bookshelf = fetchedResultsController.object(at: indexPath)
-            
-//            if segue.identifier == "ShowBookshelfDetail" {
-//                guard let indexPath = tableView.indexPathForSelectedRow else { return }
-//                booksTVC.bookshelf = fetchedResultsController.object(at: indexPath)
-//            }
-        }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let book = book else { return }
+        let bookshelf = fetchedResultsController.object(at: indexPath)
+        bookController?.move(book: book, to: bookshelf)
+        
+        navigationController?.popViewController(animated: true)
     }
 }

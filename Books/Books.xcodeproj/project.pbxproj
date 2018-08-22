@@ -12,6 +12,7 @@
 		3909C6B5212CB44F003E2B12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */; };
 		3909C6B7212CC22E003E2B12 /* Bookshelf+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B6212CC22E003E2B12 /* Bookshelf+Convenience.swift */; };
 		3909C6B9212D07E7003E2B12 /* ImageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B8212D07E7003E2B12 /* ImageController.swift */; };
+		3909C6BB212E010E003E2B12 /* MoveToTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6BA212E010E003E2B12 /* MoveToTableViewController.swift */; };
 		3940A865212B82270058F050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940A864212B82270058F050 /* AppDelegate.swift */; };
 		3940A86A212B82270058F050 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3940A868212B82270058F050 /* Main.storyboard */; };
 		3940A86C212B82280058F050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3940A86B212B82280058F050 /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3909C6B6212CC22E003E2B12 /* Bookshelf+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookshelf+Convenience.swift"; sourceTree = "<group>"; };
 		3909C6B8212D07E7003E2B12 /* ImageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageController.swift; sourceTree = "<group>"; };
+		3909C6BA212E010E003E2B12 /* MoveToTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveToTableViewController.swift; sourceTree = "<group>"; };
 		3940A861212B82270058F050 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3940A864212B82270058F050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3940A869212B82270058F050 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				3940A885212C79170058F050 /* BookshelvesTableViewController.swift */,
 				3940A887212C79240058F050 /* BooksTableViewController.swift */,
 				3940A889212C79360058F050 /* BookDetailViewController.swift */,
+				3909C6BA212E010E003E2B12 /* MoveToTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -225,6 +228,7 @@
 				3909C6B7212CC22E003E2B12 /* Bookshelf+Convenience.swift in Sources */,
 				3940A88E212C7CC40058F050 /* SearchBookTableViewCell.swift in Sources */,
 				3940A88C212C7CA60058F050 /* BookTableViewCell.swift in Sources */,
+				3909C6BB212E010E003E2B12 /* MoveToTableViewController.swift in Sources */,
 				3940A886212C79170058F050 /* BookshelvesTableViewController.swift in Sources */,
 				3940A884212B89230058F050 /* SearchResult.swift in Sources */,
 				3940A88A212C79360058F050 /* BookDetailViewController.swift in Sources */,
