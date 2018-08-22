@@ -12,9 +12,12 @@ import CoreData
 class LibraryViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, NSFetchedResultsControllerDelegate {
   
   @IBOutlet var tableView: UITableView!
+  @IBOutlet var segmentedControl: UISegmentedControl!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    segmentedControl.layer.cornerRadius = 0
+    segmentedControl.layer.borderWidth = 1
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +102,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   }
   
   @IBAction func segmentedControlAction(_ sender: Any) {
+    let selectedSegment = segmentedControl.selectedSegmentIndex
   }
   
   let bookController = BookController()
