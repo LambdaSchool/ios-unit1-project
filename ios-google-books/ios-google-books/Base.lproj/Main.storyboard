@@ -133,6 +133,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="My Library" id="0hz-fn-SZN"/>
                     <connections>
+                        <outlet property="searchBar" destination="9A9-KY-Zh4" id="nAG-W6-vyq"/>
                         <outlet property="segmentedControl" destination="lod-hm-8DZ" id="X9F-ok-vma"/>
                         <outlet property="tableView" destination="9q7-5R-eR5" id="q6B-do-qX4"/>
                     </connections>

@@ -13,6 +13,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var segmentedControl: UISegmentedControl!
+  @IBOutlet var searchBar: UISearchBar!
   var flag = true
   
   override func viewDidLoad() {
@@ -75,7 +76,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   }
   
   func tableView(_ tableView: UITableView,
-                          titleForHeaderInSection section: Int) -> String? {
+                 titleForHeaderInSection section: Int) -> String? {
     if section == 0 && flag {
       return "Read"
     } else if section == 1 && flag {
@@ -99,6 +100,35 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     cell.book = book
     
     return cell
+  }
+  
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    guard let searchTerm = searchBar.text else { return }
+    if !searchTerm.isEmpty {
+      let predicateTitle = NSPredicate(format: "title contains %@", searchTerm)
+      let predicateAuthor = NSPredicate(format: "author contains %@", searchTerm)
+      let predicateSynopsis = NSPredicate(format: "synopsis contains %@", searchTerm)
+      let allPredicates = NSCompoundPredicate(type: .or, subpredicates: [predicateTitle,
+                                                                         predicateAuthor,
+                                                                         predicateSynopsis])
+      
+      fetchedResultsController.fetchRequest.predicate = allPredicates
+      
+      do {
+        try self.fetchedResultsController.performFetch()
+      } catch {
+        NSLog("Error performing search with CoreData!")
+      }
+    } else {
+      fetchedResultsController.fetchRequest.predicate = nil
+      do {
+        try self.fetchedResultsController.performFetch()
+      } catch {
+        NSLog("Error performing search with CoreData!")
+      }
+    }
+    
+    tableView.reloadData()
   }
   
   @IBAction func segmentedControlAction(_ sender: Any) {
