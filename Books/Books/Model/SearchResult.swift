@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SearchResult: Decodable {
+struct SearchResult: Decodable, Equatable {
     var title: String
     var image: String?
     var identifier: String

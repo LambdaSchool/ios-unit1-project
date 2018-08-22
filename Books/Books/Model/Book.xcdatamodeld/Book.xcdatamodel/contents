@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Book" representedClassName="Book" syncable="YES" codeGenerationType="class">
-        <attribute name="authors" attributeType="String" syncable="YES"/>
+        <attribute name="authorsString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="hasRead" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="image" optional="YES" attributeType="String" syncable="YES"/>
@@ -11,7 +11,7 @@
     </entity>
     <entity name="Bookshelf" representedClassName="Bookshelf" syncable="YES" codeGenerationType="class">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="bookshelf" inverseEntity="Book" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Book" inverseName="bookshelf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="-56" positionY="-30" width="128" height="148"/>

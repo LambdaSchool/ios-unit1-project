@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,26 +22,21 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookshelfCell" rowHeight="65" id="Bik-ag-6xP">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookshelfCell" textLabel="bzm-bR-uMs" rowHeight="65" style="IBUITableViewCellStyleDefault" id="Bik-ag-6xP">
                                 <rect key="frame" x="0.0" y="28" width="375" height="65"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Bik-ag-6xP" id="PQY-ap-mZf">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="64.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bookshelf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cza-vR-3yv">
-                                            <rect key="frame" x="24" y="19" width="327" height="27"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bzm-bR-uMs">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="64.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="bottomMargin" secondItem="cza-vR-3yv" secondAttribute="bottom" constant="8" id="CFd-73-S5n"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="cza-vR-3yv" secondAttribute="trailing" constant="8" id="Slk-Yu-v2g"/>
-                                        <constraint firstItem="cza-vR-3yv" firstAttribute="top" secondItem="PQY-ap-mZf" secondAttribute="topMargin" constant="8" id="Zex-zZ-ebo"/>
-                                        <constraint firstItem="cza-vR-3yv" firstAttribute="leading" secondItem="PQY-ap-mZf" secondAttribute="leadingMargin" constant="8" id="cVy-GL-NZS"/>
-                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="o2z-Mq-6Nj" kind="show" identifier="ShowBookshelfDetail" id="hQo-WP-cDB"/>
@@ -81,7 +77,7 @@
             </objects>
             <point key="canvasLocation" x="646" y="-159"/>
         </scene>
-        <!--Books-->
+        <!--Title-->
         <scene sceneID="uY4-zF-csN">
             <objects>
                 <tableViewController id="o2z-Mq-6Nj" customClass="BooksTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
@@ -134,13 +130,19 @@
                             <outlet property="delegate" destination="o2z-Mq-6Nj" id="fYG-TU-t4h"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Books" id="dxw-0j-fqh">
-                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="VUY-r4-DSq">
-                            <connections>
-                                <action selector="searchBook:" destination="o2z-Mq-6Nj" id="SaG-qh-Jva"/>
-                                <segue destination="c4F-e3-tqH" kind="show" identifier="ShowSearch" id="Wls-DJ-98b"/>
-                            </connections>
-                        </barButtonItem>
+                    <navigationItem key="navigationItem" title="Title" id="dxw-0j-fqh">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="search" id="VUY-r4-DSq">
+                                <connections>
+                                    <segue destination="c4F-e3-tqH" kind="show" identifier="ShowSearch" id="Wls-DJ-98b"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Rename" id="sRz-ry-dLw">
+                                <connections>
+                                    <action selector="renameBookshelf:" destination="o2z-Mq-6Nj" id="Bgt-vX-e8z"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q0m-gA-lh8" userLabel="First Responder" sceneMemberID="firstResponder"/>

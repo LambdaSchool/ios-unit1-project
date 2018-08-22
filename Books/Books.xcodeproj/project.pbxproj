@@ -10,6 +10,7 @@
 		3909C6B1212C7FBC003E2B12 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B0212C7FBC003E2B12 /* BookController.swift */; };
 		3909C6B3212C89F2003E2B12 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B2212C89F2003E2B12 /* Book+Convenience.swift */; };
 		3909C6B5212CB44F003E2B12 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */; };
+		3909C6B7212CC22E003E2B12 /* Bookshelf+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3909C6B6212CC22E003E2B12 /* Bookshelf+Convenience.swift */; };
 		3940A865212B82270058F050 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3940A864212B82270058F050 /* AppDelegate.swift */; };
 		3940A86A212B82270058F050 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3940A868212B82270058F050 /* Main.storyboard */; };
 		3940A86C212B82280058F050 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3940A86B212B82280058F050 /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		3909C6B0212C7FBC003E2B12 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
 		3909C6B2212C89F2003E2B12 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
 		3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		3909C6B6212CC22E003E2B12 /* Bookshelf+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookshelf+Convenience.swift"; sourceTree = "<group>"; };
 		3940A861212B82270058F050 /* Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Books.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3940A864212B82270058F050 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3940A869212B82270058F050 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -92,9 +94,10 @@
 			isa = PBXGroup;
 			children = (
 				3940A876212B82B60058F050 /* Book.xcdatamodeld */,
+				3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */,
 				3940A883212B89230058F050 /* SearchResult.swift */,
 				3909C6B2212C89F2003E2B12 /* Book+Convenience.swift */,
-				3909C6B4212CB44F003E2B12 /* CoreDataStack.swift */,
+				3909C6B6212CC22E003E2B12 /* Bookshelf+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				3909C6B3212C89F2003E2B12 /* Book+Convenience.swift in Sources */,
 				3940A87F212B86070058F050 /* SearchBooksTableViewController.swift in Sources */,
 				3909C6B5212CB44F003E2B12 /* CoreDataStack.swift in Sources */,
+				3909C6B7212CC22E003E2B12 /* Bookshelf+Convenience.swift in Sources */,
 				3940A88E212C7CC40058F050 /* SearchBookTableViewCell.swift in Sources */,
 				3940A88C212C7CA60058F050 /* BookTableViewCell.swift in Sources */,
 				3940A886212C79170058F050 /* BookshelvesTableViewController.swift in Sources */,
