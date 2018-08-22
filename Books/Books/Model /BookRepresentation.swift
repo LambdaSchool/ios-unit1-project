@@ -25,9 +25,5 @@ struct BookRepresentation: Codable, Equatable {
 struct VolumeInfo: Codable, Equatable {
     let title: String
     let authors: [String]?
-    let imageLinks: imageLink?
-}
-
-struct imageLink: Codable, Equatable{
-    let thumbnail: String
+    let imageLinks: [String: String]?
 }

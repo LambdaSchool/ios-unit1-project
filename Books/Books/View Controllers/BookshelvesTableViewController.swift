@@ -12,6 +12,7 @@ class BookshelvesTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        bookController.fetchBookshelvesFromGoogle()
     }
 
     override func didReceiveMemoryWarning() {
