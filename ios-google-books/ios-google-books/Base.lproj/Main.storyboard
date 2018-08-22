@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Search-->
+        <!--Search Books View Controller-->
         <scene sceneID="BS2-SY-wPm">
             <objects>
                 <viewController id="T0y-ib-EIS" customClass="SearchBooksViewController" customModule="ios_google_books" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jKB-kD-NKk">
-                                <rect key="frame" x="0.0" y="40" width="375" height="578"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="534"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOK SEARCH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikw-JS-SLl">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
@@ -36,7 +36,7 @@
                                         </connections>
                                     </searchBar>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5WY-pT-aeE">
-                                        <rect key="frame" x="0.0" y="81" width="375" height="497"/>
+                                        <rect key="frame" x="0.0" y="81" width="375" height="453"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookSearchCell" rowHeight="110" id="l0e-Dx-gAb" customClass="BookSearchTableViewCell" customModule="ios_google_books" customModuleProvider="target">
@@ -81,6 +81,7 @@
                                                     <outlet property="bookAuthorLabel" destination="PLn-pD-PZ6" id="1AL-e6-zHo"/>
                                                     <outlet property="bookSynopsisLabel" destination="HRz-my-cVJ" id="EeX-2j-qPG"/>
                                                     <outlet property="bookTitleLabel" destination="6KC-X5-nhp" id="pBa-jM-Jk4"/>
+                                                    <segue destination="ZPn-Ol-ajv" kind="show" identifier="BookSearchDetailSegue" id="KSx-zv-jsj"/>
                                                 </connections>
                                             </tableViewCell>
                                         </prototypes>
@@ -101,7 +102,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="JdT-lq-IFJ"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Search" id="Mwt-j0-mjW"/>
+                    <navigationItem key="navigationItem" id="IVS-GM-kdd"/>
                     <connections>
                         <outlet property="searchBar" destination="eW3-RK-cTf" id="b2F-Mv-pGH"/>
                         <outlet property="tableView" destination="5WY-pT-aeE" id="U7f-NN-CSq"/>
@@ -109,7 +110,65 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkV-Z4-t79" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2341.5999999999999" y="94.902548725637189"/>
+            <point key="canvasLocation" x="3280.8000000000002" y="94.902548725637189"/>
+        </scene>
+        <!--Book Search Detail View Controller-->
+        <scene sceneID="b4X-ck-R3t">
+            <objects>
+                <viewController id="ZPn-Ol-ajv" customClass="BookSearchDetailViewController" customModule="ios_google_books" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TUh-OG-XXC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="WAZ-CX-sNz">
+                                <rect key="frame" x="16" y="64" width="343" height="204"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6sp-MM-aUJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOm-KH-kgL">
+                                        <rect key="frame" x="0.0" y="20.5" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SJH-Uo-EdY">
+                                        <rect key="frame" x="0.0" y="41" width="343" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srh-Bs-Agd">
+                                        <rect key="frame" x="0.0" y="61.5" width="343" height="142.5"/>
+                                        <state key="normal" title="Save to read"/>
+                                        <connections>
+                                            <action selector="saveToRead:" destination="ZPn-Ol-ajv" eventType="touchUpInside" id="SVw-Jm-PUG"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ML0-Yh-Zyy" firstAttribute="bottom" secondItem="WAZ-CX-sNz" secondAttribute="bottom" constant="350" id="953-ER-lUD"/>
+                            <constraint firstItem="WAZ-CX-sNz" firstAttribute="leading" secondItem="ML0-Yh-Zyy" secondAttribute="leading" constant="16" id="9Wl-3K-Djb"/>
+                            <constraint firstItem="ML0-Yh-Zyy" firstAttribute="trailing" secondItem="WAZ-CX-sNz" secondAttribute="trailing" constant="16" id="lc6-df-w4c"/>
+                            <constraint firstItem="WAZ-CX-sNz" firstAttribute="top" secondItem="ML0-Yh-Zyy" secondAttribute="top" id="n2k-rD-9Z0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ML0-Yh-Zyy"/>
+                    </view>
+                    <connections>
+                        <outlet property="bookAuthorLabel" destination="HOm-KH-kgL" id="5gB-nU-oyp"/>
+                        <outlet property="bookSynopsisLabel" destination="SJH-Uo-EdY" id="CE4-JJ-04g"/>
+                        <outlet property="bookTitleLabel" destination="6sp-MM-aUJ" id="Uqd-sc-XB6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vht-PC-ENk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4216.8000000000002" y="95.802098950524751"/>
         </scene>
         <!--My Library-->
         <scene sceneID="0Yw-Pb-438">
@@ -237,12 +296,31 @@
                     </tabBar>
                     <connections>
                         <segue destination="jbg-bq-Utu" kind="relationship" relationship="viewControllers" id="7GK-n1-g10"/>
-                        <segue destination="T0y-ib-EIS" kind="relationship" relationship="viewControllers" id="1gD-Iv-JEa"/>
+                        <segue destination="I34-6N-SxD" kind="relationship" relationship="viewControllers" id="1gD-Iv-JEa"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dyE-po-n0R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1247" y="-182"/>
+        </scene>
+        <!--Search-->
+        <scene sceneID="qcp-dU-xpp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="I34-6N-SxD" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Search" id="Mwt-j0-mjW"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="46u-sK-xkG">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="T0y-ib-EIS" kind="relationship" relationship="rootViewController" id="cdt-Eh-CJk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nog-Sf-DV4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2341.5999999999999" y="94.902548725637189"/>
         </scene>
     </scenes>
 </document>

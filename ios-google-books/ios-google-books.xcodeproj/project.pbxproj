@@ -27,6 +27,7 @@
 		1396852F212DD74200E1A4A7 /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */; };
 		13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */; };
 		13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */; };
+		13968539212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,7 @@
 		13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
 		13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
 		13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTableViewCell.swift; sourceTree = "<group>"; };
+		13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			children = (
 				1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */,
 				1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */,
+				13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				1388ABA8212CAF520019D9ED /* Books.xcdatamodeld in Sources */,
 				13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */,
 				1388ABAC212CB1DB0019D9ED /* BookController.swift in Sources */,
+				13968539212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift in Sources */,
 				138996F6212B67EB00AC5225 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

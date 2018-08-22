@@ -12,7 +12,9 @@ class BookSearchTableViewCell: UITableViewCell {
   func updateViews() {
     if let book = book {
       bookTitleLabel.text = book.volumeInfo.title
-      bookAuthorLabel.text = book.volumeInfo.authors[0]
+      if let author = book.volumeInfo.authors {
+        bookAuthorLabel.text = author[0]
+      }
       bookSynopsisLabel.text = book.volumeInfo.description
     }
   }

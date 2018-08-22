@@ -16,6 +16,24 @@ class BookController {
     let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead)
   }
   
+  func saveToPersistentStore() throws {
+    let moc = CoreDataManager.shared.mainContext
+    
+    var error: Error?
+    
+    moc.performAndWait {
+      do {
+        try moc.save()
+      } catch let saveError {
+        error = saveError
+      }
+    }
+    
+    if let error = error {
+      throw error
+    }
+  }
+  
   func searchBooksViaAPI(searchTerm: String, completion: @escaping ([BookRepresentation], Error?) -> Void) {
     let url = baseURL.appendingPathComponent("volumes")
     var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
@@ -41,4 +59,6 @@ class BookController {
       }
     }.resume()
   }
+  
+  
 }

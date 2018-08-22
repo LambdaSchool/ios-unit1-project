@@ -14,8 +14,8 @@ struct BookRepresentation: Decodable {
   
   struct Info: Decodable {
     let title: String
-    let authors: [String]
-    let publishedDate: String
+    let authors: [String]?
+    let publishedDate: String?
     let description: String?
     let pageCount: Int?
     let averageRating: Double?

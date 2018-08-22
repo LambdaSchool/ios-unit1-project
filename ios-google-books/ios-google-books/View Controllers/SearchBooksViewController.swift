@@ -24,6 +24,17 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
     return cell
   }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "BookSearchDetailSegue" {
+      if let vc = segue.destination as? BookSearchDetailViewController {
+        vc.bookController = bookController
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+          vc.book = books[indexPath.row]
+        }
+      }
+    }
+  }
+  
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchTerm = searchBar.text, !searchTerm.isEmpty else { return }
 
