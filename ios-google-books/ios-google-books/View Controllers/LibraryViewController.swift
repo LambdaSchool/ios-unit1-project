@@ -117,14 +117,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
       do {
         try self.fetchedResultsController.performFetch()
       } catch {
-        NSLog("Error performing search with CoreData!")
+        NSLog("Error performing search with CoreData")
       }
     } else {
       fetchedResultsController.fetchRequest.predicate = nil
       do {
         try self.fetchedResultsController.performFetch()
       } catch {
-        NSLog("Error performing search with CoreData!")
+        NSLog("Error performing all search with CoreData")
       }
     }
     
@@ -153,7 +153,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     do {
       try self.fetchedResultsController.performFetch()
     } catch {
-      NSLog("Error performing fetch from CoreData!")
+      NSLog("Error performing fetch from CoreData")
     }
     
     tableView.reloadData()

@@ -24,6 +24,8 @@
 		1389972A212B794E00AC5225 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13899721212B794300AC5225 /* GTMSessionFetcher.framework */; };
 		1389972B212B794E00AC5225 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 13899721212B794300AC5225 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */; };
+		1396852F212DD74200E1A4A7 /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */; };
+		13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +61,9 @@
 		13899721212B794300AC5225 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
 		13899722212B794300AC5225 /* GTMAppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMAppAuth.framework; sourceTree = "<group>"; };
 		1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
+		1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
+		13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
+		13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */,
+				1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -128,6 +134,7 @@
 		138996F4212B67EB00AC5225 /* ios-google-books */ = {
 			isa = PBXGroup;
 			children = (
+				13968530212DE33B00E1A4A7 /* Models */,
 				1388ABAD212CB1E00019D9ED /* Model Controllers */,
 				1388AB9B212CAC5D0019D9ED /* Core Data */,
 				1388AB98212CA8440019D9ED /* Views */,
@@ -151,6 +158,14 @@
 				13899721212B794300AC5225 /* GTMSessionFetcher.framework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		13968530212DE33B00E1A4A7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,7 +241,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1388AB9A212CA8600019D9ED /* BookTableViewCell.swift in Sources */,
+				1396852F212DD74200E1A4A7 /* SearchBooksViewController.swift in Sources */,
 				1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */,
 				1388AB96212C9D8F0019D9ED /* LibraryViewController.swift in Sources */,
 				1388ABAA212CB0E90019D9ED /* Book+Convenience.swift in Sources */,
 				1388AB9D212CAC6E0019D9ED /* CoreDataManager.swift in Sources */,
@@ -451,9 +468,10 @@
 		1388ABA6212CAF520019D9ED /* Books.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */,
 				1388ABA7212CAF520019D9ED /* Books.xcdatamodel */,
 			);
-			currentVersion = 1388ABA7212CAF520019D9ED /* Books.xcdatamodel */;
+			currentVersion = 13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */;
 			path = Books.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

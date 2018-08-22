@@ -14,18 +14,75 @@
         <!--Search-->
         <scene sceneID="BS2-SY-wPm">
             <objects>
-                <viewController id="T0y-ib-EIS" sceneMemberID="viewController">
+                <viewController id="T0y-ib-EIS" customClass="SearchBooksViewController" customModule="ios_google_books" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="shn-9U-F6L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jKB-kD-NKk">
+                                <rect key="frame" x="0.0" y="40" width="375" height="578"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="BOOK SEARCH" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikw-JS-SLl">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="25"/>
+                                        <fontDescription key="fontDescription" name="Didot" family="Didot" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <searchBar contentMode="redraw" verticalHuggingPriority="251" searchBarStyle="minimal" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="eW3-RK-cTf">
+                                        <rect key="frame" x="0.0" y="25" width="375" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="T0y-ib-EIS" id="2lh-ex-8Mu"/>
+                                        </connections>
+                                    </searchBar>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5WY-pT-aeE">
+                                        <rect key="frame" x="0.0" y="81" width="375" height="497"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookSearchCell" textLabel="1Ba-a0-Nkn" style="IBUITableViewCellStyleDefault" id="V3O-vw-cQZ">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="V3O-vw-cQZ" id="eN8-6U-xUp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="1Ba-a0-Nkn">
+                                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="T0y-ib-EIS" id="wFr-9W-vh2"/>
+                                            <outlet property="delegate" destination="T0y-ib-EIS" id="3dx-Nv-ux4"/>
+                                        </connections>
+                                    </tableView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="jKB-kD-NKk" firstAttribute="trailing" secondItem="JdT-lq-IFJ" secondAttribute="trailing" id="FYO-01-LDv"/>
+                            <constraint firstItem="JdT-lq-IFJ" firstAttribute="bottom" secondItem="jKB-kD-NKk" secondAttribute="bottom" id="Haf-U3-wOs"/>
+                            <constraint firstItem="jKB-kD-NKk" firstAttribute="top" secondItem="JdT-lq-IFJ" secondAttribute="top" constant="20" id="guB-W0-Z4p"/>
+                            <constraint firstItem="jKB-kD-NKk" firstAttribute="leading" secondItem="JdT-lq-IFJ" secondAttribute="leading" id="s4O-3Z-Dtw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="JdT-lq-IFJ"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Search" id="Mwt-j0-mjW"/>
+                    <connections>
+                        <outlet property="searchBar" destination="eW3-RK-cTf" id="b2F-Mv-pGH"/>
+                        <outlet property="tableView" destination="5WY-pT-aeE" id="U7f-NN-CSq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TkV-Z4-t79" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2343" y="95"/>
+            <point key="canvasLocation" x="2341.5999999999999" y="94.902548725637189"/>
         </scene>
         <!--My Library-->
         <scene sceneID="0Yw-Pb-438">
