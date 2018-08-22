@@ -16,7 +16,7 @@ class BookController {
     let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead)
   }
   
-  func searchBooksViaAPI(searchTerm: String, completion: @escaping ([BookRepresentationItems.BookRepresentation], Error?) -> Void) {
+  func searchBooksViaAPI(searchTerm: String, completion: @escaping ([BookRepresentation], Error?) -> Void) {
     let url = baseURL.appendingPathComponent("volumes")
     var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)!
     urlComponents.queryItems = [URLQueryItem(name: "q", value: searchTerm)]

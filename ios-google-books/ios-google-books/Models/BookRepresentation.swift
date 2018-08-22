@@ -8,16 +8,16 @@
 
 import Foundation
 
+struct BookRepresentation: Decodable {
+  let id: String
+  let volumeInfo: Info
+  
+  struct Info: Decodable {
+    let title: String
+    let authors: [String]
+  }
+}
+
 struct BookRepresentationItems: Decodable {
   var items: [BookRepresentation]
-  
-  struct BookRepresentation: Decodable {
-    let id: String
-    let volumeInfo: Info
-    
-    struct Info: Decodable {
-      let title: String
-      let authors: [String]
-    }
-  }
 }

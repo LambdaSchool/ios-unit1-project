@@ -14,13 +14,13 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
   @IBOutlet var searchBar: UISearchBar!
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 1
+    return books.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "BookSearchCell", for: indexPath)
     
-    cell.textLabel?.text = "Test"
+    cell.textLabel?.text = books[indexPath.row].volumeInfo.title
     return cell
   }
   
@@ -32,8 +32,13 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
         NSLog("error with fetching books via API: \(error)")
         return
       }
+      self.books = books
+      DispatchQueue.main.async {
+        self.tableView.reloadData()
+      }
     }
   }
   
   let bookController = BookController()
+  var books: [BookRepresentation] = []
 }
