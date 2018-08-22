@@ -14,7 +14,8 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
     // MARK: - Properties
     
     var book: Book?
-    let collectionController = CollectionController()
+    var collectionController: CollectionController?
+    var bookController: BookController?
     
     @IBOutlet weak var titleTextField: UITextField!
     
@@ -29,10 +30,11 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
                                    sectionNameKeyPath: nil,
                                    cacheName: nil)
         frc.delegate = self
+        
         do {
             try frc.performFetch()
         } catch {
-            NSLog("Error fetching collections...")
+            NSLog("Error fetching collections from persistence...")
         }
         
         return frc
@@ -45,14 +47,21 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
     // MARK: - Methods
     @IBAction func save(_ sender: Any) {
         guard var title = titleTextField?.text else { return }
-        collectionController.create(title: title)
+        
+        do {
+            try collectionController?.create(with: title)
+        } catch {
+            NSLog("Error creating and saving collection with title: \(title)")
+        }
         title = ""
     }
     
-    func addToCollection(_ book: Book) {
-        // TODO: add a book to a collection
-    }
+    // MARK: - AddToCollectionsDelegate
     
+    func add(_ book: Book, to collection: Collection) {
+        bookController?.add(book, to: collection)
+        tableView.reloadData()
+    }
 
     // MARK: - NSFetchResultsController
     
@@ -103,8 +112,9 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
         let cell = tableView.dequeueReusableCell(withIdentifier: "CollectionCell", for: indexPath) as! AddToCollectionsTableViewCell
 
         cell.collection = fetchedResultsController.object(at: indexPath)
-        // TODO: pass in the book which needs to be added to collections
-        // pass book via segue
+        if let book = book {
+            cell.book = book
+        }
         // TODO: insert editing style when adding new collection: https://www.youtube.com/watch?v=MC4mDQ7UqEE
         cell.delegate = self
 

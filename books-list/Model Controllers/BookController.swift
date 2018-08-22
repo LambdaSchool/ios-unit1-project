@@ -26,7 +26,7 @@ class BookController {
     typealias CompletionHandler = (Error?) -> Void
     
     // MARK: - API Methods
-    func fetchVolumesFromGoogle(with searchTerm: String, completion: @escaping (Error?) -> Void) {
+    func fetchFromGoogleBooks(with searchTerm: String, completion: @escaping (Error?) -> Void) {
         let url = googleBooksBaseURL.appendingPathComponent("volumes")
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)
         let searchQueryItem = URLQueryItem(name: "q", value: searchTerm)
@@ -82,6 +82,19 @@ class BookController {
     }
     
     // MARK: - Persistence Methods
+    
+    func add(_ book: Book, to collection: Collection, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        context.performAndWait {
+            book.addToCollections(collection)
+            
+            do {
+                try context.save()
+            } catch {
+                NSLog("Error saving book to collection: \(error)")
+            }
+        }
+        // TODO: Add book to Google bookshelf: /mylibrary/bookshelves/shelf/addVolume
+    }
     
 
     // MARK: - Private Methods

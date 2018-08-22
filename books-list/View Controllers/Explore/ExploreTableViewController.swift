@@ -12,8 +12,9 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
     
     // - Properties
     @IBOutlet weak var searchBar: UISearchBar!
-    var bookController = BookController()
-
+    let bookController = BookController()
+    let collectionController = CollectionController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -26,7 +27,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
         guard let searchTerm = searchBar.text,
             !searchTerm.isEmpty else { return }
         
-        bookController.fetchVolumesFromGoogle(with: searchTerm) { (error) in
+        bookController.fetchFromGoogleBooks(with: searchTerm) { (error) in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
@@ -56,7 +57,8 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == "ShowBookDetail" {
             guard let detailVC = segue.destination as? ExploreDetailViewController else { return }
             if let indexPath = tableView.indexPathForSelectedRow {
-                detailVC.book = bookController.searchedBooks[indexPath.row]
+                detailVC.bookRepresentation = bookController.searchedBooks[indexPath.row]
+                detailVC.collectionController = collectionController
             }
         }
     }

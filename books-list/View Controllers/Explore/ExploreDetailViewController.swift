@@ -12,11 +12,9 @@ class ExploreDetailViewController: UIViewController {
 
     // MARK: - Properties
     
-    var book: BookRepresentation? {
-        didSet {
-            updateViews()
-        }
-    }
+    var bookRepresentation: BookRepresentation?
+    var collectionController: CollectionController?
+    var bookController: BookController?
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
@@ -38,14 +36,27 @@ class ExploreDetailViewController: UIViewController {
     }
     
     private func updateViews() {
-        titleLabel?.text = book?.volumeInfo.title
-        authorLabel?.text = book?.volumeInfo.authors?.joined(separator: ", ")
-        descriptionTextView?.text = book?.volumeInfo.abstract
-        if let pageCount = book?.volumeInfo.pageCount {
+        titleLabel?.text = bookRepresentation?.volumeInfo.title
+        authorLabel?.text = bookRepresentation?.volumeInfo.authors?.joined(separator: ", ")
+        descriptionTextView?.text = bookRepresentation?.volumeInfo.abstract
+        if let pageCount = bookRepresentation?.volumeInfo.pageCount {
             pagesTextView?.text = String(pageCount)
         }
         
         addToCollectionButton?.layer.cornerRadius = 10
         addToCollectionButton?.clipsToBounds = true
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AddToCollectionsModal" {
+            let addToCollectionsVC = segue.destination as! AddToCollectionsTableViewController
+            // When the user intends to add the book to a collection, we create a new Book instance and pass it down
+            if let bookRepresentation = bookRepresentation {
+                addToCollectionsVC.book = Book(bookRepresentation: bookRepresentation)
+            }
+            addToCollectionsVC.collectionController = collectionController
+            addToCollectionsVC.bookController = bookController
+        }
+    }
+    
 }

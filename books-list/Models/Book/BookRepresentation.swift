@@ -11,6 +11,7 @@ import CoreData
 
 struct BookRepresentation: Decodable, Equatable {
     
+    let id: String
     let volumeInfo: VolumeInfo
     
     struct VolumeInfo: Codable, Equatable {

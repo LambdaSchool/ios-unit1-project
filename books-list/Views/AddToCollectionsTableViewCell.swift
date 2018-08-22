@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddToCollectionsDelegate {
-    func addToCollection(_ book: Book)
+    func add(_ book: Book, to collection: Collection)
 }
 
 class AddToCollectionsTableViewCell: UITableViewCell {
@@ -28,8 +28,8 @@ class AddToCollectionsTableViewCell: UITableViewCell {
     // MARK: - Methods
     
     @IBAction func addToCollection(_ sender: Any) {
-        guard let book = book else { return }
-        delegate?.addToCollection(book)
+        guard let book = book, let collection = collection else { return }
+        delegate?.add(book, to: collection)
     }
     
     private func updateViews() {

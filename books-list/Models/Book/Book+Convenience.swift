@@ -11,10 +11,11 @@ import CoreData
 
 extension Book {
     
-    convenience init(identifier: String = UUID().uuidString, title: String, authors: String, abstract: String?, image: Data? = nil, hasRead: Bool = false, pageCount: String?, averageRating: String?, ratingsCount: String?, timestamp: Date = Date(), context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(identifier: String, title: String, authors: String?, abstract: String?, image: Data? = nil, hasRead: Bool = false, pageCount: String?, averageRating: String?, ratingsCount: String?, timestamp: Date = Date(), context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.identifier = identifier
         self.title = title
+        self.authors = authors ?? nil
         self.abstract = abstract ?? nil
         self.image = image ?? nil
         self.hasRead = hasRead
@@ -25,8 +26,9 @@ extension Book {
         //TODO: ISBN
     }
     
-    convenience init?(bookRepresentation: BookRepresentation, context: NSManagedObjectContext) {
-        self.init(title: bookRepresentation.volumeInfo.title,
+    convenience init?(bookRepresentation: BookRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        self.init(identifier: bookRepresentation.id,
+                  title: bookRepresentation.volumeInfo.title,
                   authors: (bookRepresentation.volumeInfo.authors != nil ? bookRepresentation.volumeInfo.authors!.joined(separator: ", ") : nil)!,
                   abstract: bookRepresentation.volumeInfo.abstract ?? nil,
                   pageCount: bookRepresentation.volumeInfo.pageCount != nil ? String(bookRepresentation.volumeInfo.pageCount!) : nil,

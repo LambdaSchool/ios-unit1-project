@@ -276,7 +276,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="addToCollection:" destination="p4e-5i-esz" eventType="touchUpInside" id="YTZ-5k-6nx"/>
-                                                            <segue destination="IRC-Je-3w3" kind="presentation" id="pVy-1E-7xl"/>
+                                                            <segue destination="IRC-Je-3w3" kind="presentation" identifier="AddToCollectionsModal" id="pVy-1E-7xl"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

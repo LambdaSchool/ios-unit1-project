@@ -16,6 +16,8 @@ class BookListTabBarViewController: UITabBarController {
         handleGoogleAuthorization()
     }
     
+    //TODO: Pass down model controllers to children
+    
     func handleGoogleAuthorization() {
         GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
             if let error = error {
