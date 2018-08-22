@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BooksTableViewController: UITableViewController {
+class BooksTableViewController: UITableViewController, BookTableViewCellDelegate {
     
     var bookController: BookController?
     var bookshelf: Bookshelf? {
@@ -46,6 +46,15 @@ class BooksTableViewController: UITableViewController {
         
         tableView.reloadData()
     }
+    
+    func toggleRead(for cell: BookTableViewCell) {
+        guard let book = cell.book else { return }
+        bookController?.toggleHasRead(for: book)
+    }
+    
+    
+    
+    
 
     // MARK: - Table view data source
     
@@ -57,13 +66,17 @@ class BooksTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as! BookTableViewCell
 
         cell.book = bookshelf?.books?[indexPath.row] as? Book
+        cell.delegate = self
     
         return cell
     }
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            guard let book = bookshelf?.books?[indexPath.row] as? Book else { return }
+            bookController?.delete(book: book)
             
+            tableView.reloadData()
         }
     }
     
@@ -73,6 +86,12 @@ class BooksTableViewController: UITableViewController {
         if let searchVC = segue.destination as? SearchBooksTableViewController {
             searchVC.bookController = bookController
             searchVC.bookshelf = bookshelf
+        }
+        
+        if let bookDetailVC = segue.destination as? BookDetailViewController {
+            bookDetailVC.bookController = bookController
+            guard let index = tableView.indexPathForSelectedRow?.row else { return }
+            bookDetailVC.book = bookshelf?.books?[index] as? Book
         }
     }
 }

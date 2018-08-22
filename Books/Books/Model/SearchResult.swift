@@ -12,13 +12,13 @@ struct SearchResult: Decodable, Equatable {
     var title: String
     var image: String?
     var identifier: String
-    var authors: [String]
+    var authors: [String]?
     
     struct VolumeInfo: Decodable {
         var title: String
-        var authors: [String]
+        var authors: [String]?
 //        var description: String?
-        var imageLinks: [String : String]
+        var imageLinks: [String : String]?
     }
     
     enum CodingKeys: String, CodingKey {
@@ -33,7 +33,11 @@ struct SearchResult: Decodable, Equatable {
         let volumeInfo = try container.decode(VolumeInfo.self, forKey: .volumeInfo)
         
         self.title = volumeInfo.title
-        self.image = volumeInfo.imageLinks["thumbnail"]
+        // Url for image
+        if let imageLink = volumeInfo.imageLinks?["thumbnail"] {
+            self.image = imageLink.replacingOccurrences(of: "http://", with: "https://")
+        }
+        
         self.identifier = id
         self.authors = volumeInfo.authors
     }

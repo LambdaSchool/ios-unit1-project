@@ -42,6 +42,16 @@ class BookController {
             NSLog("Error updating book: \(error)")
         }
     }
+    
+    func update(book: Book, with review: String) {
+        book.review = review
+        
+        do {
+            try CoreDataStack.shared.save()
+        } catch {
+            NSLog("Error updating book review: \(error)")
+        }
+    }
 
     func delete(book: Book) {
         let moc = CoreDataStack.shared.mainContext

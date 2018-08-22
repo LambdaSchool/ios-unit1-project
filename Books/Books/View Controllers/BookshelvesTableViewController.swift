@@ -122,7 +122,8 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
+            let bookshelf = fetchedResultsController.object(at: indexPath)
+            bookController.delete(bookshelf: bookshelf)
         }
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SearchBookTableViewCellDelegate {
+protocol SearchBookTableViewCellDelegate: class {
     func saveBook(for cell: SearchBookTableViewCell)
 }
 
@@ -22,7 +22,7 @@ class SearchBookTableViewCell: UITableViewCell {
         }
     }
     
-    var delegate: SearchBookTableViewCellDelegate?
+    weak var delegate: SearchBookTableViewCellDelegate?
     
     // MARK: - Outlets/Actions
 
@@ -41,6 +41,6 @@ class SearchBookTableViewCell: UITableViewCell {
         guard let searchResult = searchResult else { return }
         
         titleLabel.text = searchResult.title
-        authorLabel.text = searchResult.authors.joined(separator: ", ")
+        authorLabel.text = searchResult.authors?.joined(separator: ", ")
     }
 }

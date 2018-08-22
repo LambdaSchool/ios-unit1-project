@@ -6,7 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -93,33 +93,54 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="73.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t97-dT-tnE">
-                                            <rect key="frame" x="24" y="19" width="327" height="36"/>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YFA-oK-pC4">
+                                            <rect key="frame" x="8" y="8" width="359" height="57.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukf-DL-Fd2">
-                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalCompressionResistancePriority="751" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTf-U4-39m">
-                                                    <rect key="frame" x="0.0" y="18" width="327" height="18"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="g8K-AR-noO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="38.5" height="57.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="g8K-AR-noO" secondAttribute="height" multiplier="2:3" id="EcH-iE-T4k"/>
+                                                        <constraint firstAttribute="height" constant="57.5" id="rgJ-cQ-ZKt"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t97-dT-tnE">
+                                                    <rect key="frame" x="46.5" y="0.0" width="258.5" height="57.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ukf-DL-Fd2">
+                                                            <rect key="frame" x="0.0" y="0.0" width="258.5" height="39.5"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mTf-U4-39m">
+                                                            <rect key="frame" x="0.0" y="39.5" width="258.5" height="18"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ha4-xC-x0N">
+                                                    <rect key="frame" x="313" y="0.0" width="46" height="57.5"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <connections>
+                                                        <action selector="toggleHasRead:" destination="lLv-ef-IhI" eventType="touchUpInside" id="2tX-wG-932"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="t97-dT-tnE" firstAttribute="leading" secondItem="Nhv-TS-DaG" secondAttribute="leadingMargin" constant="8" id="49r-vK-kqF"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="t97-dT-tnE" secondAttribute="bottom" constant="8" id="WHM-tt-l9l"/>
-                                        <constraint firstItem="t97-dT-tnE" firstAttribute="top" secondItem="Nhv-TS-DaG" secondAttribute="topMargin" constant="8" id="afG-7M-bwU"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="t97-dT-tnE" secondAttribute="trailing" constant="8" id="wf4-gY-E95"/>
+                                        <constraint firstAttribute="trailing" secondItem="YFA-oK-pC4" secondAttribute="trailing" constant="8" id="ADC-jn-uWe"/>
+                                        <constraint firstAttribute="bottom" secondItem="YFA-oK-pC4" secondAttribute="bottom" constant="8" id="fsE-gU-KBa"/>
+                                        <constraint firstItem="YFA-oK-pC4" firstAttribute="leading" secondItem="Nhv-TS-DaG" secondAttribute="leading" constant="8" id="hVW-g7-YYr"/>
+                                        <constraint firstItem="YFA-oK-pC4" firstAttribute="top" secondItem="Nhv-TS-DaG" secondAttribute="top" constant="8" id="nvy-zO-Tfp"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="authorLabel" destination="mTf-U4-39m" id="IXx-Pv-daz"/>
+                                    <outlet property="bookCoverView" destination="g8K-AR-noO" id="3iB-6Z-16d"/>
+                                    <outlet property="hasReadButton" destination="Ha4-xC-x0N" id="CKR-zw-QII"/>
                                     <outlet property="titleLabel" destination="ukf-DL-Fd2" id="ht8-vc-F23"/>
                                     <segue destination="GxC-NS-FX2" kind="show" identifier="ShowBookDetail" id="GfU-20-AN9"/>
                                 </connections>

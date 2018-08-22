@@ -31,6 +31,7 @@ extension Book {
         self.init(context: context)
         
         self.title = searchResult.title
-        self.authorsString = searchResult.authors.joined(separator: ", ")
+        self.authorsString = searchResult.authors?.joined(separator: ", ")
+        self.imageURL = searchResult.image
     }
 }
