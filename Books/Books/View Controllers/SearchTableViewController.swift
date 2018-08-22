@@ -13,11 +13,15 @@ class SearchTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        //create authorization client and check authorize if needed
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
+            if let error = error {
+                NSLog("Error getting authorization: \(error)")
+                return
+            }
+            
+        }
+        bookController.fetchVolumeFromGoogle(searchTerm: "flowers")
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,5 +96,6 @@ class SearchTableViewController: UITableViewController {
     }
     */
     @IBOutlet var searchBar: UITableView!
+    let bookController = BookController()
     
 }

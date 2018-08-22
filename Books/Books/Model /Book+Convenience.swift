@@ -11,7 +11,7 @@ import CoreData
 
 extension Book {
     convenience init(title: String,
-                     isRead: Bool,
+                     isRead: Bool = false,
                      review: String = "",
                      imagePath: String?,
                      identifier: UUID = UUID(),
@@ -24,7 +24,6 @@ extension Book {
         self.review = review
         self.imagePath = imagePath
         self.identifier = identifier
-        
     }
-    
+       
 }

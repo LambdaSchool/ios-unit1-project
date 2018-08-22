@@ -26,6 +26,7 @@
 		103DAEC0212CD256004344F3 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEBF212CD256004344F3 /* Book+Convenience.swift */; };
 		103DAEC2212CD3D9004344F3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */; };
 		103DAEC4212CD58B004344F3 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC3212CD58B004344F3 /* BookRepresentation.swift */; };
+		103DAEC6212CDA73004344F3 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC5212CDA73004344F3 /* BookController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +64,7 @@
 		103DAEBF212CD256004344F3 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
 		103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		103DAEC3212CD58B004344F3 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
+		103DAEC5212CDA73004344F3 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				103DAE9A212C9FBA004344F3 /* Storyboards */,
-				103DAEBE212CD12A004344F3 /* Model and Model Controller */,
+				103DAEBE212CD12A004344F3 /* Model  */,
+				103DAEC7212CDA7F004344F3 /* Model Controller */,
 				103DAEAA212CBD32004344F3 /* View */,
 				103DAEA1212CBC9E004344F3 /* View Controllers */,
 				103DAE97212C9ED5004344F3 /* Resources */,
@@ -156,7 +159,7 @@
 			path = Frameworks;
 			sourceTree = "<group>";
 		};
-		103DAEBE212CD12A004344F3 /* Model and Model Controller */ = {
+		103DAEBE212CD12A004344F3 /* Model  */ = {
 			isa = PBXGroup;
 			children = (
 				103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */,
@@ -164,7 +167,15 @@
 				103DAEBF212CD256004344F3 /* Book+Convenience.swift */,
 				103DAEC3212CD58B004344F3 /* BookRepresentation.swift */,
 			);
-			path = "Model and Model Controller";
+			path = "Model ";
+			sourceTree = "<group>";
+		};
+		103DAEC7212CDA7F004344F3 /* Model Controller */ = {
+			isa = PBXGroup;
+			children = (
+				103DAEC5212CDA73004344F3 /* BookController.swift */,
+			);
+			path = "Model Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,6 +251,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				103DAEBA212CC3CE004344F3 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				103DAEC6212CDA73004344F3 /* BookController.swift in Sources */,
 				103DAE86212C9E82004344F3 /* AppDelegate.swift in Sources */,
 				103DAEA3212CBCE7004344F3 /* SearchTableViewController.swift in Sources */,
 				103DAEC4212CD58B004344F3 /* BookRepresentation.swift in Sources */,
