@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class BooksTableViewController: UITableViewController, BookTableViewCellDelegate {
+class BooksTableViewController: UITableViewController, BookTableViewCellDelegate, NSFetchedResultsControllerDelegate {
     
     var bookController: BookController?
     var bookshelf: Bookshelf? {
@@ -41,31 +42,111 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         self.present(alert, animated: true, completion: nil)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        tableView.reloadData()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        tableView.reloadData()
+//    }     fetchedResultsController takes care of reloading
     
     func toggleRead(for cell: BookTableViewCell) {
         guard let book = cell.book else { return }
         bookController?.toggleHasRead(for: book)
     }
     
+    lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
+        // Create fetchRequest from Entry object
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        
+        // Filter all books to just the ones in that bookshelf
+        fetchRequest.predicate = NSPredicate(format: "bookshelf == %@", bookshelf!)
+        
+        // Sort the entries based on timestamp
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true),
+                                        NSSortDescriptor(key: "title", ascending: true)]
+        
+        // Get CoreDataStack's mainContext
+        let moc = CoreDataStack.shared.mainContext
+        
+        // Initialize NSFetchedResultsController
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: moc,
+                                             sectionNameKeyPath: "hasRead",
+                                             cacheName: nil)
+        // Set this VC as frc's delegate
+        frc.delegate = self
+        
+        try! frc.performFetch()
+        
+        return frc
+    }()
     
+    // MARK: - NSFetchedResultsControllerDelegate
     
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.beginUpdates()
+    }
     
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        // NSFetchedResultsChangeType has four types: insert, delete, move, update
+        switch type {
+        case .insert:
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .automatic)
+        case .delete:
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .automatic)
+        default:
+            break
+        }
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            guard let newIndexPath = newIndexPath else { return }
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        case .delete:
+            guard let indexPath = indexPath else { return }
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        case .update:
+            guard let indexPath = indexPath else { return }
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        case .move:
+            guard let oldIndexPath = indexPath, let newIndexPath = newIndexPath else { return }
+            //            tableView.moveRow(at: oldIndexPath, to:  newIndexPath)
+            // Doesn't work any more?
+            tableView.deleteRows(at: [oldIndexPath], with: .automatic)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+        }
+    }
 
     // MARK: - Table view data source
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let sectionInfo = fetchedResultsController.sections?[section]
+        
+        if sectionInfo?.name == "0" {
+            return "Unread"
+        } else {
+            return "Read"
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookshelf?.books?.count ?? 0
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as! BookTableViewCell
 
-        cell.book = bookshelf?.books?[indexPath.row] as? Book
+        cell.book = fetchedResultsController.object(at: indexPath)
         cell.delegate = self
     
         return cell
@@ -73,10 +154,11 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            guard let book = bookshelf?.books?[indexPath.row] as? Book else { return }
+            let book = fetchedResultsController.object(at: indexPath)
             bookController?.delete(book: book)
             
-            tableView.reloadData()
+            // fetchedResultsController takes care of reloading
+//            tableView.reloadData()
         }
     }
     
@@ -90,8 +172,8 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         
         if let bookDetailVC = segue.destination as? BookDetailViewController {
             bookDetailVC.bookController = bookController
-            guard let index = tableView.indexPathForSelectedRow?.row else { return }
-            bookDetailVC.book = bookshelf?.books?[index] as? Book
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            bookDetailVC.book = fetchedResultsController.object(at: indexPath)
         }
     }
 }
