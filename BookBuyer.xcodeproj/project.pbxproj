@@ -12,6 +12,13 @@
 		BE93248A212D2AAA008ADCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE932488212D2AAA008ADCAF /* Main.storyboard */; };
 		BE93248C212D2AAB008ADCAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE93248B212D2AAB008ADCAF /* Assets.xcassets */; };
 		BE93248F212D2AAB008ADCAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE93248D212D2AAB008ADCAF /* LaunchScreen.storyboard */; };
+		BE932497212D2C2F008ADCAF /* TransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE932496212D2C2F008ADCAF /* TransactionsModel.swift */; };
+		BE932499212D2C86008ADCAF /* TransactionViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE932498212D2C86008ADCAF /* TransactionViews.swift */; };
+		BE93249B212D2F05008ADCAF /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE93249A212D2F05008ADCAF /* App.swift */; };
+		BE93249E212D33BA008ADCAF /* BookViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE93249D212D33BA008ADCAF /* BookViews.swift */; };
+		BE9324A0212D33C6008ADCAF /* StatViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE93249F212D33C6008ADCAF /* StatViews.swift */; };
+		BE9324A2212D3477008ADCAF /* StatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9324A1212D3477008ADCAF /* StatModel.swift */; };
+		BECE1A43212DDBE5000ED6F4 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BECE1A42212DDBE5000ED6F4 /* BookModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +29,13 @@
 		BE93248B212D2AAB008ADCAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BE93248E212D2AAB008ADCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BE932490212D2AAB008ADCAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE932496212D2C2F008ADCAF /* TransactionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsModel.swift; sourceTree = "<group>"; };
+		BE932498212D2C86008ADCAF /* TransactionViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViews.swift; sourceTree = "<group>"; };
+		BE93249A212D2F05008ADCAF /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		BE93249D212D33BA008ADCAF /* BookViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookViews.swift; sourceTree = "<group>"; };
+		BE93249F212D33C6008ADCAF /* StatViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatViews.swift; sourceTree = "<group>"; };
+		BE9324A1212D3477008ADCAF /* StatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatModel.swift; sourceTree = "<group>"; };
+		BECE1A42212DDBE5000ED6F4 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +74,13 @@
 				BE93248B212D2AAB008ADCAF /* Assets.xcassets */,
 				BE93248D212D2AAB008ADCAF /* LaunchScreen.storyboard */,
 				BE932490212D2AAB008ADCAF /* Info.plist */,
+				BE93249A212D2F05008ADCAF /* App.swift */,
+				BE932496212D2C2F008ADCAF /* TransactionsModel.swift */,
+				BE932498212D2C86008ADCAF /* TransactionViews.swift */,
+				BECE1A42212DDBE5000ED6F4 /* BookModel.swift */,
+				BE93249D212D33BA008ADCAF /* BookViews.swift */,
+				BE93249F212D33C6008ADCAF /* StatViews.swift */,
+				BE9324A1212D3477008ADCAF /* StatModel.swift */,
 			);
 			path = BookBuyer;
 			sourceTree = "<group>";
@@ -136,7 +157,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE932487212D2AAA008ADCAF /* ViewController.swift in Sources */,
+				BE932499212D2C86008ADCAF /* TransactionViews.swift in Sources */,
+				BE932497212D2C2F008ADCAF /* TransactionsModel.swift in Sources */,
+				BECE1A43212DDBE5000ED6F4 /* BookModel.swift in Sources */,
+				BE9324A0212D33C6008ADCAF /* StatViews.swift in Sources */,
+				BE93249B212D2F05008ADCAF /* App.swift in Sources */,
 				BE932485212D2AAA008ADCAF /* AppDelegate.swift in Sources */,
+				BE93249E212D33BA008ADCAF /* BookViews.swift in Sources */,
+				BE9324A2212D3477008ADCAF /* StatModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
