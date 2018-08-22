@@ -8,10 +8,26 @@
 
 import Foundation
 
+struct Bookshelf: Codable, Equatable {
+    let totalItems: Int
+    let items: [BookRepresentation]
+}
+
 struct BookRepresentation: Codable, Equatable {
+//    let title: String
+//    let author: String
+
+//    var imageLinks: String
+    let id: String
+    let volumeInfo: VolumeInfo
+}
+
+struct VolumeInfo: Codable, Equatable {
     let title: String
-    var isRead: Bool
-    var review: String
-    var imagePath: String
-    var identifier: UUID
+    let authors: [String]?
+    let imageLinks: imageLink?
+}
+
+struct imageLink: Codable, Equatable{
+    let thumbnail: String
 }

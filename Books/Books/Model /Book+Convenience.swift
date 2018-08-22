@@ -13,17 +13,17 @@ extension Book {
     convenience init(title: String,
                      isRead: Bool = false,
                      review: String = "",
-                     imagePath: String?,
-                     identifier: UUID = UUID(),
+                     imagePath: String,
+                     volumeID: String,
                      context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
         
         self.init(context: context)
         
         self.title = title
-        self.isRead = isRead
+        self.haveRead = isRead
         self.review = review
         self.imagePath = imagePath
-        self.identifier = identifier
+        self.volumeID = volumeID
     }
-       
+    
 }

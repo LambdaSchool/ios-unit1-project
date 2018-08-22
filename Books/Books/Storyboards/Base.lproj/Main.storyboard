@@ -216,7 +216,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="lZu-9L-gvT"/>
                     <connections>
-                        <outlet property="searchBar" destination="P6t-p3-k3b" id="sCg-ou-RDP"/>
+                        <outlet property="searchBar" destination="Wz2-jT-gmX" id="vFL-Ub-iUp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R2h-gt-I2l" userLabel="First Responder" sceneMemberID="firstResponder"/>

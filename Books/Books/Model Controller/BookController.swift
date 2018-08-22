@@ -11,20 +11,21 @@ import UIKit
 
 private let moc = CoreDataStack.shared.mainContext
 
-private let baseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")!
+private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
 
 class BookController{
     
     
-    // MARK: - Searching Google API
+    // MARK: - Search Google API
     typealias CompletionHandler = (Error?) -> Void
     
-    func fetchVolumeFromGoogle(searchTerm: String, completion: CompletionHandler = { _ in } ){
-
+    func fetchVolumeFromGoogle(searchTerm: String, completion:@escaping CompletionHandler = { _ in } ){
+        
         //build URL for URLRequest
-        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
-        let searchQuery = URLQueryItem(name: "q", value: searchTerm)
-        urlComponents?.queryItems = [searchQuery]
+        let queryURL = baseURL.appendingPathComponent("volumes")
+        var urlComponents = URLComponents(url: queryURL, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [URLQueryItem(name: "q", value: searchTerm),
+                                     URLQueryItem(name: "maxResults", value: "30")]
         
         guard let url = urlComponents?.url else {
             NSLog("Error creating URL")
@@ -35,38 +36,52 @@ class BookController{
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-
-        //add authorization request to URL
-        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+        
+        //get data from Books API
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
-                NSLog("Error adding authorization to URLRequest: \(error)")
-                return
+                NSLog("Error sending request: \(error)")
+            }
+            guard let data = data else {
+                NSLog("Data is nil")
+                return}
+            
+            
+            guard let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
+            print(stringData)
+            
+            do{
+                let decoded = try JSONDecoder().decode(Bookshelf.self, from: data)
+                self.searchResults = decoded.items
+                print(self.searchResults.first?.id)
+                completion(nil)
+            } catch {
+                NSLog("Error decoding: \(error)")
             }
             
-            //get data from Books API
-            URLSession.shared.dataTask(with: request!) { (data, _, error) in
-                if let error = error {
-                    NSLog("Error sending request: \(error)")
-                }
-                guard let data = data,
-                    let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
-                print(stringData)
-                
-                }.resume()
-            
-        }
-        
-     
-
-        
-        
-        
-        
-        
-        
-        
+            }.resume()
     }
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //MARK: - Properties
+    var searchResults = [BookRepresentation]()
 }
