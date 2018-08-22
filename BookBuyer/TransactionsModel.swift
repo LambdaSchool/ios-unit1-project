@@ -34,7 +34,7 @@ struct TransactionStub: Equatable, Comparable, Codable
 	var timestamp:Date
 
 	var itemName:String?
-	var description:String?
+	var details:String?
 
 	init(_ price:Int,
 		 category:TransactionCategory = .misc,

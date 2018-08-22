@@ -30,7 +30,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IlX-d4-N6H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-502" y="571"/>
+            <point key="canvasLocation" x="-1047" y="752"/>
         </scene>
         <!--Transactions-->
         <scene sceneID="gFN-gb-HQE">
@@ -150,7 +150,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ebc-qa-big" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="423" y="1694"/>
+            <point key="canvasLocation" x="423" y="1688"/>
         </scene>
         <!--StatsVC-->
         <scene sceneID="Wal-eu-h8m">
@@ -186,11 +186,11 @@
                             <constraint firstItem="WfH-Hw-TUV" firstAttribute="trailing" secondItem="5Gm-wr-LFX" secondAttribute="trailing" constant="16" id="EG3-jv-tZJ"/>
                             <constraint firstItem="s7p-Z8-nO2" firstAttribute="leading" secondItem="WfH-Hw-TUV" secondAttribute="leading" constant="16" id="LAo-nL-Uh0"/>
                             <constraint firstItem="WfH-Hw-TUV" firstAttribute="bottom" secondItem="s7p-Z8-nO2" secondAttribute="bottom" constant="452" id="NGX-1X-PRY"/>
+                            <constraint firstItem="s7p-Z8-nO2" firstAttribute="top" secondItem="5Gm-wr-LFX" secondAttribute="bottom" constant="8" id="Oca-bK-xEn"/>
                             <constraint firstItem="s7p-Z8-nO2" firstAttribute="top" secondItem="5Gm-wr-LFX" secondAttribute="bottom" constant="8" id="Vrh-WH-p16"/>
                             <constraint firstItem="NHE-gv-H6V" firstAttribute="leading" secondItem="WfH-Hw-TUV" secondAttribute="leading" constant="15" id="bhf-fG-1Ad"/>
                             <constraint firstItem="WfH-Hw-TUV" firstAttribute="trailing" secondItem="NHE-gv-H6V" secondAttribute="trailing" constant="15" id="lSn-fK-eFg"/>
                             <constraint firstItem="NHE-gv-H6V" firstAttribute="top" secondItem="WfH-Hw-TUV" secondAttribute="top" constant="15" id="sLa-TU-9Oh"/>
-                            <constraint firstItem="s7p-Z8-nO2" firstAttribute="top" secondItem="5Gm-wr-LFX" secondAttribute="bottom" constant="8" id="x7H-im-QAA"/>
                             <constraint firstItem="5Gm-wr-LFX" firstAttribute="leading" secondItem="WfH-Hw-TUV" secondAttribute="leading" constant="16" id="x9X-An-C1x"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="WfH-Hw-TUV"/>
@@ -210,7 +210,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="239-Vn-a44" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1287.2" y="1700.5997001499252"/>
+            <point key="canvasLocation" x="1286" y="1687"/>
         </scene>
         <!--Settings-->
         <scene sceneID="xwL-A1-LcB">
@@ -344,44 +344,126 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="ZiE-Ro-RVl" kind="relationship" relationship="rootViewController" id="dSP-zU-NTm"/>
+                        <segue destination="KU5-LJ-fsm" kind="relationship" relationship="rootViewController" id="0o3-Z4-dbZ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7ec-zH-Gum" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="422" y="-107"/>
         </scene>
+        <!--Bookshelves-->
+        <scene sceneID="10U-uh-kFZ">
+            <objects>
+                <tableViewController id="KU5-LJ-fsm" customClass="ShelfListVC" customModule="BookBuyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="SwN-yx-svq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="mj1-Ve-Jgg">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" id="IeG-Ab-xTK">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="IeG-Ab-xTK" id="ge5-ky-cNj">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name of Bookshelf" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mU3-qf-4Jl">
+                                            <rect key="frame" x="16" y="11" width="324" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5IU-7u-8rr">
+                                            <rect key="frame" x="348" y="11" width="11" height="22"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="mU3-qf-4Jl" firstAttribute="leading" secondItem="ge5-ky-cNj" secondAttribute="leadingMargin" id="5cp-oz-UMG"/>
+                                        <constraint firstItem="5IU-7u-8rr" firstAttribute="top" secondItem="ge5-ky-cNj" secondAttribute="topMargin" id="6SQ-U6-UGe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="mU3-qf-4Jl" secondAttribute="bottom" id="8mn-VB-o77"/>
+                                        <constraint firstItem="5IU-7u-8rr" firstAttribute="bottom" secondItem="ge5-ky-cNj" secondAttribute="bottomMargin" id="Bhg-Fh-rYL"/>
+                                        <constraint firstItem="5IU-7u-8rr" firstAttribute="leading" secondItem="mU3-qf-4Jl" secondAttribute="trailing" constant="8" id="GGc-ds-mIo"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="5IU-7u-8rr" secondAttribute="trailing" id="Y35-dW-3hd"/>
+                                        <constraint firstItem="mU3-qf-4Jl" firstAttribute="top" secondItem="ge5-ky-cNj" secondAttribute="topMargin" id="cV6-JY-7dz"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ZiE-Ro-RVl" kind="show" id="nvq-x1-lXZ"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KU5-LJ-fsm" id="MBF-xI-tGN"/>
+                            <outlet property="delegate" destination="KU5-LJ-fsm" id="hkB-ZE-1gz"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Bookshelves" id="Cvg-Zc-8Pi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="ANq-Lu-dcC">
+                            <connections>
+                                <segue destination="Gq5-YC-USE" kind="show" id="0lQ-Ea-3Wr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8M1-r2-t4X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1286" y="-107"/>
+        </scene>
+        <!--New Bookshelf-->
+        <scene sceneID="bKO-NM-3vV">
+            <objects>
+                <viewController id="Gq5-YC-USE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="KmM-cy-Es2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="IeY-Vr-fLw"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Bookshelf" id="PLf-ma-97v"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5rN-SN-ZhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2673" y="-966"/>
+        </scene>
         <!--Shelves-->
         <scene sceneID="CVp-ck-n8N">
             <objects>
-                <collectionViewController id="ZiE-Ro-RVl" sceneMemberID="viewController">
+                <collectionViewController id="ZiE-Ro-RVl" customClass="BookListVC" customModule="BookBuyer" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="sXZ-MB-WeY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Kp-tF-nPW">
-                            <size key="itemSize" width="100" height="195"/>
+                            <size key="itemSize" width="130" height="227"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="7z4-Xz-kIL">
-                                <rect key="frame" x="0.0" y="0.0" width="100" height="195"/>
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="227"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="195"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="130" height="227"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIL-AJ-aBb">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="195"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="130" height="227"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gvd-0l-pVT">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="158"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58j-Cr-aAS">
-                                                    <rect key="frame" x="28.5" y="166" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" text="The Eye of Markov" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58j-Cr-aAS">
+                                                    <rect key="frame" x="9" y="203" width="112.5" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -416,7 +498,7 @@
                         </connections>
                     </collectionView>
                     <navigationItem key="navigationItem" title="Shelves" id="vSx-pm-vJb">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="qa9-zV-yqH">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qa9-zV-yqH">
                             <connections>
                                 <segue destination="dFF-DD-rwB" kind="show" id="T2L-hV-Y0S"/>
                             </connections>
@@ -425,7 +507,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xxg-Y0-2LB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1330.4000000000001" y="-107.49625187406298"/>
+            <point key="canvasLocation" x="2673" y="-107"/>
         </scene>
         <!--Search-->
         <scene sceneID="vE5-bc-dfZ">
@@ -448,7 +530,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-CY-CjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2281" y="-359"/>
+            <point key="canvasLocation" x="3881" y="-463"/>
         </scene>
         <!--Title-->
         <scene sceneID="nJ5-xp-eO9">
@@ -473,7 +555,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfz-WQ-HD1">
-                                <rect key="frame" x="26" y="95" width="42" height="21"/>
+                                <rect key="frame" x="16" y="114" width="42" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -487,7 +569,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dA1-Rb-zkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="356"/>
+            <point key="canvasLocation" x="3881" y="369"/>
         </scene>
     </scenes>
 </document>
