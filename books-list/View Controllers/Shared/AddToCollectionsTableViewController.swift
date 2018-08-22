@@ -19,9 +19,8 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
     
     lazy var fetchedResultsController: NSFetchedResultsController<Collection> = {
         let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
-        let sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         let moc = CoreDataStack.shared.mainContext
-        fetchRequest.sortDescriptors = sortDescriptors
         
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                    managedObjectContext: moc,

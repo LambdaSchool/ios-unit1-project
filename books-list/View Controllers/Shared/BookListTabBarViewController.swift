@@ -35,13 +35,16 @@ class BookListTabBarViewController: UITabBarController {
             }
         }
     }
-    
+
+    // Problem: child views are navigation controllers --> how to pass it through to tableviewcontrollers?
     func passControllersToChildren() {
         guard let viewControllers = viewControllers else { return }
-        
-        for vc in viewControllers {
-            if var vc = vc as? CollectionControllerProtocol {
-                vc.collectionController = collectionController
+
+        for navController in viewControllers {
+            for vc in navController.children {
+                if var vc = vc as? CollectionControllerProtocol {
+                    vc.collectionController = collectionController
+                }
             }
         }
     }

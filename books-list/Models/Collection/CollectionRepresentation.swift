@@ -13,10 +13,12 @@ struct CollectionRepresentation: Decodable, Equatable {
     
     let title: String
     let identifier: Int
+    let access: String
     
     enum CodingKeys: String, CodingKey {
         case title
         case identifier = "id"
+        case access
     }
     
 }

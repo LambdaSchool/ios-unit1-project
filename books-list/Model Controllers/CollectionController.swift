@@ -48,9 +48,13 @@ class CollectionController {
                 
                 do {
                     let collectionRepresentations = try JSONDecoder().decode(CollectionRepresentations.self, from: data).items
+                    
+                    // Filter all collections that are private since we can't add volumes to those
+                    let publicCollectionRepresentations = collectionRepresentations.filter { $0.access == "PUBLIC" }
+                    
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                     
-                    try self.syncPersistenceStore(with: collectionRepresentations, context: backgroundContext)
+                    try self.syncPersistenceStore(with: publicCollectionRepresentations, context: backgroundContext)
                     
                     completion(nil)
                     
@@ -68,16 +72,17 @@ class CollectionController {
             .appendingPathComponent(URLComponents.bookshelves.rawValue)
             .appendingPathComponent(collection.identifier!)
             .appendingPathComponent(URLComponents.addVolume.rawValue)
+        let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [URLQueryItem(name: "volumeId", value: book.identifier)]
         
-        var request = URLRequest(url: url)
-        request.httpMethod = HTTPMethods.post.rawValue
-        
-        do {
-            request.httpBody = try JSONEncoder().encode(["shelf": collection.identifier, "volumeId": book.identifier])
-        } catch {
-            NSLog("Error encoding http body: \(error)")
-            completion(error)
+        guard let requestURL = urlComponents?.url else {
+            NSLog("Problem constructing URL component")
+            completion(NSError())
+            return
         }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethods.post.rawValue
         
         GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
             if let error = error {
@@ -87,7 +92,7 @@ class CollectionController {
             }
             guard let request = request else { return }
             
-            URLSession.shared.dataTask(with: request) { (data, _, error) in
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let error = error {
                     NSLog("Error putting volumes to collection: \(error)")
                     completion(error)

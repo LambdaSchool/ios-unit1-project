@@ -36,7 +36,6 @@ extension Book {
                   ratingsCount: bookRepresentation.volumeInfo.ratingsCount != nil ? String(bookRepresentation.volumeInfo.ratingsCount!) : nil,
                   context: context)
         
-        self.identifier = UUID().uuidString
         self.timestamp = Date()
         
         //TODO: ISBN

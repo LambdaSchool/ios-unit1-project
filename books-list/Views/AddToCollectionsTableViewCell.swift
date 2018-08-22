@@ -34,7 +34,6 @@ class AddToCollectionsTableViewCell: UITableViewCell {
     
     private func updateViews() {
         titleLabel?.text = collection?.title
-        buttonLabel?.setTitle(collection?.books?.contains(book as Any) != nil ? "Added" : "Add", for: .normal)
+        buttonLabel?.setTitle(collection?.books?.contains(book as Any) == true ? "Added" : "Add", for: .normal)
     }
-
 }
