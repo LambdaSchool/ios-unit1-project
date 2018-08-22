@@ -26,6 +26,7 @@
 		1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1389972C212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift */; };
 		1396852F212DD74200E1A4A7 /* SearchBooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */; };
 		13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */; };
+		13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -64,6 +65,7 @@
 		1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBooksViewController.swift; sourceTree = "<group>"; };
 		13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
 		13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
+		13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +95,7 @@
 			isa = PBXGroup;
 			children = (
 				1388AB99212CA8600019D9ED /* BookTableViewCell.swift */,
+				13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -248,6 +251,7 @@
 				1388ABAA212CB0E90019D9ED /* Book+Convenience.swift in Sources */,
 				1388AB9D212CAC6E0019D9ED /* CoreDataManager.swift in Sources */,
 				1388ABA8212CAF520019D9ED /* Books.xcdatamodeld in Sources */,
+				13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */,
 				1388ABAC212CB1DB0019D9ED /* BookController.swift in Sources */,
 				138996F6212B67EB00AC5225 /* AppDelegate.swift in Sources */,
 			);

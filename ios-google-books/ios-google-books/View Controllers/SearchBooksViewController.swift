@@ -18,9 +18,9 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "BookSearchCell", for: indexPath)
+    let cell = tableView.dequeueReusableCell(withIdentifier: "BookSearchCell", for: indexPath) as! BookSearchTableViewCell
     
-    cell.textLabel?.text = books[indexPath.row].volumeInfo.title
+    cell.book = books[indexPath.row]
     return cell
   }
   
