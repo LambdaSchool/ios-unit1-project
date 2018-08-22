@@ -35,7 +35,7 @@ extension Book {
         self.imageURL = searchResult.image
         self.hasRead = false
         self.bookDescription = searchResult.descripton
-//        self.pages = searchResult.pages
+        self.pages = searchResult.pages
         self.releasedDate = searchResult.releasedDate
     }
 }

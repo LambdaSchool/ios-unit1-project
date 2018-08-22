@@ -14,7 +14,7 @@ struct SearchResult: Decodable, Equatable {
     var identifier: String
     var authors: [String]?
     var descripton: String?
-//    var pages: String?
+    var pages: String?
     var releasedDate: String?
     
     struct VolumeInfo: Decodable {
@@ -22,7 +22,7 @@ struct SearchResult: Decodable, Equatable {
         var authors: [String]?
         var description: String?
         var imageLinks: [String : String]?
-//        var pageCount: Int?
+        var pageCount: Int?
         var publishedDate: String?
     }
     
@@ -47,8 +47,11 @@ struct SearchResult: Decodable, Equatable {
         self.identifier = id
         self.authors = volumeInfo.authors
         self.descripton = volumeInfo.description
-//        self.pages = String(volumeInfo.pageCount!)
         self.releasedDate = volumeInfo.publishedDate
+        
+        if let pages = volumeInfo.pageCount {
+            self.pages = String(pages)
+        }
     }
 }
 

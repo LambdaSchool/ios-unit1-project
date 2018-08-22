@@ -46,8 +46,13 @@ class BookDetailViewController: UIViewController {
         authorsLabel.text = book.authorsString
         bookReviewTextView.text = book.review
         descriptionTextView.text = book.bookDescription
-//        pagesLabel.text = book.pages
         releasedDateLabel.text = book.releasedDate
+        
+        if let pages = book.pages {
+            pagesLabel.text = "\(pages) pages"
+        } else {
+            pagesLabel.text = ""
+        }
         
         guard let urlString = book.imageURL else { return }
         guard let url = URL(string: urlString) else { return }
