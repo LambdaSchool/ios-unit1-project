@@ -9,7 +9,7 @@
 import UIKit
 
 protocol BookTableViewCellDelegate: class {
-    func toggleRead(for cell: BookTableViewCell)
+    func moreInfoButtonWasTapped(for cell: BookTableViewCell)
 }
 
 class BookTableViewCell: UITableViewCell {
@@ -25,10 +25,10 @@ class BookTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookCoverView: UIImageView!
-    @IBOutlet weak var hasReadButton: UIButton!
+    @IBOutlet weak var moreInfoButton: UIButton!
     
-    @IBAction func toggleHasRead(_ sender: Any) {
-        delegate?.toggleRead(for: self)
+    @IBAction func showMoreInfo(_ sender: Any) {
+        delegate?.moreInfoButtonWasTapped(for: self)
         
         updateViews()
     }
@@ -39,7 +39,6 @@ class BookTableViewCell: UITableViewCell {
         
         titleLabel.text = book.title
         authorLabel.text = book.authorsString
-        hasReadButton.setTitle(book.hasRead ? "Read" : "Unread", for: .normal)
         
         guard let urlString = book.imageURL else { return }
         guard let url = URL(string: urlString) else { return }

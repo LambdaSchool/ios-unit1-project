@@ -48,9 +48,23 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
 //        tableView.reloadData()
 //    }     fetchedResultsController takes care of reloading
     
-    func toggleRead(for cell: BookTableViewCell) {
+    func moreInfoButtonWasTapped(for cell: BookTableViewCell) {
         guard let book = cell.book else { return }
-        bookController?.toggleHasRead(for: book)
+
+        let actionSheet = UIAlertController(title: "Book Actions", message: nil, preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: book.hasRead ? "Mark as Unread" : "Mark as Read", style: .default, handler: { (action) in
+            self.bookController?.toggleHasRead(for: book)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Move to Bookshelf…", style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "ShowMoveVC", sender: self)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(actionSheet, animated: true, completion: nil)
+        
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Book> = {

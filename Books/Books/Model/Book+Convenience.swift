@@ -33,5 +33,6 @@ extension Book {
         self.title = searchResult.title
         self.authorsString = searchResult.authors?.joined(separator: ", ")
         self.imageURL = searchResult.image
+        self.hasRead = false
     }
 }
