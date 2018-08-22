@@ -19,4 +19,5 @@ enum URLComponents: String {
     case mylibrary
     case bookshelves
     case addVolume
+    case removeVolume
 }
