@@ -355,7 +355,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                     <items>
                                         <navigationItem title="Collections" id="aD6-tk-vRd">
-                                            <barButtonItem key="rightBarButtonItem" title="Done" id="nYa-AU-cIN"/>
+                                            <barButtonItem key="leftBarButtonItem" title="Done" id="nYa-AU-cIN">
+                                                <connections>
+                                                    <action selector="dismiss:" destination="IRC-Je-3w3" id="ubP-YQ-KFc"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </navigationItem>
                                     </items>
                                 </navigationBar>
@@ -368,37 +372,6 @@
                                 <constraint firstItem="m23-nQ-J2k" firstAttribute="leading" secondItem="zLz-mu-QfR" secondAttribute="leading" id="bIf-sQ-r1W"/>
                             </constraints>
                         </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="Wb9-wj-yRO">
-                            <rect key="frame" x="0.0" y="116" width="375" height="44"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <stackView opaque="NO" contentMode="scaleToFill" spacing="34" translatesAutoresizingMaskIntoConstraints="NO" id="5Pg-gQ-ulL">
-                                    <rect key="frame" x="16" y="8" width="343" height="28"/>
-                                    <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dxr-e8-wvN">
-                                            <rect key="frame" x="0.0" y="0.0" width="275" height="28"/>
-                                            <nil key="textColor"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
-                                        </textField>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yDw-KQ-F1F">
-                                            <rect key="frame" x="309" y="0.0" width="34" height="28"/>
-                                            <state key="normal" title="Save"/>
-                                            <connections>
-                                                <action selector="save:" destination="IRC-Je-3w3" eventType="touchUpInside" id="uUW-Z0-YTD"/>
-                                            </connections>
-                                        </button>
-                                    </subviews>
-                                </stackView>
-                            </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="5Pg-gQ-ulL" secondAttribute="trailing" constant="16" id="4dv-hp-GKx"/>
-                                <constraint firstItem="5Pg-gQ-ulL" firstAttribute="top" secondItem="Wb9-wj-yRO" secondAttribute="top" constant="8" id="5zh-gA-iMF"/>
-                                <constraint firstItem="5Pg-gQ-ulL" firstAttribute="leading" secondItem="Wb9-wj-yRO" secondAttribute="leading" constant="16" id="QPt-R9-VAP"/>
-                                <constraint firstAttribute="bottom" secondItem="5Pg-gQ-ulL" secondAttribute="bottom" constant="8" id="nOA-SY-UwR"/>
-                            </constraints>
-                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CollectionCell" id="bTF-d9-xgJ" customClass="AddToCollectionsTableViewCell" customModule="books_list" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="72" width="375" height="44"/>
@@ -407,17 +380,17 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="243" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-Qr-j2h">
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jmM-Qr-j2h">
                                             <rect key="frame" x="16" y="8" width="343" height="27.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVS-er-DsU">
-                                                    <rect key="frame" x="0.0" y="0.0" width="42" height="27.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dVS-er-DsU">
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fwb-cK-0xa">
-                                                    <rect key="frame" x="285" y="0.0" width="58" height="27.5"/>
+                                                <button opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fwb-cK-0xa">
+                                                    <rect key="frame" x="297" y="0.0" width="46" height="27.5"/>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
                                                         <action selector="addToCollection:" destination="bTF-d9-xgJ" eventType="touchUpInside" id="fDI-F2-A61"/>
@@ -444,18 +417,15 @@
                             <outlet property="delegate" destination="IRC-Je-3w3" id="Wre-w2-zeU"/>
                         </connections>
                     </tableView>
-                    <connections>
-                        <outlet property="titleTextField" destination="Dxr-e8-wvN" id="kc0-Ga-KJV"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Mu-Mf-hD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2858" y="-13"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Book List Tab Bar View Controller-->
         <scene sceneID="RTx-Gd-kiI">
             <objects>
-                <tabBarController id="glW-sy-iJU" sceneMemberID="viewController">
+                <tabBarController id="glW-sy-iJU" customClass="BookListTabBarViewController" customModule="books_list" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="MyQ-ZV-kmC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

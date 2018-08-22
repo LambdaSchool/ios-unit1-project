@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ExploreTableViewController: UITableViewController, UISearchBarDelegate {
+class ExploreTableViewController: UITableViewController, UISearchBarDelegate, CollectionControllerProtocol {
     
     // - Properties
     @IBOutlet weak var searchBar: UISearchBar!
     let bookController = BookController()
-    let collectionController = CollectionController()
+    var collectionController: CollectionController?
     
     override func viewDidLoad() {
         super.viewDidLoad()

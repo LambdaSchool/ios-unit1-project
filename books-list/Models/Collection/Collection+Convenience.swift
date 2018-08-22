@@ -11,9 +11,9 @@ import CoreData
 
 extension Collection {
     
-    convenience init(identifier: String?, title: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(identifier: String, title: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
-        self.identifier = identifier ?? nil
+        self.identifier = identifier
         self.title = title
     }
     

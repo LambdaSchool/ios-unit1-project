@@ -11,28 +11,15 @@ import CoreData
 
 class CollectionController {
     
-    
     // MARK: - Properties
     
     let googleBooksBaseURL = URL(string: "https://www.googleapis.com/books/v1")!
-    
-    enum HTTPMethods: String {
-        case get = "GET"
-        case post = "POST"
-        case put = "PUT"
-        case delete = "DELETE"
-    }
-    
-    enum URLComponents: String {
-        case mylibrary
-        case bookshelves
-    }
     
     typealias CompletionHandler = (Error?) -> Void
     
     // MARK: - API Methods
     
-    func fetchAllFromGoogleBooks(completion: @escaping (Error?) -> Void) {
+    func fetchFromGoogleBooks(completion: @escaping (Error?) -> Void) {
         let url = googleBooksBaseURL
                     .appendingPathComponent(URLComponents.mylibrary.rawValue)
                     .appendingPathComponent(URLComponents.bookshelves.rawValue)
@@ -72,31 +59,62 @@ class CollectionController {
                     completion(error)
                 }
             }.resume()
+        }
+    }
+    
+    func post(_ book: Book, to collection: Collection, completion: @escaping CompletionHandler = { _ in }) {
+        let url = googleBooksBaseURL
+            .appendingPathComponent(URLComponents.mylibrary.rawValue)
+            .appendingPathComponent(URLComponents.bookshelves.rawValue)
+            .appendingPathComponent(collection.identifier!)
+            .appendingPathComponent(URLComponents.addVolume.rawValue)
         
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethods.post.rawValue
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(["shelf": collection.identifier, "volumeId": book.identifier])
+        } catch {
+            NSLog("Error encoding http body: \(error)")
+            completion(error)
         }
         
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                completion(error)
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error putting volumes to collection: \(error)")
+                    completion(error)
+                    return
+                }
+                
+                completion(nil)
+            }.resume()
+        }
     }
     
     // MARK: - Persistence Methods
     
-    func create(with title: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) throws {
-        var error: Error?
-        // TODO: Add collection to Google bookshelf via put or post
-        // Take the returned bookshelf object and pass in the identifier below:
+    func add(_ book: Book, to collection: Collection, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        post(book, to: collection)
         
         context.performAndWait {
-            let _ = Collection(identifier: nil, title: title)
+            book.addToCollections(collection)
+            
             do {
-                try CoreDataStack.shared.save(context: context)
-            } catch let createError {
-                NSLog("Error saving collection to persistence: \(createError)")
-                error = createError
+                try context.save()
+            } catch {
+                NSLog("Error saving book to collection: \(error)")
             }
         }
-        
-        if let error = error { throw error }
     }
-    
+        
     func create(from collectionRepresentation: CollectionRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) throws {
         var error: Error?
         // TODO: Add collection to Google bookshelf via put or post
@@ -121,15 +139,15 @@ class CollectionController {
         }
     }
     
-    func syncPersistenceStore(with collectionRepresentations: [CollectionRepresentation], context: NSManagedObjectContext) throws {
+    private func syncPersistenceStore(with collectionRepresentations: [CollectionRepresentation], context: NSManagedObjectContext) throws {
         context.performAndWait {
             for collectionRep in collectionRepresentations {
                 if let collection = fetchSingleCollectionFromPersistentStore(forIdentifier: String(collectionRep.identifier), context: context) {
                     if collectionRep != collection {
                         self.update(collection, with: collectionRep, context: context)
-                    } else {
-                        let _ = Collection(collectionRepresentation: collectionRep)
                     }
+                } else {
+                    let _ = Collection(collectionRepresentation: collectionRep, context: context)
                 }
             }
         }

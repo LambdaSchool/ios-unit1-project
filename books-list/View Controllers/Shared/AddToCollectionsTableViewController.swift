@@ -17,8 +17,6 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
     var collectionController: CollectionController?
     var bookController: BookController?
     
-    @IBOutlet weak var titleTextField: UITextField!
-    
     lazy var fetchedResultsController: NSFetchedResultsController<Collection> = {
         let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
         let sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
@@ -40,26 +38,25 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
         return frc
     }()
     
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        tableView.reloadData()
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     // MARK: - Methods
-    @IBAction func save(_ sender: Any) {
-        guard var title = titleTextField?.text else { return }
-        
-        do {
-            try collectionController?.create(with: title)
-        } catch {
-            NSLog("Error creating and saving collection with title: \(title)")
-        }
-        title = ""
+    @IBAction func dismiss(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - AddToCollectionsDelegate
     
     func add(_ book: Book, to collection: Collection) {
-        bookController?.add(book, to: collection)
+        collectionController?.add(book, to: collection)
         tableView.reloadData()
     }
 
@@ -121,10 +118,6 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
@@ -134,12 +127,4 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
         }    
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-    
-
 }

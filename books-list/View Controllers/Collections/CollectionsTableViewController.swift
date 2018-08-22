@@ -8,8 +8,12 @@
 
 import UIKit
 
-class CollectionsTableViewController: UITableViewController {
+class CollectionsTableViewController: UITableViewController, CollectionControllerProtocol {
 
+    // MARK: - Properties
+    
+    var collectionController: CollectionController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
