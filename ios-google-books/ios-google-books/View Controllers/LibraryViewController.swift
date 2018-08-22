@@ -13,6 +13,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   @IBOutlet var tableView: UITableView!
   @IBOutlet var segmentedControl: UISegmentedControl!
+  var flag = true
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -75,18 +76,17 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   func tableView(_ tableView: UITableView,
                           titleForHeaderInSection section: Int) -> String? {
-    switch section {
-    case 0:
+    if section == 0 && flag {
       return "Read"
-    case 1:
+    } else if section == 1 && flag {
       return "To Read"
-    default:
-      return "Read"
+    } else {
+      return ""
     }
   }
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return fetchedResultsController.sections?.count ?? 1
+    return fetchedResultsController.sections?.count ?? 0
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,6 +103,30 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   @IBAction func segmentedControlAction(_ sender: Any) {
     let selectedSegment = segmentedControl.selectedSegmentIndex
+    switch selectedSegment {
+    case 0:
+      fetchedResultsController.fetchRequest.predicate = nil
+      flag = true
+    case 1:
+      let predicate = NSPredicate(format: "hasRead == %@", NSNumber(booleanLiteral: true))
+      fetchedResultsController.fetchRequest.predicate = predicate
+      flag = false
+    case 2:
+      let predicate = NSPredicate(format: "hasRead == %@", NSNumber(booleanLiteral: false))
+      fetchedResultsController.fetchRequest.predicate = predicate
+      flag = false
+    default:
+      fetchedResultsController.fetchRequest.predicate = nil
+      flag = true
+    }
+    
+    do {
+      try self.fetchedResultsController.performFetch()
+    } catch {
+      NSLog("Error performing fetch from CoreData!")
+    }
+    
+    tableView.reloadData()
   }
   
   let bookController = BookController()
@@ -110,7 +134,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
     let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
     
-    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true)]
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true),
+                                    NSSortDescriptor(key: "hasRead", ascending: true)]
     
     let moc = CoreDataManager.shared.mainContext
     let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
