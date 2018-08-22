@@ -18,6 +18,12 @@ class BookDetailViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var bookCoverView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorsLabel: UILabel!
+    @IBOutlet weak var releasedDateLabel: UILabel!
+    @IBOutlet weak var pagesLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var bookReviewTextView: UITextView!
     
     @IBAction func submitReview(_ sender: Any) {
@@ -36,7 +42,17 @@ class BookDetailViewController: UIViewController {
     func updateViews() {
         guard let book = book, isViewLoaded else { return }
         
-        navigationItem.title = book.title
+        titleLabel.text = book.title
+        authorsLabel.text = book.authorsString
         bookReviewTextView.text = book.review
+        descriptionTextView.text = book.bookDescription
+//        pagesLabel.text = book.pages
+        releasedDateLabel.text = book.releasedDate
+        
+        guard let urlString = book.imageURL else { return }
+        guard let url = URL(string: urlString) else { return }
+        ImageController.loadImage(at: url) { (image, _) in
+            self.bookCoverView.image = image
+        }
     }
 }
