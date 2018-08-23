@@ -173,6 +173,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="renameBookshelf" destination="sRz-ry-dLw" id="Q2X-u3-kBS"/>
                         <segue destination="j6O-NS-HLW" kind="show" identifier="ShowMoveVC" id="hX7-m0-2ik"/>
                         <segue destination="j6O-NS-HLW" kind="show" identifier="ShowAddVC" id="Y4r-Cp-UCq"/>
                     </connections>

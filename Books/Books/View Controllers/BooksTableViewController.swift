@@ -15,14 +15,16 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
     
     var bookshelf: Bookshelf? {
         didSet {
-            navigationItem.title = bookshelf?.name
-            
             guard let bookshelf = bookshelf else { return }
             bookController?.fetchBooksFromGoogleServer(in: bookshelf)
+            
+            updateViews()
         }
     }
     
     var lastSelectedBook: Book?
+    
+    @IBOutlet weak var renameBookshelf: UIBarButtonItem!
     
     @IBAction func renameBookshelf(_ sender: Any) {
         
@@ -53,6 +55,25 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
 //
 //        tableView.reloadData()
 //    }     fetchedResultsController takes care of reloading
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateViews()
+    }
+    
+    func updateViews() {
+        
+        // If the bookshelf is a google bookshelf, disable renameBookshelf()
+        if (bookshelf?.identifier) != nil {
+            renameBookshelf.isEnabled = false
+        } else {
+            renameBookshelf.isEnabled = true
+        }
+        
+        navigationItem.title = bookshelf?.name
+    }
+    
     
     func moreInfoButtonWasTapped(for cell: BookTableViewCell) {
         guard let book = cell.book else { return }
