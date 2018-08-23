@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BooksTableViewController: UITableViewController, BookTableViewCellDelegate, NSFetchedResultsControllerDelegate {
+class BooksTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BookTableViewCellDelegate, NSFetchedResultsControllerDelegate {
     
     var bookController: BookController?
     
@@ -24,6 +24,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
     
     var lastSelectedBook: Book?
     
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var renameBookshelf: UIBarButtonItem!
     
     @IBAction func renameBookshelf(_ sender: Any) {
@@ -107,7 +108,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         // Filter all books to just the ones in that bookshelf
         fetchRequest.predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf!)
         
-        // Sort the entries based on timestamp
+        // Sort the entries based on hasRead
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true),
                                         NSSortDescriptor(key: "title", ascending: true)]
         
@@ -172,11 +173,11 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
 
     // MARK: - Table view data source
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let sectionInfo = fetchedResultsController.sections?[section]
         
         if sectionInfo?.name == "0" {
@@ -186,11 +187,11 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         }
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as! BookTableViewCell
 
         cell.book = fetchedResultsController.object(at: indexPath)
@@ -199,7 +200,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let book = fetchedResultsController.object(at: indexPath)
             bookController?.delete(book: book, from: bookshelf)
