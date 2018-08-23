@@ -12,8 +12,8 @@ import CoreData
 let baseURL = URL(string: "https://www.googleapis.com/books/v1/")!
 class BookController {
   // createBook only temp for base setup
-  func createBook(title: String, author: String, synopsis: String, hasRead: Bool = false) {
-    let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead)
+  func createBook(title: String, author: String, synopsis: String, hasRead: Bool = false, id: String, thumbnail: NSData, review: String = "") {
+    let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead, id: id, thumbnail: thumbnail, review: review)
   }
   
   func saveToPersistentStore() throws {
@@ -52,6 +52,7 @@ class BookController {
         do {
           let decoder = JSONDecoder()
           let books = try decoder.decode(BookRepresentationItems.self, from: data)
+          print(books.items)
           completion(books.items, nil)
         } catch let error {
           NSLog("Error decoding data from GET: \(error)")

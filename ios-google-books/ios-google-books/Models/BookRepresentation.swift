@@ -19,6 +19,12 @@ struct BookRepresentation: Decodable {
     let description: String?
     let pageCount: Int?
     let averageRating: Double?
+    let imageLinks: ImageLinks?
+    
+    struct ImageLinks: Decodable {
+      let smallThumbnail: String?
+      let thumbnail: String?
+    }
   }
 }
 

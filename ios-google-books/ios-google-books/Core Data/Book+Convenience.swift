@@ -14,6 +14,9 @@ extension Book {
                    author: String,
                    synopsis: String,
                    hasRead: Bool,
+                   id: String,
+                   thumbnail: NSData,
+                   review: String,
                    context: NSManagedObjectContext = CoreDataManager.shared.mainContext) {
     self.init(context: context)
     
@@ -21,5 +24,8 @@ extension Book {
     self.author = author
     self.synopsis = synopsis
     self.hasRead = hasRead
+    self.id = id
+    self.thumbnail = thumbnail as Data
+    self.review = review
   }
 }

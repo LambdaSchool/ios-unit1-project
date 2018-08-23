@@ -28,6 +28,7 @@
 		13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968533212DEC4C00E1A4A7 /* BookRepresentation.swift */; };
 		13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */; };
 		13968539212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */; };
+		13CDEDF8212F209400C55D4A /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CDEDF7212F209400C55D4A /* BookDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -68,6 +69,8 @@
 		13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 2.xcdatamodel"; sourceTree = "<group>"; };
 		13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTableViewCell.swift; sourceTree = "<group>"; };
 		13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchDetailViewController.swift; sourceTree = "<group>"; };
+		13CDEDF6212F111D00C55D4A /* Books 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 3.xcdatamodel"; sourceTree = "<group>"; };
+		13CDEDF7212F209400C55D4A /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +93,7 @@
 				1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */,
 				1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */,
 				13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */,
+				13CDEDF7212F209400C55D4A /* BookDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -249,6 +253,7 @@
 				1388AB9A212CA8600019D9ED /* BookTableViewCell.swift in Sources */,
 				1396852F212DD74200E1A4A7 /* SearchBooksViewController.swift in Sources */,
 				1389972D212B79EE00AC5225 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				13CDEDF8212F209400C55D4A /* BookDetailViewController.swift in Sources */,
 				13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */,
 				1388AB96212C9D8F0019D9ED /* LibraryViewController.swift in Sources */,
 				1388ABAA212CB0E90019D9ED /* Book+Convenience.swift in Sources */,
@@ -476,10 +481,11 @@
 		1388ABA6212CAF520019D9ED /* Books.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				13CDEDF6212F111D00C55D4A /* Books 3.xcdatamodel */,
 				13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */,
 				1388ABA7212CAF520019D9ED /* Books.xcdatamodel */,
 			);
-			currentVersion = 13968535212DEC9B00E1A4A7 /* Books 2.xcdatamodel */;
+			currentVersion = 13CDEDF6212F111D00C55D4A /* Books 3.xcdatamodel */;
 			path = Books.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

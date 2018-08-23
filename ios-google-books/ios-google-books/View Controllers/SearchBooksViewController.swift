@@ -13,6 +13,18 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
   @IBOutlet var tableView: UITableView!
   @IBOutlet var searchBar: UISearchBar!
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    // Show the navigation bar on other view controllers
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return books.count
   }

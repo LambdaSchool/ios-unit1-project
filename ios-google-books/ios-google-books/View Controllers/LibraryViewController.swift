@@ -24,6 +24,14 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: animated)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    // Show the navigation bar on other view controllers
+    self.navigationController?.setNavigationBarHidden(false, animated: animated)
   }
   
   func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -99,6 +107,17 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     cell.book = book
     
     return cell
+  }
+  
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "ShowBookDetailSegue" {
+      if let vc = segue.destination as? BookDetailViewController {
+        vc.bookController = bookController
+        if let indexPath = self.tableView.indexPathForSelectedRow {
+          vc.book = fetchedResultsController.object(at: indexPath)
+        }
+      }
+    }
   }
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
