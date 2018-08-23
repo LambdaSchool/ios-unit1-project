@@ -37,7 +37,6 @@ class BookController {
                 do {
                     let bookRepresentations = try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
                     self.searchedVolumes = bookRepresentations
-                    print(self.searchedVolumes)
                     completion(nil)
                 } catch {
                     NSLog("Error decoding JSON data: \(error)")
@@ -46,7 +45,81 @@ class BookController {
             }.resume()
         }
         
-    } // End of search func
-    var searchedVolumes: [VolumeRepresentation] = []
+    }
     
-} // end of class
+    func getBookshelves(completion: @escaping (Error?) -> Void) {
+        let components = URLComponents(url: baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves"), resolvingAgainstBaseURL: true)
+        let url = components?.url!
+        let request = URLRequest(url: url!)
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error getting bookshelves: \(error)")
+                    return
+                }
+                guard let data = data else { return }
+                
+                if let json = String(data: data, encoding: .utf8) {
+                    print(json)
+                }
+                
+                do {
+                    let bookshelfRepresentations = try JSONDecoder().decode(BookshelfRepresentation.self, from: data)
+                    self.bookshelves = [bookshelfRepresentations]
+                    print(self.bookshelves)
+                    completion(nil)
+                } catch {
+                    NSLog("Error decoding JSON data: \(error)")
+                    completion(error)
+                }
+            }.resume()
+        }
+        
+    }
+    func getVolumes(forBookshelf shelf: Int, completion: @escaping (Error?) -> Void) {
+        let components = URLComponents(url: baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("\(shelf)").appendingPathComponent("volumes"), resolvingAgainstBaseURL: true)
+        let url = components?.url!
+        let request = URLRequest(url: url!)
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error getting bookshelf volumes: \(error)")
+                    return
+                }
+                guard let data = data else { return }
+                
+                if let json = String(data: data, encoding: .utf8) {
+                    print(json)
+                }
+                
+                do {
+                    completion(nil)
+                } catch {
+                    NSLog("Error decoding JSON data: \(error)")
+                    completion(error)
+                }
+            }.resume()
+        }
+    }
+    
+    
+    var searchedVolumes: [VolumeRepresentation] = []
+    var bookshelves: [BookshelfRepresentation] = []
+    
+} 

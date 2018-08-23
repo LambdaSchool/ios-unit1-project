@@ -1,45 +1,49 @@
 //
-//  BookSearchTableViewController.swift
+//  BookShelfTableViewController.swift
 //  Book Library
 //
-//  Created by Jeremy Taylor on 8/20/18.
+//  Created by Jeremy Taylor on 8/22/18.
 //  Copyright © 2018 Bytes-Random L.L.C. All rights reserved.
 //
 
 import UIKit
 
-let bookController = BookController()
-
-
-class BookSearchTableViewController: UITableViewController, UISearchBarDelegate {
+class BookShelfTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchBar.delegate = self
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        bookController.getVolumes(forBookshelf: 7) { (error) in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
     }
 
-    
     // MARK: - Table view data source
 
-    
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return bookController.searchedVolumes.count
+        return bookController.bookshelves.count
     }
 
-    
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath)
-        let authors = bookController.searchedVolumes[indexPath.row].volumeInfo.authors.joined(separator: ", ")
-        cell.textLabel?.text = bookController.searchedVolumes[indexPath.row].volumeInfo.title
-        cell.detailTextLabel?.text = authors
-    
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
+
+        cell.textLabel?.text = bookController.bookshelves[indexPath.row].items[indexPath.row].title
+
         return cell
     }
- 
 
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -74,17 +78,6 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         return true
     }
     */
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchTerm = searchBar.text else { return }
-        bookController.searchForBook(with: searchTerm) { (error) in
-            guard error == nil else { return }
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-        
-    }
 
     /*
     // MARK: - Navigation
@@ -95,8 +88,4 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         // Pass the selected object to the new view controller.
     }
     */
-    @IBOutlet weak var searchBar: UISearchBar!
-    
-    
-    
 }
