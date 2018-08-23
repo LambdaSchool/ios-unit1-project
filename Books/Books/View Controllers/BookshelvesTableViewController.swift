@@ -61,13 +61,15 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
         
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "sectionText", ascending: true),
+                                        NSSortDescriptor(key: "identifier", ascending: true),
+                                        NSSortDescriptor(key: "name", ascending: true)]
         
         let moc = CoreDataStack.shared.mainContext
        
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
                                              managedObjectContext: moc,
-                                             sectionNameKeyPath: nil,
+                                             sectionNameKeyPath: "sectionText",
                                              cacheName: nil)
         // Set this VC as frc's delegate
         frc.delegate = self
@@ -121,6 +123,14 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     // MARK: - Table view data source
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return fetchedResultsController.sections?[section].name
+    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return fetchedResultsController.sections?[section].numberOfObjects ?? 0
