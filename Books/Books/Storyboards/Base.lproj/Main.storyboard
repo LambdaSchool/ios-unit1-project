@@ -86,6 +86,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButtonOutlet" destination="O9z-v5-Zem" id="ftd-Y7-e8Z"/>
                         <outlet property="imageView" destination="7J3-GW-q5f" id="O2F-Qb-eOD"/>
                         <outlet property="readLabel" destination="2Me-lV-LLi" id="9jl-y2-sxK"/>
                         <outlet property="reviewTextView" destination="DzU-Fs-2kP" id="dzs-9t-r0b"/>
@@ -244,6 +245,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CND-VF-ODA"/>
+        <segue reference="ePc-8A-a13"/>
     </inferredMetricsTieBreakers>
 </document>

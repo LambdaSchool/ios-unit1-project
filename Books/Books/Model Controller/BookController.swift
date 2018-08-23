@@ -73,7 +73,7 @@ class BookController{
                 .appendingPathComponent("volumes")
             
             let request = URLRequest(url: bookshelvesURL)
-            print("1: \(bookshelvesURL)")
+
             
             GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
                 if let error = error {
@@ -81,8 +81,7 @@ class BookController{
                     return
                 }
                 guard let request = request else {return}
-                
-                print("2: Google Add Auth \(request.url)")
+
                 URLSession.shared.dataTask(with: request){ (data, _, error) in
                     if let error = error {
                         NSLog("Error sending request: \(error)")
@@ -92,7 +91,6 @@ class BookController{
                     guard let data = data else {
                         NSLog("Data is nil")
                         return}
-                    print("3: URLSession \(request.url)")
                     //                    guard let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
                     //                    print(shelf)
                     //                    print(stringData)
@@ -102,7 +100,6 @@ class BookController{
                         let decodedBookRepresentations = try JSONDecoder().decode(Bookshelf.self, from: data).items
                         guard let bookRepresentations = decodedBookRepresentations else {return}
                         let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-                        print("4: Decoding shelfID \(shelf)")
                         self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)
                         
                         
@@ -145,7 +142,7 @@ class BookController{
             
            
             for bookRepresentation in bookRepresentations{
-                 print("5: fetchAndCompare shelfID: \(shelfID) \(bookRepresentation.volumeInfo.title)")
+
                 let id = bookRepresentation.id
                 let books = fetchFromPersistentStore(id: id, context: context)
                 
@@ -153,7 +150,7 @@ class BookController{
                 var shelvesContainingBook = [Int]()
                 for book in books {
                     shelvesContainingBook.append(Int(book.shelfID))
-                    //uses iteration to check if books that are on shelf "have read" are marked read
+                    //uses iteration to check if books that are on shelf "have read" are marked read"
                     if !book.haveRead && (shelfID == 4) {
                         book.haveRead = true
                     }
@@ -175,21 +172,7 @@ class BookController{
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     //MARK: - Properties
     var searchResults = [BookRepresentation]()

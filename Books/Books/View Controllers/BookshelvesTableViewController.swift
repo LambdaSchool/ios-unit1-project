@@ -83,6 +83,18 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? DetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow else {return}
+        destinationVC.bookController = bookController
+        
+        if segue.identifier == "ViewExistingCollection"{
+            destinationVC.book = fetchResultsController.object(at: indexPath)
+        }
+        
+    }
+    
+    //MARK: - Properties
     let bookController = BookController()
     
     lazy var fetchResultsController: NSFetchedResultsController<Book> = {
