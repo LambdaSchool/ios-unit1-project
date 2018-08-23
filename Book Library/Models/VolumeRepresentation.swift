@@ -14,7 +14,7 @@ struct VolumeRepresentation: Codable {
     struct VolumeInfo: Codable {
         let title: String
         let subtitle: String?
-        let authors: [String]
+        let authors: [String]?
         let description: String
     }
 }

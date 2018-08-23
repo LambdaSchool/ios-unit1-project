@@ -1,28 +1,25 @@
 //
-//  BookShelfTableViewController.swift
+//  VolumeListTableViewController.swift
 //  Book Library
 //
-//  Created by Jeremy Taylor on 8/22/18.
+//  Created by Jeremy Taylor on 8/23/18.
 //  Copyright © 2018 Bytes-Random L.L.C. All rights reserved.
 //
 
 import UIKit
 
-class BookShelfTableViewController: UITableViewController {
+class VolumeListTableViewController: UITableViewController {
+    var shelfID: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
-            if let error = error {
-                NSLog("Authorization failed: \(error)")
-                return
-            }
-        }
+        
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bookController.getBookshelves { (error) in
+        guard let shelfID = shelfID else { return }
+        bookController.getVolumes(forBookshelf: shelfID) { (error) in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -32,19 +29,26 @@ class BookShelfTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookController.bookshelves.count
-    }
-
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
-
-        cell.textLabel?.text = bookController.bookshelves[indexPath.row].title
         
-        return cell
+        return bookController.bookshelfVolumes.count
     }
 
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath)
+        guard let authors = bookController.bookshelfVolumes[indexPath.row].volumeInfo.authors else { return cell }
+        var authorString: String!
+        for author in authors {
+            authorString.append(author)
+        }
+        
+        cell.textLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.title
+        cell.detailTextLabel?.text = authorString ?? ""
+
+        return cell
+    }
+ 
+
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -80,16 +84,14 @@ class BookShelfTableViewController: UITableViewController {
     }
     */
 
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowVolumes" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            let destVC = segue.destination as! VolumeListTableViewController
-            destVC.shelfID = bookController.bookshelves[indexPath.row].id
-        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
-    
+    */
+
 }
