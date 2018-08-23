@@ -29,6 +29,7 @@
 		13968537212E034400E1A4A7 /* BookSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968536212E034400E1A4A7 /* BookSearchTableViewCell.swift */; };
 		13968539212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */; };
 		13CDEDF8212F209400C55D4A /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CDEDF7212F209400C55D4A /* BookDetailViewController.swift */; };
+		13CDEDFA212F334E00C55D4A /* AddReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CDEDF9212F334E00C55D4A /* AddReviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchDetailViewController.swift; sourceTree = "<group>"; };
 		13CDEDF6212F111D00C55D4A /* Books 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Books 3.xcdatamodel"; sourceTree = "<group>"; };
 		13CDEDF7212F209400C55D4A /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		13CDEDF9212F334E00C55D4A /* AddReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +92,7 @@
 		1388AB97212C9D960019D9ED /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				13CDEDF9212F334E00C55D4A /* AddReviewViewController.swift */,
 				1388AB95212C9D8E0019D9ED /* LibraryViewController.swift */,
 				1396852E212DD74200E1A4A7 /* SearchBooksViewController.swift */,
 				13968538212E0BFE00E1A4A7 /* BookSearchDetailViewController.swift */,
@@ -256,6 +259,7 @@
 				13CDEDF8212F209400C55D4A /* BookDetailViewController.swift in Sources */,
 				13968534212DEC4C00E1A4A7 /* BookRepresentation.swift in Sources */,
 				1388AB96212C9D8F0019D9ED /* LibraryViewController.swift in Sources */,
+				13CDEDFA212F334E00C55D4A /* AddReviewViewController.swift in Sources */,
 				1388ABAA212CB0E90019D9ED /* Book+Convenience.swift in Sources */,
 				1388AB9D212CAC6E0019D9ED /* CoreDataManager.swift in Sources */,
 				1388ABA8212CAF520019D9ED /* Books.xcdatamodeld in Sources */,

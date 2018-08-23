@@ -126,6 +126,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
       if let vc = segue.destination as? BookDetailViewController {
         vc.bookController = bookController
         if let indexPath = self.tableView.indexPathForSelectedRow {
+          self.tableView.deselectRow(at: indexPath, animated: true)
           vc.book = fetchedResultsController.object(at: indexPath)
         }
       }

@@ -16,6 +16,31 @@ class BookController {
     let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead, id: id, thumbnail: thumbnail, review: review)
   }
   
+  func toggleRead(book: Book) throws {
+    let moc = CoreDataManager.shared.mainContext
+    
+    var error: Error?
+    
+    moc.performAndWait {
+      if book.hasRead {
+        book.hasRead = !book.hasRead
+        book.review = ""
+      } else {
+        book.hasRead = !book.hasRead
+      }
+      
+      do {
+        try moc.save()
+      } catch let saveError {
+        error = saveError
+      }
+    }
+    
+    if let error = error {
+      throw error
+    }
+  }
+  
   func deleteBook(book: Book) throws {
     let moc = CoreDataManager.shared.mainContext
     
@@ -24,6 +49,27 @@ class BookController {
     moc.performAndWait {
       moc.delete(book)
     
+      do {
+        try moc.save()
+      } catch let saveError {
+        error = saveError
+      }
+    }
+    
+    if let error = error {
+      throw error
+    }
+  }
+  
+  func updateBook(book: Book, review: String) throws {
+    let moc = CoreDataManager.shared.mainContext
+    
+    var error: Error?
+    
+    moc.performAndWait {
+      book.review = review
+      book.hasRead = true
+      
       do {
         try moc.save()
       } catch let saveError {
@@ -72,7 +118,6 @@ class BookController {
         do {
           let decoder = JSONDecoder()
           let books = try decoder.decode(BookRepresentationItems.self, from: data)
-          print(books.items)
           completion(books.items, nil)
         } catch let error {
           NSLog("Error decoding data from GET: \(error)")
@@ -80,6 +125,4 @@ class BookController {
       }
     }.resume()
   }
-  
-  
 }
