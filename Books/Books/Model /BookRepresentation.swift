@@ -18,12 +18,12 @@ struct BookRepresentation: Codable, Equatable {
 //    let author: String
 
 //    var imageLinks: String
-    let id: String
-    let volumeInfo: VolumeInfo
+    let id: String?
+    let volumeInfo: VolumeInfo?
 }
 
 struct VolumeInfo: Codable, Equatable {
-    let title: String
+    let title: String?
     let authors: [String]?
     let imageLinks: [String: String]?
 }

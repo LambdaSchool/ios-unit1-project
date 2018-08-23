@@ -50,7 +50,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
-        cell.textLabel?.text = bookController.searchResults[indexPath.row].volumeInfo.title
+        cell.textLabel?.text = bookController.searchResults[indexPath.row].volumeInfo?.title
 
         return cell
     }

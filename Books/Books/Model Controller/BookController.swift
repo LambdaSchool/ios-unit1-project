@@ -15,8 +15,6 @@ private let moc = CoreDataStack.shared.mainContext
 private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
 
 class BookController{
-    
-    
     // MARK: - Search Google API
     typealias CompletionHandler = (Error?) -> Void
     
@@ -34,7 +32,6 @@ class BookController{
         }
         
         //build URLRequest
-        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
@@ -46,11 +43,7 @@ class BookController{
             guard let data = data else {
                 NSLog("Data is nil")
                 return}
-            
-            
-            //            guard let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
-            //            print(stringData)
-            
+
             do{
                 let decoded = try JSONDecoder().decode(Bookshelf.self, from: data)
                 
@@ -63,9 +56,13 @@ class BookController{
             }.resume()
     }
     
-    func fetchBooksFromGoogle(completion: @escaping CompletionHandler = {_ in}){
-        
+    func fetchBooksFromGoogle( completion:@escaping CompletionHandler = {_ in}){
+        //initialize dispatch group
+        let group = DispatchGroup()
         for shelf in 0 ... 8 {
+            //enter the tunnel!
+            group.enter()
+            
             let bookshelvesURL = baseURL
                 .appendingPathComponent("mylibrary")
                 .appendingPathComponent("bookshelves")
@@ -74,54 +71,50 @@ class BookController{
             
             let request = URLRequest(url: bookshelvesURL)
 
-            
             GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
                 if let error = error {
                     NSLog("Error adding authorization to fetch request: \(error)")
+                    group.leave()
                     return
                 }
-                guard let request = request else {return}
-
+                guard let request = request else {group.leave(); return}
+                
                 URLSession.shared.dataTask(with: request){ (data, _, error) in
                     if let error = error {
                         NSLog("Error sending request: \(error)")
+                        group.leave()
                         return
                     }
-                    
                     guard let data = data else {
                         NSLog("Data is nil")
+                        group.leave()
                         return}
-                    //                    guard let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
-                    //                    print(shelf)
-                    //                    print(stringData)
-                    
-                    //decode JSONData
                     do{
                         let decodedBookRepresentations = try JSONDecoder().decode(Bookshelf.self, from: data).items
-                        guard let bookRepresentations = decodedBookRepresentations else {return}
-                        let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-                        self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)
+                        guard let bookRepresentations = decodedBookRepresentations else { group.leave(); return}
                         
-                        
-                        
-                        //check the volumes of bookshelf and compare with persistent store
-                        /*
-                         if bookrepresentation.id = book.id then do nothing
-                         if not, create new book
-                         
-                         */
+                        //add entries to bookRepresentationsDirectory
+                        self.bookRepresentationsDirectory[shelf] = bookRepresentations
                     }catch {
                         NSLog("Error decoding fetch data: \(error)")
                     }
-                    
-                    }.resume()
-                
+                    // group leaves
+                    group.leave()
+                }.resume()
             }
         }
-        completion(nil)
+        //notifies mainQueue that everyone in the group has left.
+        group.notify(queue: .main) {
+            completion(nil)
+        }
     }
     
-    
+//    func syncPersistenceStoreWithGoogle{
+//
+//        let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
+//        self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)
+//
+//    }
     
     func fetchFromPersistentStore(id: String, context: NSManagedObjectContext) -> [Book]{
         let request: NSFetchRequest<Book> = Book.fetchRequest()
@@ -140,10 +133,10 @@ class BookController{
     func fetchAndCompareFromPersistentStore(bookRepresentations: [BookRepresentation], shelfID: Int, context: NSManagedObjectContext){
         context.performAndWait {
             
-           
+            
             for bookRepresentation in bookRepresentations{
-
-                let id = bookRepresentation.id
+                
+                guard let id = bookRepresentation.id else {return}
                 let books = fetchFromPersistentStore(id: id, context: context)
                 
                 //creates array of all the shelves that contain a book
@@ -172,8 +165,9 @@ class BookController{
             }
         }
     }
-
+    
     
     //MARK: - Properties
+    var bookRepresentationsDirectory = [Int: [BookRepresentation]]()
     var searchResults = [BookRepresentation]()
 }

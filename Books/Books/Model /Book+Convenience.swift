@@ -33,13 +33,13 @@ extension Book {
     @discardableResult convenience init?(bookRepresentation: BookRepresentation, shelfID: Int, context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
         self.init(context: context)
         
-        self.title = bookRepresentation.volumeInfo.title
+        self.title = bookRepresentation.volumeInfo?.title
         self.volumeID = bookRepresentation.id
         self.shelfID = Int16(shelfID)
-        self.author = bookRepresentation.volumeInfo.authors?.first
+        self.author = bookRepresentation.volumeInfo?.authors?.first
         self.haveRead = shelfID == 4 ? true : false
         self.review = ""
-        self.imagePath = bookRepresentation.volumeInfo.imageLinks?.values.first
+        self.imagePath = bookRepresentation.volumeInfo?.imageLinks?.values.first
         
     }
     
