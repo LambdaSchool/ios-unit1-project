@@ -33,14 +33,11 @@ class ExploreDetailViewController: UIViewController {
 
     // MARK: - Methods
     
-    @IBAction func addToCollection(_ sender: Any) {
-        
-    }
-    
     private func updateLabels() {
         titleLabel?.text = bookRepresentation?.volumeInfo.title
         authorLabel?.text = bookRepresentation?.volumeInfo.authors?.joined(separator: ", ")
         descriptionTextView?.text = bookRepresentation?.volumeInfo.abstract
+        adjustTextViewSize(of: descriptionTextView)
         if let pageCount = bookRepresentation?.volumeInfo.pageCount {
             pagesTextView?.text = String(pageCount)
         }
@@ -53,8 +50,9 @@ class ExploreDetailViewController: UIViewController {
                     NSLog("Error fetching image data: \(error)"); return }
                 guard let data = data else { NSLog("Could not load image data"); return }
                 
+                self.bookRepresentation?.image = data
+                
                 DispatchQueue.main.async {
-                    self.bookRepresentation?.image = data
                     self.imageView?.image = UIImage(data: data)
                 }
             }
@@ -65,6 +63,15 @@ class ExploreDetailViewController: UIViewController {
         addToCollectionButton?.layer.cornerRadius = 10
         addToCollectionButton?.clipsToBounds = true
     }
+    
+    
+    private func adjustTextViewSize(of textView: UITextView) {
+        if textView.text.count < 100 {
+            textView.translatesAutoresizingMaskIntoConstraints = true
+            textView.sizeToFit()
+        }
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "AddToCollectionsModal" {
