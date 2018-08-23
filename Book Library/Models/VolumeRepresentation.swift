@@ -9,6 +9,7 @@
 import Foundation
 
 struct VolumeRepresentation: Codable {
+    let id: String
     let volumeInfo: VolumeInfo
     struct VolumeInfo: Codable {
         let title: String

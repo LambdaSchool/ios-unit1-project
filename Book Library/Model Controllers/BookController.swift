@@ -118,7 +118,6 @@ class BookController {
         }
     }
     
-    
     var searchedVolumes: [VolumeRepresentation] = []
     var bookshelves: [BookshelfRepresentation] = []
     

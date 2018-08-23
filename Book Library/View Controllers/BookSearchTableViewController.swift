@@ -17,6 +17,13 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         super.viewDidLoad()
 
         searchBar.delegate = self
+        
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
+            if let error = error {
+                NSLog("Authorization failed: \(error)")
+                return
+            }
+        }
     }
 
     

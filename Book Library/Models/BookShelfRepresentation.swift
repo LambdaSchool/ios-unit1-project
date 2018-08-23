@@ -11,6 +11,7 @@ import Foundation
 struct BookshelfRepresentation: Codable {
     let items: [Items]
     struct Items: Codable {
+        let id: Int
         let title: String
     }
     
