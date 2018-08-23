@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Books/Model Controller/BookController.swift"
-            timestampString = "556747715.450931"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.256111"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
-            landmarkName = "fetchAndCompareFromPersistentStore(directory:context:)"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Books/Model Controller/BookController.swift"
-            timestampString = "556747715.451273"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.256923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
-            landmarkName = "fetchAndCompareFromPersistentStore(directory:context:)"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Books/Model Controller/BookController.swift"
-            timestampString = "556747715.451479"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.2574691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "161"
-            endingLineNumber = "161"
-            landmarkName = "fetchAndCompareFromPersistentStore(directory:context:)"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -57,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Books/Model Controller/BookController.swift"
-            timestampString = "556747715.4516799"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.25784"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
-            landmarkName = "fetchAndCompareFromPersistentStore(directory:context:)"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -73,13 +73,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Books/Model Controller/BookController.swift"
-            timestampString = "556747715.451876"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.258147"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
-            landmarkName = "fetchAndCompareFromPersistentStore(directory:context:)"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
+            landmarkName = "updateView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.258382"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
+            landmarkName = "updateView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Books/View Controllers/DetailViewController.swift"
+            timestampString = "556750768.258606"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "updateView()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

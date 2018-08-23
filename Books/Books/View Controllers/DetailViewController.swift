@@ -11,22 +11,39 @@ import UIKit
 class DetailViewController: UIViewController {
     
     //MARK: - Methods
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateView()
+    }
+    
     func updateView(){
+        guard isViewLoaded else {return}
         if let book = book {
-            //means we come from the BookshelvesVC
-            //            if let imagePath = book.imagePath{
-            //                imageView.image = UIImage(named: imagePath)
-            //            }
-            self.title = book.title!
-            let tf = book.haveRead
-            if tf{
-                readLabel?.text =  "Read"
-            } else {
-                readLabel?.text =  "Not Read"
-            }
             
-            reviewTextView?.text = book.review!
-            addButtonOutlet?.title = "Save"
+            print(book.author, book.imagePath)
+            //means we come from the BookshelvesVC
+            guard let imagePath = book.imagePath,
+                let imageURL = URL(string: imagePath) else {return}
+            
+            self.title = book.title!
+            if let author = book.author{
+            authorLabel.text = author
+            } else {
+                authorLabel.text = "N/A"
+            }
+            readLabel.text = book.haveRead ? "Read" : "Not Read"
+            
+            reviewTextView.text = book.review!
+            addButtonOutlet.title = "Save"
+            
+            do{
+                let data = try Data(contentsOf: imageURL)
+                imageView.image = UIImage(data: data)
+            } catch {
+                NSLog("Error getting image: \(error)")
+            }
+
+
         }
     }
     
@@ -36,6 +53,7 @@ class DetailViewController: UIViewController {
     
     
     //MARK: - Properties
+    @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var readLabel: UILabel!
     @IBOutlet weak var reviewTextView: UITextView!

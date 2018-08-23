@@ -39,8 +39,8 @@ extension Book {
         self.author = bookRepresentation.volumeInfo?.authors?.first
         self.haveRead = shelfID == 4 ? true : false
         self.review = ""
-        self.imagePath = bookRepresentation.volumeInfo?.imageLinks?.values.first
-        
+        guard let imagePaths = bookRepresentation.volumeInfo?.imageLinks?.values else {return}
+        self.imagePath = Array(imagePaths).last
     }
     
     
