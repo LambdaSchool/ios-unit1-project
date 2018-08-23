@@ -122,13 +122,17 @@ class BookController{
     
     func fetchAndCompareFromPersistentStore(directory: [Int: [BookRepresentation]], context: NSManagedObjectContext){
         
+        var books = [Book]()
+        
         for (shelf, bookRepresentations) in directory{
-
+            //checks persistence store to see if it has a book for each bookRepresentation on Books API
             for bookRepresentation in bookRepresentations {
-
+                
                 guard let id = bookRepresentation.id else {return}
-                let books = fetchFromPersistentStore(id: id, context: context)
-
+                let fetchedBooks = fetchFromPersistentStore(id: id, context: context)
+                for book in fetchedBooks{
+                    books.append(book)
+                }
                 //creates array of all the shelves that contain a book
                 var shelvesContainingBook = [Int]()
                 for book in books {
@@ -145,18 +149,36 @@ class BookController{
             }
         }
         
-        //save changes
-        do {
-            try context.save()
-        } catch {
-            NSLog("Error saving: \(error)")
-            context.reset()
+        //checks to make sure that persistence doesn't have extra books that may result from changes
+        //such as moving and deleting on the API side.
+        print (books.count)
+        for book in books{
+            let shelfID = Int(book.shelfID)
+            if let bookRepresentations = directory[shelfID] {
+                
+                let isShelved = doesShelfContainBook(book: book, bookRepresentations: bookRepresentations)
+                
+                if !isShelved{
+                    deleteFromPersistentStore(book: book, context: context)
+                }
+            } else {
+                deleteFromPersistentStore(book: book, context: context)
+            }
         }
-    
-
+        
+        //save changes
+        saveToPersistentStore(context: context)
+        
     }
     
-    
+    func doesShelfContainBook(book: Book, bookRepresentations: [BookRepresentation]) -> Bool {
+        for bookRepresentation in bookRepresentations {
+            if book.volumeID == bookRepresentation.id{
+                return true
+            }
+        }
+        return false
+    }
     
     func fetchFromPersistentStore(id: String, context: NSManagedObjectContext) -> [Book]{
         let request: NSFetchRequest<Book> = Book.fetchRequest()
@@ -171,7 +193,20 @@ class BookController{
         }
         return books
     }
-
+    //MARK: - CRUD
+    
+    func deleteFromPersistentStore(book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
+        context.delete(book)
+    }
+    
+    func saveToPersistentStore(context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
+        do{
+            try context.save()
+        } catch {
+            NSLog("Error saving to persistent store: \(error)")
+            context.reset()
+        }
+    }
     
     //MARK: - Properties
     var searchResults = [BookRepresentation]()

@@ -13,7 +13,7 @@ extension Book {
     convenience init(title: String,
                      volumeID: String,
                      shelfID: Int,
-                     author: String,
+                     author: String?,
                      haveRead: Bool = false,
                      review: String = "",
                      imagePath: String,

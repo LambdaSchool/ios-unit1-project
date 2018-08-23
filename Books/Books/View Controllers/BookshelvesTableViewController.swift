@@ -18,6 +18,9 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
                 NSLog("Error: \(error)")
                 return
             }
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
         
     }
