@@ -13,6 +13,7 @@ struct BookRepresentation: Decodable, Equatable {
     
     let id: String
     let volumeInfo: VolumeInfo
+    var image: Data?
     
     struct VolumeInfo: Codable, Equatable {
         let title: String
@@ -42,6 +43,7 @@ struct BookRepresentation: Decodable, Equatable {
         
         struct ImageLinks: Codable, Equatable {
             let smallThumbnail: URL
+            let thumbnail: URL
         }
     }
     

@@ -31,6 +31,7 @@ extension Book {
                   title: bookRepresentation.volumeInfo.title,
                   authors: (bookRepresentation.volumeInfo.authors != nil ? bookRepresentation.volumeInfo.authors!.joined(separator: ", ") : nil)!,
                   abstract: bookRepresentation.volumeInfo.abstract ?? nil,
+                  image: bookRepresentation.image != nil ? bookRepresentation.image : nil,
                   pageCount: bookRepresentation.volumeInfo.pageCount != nil ? String(bookRepresentation.volumeInfo.pageCount!) : nil,
                   averageRating: bookRepresentation.volumeInfo.averageRating != nil ? String(format: "%.1f", bookRepresentation.volumeInfo.averageRating!) : nil,
                   ratingsCount: bookRepresentation.volumeInfo.ratingsCount != nil ? String(bookRepresentation.volumeInfo.ratingsCount!) : nil,

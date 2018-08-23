@@ -71,12 +71,49 @@ class BookController {
                 }
             }.resume()
         }
+    }
+    
+    func fetchImageDataFromGoogleBooks(withURL url: URL, completion: @escaping (Data?, Error?) -> Void) {
+        let request = URLRequest(url: url)
         
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            completion(data, error)
+        }.resume()
     }
     
     // MARK: - Persistence Methods
     
+    func create(_ bookRepresentation: BookRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Book? {
+        if let book = fetchSingleBookFromPersistenceStore(forIdentifier: bookRepresentation.id) {
+            return book
+        } else {
+            let book = Book(bookRepresentation: bookRepresentation)
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch {
+                NSLog("Error saving book to persistence store: \(error)")
+            }
+            return book
+        }
+    }
     
+    private func fetchSingleBookFromPersistenceStore(forIdentifier identifier: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Book? {
+        var book: Book?
+        
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        
+        context.performAndWait {
+            do {
+                book = try context.fetch(fetchRequest).first
+            } catch {
+                NSLog("Error fetching book from persistence store: \(error)")
+                book = nil
+            }
+        }
+        
+        return book
+    }
 
     // MARK: - Private Methods
     

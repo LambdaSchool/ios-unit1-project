@@ -59,6 +59,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate, Co
             if let indexPath = tableView.indexPathForSelectedRow {
                 detailVC.bookRepresentation = bookController.searchedBooks[indexPath.row]
                 detailVC.collectionController = collectionController
+                detailVC.bookController = bookController
             }
         }
     }

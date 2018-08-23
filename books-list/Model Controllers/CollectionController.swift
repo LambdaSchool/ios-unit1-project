@@ -66,7 +66,7 @@ class CollectionController {
         }
     }
     
-    func post(_ book: Book, to collection: Collection, completion: @escaping CompletionHandler = { _ in }) {
+    func postFromGoogleBooks(_ book: Book, to collection: Collection, completion: @escaping CompletionHandler = { _ in }) {
         let url = googleBooksBaseURL
             .appendingPathComponent(URLComponents.mylibrary.rawValue)
             .appendingPathComponent(URLComponents.bookshelves.rawValue)
@@ -104,10 +104,48 @@ class CollectionController {
         }
     }
     
+    func deleteFromGoogleBooks(_ book: Book, from collection: Collection, completion: @escaping CompletionHandler = { _ in }) {
+        let url = googleBooksBaseURL
+            .appendingPathComponent(URLComponents.mylibrary.rawValue)
+            .appendingPathComponent(URLComponents.bookshelves.rawValue)
+            .appendingPathComponent(collection.identifier!)
+            .appendingPathComponent(URLComponents.removeVolume.rawValue)
+        let urlComponents = NSURLComponents(url: url, resolvingAgainstBaseURL: true)
+        urlComponents?.queryItems = [URLQueryItem(name: "volumeId", value: book.identifier)]
+        
+        guard let requestURL = urlComponents?.url else {
+            NSLog("Problem constructing URL component")
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = HTTPMethods.post.rawValue
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                completion(error)
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request) { (data, response, error) in
+                if let error = error {
+                    NSLog("Error deleting volumes from collection: \(error)")
+                    completion(error)
+                    return
+                }
+                
+                completion(nil)
+            }.resume()
+        }
+    }
+    
     // MARK: - Persistence Methods
     
     func add(_ book: Book, to collection: Collection, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        post(book, to: collection)
+        postFromGoogleBooks(book, to: collection)
         
         context.performAndWait {
             book.addToCollections(collection)
@@ -144,6 +182,20 @@ class CollectionController {
         }
     }
     
+    func delete(_ book: Book, from collection: Collection, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        deleteFromGoogleBooks(book, from: collection)
+        
+        context.performAndWait {
+            book.removeFromCollections(collection)
+            
+            do {
+                try context.save()
+            } catch {
+                NSLog("Error saving deletion of book from collection: \(error)")
+            }
+        }
+    }
+    
     private func syncPersistenceStore(with collectionRepresentations: [CollectionRepresentation], context: NSManagedObjectContext) throws {
         context.performAndWait {
             for collectionRep in collectionRepresentations {
@@ -175,12 +227,15 @@ class CollectionController {
                 collection = try context.fetch(fetchRequest).first
             } catch {
                 NSLog("Error saving data from persistence store: \(error)")
+                collection = nil
             }
         }
         
-        if let collection = collection { return collection } else { return nil }
+        return collection
     }
     
     // MARK: - Private Methods
+    
+    
     
 }

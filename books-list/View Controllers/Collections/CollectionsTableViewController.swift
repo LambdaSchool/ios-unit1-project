@@ -29,6 +29,11 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
         return frc
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -67,9 +72,6 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
             tableView.reloadRows(at: [indexPath], with: .automatic)
         case .move:
             guard let newIndexPath = newIndexPath, let oldIndexPath = indexPath else { return }
-            //tableView.moveRow(at: oldIndexPath, to: newIndexPath)
-            
-            // could also do:
             tableView.deleteRows(at: [oldIndexPath], with: .automatic)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
@@ -105,11 +107,15 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
         return cell
     }
 
-    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            if let collectionController = collectionController,
+            let collection = fetchedResultsController.fetchedObjects?[indexPath.section],
+            let book = collection.books?.allObjects[indexPath.row] as? Book {
+                
+                collectionController.delete(book, from: collection)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+            }
         } else if editingStyle == .insert {
             
         }    
@@ -118,7 +124,16 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "ShowBookSummary" {
+            let vc = segue.destination as! BookSummaryViewController
+            if let indexPath = tableView.indexPathForSelectedRow,
+                let collection = fetchedResultsController.fetchedObjects?[indexPath.section],
+                let book = collection.books?.allObjects[indexPath.row] as? Book {
+                
+                vc.book = book
+                vc.collectionController = collectionController
+            }
+        }
     }
 
 }

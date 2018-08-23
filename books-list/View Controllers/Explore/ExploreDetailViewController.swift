@@ -25,7 +25,9 @@ class ExploreDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateViews()
+        updateLabels()
+        formatButton()
+        fetchAndSetImage()
     }
     
 
@@ -35,14 +37,31 @@ class ExploreDetailViewController: UIViewController {
         
     }
     
-    private func updateViews() {
+    private func updateLabels() {
         titleLabel?.text = bookRepresentation?.volumeInfo.title
         authorLabel?.text = bookRepresentation?.volumeInfo.authors?.joined(separator: ", ")
         descriptionTextView?.text = bookRepresentation?.volumeInfo.abstract
         if let pageCount = bookRepresentation?.volumeInfo.pageCount {
             pagesTextView?.text = String(pageCount)
         }
-        
+    }
+    
+    private func fetchAndSetImage() {
+        if let bookRepresentation = bookRepresentation {
+            bookController?.fetchImageDataFromGoogleBooks(withURL: bookRepresentation.volumeInfo.imageLinks.thumbnail) { (data, error) in
+                if let error = error {
+                    NSLog("Error fetching image data: \(error)"); return }
+                guard let data = data else { NSLog("Could not load image data"); return }
+                
+                DispatchQueue.main.async {
+                    self.bookRepresentation?.image = data
+                    self.imageView?.image = UIImage(data: data)
+                }
+            }
+        }
+    }
+    
+    private func formatButton() {
         addToCollectionButton?.layer.cornerRadius = 10
         addToCollectionButton?.clipsToBounds = true
     }
@@ -52,10 +71,9 @@ class ExploreDetailViewController: UIViewController {
             let addToCollectionsVC = segue.destination as! AddToCollectionsTableViewController
             // When the user intends to add the book to a collection, we create a new Book instance and pass it down
             if let bookRepresentation = bookRepresentation {
-                addToCollectionsVC.book = Book(bookRepresentation: bookRepresentation)
+                addToCollectionsVC.book = bookController?.create(bookRepresentation)
             }
             addToCollectionsVC.collectionController = collectionController
-            addToCollectionsVC.bookController = bookController
         }
     }
     

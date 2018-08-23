@@ -52,9 +52,7 @@
                             <outlet property="delegate" destination="UQW-cZ-0po" id="eLo-hP-QRZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Collections" id="m0O-fb-MgZ">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Fzi-PS-tJQ"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Collections" id="m0O-fb-MgZ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NHU-QP-VON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -115,6 +113,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="addToCollection:" destination="p4e-5i-esz" eventType="touchUpInside" id="d19-qw-xhR"/>
+                                                            <action selector="markAsFinished:" destination="eyA-to-DQM" eventType="touchUpInside" id="yYQ-4P-6If"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -139,13 +138,23 @@
                     <navigationItem key="navigationItem" title="Book Detail" id="9Uc-IM-V2c">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="action" id="TSb-7N-wQt"/>
-                            <barButtonItem systemItem="organize" id="v0q-Ks-HNz"/>
+                            <barButtonItem systemItem="organize" id="v0q-Ks-HNz">
+                                <connections>
+                                    <segue destination="IRC-Je-3w3" kind="presentation" identifier="UpdateCollectionsModal" id="WiL-SY-o1n"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="authorLabel" destination="ozT-F3-JaA" id="Tmw-fZ-d6Q"/>
+                        <outlet property="buttonLabel" destination="BVF-NK-lbu" id="u2J-gG-wh2"/>
+                        <outlet property="imageView" destination="7yT-8C-yLk" id="JOs-1g-iOa"/>
+                        <outlet property="titleLabel" destination="3eF-xV-XdL" id="85w-Bb-cjD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbH-gz-7Mx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2063" y="1035"/>
+            <point key="canvasLocation" x="1934" y="545"/>
         </scene>
         <!--Explore-->
         <scene sceneID="jsT-eN-37X">
@@ -420,7 +429,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Mu-Mf-hD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2858" y="-13"/>
+            <point key="canvasLocation" x="2900" y="69"/>
         </scene>
         <!--Book List Tab Bar View Controller-->
         <scene sceneID="RTx-Gd-kiI">
@@ -494,7 +503,11 @@
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="dDv-3C-3Nt" secondAttribute="bottom" id="A2U-Jf-93J"/>
                             <constraint firstItem="dDv-3C-3Nt" firstAttribute="leading" secondItem="viQ-rl-TWO" secondAttribute="leading" id="BFh-y5-TBo"/>
+                            <constraint firstItem="dDv-3C-3Nt" firstAttribute="leading" secondItem="xL5-TC-c0I" secondAttribute="leading" id="F4z-6U-53c"/>
+                            <constraint firstItem="dDv-3C-3Nt" firstAttribute="trailing" secondItem="xL5-TC-c0I" secondAttribute="trailing" id="Zlx-Fy-gVp"/>
+                            <constraint firstItem="dDv-3C-3Nt" firstAttribute="top" secondItem="xL5-TC-c0I" secondAttribute="top" id="d1h-Hj-qwF"/>
                             <constraint firstAttribute="trailing" secondItem="dDv-3C-3Nt" secondAttribute="trailing" id="lFi-9k-cq1"/>
+                            <constraint firstItem="dDv-3C-3Nt" firstAttribute="bottom" secondItem="xL5-TC-c0I" secondAttribute="bottom" id="pwE-Sb-jAh"/>
                             <constraint firstItem="dDv-3C-3Nt" firstAttribute="top" secondItem="viQ-rl-TWO" secondAttribute="top" id="ywb-Cb-wCC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="xL5-TC-c0I"/>
@@ -502,7 +515,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c2I-Gh-jTa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2938" y="1149"/>
+            <point key="canvasLocation" x="2900" y="767"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="WiL-SY-o1n"/>
+    </inferredMetricsTieBreakers>
 </document>
