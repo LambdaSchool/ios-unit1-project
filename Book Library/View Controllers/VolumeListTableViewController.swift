@@ -36,14 +36,18 @@ class VolumeListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath)
-        guard let authors = bookController.bookshelfVolumes[indexPath.row].volumeInfo.authors else { return cell }
-        var authorString: String!
-        for author in authors {
-            authorString.append(author)
+        var authorString = ""
+        if let authors = bookController.bookshelfVolumes[indexPath.row].volumeInfo.authors {
+            for author in authors {
+                
+                authorString.append(author)
+            }
+        } else {
+            authorString = "No author information provided"
         }
-        
+       
         cell.textLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.title
-        cell.detailTextLabel?.text = authorString ?? ""
+        cell.detailTextLabel?.text = authorString
 
         return cell
     }
