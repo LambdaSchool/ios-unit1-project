@@ -13,7 +13,10 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bookController.fetchBookshelvesFromGoogle()
+        bookController.fetchBookshelvesFromGoogle { (error) in
+            
+        }
+        print(fetchResultsController.sections)
     }
     // MARK: - NSFetchedResultsControllerDelegate methods
     

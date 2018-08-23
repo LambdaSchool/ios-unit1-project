@@ -153,6 +153,14 @@ class BookController{
                 
             }
         }
+        context.performAndWait {
+            do {
+                try context.save()
+            } catch {
+                NSLog("Error saving: \(error)")
+                context.reset()
+            }
+        }
     }
     
     
