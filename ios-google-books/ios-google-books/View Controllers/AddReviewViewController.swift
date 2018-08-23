@@ -26,11 +26,13 @@ class AddReviewViewController: UIViewController {
   @IBAction func saveReview(_ sender: Any) {
     guard let bookReview = bookReviewTextView.text else { return }
     if let book = book {
-      do {
-        try bookController?.updateBook(book: book, review: bookReview)
-      } catch {
-        NSLog("Error adding review to book")
-        return
+      if !bookReview.isEmpty {
+        do {
+          try bookController?.updateBook(book: book, review: bookReview)
+        } catch {
+          NSLog("Error adding review to book")
+          return
+        }
       }
     }
     let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]

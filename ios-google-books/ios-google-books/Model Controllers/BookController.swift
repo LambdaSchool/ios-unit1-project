@@ -10,34 +10,24 @@ import Foundation
 import CoreData
 
 let baseURL = URL(string: "https://www.googleapis.com/books/v1/")!
+
 class BookController {
-  // createBook only temp for base setup
   func createBook(title: String, author: String, synopsis: String, hasRead: Bool = false, id: String, thumbnail: NSData, review: String = "") {
     let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead, id: id, thumbnail: thumbnail, review: review)
   }
   
-  func toggleRead(book: Book) throws {
-    let moc = CoreDataManager.shared.mainContext
-    
-    var error: Error?
-    
-    moc.performAndWait {
-      if book.hasRead {
-        book.hasRead = !book.hasRead
-        book.review = ""
-      } else {
-        book.hasRead = !book.hasRead
-      }
-      
-      do {
-        try moc.save()
-      } catch let saveError {
-        error = saveError
-      }
+  func toggleRead(book: Book) throws {    
+    if book.hasRead {
+      book.hasRead = !book.hasRead
+      book.review = ""
+    } else {
+      book.hasRead = !book.hasRead
     }
     
-    if let error = error {
-      throw error
+    do {
+      try saveToPersistentStore()
+    } catch {
+      NSLog("Could not save changes!")
     }
   }
   
@@ -62,23 +52,14 @@ class BookController {
   }
   
   func updateBook(book: Book, review: String) throws {
-    let moc = CoreDataManager.shared.mainContext
     
-    var error: Error?
-    
-    moc.performAndWait {
-      book.review = review
-      book.hasRead = true
-      
-      do {
-        try moc.save()
-      } catch let saveError {
-        error = saveError
-      }
-    }
-    
-    if let error = error {
-      throw error
+    book.review = review
+    book.hasRead = true
+
+    do {
+      try saveToPersistentStore()
+    } catch {
+      NSLog("Could not save changes!")
     }
   }
   

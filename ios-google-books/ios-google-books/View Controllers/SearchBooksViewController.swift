@@ -20,8 +20,7 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    
-    // Show the navigation bar on other view controllers
+
     self.navigationController?.setNavigationBarHidden(false, animated: animated)
   }
   
@@ -50,7 +49,7 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
   
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let searchTerm = searchBar.text, !searchTerm.isEmpty else { return }
-
+    
     bookController.searchBooksViaAPI(searchTerm: searchTerm) { (books, error) in
       if let error = error {
         NSLog("error with fetching books via API: \(error)")

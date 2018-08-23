@@ -31,7 +31,6 @@ class BookDetailViewController: UIViewController {
           markAsReadButton.setTitle("Mark as unread", for: .normal)
         }
       }
-  
     }
   }
   
