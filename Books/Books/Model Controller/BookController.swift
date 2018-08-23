@@ -53,7 +53,8 @@ class BookController{
             
             do{
                 let decoded = try JSONDecoder().decode(Bookshelf.self, from: data)
-                self.searchResults = decoded.items
+                
+                self.searchResults = decoded.items!
                 completion(nil)
             } catch {
                 NSLog("Error decoding: \(error)")
@@ -96,7 +97,8 @@ class BookController{
                     
                     //decode JSONData
                     do{
-                        let bookRepresentations = try JSONDecoder().decode(Bookshelf.self, from: data).items
+                        let decodedBookRepresentations = try JSONDecoder().decode(Bookshelf.self, from: data).items
+                        guard let bookRepresentations = decodedBookRepresentations else {return}
                         let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                         
                         self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)

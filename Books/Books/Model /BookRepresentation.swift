@@ -9,8 +9,8 @@
 import Foundation
 
 struct Bookshelf: Codable, Equatable {
-    let totalItems: Int
-    let items: [BookRepresentation]
+    let totalItems: Int?
+    let items: [BookRepresentation]?
 }
 
 struct BookRepresentation: Codable, Equatable {
