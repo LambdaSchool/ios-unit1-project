@@ -71,9 +71,20 @@ class BookController {
         }
     }
 
-    func delete(book: Book) {
-        let moc = CoreDataStack.shared.mainContext
-        moc.delete(book)
+    func delete(book: Book, from bookshelf: Bookshelf? = nil) {
+        // Want to delete only from the bookshelf that we're current in..., only delete from core data if book is not part of any other bookshelves, or if bookshelf is nil
+        
+        if let bookshelf = bookshelf {
+            book.removeFromBookshelves(bookshelf)
+        }
+        
+        if book.bookshelves?.count == 0 || bookshelf == nil {
+            let moc = CoreDataStack.shared.mainContext
+            moc.delete(book)
+        }
+        
+//        let moc = CoreDataStack.shared.mainContext
+//        moc.delete(book)
         
         do {
             try CoreDataStack.shared.save()

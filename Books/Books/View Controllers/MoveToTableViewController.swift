@@ -15,6 +15,16 @@ class MoveToTableViewController: UITableViewController, NSFetchedResultsControll
     var book: Book?
     var bookController: BookController?
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if currentBookshelf == nil {
+            navigationItem.title = "Add to Bookshelf…"
+        } else {
+            navigationItem.title = "Move to Bookshelf…"
+        }
+    }
+    
     @IBAction func addBookshelf(_ sender: Any) {
         
         let alert = UIAlertController(title: "New Bookshelf", message: nil, preferredStyle: .alert)

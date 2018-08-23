@@ -65,6 +65,10 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
             self.performSegue(withIdentifier: "ShowMoveVC", sender: self)
         }))
         
+        actionSheet.addAction(UIAlertAction(title: "Add to Bookshelf…", style: .default, handler: { (action) in
+            self.performSegue(withIdentifier: "ShowAddVC", sender: self)
+        }))
+        
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
@@ -173,7 +177,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let book = fetchedResultsController.object(at: indexPath)
-            bookController?.delete(book: book)
+            bookController?.delete(book: book, from: bookshelf)
             
             // fetchedResultsController takes care of reloading
 //            tableView.reloadData()
@@ -197,7 +201,12 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         if let moveToVC = segue.destination as? MoveToTableViewController {
             moveToVC.bookController = bookController
             moveToVC.book = lastSelectedBook
-            moveToVC.currentBookshelf = bookshelf
+            
+            // When moving book to another bookshelf, we want to have a currentBookshelf to remove it from. When we add book to another bookshelf, we don't want to remove the book from the currentBookshelf so let it as nil.
+            
+            if segue.identifier == "ShowMoveVC" {
+                moveToVC.currentBookshelf = bookshelf
+            }
         }
     }
 }
