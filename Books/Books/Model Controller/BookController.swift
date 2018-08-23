@@ -65,7 +65,7 @@ class BookController{
     
     func fetchBookshelvesFromGoogle(completion: @escaping CompletionHandler = {_ in}){
         
-        for shelf in 0 ... 9 {
+        for shelf in 0 ... 8 {
             let bookshelvesURL = baseURL
                 .appendingPathComponent("mylibrary")
                 .appendingPathComponent("bookshelves")

@@ -43,4 +43,15 @@ extension Book {
         
     }
     
+    
+    static let sectionNameDictionary = [ 0: "Favorites",
+                                  1: "Purchased",
+                                  2: "To Read",
+                                  3: "ReadingNow",
+                                  4: "Have Read",
+                                  5: "Reviewed",
+                                  6: "Recently Viewed",
+                                  7: "My eBooks",
+                                  8: "Books For You"]
+    
 }

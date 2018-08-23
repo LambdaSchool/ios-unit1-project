@@ -14,9 +14,13 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     override func viewDidLoad() {
         super.viewDidLoad()
         bookController.fetchBookshelvesFromGoogle { (error) in
-            
+            if let error = error {
+                NSLog("Error: \(error)")
+                return
+            }
+            print(self.fetchResultsController.sections)
         }
-        print(fetchResultsController.sections)
+        
     }
     // MARK: - NSFetchedResultsControllerDelegate methods
     
@@ -59,7 +63,9 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     
     // MARK: - Table view data source
-    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return Book.sectionNameDictionary[section]
+    }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchResultsController.sections?.count ?? 1
     }
