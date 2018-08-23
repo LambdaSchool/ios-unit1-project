@@ -55,6 +55,23 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
 
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let destinationVC = segue.destination as? DetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow else {return}
+        destinationVC.bookController = bookController
+        
+        if segue.identifier == "ViewNewCollection"{
+            destinationVC.bookRepresentation = bookController.searchResults[indexPath.row]
+        }
+        
+    }
+    
+    //MARK: - Properties
     let bookController = BookController()
     @IBOutlet weak var searchBar: UISearchBar!
 }
+
+
+

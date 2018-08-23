@@ -20,17 +20,12 @@ class DetailViewController: UIViewController {
         guard isViewLoaded else {return}
         if let book = book {
             
-            print(book.author, book.imagePath)
             //means we come from the BookshelvesVC
             guard let imagePath = book.imagePath,
                 let imageURL = URL(string: imagePath) else {return}
             
             self.title = book.title!
-            if let author = book.author{
-            authorLabel.text = author
-            } else {
-                authorLabel.text = "N/A"
-            }
+            authorLabel.text = book.author ?? "N/A"
             readLabel.text = book.haveRead ? "Read" : "Not Read"
             
             reviewTextView.text = book.review!
@@ -42,8 +37,24 @@ class DetailViewController: UIViewController {
             } catch {
                 NSLog("Error getting image: \(error)")
             }
-
-
+        }
+        if let bookRepresentation = bookRepresentation {
+            self.title = bookRepresentation.volumeInfo?.title
+            authorLabel.text = bookRepresentation.volumeInfo?.authors?.first
+            readLabel.text = "Not Read"
+            reviewTextView.text = ""
+            
+            addButtonOutlet.title = "Add"
+            
+            guard let imageLinks = bookRepresentation.volumeInfo?.imageLinks?.values,
+                let imagePath = Array(imageLinks).last,
+                let imageURL = URL(string: imagePath) else {return}
+            do{
+                let image = UIImage(data: try Data(contentsOf: imageURL))
+                imageView.image = image
+            } catch {
+                NSLog("Error loading image")
+            }
         }
     }
     
@@ -61,6 +72,11 @@ class DetailViewController: UIViewController {
     
     var bookController: BookController?
     var book: Book? {
+        didSet{
+            updateView()
+        }
+    }
+    var bookRepresentation: BookRepresentation?{
         didSet{
             updateView()
         }
