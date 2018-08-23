@@ -24,7 +24,6 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
@@ -85,9 +84,9 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   func tableView(_ tableView: UITableView,
                  titleForHeaderInSection section: Int) -> String? {
-    if section == 0 && flag {
+    if fetchedResultsController.sections?[section].name == String(0) && flag {
       return "To Read"
-    } else if section == 1 && flag {
+    } else if fetchedResultsController.sections?[section].name == String(1) && flag {
       return "Read"
     } else {
       return nil
