@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BookStub
+struct BookStub: Equatable
 {
 	var title:String
 	var authors:[String]
@@ -16,6 +16,13 @@ struct BookStub
 	var tags:[String]
 	var smallThumb:String?
 	var thumbnail:String?
+	var details:String?
+	var googleIdentifier:String
+
+	static func ==(l:BookStub, r:BookStub) -> Bool
+	{
+		return l.googleIdentifier == r.googleIdentifier
+	}
 }
 
 struct BookshelfStub
@@ -38,10 +45,7 @@ struct GBookshelf: Codable, Equatable, Comparable
 	var id:Int
 	var selfLink:String
 	var title:String
-	//var updated:Date?
-//	var created:Date?
 	var volumeCount:Int?
-	//var volumesLastUpdated:Date?
 
 	static func ==(l:GBookshelf, r:GBookshelf) -> Bool
 	{
@@ -97,9 +101,30 @@ struct GBook: Codable
 
 class BookController
 {
+	// TODO(will): store bookshelves "reversed":
+	// eg: books know what bookshelves they're on, and build
+	// the bookshelves from them, rather than the other way around
 	var shelves:[BookshelfStub] = []
 
-	
+	func reloadBook(_ stub:BookStub) -> BookStub?
+	{
+		for i in 0..<shelves.count {
+			if let index = shelves[i].volumes.index(of: stub) {
+				return shelves[i].volumes[index]
+			}
+		}
+		return nil
+	}
+
+	func updateReview(_ stub:BookStub, _ review:String)
+	{
+		for i in 0..<shelves.count {
+			if let index = shelves[i].volumes.index(of: stub) {
+				shelves[i].volumes[index].review = review
+				// TODO(will) update coredata
+			}
+		}
+	}
 
 	func fetchVolumesInBookshelf(_ shelf:GBookshelf,
 								   _ shelves:GBookshelf.GBookshelfCollection,
@@ -122,7 +147,9 @@ class BookController
 						review: "",
 						tags: book.categories ?? [],
 						smallThumb: book.volumeInfo.imageLinks?.smallThumbnail,
-						thumbnail: book.volumeInfo.imageLinks?.thumbnail))
+						thumbnail: book.volumeInfo.imageLinks?.thumbnail,
+						details: book.volumeInfo.description,
+						googleIdentifier: book.id))
 				}
 				self.shelves.append(stub)
 				if self.shelves.count == shelves.items.count {

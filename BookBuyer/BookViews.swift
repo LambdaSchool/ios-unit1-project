@@ -67,39 +67,12 @@ class BookCell:UICollectionViewCell
 		didSet {
 			titleLabel.text = book.title
 
-			print(book.smallThumb ?? "No small thumb", book.thumbnail ?? "no thumbnail")
 			if let thumb = book.smallThumb {
 				coverImage.downloadImage(thumb)
 			} else if let thumb = book.thumbnail {
 				coverImage.downloadImage(thumb)
 			}
 		}
-	}
-
-	func loadImageFromURL(_ urlString:String)
-	{
-		let url = URL(string: urlString)!
-		let req = URLRequest(url:url)
-		print("Loading image..")
-		GBooksAuthClient.shared.authorizeAndDataTask(req, EmptyHandler) { (data, _, error) in
-			if let error = error {
-				App.handleError(EmptyHandler, "Error loading image: \(error)")
-				return
-			}
-
-			guard let data = data else {
-				App.handleError(EmptyHandler, "Error loading image: no data")
-				return
-			}
-
-			DispatchQueue.main.async {
-				print("Got image, decoding")
-				if let img = UIImage(data: data) {
-					print("Set!")
-					self.coverImage.image = img
-				}
-			}
-    	}
 	}
 }
 
@@ -122,15 +95,73 @@ class BookListVC:UICollectionViewController
 		cell.book = shelf.volumes[indexPath.item]
 		return cell
 	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let dest = segue.destination as? BookDetailVC {
+			if let cell = sender as? BookCell {
+				dest.book = cell.book
+			}
+		}
+	}
 }
 
 class BookDetailVC:UIViewController
 {
+	// we need to modify the text on this button based on
+	// whether the book is owned or not.
+	@IBOutlet weak var buyButton: UIBarButtonItem!
+
+	@IBOutlet weak var descriptionLabel: UILabel!
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var coverImage: UIImageView!
+
+	var book:BookStub!
+	override func viewWillAppear(_ animated: Bool)
+	{
+		book = App.bookController.reloadBook(book)
+		if book == nil {
+			return
+		}
+		titleLabel.text = book.title
+		descriptionLabel.text = book.details
+		//TODO(will): Fix description label scrolling
+		// it should scroll, but doesn't beacuse... constraints?
+		// need to resize it at runtime, I guess?
+
+
+		if let thumb = book.thumbnail {
+			coverImage.downloadImage(thumb)
+		} else if let thumb = book.smallThumb {
+			coverImage.downloadImage(thumb)
+		}
+	}
+
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let dest = segue.destination as? BookReviewVC {
+			dest.book = book
+		}
+	}
 
 }
 
 class BookReviewVC:UIViewController
 {
+	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var reviewField: UITextView!
+	var book:BookStub!
+	override func viewWillAppear(_ animated: Bool)
+	{
+		titleLabel.text = book.title
+		reviewField.text = book.review
+	}
+
+	@IBAction func saveReview(_ sender: Any)
+	{
+		guard let review = reviewField.text else { return }
+		App.bookController.updateReview(book, review)
+		navigationController?.popViewController(animated: true)
+	}
 
 }
 

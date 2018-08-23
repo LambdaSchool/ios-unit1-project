@@ -615,7 +615,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QEJ-g5-fMP">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QEJ-g5-fMP">
                                 <rect key="frame" x="15" y="79" width="345" height="333.5"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="252" text="The Eye of Markov" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KU1-nN-Vwx">
@@ -624,24 +624,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="It's a story about a girl who...." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEk-qm-Onb">
-                                <rect key="frame" x="15" y="462" width="345" height="140.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-JO-oF6">
+                                <rect key="frame" x="15" y="462.5" width="345" height="140.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Eye of Marov was written in 1984, about a girl who exists in multiple timelines, that constantly reset themesleves." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxX-3g-eTm">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="61"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oxX-3g-eTm" secondAttribute="bottom" id="2qG-br-O8J"/>
+                                    <constraint firstAttribute="trailing" secondItem="oxX-3g-eTm" secondAttribute="trailing" id="Tib-BP-Dzw"/>
+                                    <constraint firstItem="oxX-3g-eTm" firstAttribute="width" secondItem="IJ9-JO-oF6" secondAttribute="width" id="gJX-fk-p9b"/>
+                                    <constraint firstItem="oxX-3g-eTm" firstAttribute="top" secondItem="IJ9-JO-oF6" secondAttribute="top" id="gda-1Z-b34"/>
+                                    <constraint firstItem="oxX-3g-eTm" firstAttribute="leading" secondItem="IJ9-JO-oF6" secondAttribute="leading" id="m4G-Q1-sM7"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JvU-kc-yMj" firstAttribute="bottom" secondItem="PEk-qm-Onb" secondAttribute="bottom" constant="15" id="3r2-Gz-C23"/>
-                            <constraint firstItem="PEk-qm-Onb" firstAttribute="leading" secondItem="JvU-kc-yMj" secondAttribute="leading" constant="15" id="AA1-ik-xrg"/>
+                            <constraint firstItem="IJ9-JO-oF6" firstAttribute="top" secondItem="KU1-nN-Vwx" secondAttribute="bottom" constant="15" id="0Pa-Ih-TVL"/>
                             <constraint firstItem="QEJ-g5-fMP" firstAttribute="height" secondItem="zsF-fO-0Eh" secondAttribute="height" multiplier="0.5" id="CfM-Gj-qNY"/>
-                            <constraint firstItem="PEk-qm-Onb" firstAttribute="top" secondItem="KU1-nN-Vwx" secondAttribute="bottom" constant="15" id="Cqg-OO-G8h"/>
+                            <constraint firstItem="JvU-kc-yMj" firstAttribute="bottom" secondItem="IJ9-JO-oF6" secondAttribute="bottom" constant="15" id="CgH-Gf-bI2"/>
                             <constraint firstItem="KU1-nN-Vwx" firstAttribute="leading" secondItem="JvU-kc-yMj" secondAttribute="leading" constant="15" id="IJV-e3-xDl"/>
                             <constraint firstItem="QEJ-g5-fMP" firstAttribute="centerX" secondItem="JvU-kc-yMj" secondAttribute="centerX" id="MBY-q9-1NB"/>
+                            <constraint firstItem="JvU-kc-yMj" firstAttribute="trailing" secondItem="IJ9-JO-oF6" secondAttribute="trailing" constant="15" id="QOO-D1-rrK"/>
                             <constraint firstItem="JvU-kc-yMj" firstAttribute="trailing" secondItem="QEJ-g5-fMP" secondAttribute="trailing" constant="15" id="TZo-4N-8vP"/>
                             <constraint firstItem="QEJ-g5-fMP" firstAttribute="leading" secondItem="JvU-kc-yMj" secondAttribute="leading" constant="15" id="UNp-hJ-Mgh"/>
-                            <constraint firstItem="JvU-kc-yMj" firstAttribute="trailing" secondItem="PEk-qm-Onb" secondAttribute="trailing" constant="15" id="kE5-77-yBE"/>
+                            <constraint firstItem="IJ9-JO-oF6" firstAttribute="leading" secondItem="JvU-kc-yMj" secondAttribute="leading" constant="15" id="hTJ-AP-g1Y"/>
                             <constraint firstItem="KU1-nN-Vwx" firstAttribute="top" secondItem="QEJ-g5-fMP" secondAttribute="bottom" constant="15" id="pd2-Bv-Pm9"/>
                             <constraint firstItem="JvU-kc-yMj" firstAttribute="trailing" secondItem="KU1-nN-Vwx" secondAttribute="trailing" constant="15" id="wkJ-Qx-sc8"/>
                             <constraint firstItem="QEJ-g5-fMP" firstAttribute="top" secondItem="JvU-kc-yMj" secondAttribute="top" constant="15" id="zNA-By-tGQ"/>
@@ -662,6 +674,12 @@
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="buyButton" destination="y60-xg-X0P" id="Ddf-Jm-mqZ"/>
+                        <outlet property="coverImage" destination="QEJ-g5-fMP" id="sxU-UA-NBz"/>
+                        <outlet property="descriptionLabel" destination="oxX-3g-eTm" id="HEp-SV-fEW"/>
+                        <outlet property="titleLabel" destination="KU1-nN-Vwx" id="Olr-kd-dQb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dA1-Rb-zkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -702,8 +720,16 @@
                         <viewLayoutGuide key="safeArea" id="RkL-En-CO9"/>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="cXZ-jf-NVS">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="BLw-Wv-mVx"/>
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="BLw-Wv-mVx">
+                            <connections>
+                                <action selector="saveReview:" destination="xJi-NZ-kjh" id="ijk-Do-7v1"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="reviewField" destination="3Mt-bx-s77" id="DMc-g3-qW9"/>
+                        <outlet property="titleLabel" destination="vze-hK-nYB" id="Xtt-LS-Ghh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5p3-Pp-V6W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
