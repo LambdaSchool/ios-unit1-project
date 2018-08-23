@@ -13,11 +13,12 @@ class BookShelfTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
+            if let error = error {
+                NSLog("Authorization failed: \(error)")
+                return
+            }
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -31,14 +32,15 @@ class BookShelfTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookController.bookshelves.count
+        return bookController.bookshelfVolumes.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
 
-        cell.textLabel?.text = bookController.bookshelves[indexPath.row].items[indexPath.row].title
+        cell.textLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.title
+        cell.detailTextLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.description
 
         return cell
     }
@@ -79,7 +81,7 @@ class BookShelfTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -87,5 +89,5 @@ class BookShelfTableViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
-    */
+    
 }

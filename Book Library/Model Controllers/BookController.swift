@@ -34,8 +34,12 @@ class BookController {
                 }
                 guard let data = data else { return }
                 
+                if let json = String(data: data, encoding: .utf8) {
+                    print(json)
+                }
+                
                 do {
-                    let bookRepresentations = try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
+                    let bookRepresentations = try JSONDecoder().decode(SearchVolumeRepresentations.self, from: data).items
                     self.searchedVolumes = bookRepresentations
                     completion(nil)
                 } catch {
@@ -67,14 +71,14 @@ class BookController {
                 }
                 guard let data = data else { return }
                 
-                if let json = String(data: data, encoding: .utf8) {
-                    print(json)
-                }
+//                if let json = String(data: data, encoding: .utf8) {
+//                    print(json)
+//                }
                 
                 do {
                     let bookshelfRepresentations = try JSONDecoder().decode(BookshelfRepresentation.self, from: data)
                     self.bookshelves = [bookshelfRepresentations]
-                    print(self.bookshelves)
+                    //print(self.bookshelves)
                     completion(nil)
                 } catch {
                     NSLog("Error decoding JSON data: \(error)")
@@ -109,6 +113,8 @@ class BookController {
                 }
                 
                 do {
+                    let volumeRepresentations = try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
+                    self.bookshelfVolumes = volumeRepresentations
                     completion(nil)
                 } catch {
                     NSLog("Error decoding JSON data: \(error)")
@@ -118,7 +124,8 @@ class BookController {
         }
     }
     
-    var searchedVolumes: [VolumeRepresentation] = []
+    var searchedVolumes: [SearchVolumeRepresentation] = []
     var bookshelves: [BookshelfRepresentation] = []
+    var bookshelfVolumes: [VolumeRepresentation] = []
     
 } 

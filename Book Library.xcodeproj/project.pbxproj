@@ -15,6 +15,7 @@
 		8F6096A1212DCAEE00A91D8E /* AddBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6096A0212DCAEE00A91D8E /* AddBookViewController.swift */; };
 		8F6096A3212DCB9A00A91D8E /* BookShelfTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6096A2212DCB9A00A91D8E /* BookShelfTableViewController.swift */; };
 		8F6096A5212DD17900A91D8E /* BookShelfRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6096A4212DD17900A91D8E /* BookShelfRepresentation.swift */; };
+		8F6096A7212F198900A91D8E /* VolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6096A6212F198900A91D8E /* VolumeRepresentation.swift */; };
 		8F6CDE42212B81EF00C9692C /* BookSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE41212B81EF00C9692C /* BookSearchTableViewController.swift */; };
 		8F6CDE44212C3C4D00C9692C /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE43212C3C4D00C9692C /* BookController.swift */; };
 		8F6CDE45212C44DB00C9692C /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6CDE32212B7ACF00C9692C /* GTMSessionFetcher.framework */; };
@@ -23,7 +24,7 @@
 		8F6CDE48212C44DB00C9692C /* GTMAppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6CDE33212B7ACF00C9692C /* GTMAppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8F6CDE49212C44DB00C9692C /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6CDE34212B7ACF00C9692C /* AppAuth.framework */; };
 		8F6CDE4A212C44DB00C9692C /* AppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8F6CDE34212B7ACF00C9692C /* AppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		8F6CDE4C212C7C0300C9692C /* VolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE4B212C7C0300C9692C /* VolumeRepresentation.swift */; };
+		8F6CDE4C212C7C0300C9692C /* SearchVolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE4B212C7C0300C9692C /* SearchVolumeRepresentation.swift */; };
 		8F6CDE4F212CA7A100C9692C /* Book.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE4D212CA7A100C9692C /* Book.xcdatamodeld */; };
 		8F6CDE51212CA84600C9692C /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F6CDE50212CA84600C9692C /* CoreDataStack.swift */; };
 /* End PBXBuildFile section */
@@ -55,12 +56,13 @@
 		8F6096A0212DCAEE00A91D8E /* AddBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookViewController.swift; sourceTree = "<group>"; };
 		8F6096A2212DCB9A00A91D8E /* BookShelfTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfTableViewController.swift; sourceTree = "<group>"; };
 		8F6096A4212DD17900A91D8E /* BookShelfRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfRepresentation.swift; sourceTree = "<group>"; };
+		8F6096A6212F198900A91D8E /* VolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeRepresentation.swift; sourceTree = "<group>"; };
 		8F6CDE32212B7ACF00C9692C /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
 		8F6CDE33212B7ACF00C9692C /* GTMAppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMAppAuth.framework; sourceTree = "<group>"; };
 		8F6CDE34212B7ACF00C9692C /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
 		8F6CDE41212B81EF00C9692C /* BookSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTableViewController.swift; sourceTree = "<group>"; };
 		8F6CDE43212C3C4D00C9692C /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
-		8F6CDE4B212C7C0300C9692C /* VolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeRepresentation.swift; sourceTree = "<group>"; };
+		8F6CDE4B212C7C0300C9692C /* SearchVolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVolumeRepresentation.swift; sourceTree = "<group>"; };
 		8F6CDE4E212CA7A100C9692C /* Book.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Book.xcdatamodel; sourceTree = "<group>"; };
 		8F6CDE50212CA84600C9692C /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -144,7 +146,8 @@
 		8F6CDE3E212B81A600C9692C /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				8F6CDE4B212C7C0300C9692C /* VolumeRepresentation.swift */,
+				8F6CDE4B212C7C0300C9692C /* SearchVolumeRepresentation.swift */,
+				8F6096A6212F198900A91D8E /* VolumeRepresentation.swift */,
 				8F6096A4212DD17900A91D8E /* BookShelfRepresentation.swift */,
 				8F6CDE4D212CA7A100C9692C /* Book.xcdatamodeld */,
 				8F6CDE50212CA84600C9692C /* CoreDataStack.swift */,
@@ -243,12 +246,13 @@
 				8F4B384A212B6A0400C274A0 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				8F6096A1212DCAEE00A91D8E /* AddBookViewController.swift in Sources */,
 				8F6CDE44212C3C4D00C9692C /* BookController.swift in Sources */,
-				8F6CDE4C212C7C0300C9692C /* VolumeRepresentation.swift in Sources */,
+				8F6CDE4C212C7C0300C9692C /* SearchVolumeRepresentation.swift in Sources */,
 				8F6CDE42212B81EF00C9692C /* BookSearchTableViewController.swift in Sources */,
 				8F4B382A212B623700C274A0 /* AppDelegate.swift in Sources */,
 				8F6096A3212DCB9A00A91D8E /* BookShelfTableViewController.swift in Sources */,
 				8F6CDE4F212CA7A100C9692C /* Book.xcdatamodeld in Sources */,
 				8F6CDE51212CA84600C9692C /* CoreDataStack.swift in Sources */,
+				8F6096A7212F198900A91D8E /* VolumeRepresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
