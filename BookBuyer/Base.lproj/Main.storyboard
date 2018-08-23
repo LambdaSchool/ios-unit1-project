@@ -550,7 +550,7 @@
                     <navigationItem key="navigationItem" title="Shelves" id="vSx-pm-vJb">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="qa9-zV-yqH">
                             <connections>
-                                <segue destination="dFF-DD-rwB" kind="show" id="T2L-hV-Y0S"/>
+                                <segue destination="V1A-Oy-IHD" kind="show" id="hxg-Gh-Tgb"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -559,28 +559,53 @@
             </objects>
             <point key="canvasLocation" x="2673" y="-107"/>
         </scene>
-        <!--Search-->
-        <scene sceneID="vE5-bc-dfZ">
+        <!--Book SearchVC-->
+        <scene sceneID="PdT-Is-3xD">
             <objects>
-                <viewController id="dFF-DD-rwB" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="A4P-D7-W2c">
+                <tableViewController id="V1A-Oy-IHD" customClass="BookSearchVC" customModule="BookBuyer" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="umY-dG-SbL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6gW-AM-KFe">
-                                <rect key="frame" x="0.0" y="64" width="375" height="56"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </searchBar>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="4TL-jq-9Ko"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Search" id="3ma-Uc-dat"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bEd-CY-CjW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="cye-Px-mqy">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="V1A-Oy-IHD" id="Z69-AT-Yny"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchBookCell" textLabel="FYW-Ag-uP4" style="IBUITableViewCellStyleDefault" id="vjl-9n-Ytn">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vjl-9n-Ytn" id="oEV-iY-wlR">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FYW-Ag-uP4">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="4LI-PC-bGo" kind="show" id="OSv-Um-I9Y"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="V1A-Oy-IHD" id="A2n-27-E4W"/>
+                            <outlet property="delegate" destination="V1A-Oy-IHD" id="FaY-DC-56t"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TuM-cr-y0Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3881" y="-463"/>
+            <point key="canvasLocation" x="3829" y="-435"/>
         </scene>
         <!--Edit Transaction-->
         <scene sceneID="gO2-ch-j9W">
@@ -598,7 +623,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dot-5Z-hqg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2770" y="1137"/>
+            <point key="canvasLocation" x="2673" y="1232"/>
         </scene>
         <!--Details-->
         <scene sceneID="nJ5-xp-eO9">
@@ -627,8 +652,11 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJ9-JO-oF6">
                                 <rect key="frame" x="15" y="462.5" width="345" height="140.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Eye of Marov was written in 1984, about a girl who exists in multiple timelines, that constantly reset themesleves." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxX-3g-eTm">
-                                        <rect key="frame" x="0.0" y="0.0" width="345" height="61"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxX-3g-eTm">
+                                        <rect key="frame" x="0.0" y="0.0" width="345" height="588.5"/>
+                                        <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse sed urna ante. Aenean vulputate, felis eleifend ornare molestie, mi urna mollis quam, sed pharetra lacus tellus ac nunc. Mauris sem orci, volutpat non ligula vel, pellentesque commodo dolor. Proin in leo vitae neque pretium feugiat et sit amet arcu. Sed iaculis nisl commodo mauris vehicula hendrerit. Sed vestibulum, nulla vel interdum pulvinar, felis libero sollicitudin ante, ac varius orci erat vel enim. Aenean rhoncus metus et eros dignissim, sed pulvinar odio pulvinar. Suspendisse egestas tempor ex, ac pharetra sapien consequat vitae. Pellentesque eu tincidunt mi. Vestibulum tristique quam eget velit varius, et mollis ante tristique. Etiam cursus sollicitudin vestibulum.
+
+Phasellus congue sagittis ipsum convallis sagittis. Vestibulum venenatis sit amet lectus tincidunt iaculis. Cras blandit accumsan nulla, vitae laoreet magna euismod sit amet. Curabitur a viverra nibh. Donec eu massa eu mauris auctor dapibus a vel quam. Aenean ullamcorper, orci eget elementum dignissim, arcu massa lacinia leo, nec sagittis erat massa eu arcu. Sed quis neque laoreet, vestibulum mauris vitae, iaculis felis.</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -683,7 +711,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dA1-Rb-zkF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3880.8000000000002" y="368.36581709145429"/>
+            <point key="canvasLocation" x="3828" y="367"/>
         </scene>
         <!--Review-->
         <scene sceneID="yq4-kr-RFj">
@@ -737,6 +765,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="OSv-Um-I9Y"/>
         <segue reference="6ge-FR-Jec"/>
     </inferredMetricsTieBreakers>
 </document>

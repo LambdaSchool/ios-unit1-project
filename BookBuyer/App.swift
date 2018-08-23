@@ -28,12 +28,20 @@ enum App
 typealias CompletionHandler = (String?) -> Void
 let EmptyHandler:CompletionHandler = { _ in }
 
-func buildRequest(_ ids:[String], _ httpMethod:String, _ data:Data?=nil) -> URLRequest
+func buildRequest(_ ids:[String], _ httpMethod:String, _ data:Data?=nil, queries:[String:String] = [:]) -> URLRequest
 {
 	var url = URL(string: "https://www.googleapis.com/books/v1/")!
 	for id in ids {
 		url.appendPathComponent(id)
 	}
+	var comp = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+	var qis:[URLQueryItem] = []
+	for (k,v) in queries {
+		qis.append(URLQueryItem(name:k, value:v))
+	}
+	comp.queryItems = qis
+	url = comp.url!
+
 	var req = URLRequest(url: url)
 	req.httpMethod = httpMethod
 	req.httpBody = data

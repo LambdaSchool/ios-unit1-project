@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BookStub: Equatable
+struct BookStub: Equatable, Hashable
 {
 	var title:String
 	var authors:[String]
@@ -22,6 +22,10 @@ struct BookStub: Equatable
 	static func ==(l:BookStub, r:BookStub) -> Bool
 	{
 		return l.googleIdentifier == r.googleIdentifier
+	}
+
+	var hashValue: Int {
+		return googleIdentifier.hashValue
 	}
 }
 
@@ -97,6 +101,20 @@ struct GBook: Codable
 	{
 		return l.volumeInfo.title < r.volumeInfo.title
 	}
+
+	func toStub() -> BookStub
+	{
+		return BookStub(
+			title: self.volumeInfo.title,
+			authors: self.volumeInfo.authors ?? [],
+			review: "",
+			tags: self.categories ?? [],
+			smallThumb: self.volumeInfo.imageLinks?.smallThumbnail,
+			thumbnail: self.volumeInfo.imageLinks?.thumbnail,
+			details: self.volumeInfo.description,
+			googleIdentifier: self.id)
+
+	}
 }
 
 class BookController
@@ -105,6 +123,24 @@ class BookController
 	// eg: books know what bookshelves they're on, and build
 	// the bookshelves from them, rather than the other way around
 	var shelves:[BookshelfStub] = []
+	var bookSet:Set<BookStub> {
+		get {
+			var all:Set<BookStub> = []
+			for shelf in shelves {
+				for book in shelf.volumes {
+					all.insert(book)
+				}
+			}
+			return all
+		}
+	}
+
+	var bookArray:[BookStub] {
+		get {
+			return Array(bookSet)
+		}
+	}
+
 
 	func reloadBook(_ stub:BookStub) -> BookStub?
 	{
@@ -141,15 +177,7 @@ class BookController
 				let books = try JSONDecoder().decode(GBook.GBookCollection.self, from:data)
 				var stub = BookshelfStub(id: shelf.id, title: shelf.title, created: Date(), volumes: [])
 				for book in (books.items ?? []) {
-					stub.volumes.append(BookStub(
-						title: book.volumeInfo.title,
-						authors: book.volumeInfo.authors ?? [],
-						review: "",
-						tags: book.categories ?? [],
-						smallThumb: book.volumeInfo.imageLinks?.smallThumbnail,
-						thumbnail: book.volumeInfo.imageLinks?.thumbnail,
-						details: book.volumeInfo.description,
-						googleIdentifier: book.id))
+					stub.volumes.append(book.toStub())
 				}
 				self.shelves.append(stub)
 				if self.shelves.count == shelves.items.count {

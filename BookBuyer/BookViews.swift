@@ -100,6 +100,7 @@ class BookListVC:UICollectionViewController
 		if let dest = segue.destination as? BookDetailVC {
 			if let cell = sender as? BookCell {
 				dest.book = cell.book
+				dest.isSearchedBook = false
 			}
 		}
 	}
@@ -116,18 +117,22 @@ class BookDetailVC:UIViewController
 	@IBOutlet weak var coverImage: UIImageView!
 
 	var book:BookStub!
+	var isSearchedBook:Bool = false
 	override func viewWillAppear(_ animated: Bool)
 	{
-		book = App.bookController.reloadBook(book)
-		if book == nil {
-			return
+		for butt in self.navigationItem.rightBarButtonItems ?? [] {
+			butt.isEnabled = !isSearchedBook
 		}
+
+		if !isSearchedBook {
+			book = App.bookController.reloadBook(book)
+			if book == nil {
+				return
+			}
+		}
+		
 		titleLabel.text = book.title
 		descriptionLabel.text = book.details
-		//TODO(will): Fix description label scrolling
-		// it should scroll, but doesn't beacuse... constraints?
-		// need to resize it at runtime, I guess?
-
 
 		if let thumb = book.thumbnail {
 			coverImage.downloadImage(thumb)
@@ -164,6 +169,85 @@ class BookReviewVC:UIViewController
 	}
 
 }
+
+class BookSearchVC:UITableViewController, UISearchBarDelegate
+{
+	var controller:BookController!
+	var allBooks:[BookStub] = []
+	var filteredBooks:[BookStub] = []
+
+	// TODO(will): handle returning from segue without discarding the contents of the
+	// search query....
+	func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+	{
+		guard let text = searchBar.text else {return}
+		let req = buildRequest(["volumes"], "GET", queries:["q":text])
+		GBooksAuthClient.shared.authorizeAndDataTask(req, EmptyHandler) { data, _, error in
+			if let error = error {
+				App.handleError(EmptyHandler, "Error searching: \(error)")
+				return
+			}
+
+			guard let data = data else {return}
+
+			do {
+				let books = try JSONDecoder().decode(GBook.GBookCollection.self, from: data)
+				self.filteredBooks = []
+				for book in books.items ?? [] {
+					self.filteredBooks.append(book.toStub())
+				}
+
+				self.filteredBooks.sort { $0.title < $1.title }
+				DispatchQueue.main.async {
+					self.tableView.reloadSections([0], with: .fade)
+				}
+			} catch {
+				App.handleError(EmptyHandler, "Could not decode json: \(error)")
+			}
+
+		}
+	}
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
+	{
+		filteredBooks = allBooks.filter{$0.title.contains(searchText) || $0.authors.first?.contains(searchText) ?? false}
+		tableView.reloadSections([0], with: .fade)
+	}
+
+	override func viewWillAppear(_ animated: Bool)
+	{
+		controller = App.bookController
+
+		allBooks = controller.bookArray
+		allBooks.sort { $0.title < $1.title }
+		filteredBooks = allBooks
+		print(filteredBooks.count)
+
+		tableView.reloadData()
+	}
+
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+	{
+		let cell = tableView.dequeueReusableCell(withIdentifier: "SearchBookCell", for: indexPath)
+		let book = filteredBooks[indexPath.row]
+		cell.textLabel?.text = "\(book.title) - \(book.authors.first ?? "No author")"
+		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+	{
+		return filteredBooks.count
+	}
+
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		if let dest = segue.destination as? BookDetailVC {
+			dest.book = filteredBooks[tableView.indexPathForSelectedRow!.row]
+			dest.isSearchedBook = true
+		}
+	}
+}
+
+
 
 // borrowed from simon's post
 // with some... dumb fixes
