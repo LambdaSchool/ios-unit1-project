@@ -365,17 +365,24 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="xwG-Ch-24n">
                                             <rect key="frame" x="8" y="8" width="359" height="44.5"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-oJ-pmE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="284" height="44.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="auh-UE-SOs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="29.5" height="44.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44.5" id="cka-HX-rHr"/>
+                                                        <constraint firstAttribute="width" secondItem="auh-UE-SOs" secondAttribute="height" multiplier="2:3" id="tyJ-4q-tLa"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="2wS-oJ-pmE">
+                                                    <rect key="frame" x="37.5" y="0.0" width="246.5" height="44.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bzt-lc-MkR">
-                                                            <rect key="frame" x="0.0" y="0.0" width="284" height="26.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="246.5" height="26.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxb-SF-pGt">
-                                                            <rect key="frame" x="0.0" y="26.5" width="284" height="18"/>
+                                                            <rect key="frame" x="0.0" y="26.5" width="246.5" height="18"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -402,6 +409,7 @@
                                 <connections>
                                     <outlet property="addButton" destination="cXa-fI-khg" id="3SC-Vh-ALR"/>
                                     <outlet property="authorLabel" destination="zxb-SF-pGt" id="vRz-G4-1Hb"/>
+                                    <outlet property="bookCoverView" destination="auh-UE-SOs" id="Pyd-RS-31v"/>
                                     <outlet property="titleLabel" destination="bzt-lc-MkR" id="A19-ee-NRS"/>
                                 </connections>
                             </tableViewCell>
@@ -418,7 +426,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9jr-gE-thY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3073" y="-222"/>
+            <point key="canvasLocation" x="3072.8000000000002" y="-222.63868065967017"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

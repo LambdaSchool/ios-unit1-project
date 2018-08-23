@@ -32,6 +32,7 @@ class SearchBookTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var bookCoverView: UIImageView!
     
     @IBAction func saveBook(_ sender: Any) {
         delegate?.saveBook(for: self)
@@ -51,6 +52,12 @@ class SearchBookTableViewCell: UITableViewCell {
             addButton.isEnabled = !doesBookExists(withID: searchResult.identifier, in: bookshelf)
         } else {
             addButton.isEnabled = true
+        }
+        
+        guard let urlString = searchResult.image else { return }
+        guard let url = URL(string: urlString) else { return }
+        ImageController.loadImage(at: url) { (image, _) in
+            self.bookCoverView.image = image
         }
     }
     
