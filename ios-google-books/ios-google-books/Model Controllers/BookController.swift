@@ -16,6 +16,26 @@ class BookController {
     let _ = Book(title: title, author: author, synopsis: synopsis, hasRead: hasRead, id: id, thumbnail: thumbnail, review: review)
   }
   
+  func deleteBook(book: Book) throws {
+    let moc = CoreDataManager.shared.mainContext
+    
+    var error: Error?
+    
+    moc.performAndWait {
+      moc.delete(book)
+    
+      do {
+        try moc.save()
+      } catch let saveError {
+        error = saveError
+      }
+    }
+    
+    if let error = error {
+      throw error
+    }
+  }
+  
   func saveToPersistentStore() throws {
     let moc = CoreDataManager.shared.mainContext
     

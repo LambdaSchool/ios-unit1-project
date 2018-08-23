@@ -109,6 +109,18 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
     return cell
   }
   
+  func tableView(_ tableView: UITableView,
+                          commit editingStyle: UITableViewCellEditingStyle,
+                          forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      do {
+        try bookController.deleteBook(book: fetchedResultsController.object(at: indexPath))
+      } catch {
+        NSLog("Error deleting book!")
+      }
+    }
+  }
+  
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "ShowBookDetailSegue" {
       if let vc = segue.destination as? BookDetailViewController {
