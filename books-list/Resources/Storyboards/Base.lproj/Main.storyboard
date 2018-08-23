@@ -58,7 +58,7 @@
             </objects>
             <point key="canvasLocation" x="1126" y="545"/>
         </scene>
-        <!--Title-->
+        <!--Collections-->
         <scene sceneID="hyH-cl-yi1">
             <objects>
                 <collectionViewController id="e8l-dn-kGA" customClass="CollectionsCollectionViewController" customModule="books_list" customModuleProvider="target" sceneMemberID="viewController">
@@ -108,7 +108,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" red="1" green="0.28877979570000001" blue="0.30224576850000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="backgroundColor" red="0.66422420739999999" green="0.66424006219999998" blue="0.66423153879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
                                 <constraint firstAttribute="trailingMargin" secondItem="7SM-Oc-Wrc" secondAttribute="trailing" constant="8" id="2lX-0x-79J"/>
                                 <constraint firstItem="7SM-Oc-Wrc" firstAttribute="top" secondItem="NFb-56-0bd" secondAttribute="topMargin" id="HwE-LM-3eB"/>
@@ -124,13 +124,11 @@
                             <outlet property="delegate" destination="e8l-dn-kGA" id="4oD-vF-DQZ"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Title" id="rqD-gz-hqu">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="ISg-8b-u0I"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Collections" id="rqD-gz-hqu"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TaU-q9-94w" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1125.5999999999999" y="1315.5922038980511"/>
+            <point key="canvasLocation" x="700" y="1459"/>
         </scene>
         <!--Book Detail-->
         <scene sceneID="Ijw-ao-cfQ">
@@ -141,7 +139,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalCentering" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="0Bk-T8-v3u">
-                                <rect key="frame" x="16" y="132" width="343" height="159"/>
+                                <rect key="frame" x="16" y="36" width="343" height="159"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="6Ux-fu-T7f">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="103"/>
@@ -215,7 +213,7 @@
                                 </constraints>
                             </stackView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZM5-OY-BqW">
-                                <rect key="frame" x="0.0" y="300.5" width="375" height="317.5"/>
+                                <rect key="frame" x="0.0" y="377" width="375" height="290"/>
                                 <connections>
                                     <segue destination="UwU-C9-KVx" kind="embed" identifier="EmbedNotesTable" id="eJV-Ic-ytW"/>
                                 </connections>
@@ -228,7 +226,7 @@
                             <constraint firstItem="yg9-hV-Z89" firstAttribute="trailing" secondItem="0Bk-T8-v3u" secondAttribute="trailing" constant="16" id="RED-en-Mt4"/>
                             <constraint firstItem="yg9-hV-Z89" firstAttribute="bottom" secondItem="ZM5-OY-BqW" secondAttribute="bottom" id="a5l-Ff-9XH"/>
                             <constraint firstItem="0Bk-T8-v3u" firstAttribute="top" secondItem="yg9-hV-Z89" secondAttribute="top" constant="16" id="kND-zQ-Nef"/>
-                            <constraint firstItem="ZM5-OY-BqW" firstAttribute="height" secondItem="eon-oy-dZB" secondAttribute="height" multiplier="1:2.1" id="xoJ-TR-2ry"/>
+                            <constraint firstItem="ZM5-OY-BqW" firstAttribute="height" secondItem="eon-oy-dZB" secondAttribute="height" multiplier="1:2.3" id="xoJ-TR-2ry"/>
                             <constraint firstItem="ZM5-OY-BqW" firstAttribute="width" secondItem="eon-oy-dZB" secondAttribute="width" id="yFd-SA-EP3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yg9-hV-Z89"/>
@@ -260,7 +258,7 @@
             <objects>
                 <tableViewController id="UwU-C9-KVx" customClass="NotesTableViewController" customModule="books_list" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VUu-M1-gxm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="317.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
@@ -287,6 +285,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="noteTextLabel" destination="CTh-vU-YmH" id="vzo-OX-UMZ"/>
+                                    <segue destination="SXc-sJ-YYn" kind="show" identifier="ShowNoteDetail" id="EGl-jE-ALX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -298,7 +297,53 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPt-Z0-8md" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2853.5999999999999" y="751.12443778110946"/>
+            <point key="canvasLocation" x="2926" y="662"/>
+        </scene>
+        <!--Note-->
+        <scene sceneID="i9Q-hE-AyS">
+            <objects>
+                <viewController title="Note" id="SXc-sJ-YYn" customClass="NotesDetailViewController" customModule="books_list" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2nF-gF-fZH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zVJ-fL-IQa">
+                                <rect key="frame" x="20" y="20" width="335" height="250"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="L0e-dV-v3U">
+                                        <rect key="frame" x="0.0" y="0.0" width="335" height="250"/>
+                                        <color key="backgroundColor" red="0.84603707900000003" green="0.84603707900000003" blue="0.84603707900000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2oK-Sg-JAq" firstAttribute="trailing" secondItem="zVJ-fL-IQa" secondAttribute="trailing" constant="20" id="Jlx-mm-fEx"/>
+                            <constraint firstItem="zVJ-fL-IQa" firstAttribute="top" secondItem="2oK-Sg-JAq" secondAttribute="top" constant="20" id="jQq-CE-ukt"/>
+                            <constraint firstItem="zVJ-fL-IQa" firstAttribute="leading" secondItem="2oK-Sg-JAq" secondAttribute="leading" constant="20" id="mAL-dO-Pw6"/>
+                            <constraint firstItem="2oK-Sg-JAq" firstAttribute="bottom" secondItem="zVJ-fL-IQa" secondAttribute="bottom" constant="20" id="t5I-d8-fFi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2oK-Sg-JAq"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Title" id="C4U-x8-alf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="dZN-Du-0hg">
+                            <connections>
+                                <action selector="save:" destination="SXc-sJ-YYn" id="VWV-lm-XvG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="notesTextView" destination="L0e-dV-v3U" id="HZT-NK-kwV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jLe-a7-IiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3698" y="661"/>
         </scene>
         <!--Explore-->
         <scene sceneID="jsT-eN-37X">
@@ -577,7 +622,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Mu-Mf-hD6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2900" y="69"/>
+            <point key="canvasLocation" x="2910" y="49"/>
         </scene>
         <!--Book List Tab Bar View Controller-->
         <scene sceneID="RTx-Gd-kiI">
@@ -597,11 +642,11 @@
             </objects>
             <point key="canvasLocation" x="-660" y="36"/>
         </scene>
-        <!--Item 1-->
+        <!--Search-->
         <scene sceneID="qKT-ra-1lE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="14t-Sm-8Qo" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 1" id="o5K-sB-6Pa"/>
+                    <tabBarItem key="tabBarItem" title="Search" image="icons8-search-25" id="o5K-sB-6Pa"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="4AQ-gE-tJV">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
@@ -616,11 +661,11 @@
             </objects>
             <point key="canvasLocation" x="292" y="-410.64467766116945"/>
         </scene>
-        <!--Item 2-->
+        <!--Collections-->
         <scene sceneID="0nm-Zg-N5Q">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2w1-gB-8qV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item 2" id="GOg-ZN-hXm"/>
+                    <tabBarItem key="tabBarItem" title="Collections" image="icons8-folder-25" id="GOg-ZN-hXm"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="F6t-A4-jZN">
                         <rect key="frame" x="0.0" y="20" width="375" height="96"/>
@@ -628,7 +673,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="e8l-dn-kGA" kind="relationship" relationship="rootViewController" id="Ka1-I7-n1w"/>
+                        <segue destination="UQW-cZ-0po" kind="relationship" relationship="rootViewController" id="2Kn-BB-F6E"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aVJ-Sg-xVH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -636,6 +681,10 @@
             <point key="canvasLocation" x="292" y="545"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-folder-25" width="25" height="25"/>
+        <image name="icons8-search-25" width="25" height="25"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="WiL-SY-o1n"/>
         <segue reference="ZaP-St-gaI"/>

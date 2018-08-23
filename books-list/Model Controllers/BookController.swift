@@ -126,6 +126,19 @@ class BookController {
         }
     }
     
+    func update(_ note: Note, in book: Book, with text: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        context.performAndWait {
+            note.text = text
+            note.timestamp = Date()
+            
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch {
+                NSLog("Error saving notes to book \(book): \(error)")
+            }
+        }
+    }
+    
     func remove(_ note: Note, from book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         context.performAndWait {
             book.removeFromNotes(note)
@@ -141,6 +154,10 @@ class BookController {
     func markAsRead(for book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         context.performAndWait {
             book.hasRead = true
+            
+            if let haveReadCollection = fetchSingleCollectionFromPersistentStore(forTitle: "Have read", context: context) {
+                book.addToCollections(haveReadCollection)
+            }
             
             do {
                 try CoreDataStack.shared.save(context: context)
@@ -166,6 +183,40 @@ class BookController {
         }
         
         return book
+    }
+    
+    private func fetchSingleCollectionFromPersistentStore(forTitle title: String, context: NSManagedObjectContext) -> Collection? {
+        var collection: Collection?
+        let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "title == %@", title)
+        
+        context.performAndWait {
+            do {
+                collection = try context.fetch(fetchRequest).first
+            } catch {
+                NSLog("Error fetching collection from persistence store: \(error)")
+                collection = nil
+            }
+        }
+        
+        return collection
+    }
+    
+    private func fetchSingleNoteFromPersistentStore(forIdentifier identifier: String, context: NSManagedObjectContext) -> Note? {
+        var note: Note?
+        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        
+        context.performAndWait {
+            do {
+                note = try context.fetch(fetchRequest).first
+            } catch {
+                NSLog("Error fetching note from persistence store: \(error)")
+                note = nil
+            }
+        }
+        
+        return note
     }
 
     // MARK: - Private Methods

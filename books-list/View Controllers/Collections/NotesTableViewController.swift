@@ -69,6 +69,14 @@ class NotesTableViewController: UITableViewController, NSFetchedResultsControlle
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowNoteDetail" {
+            let vc = segue.destination as! NotesDetailViewController
+            vc.book = book
+            vc.bookController = bookController
+            if let indexPath = tableView.indexPathForSelectedRow {
+                vc.note = book?.notes?.allObjects[indexPath.row] as? Note
+            }
+        }
     }
 
 }

@@ -11,8 +11,15 @@ import CoreData
 
 private let reuseIdentifier = "BookCollectionCell"
 
-class CollectionsCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
+class CollectionsCollectionViewController: UICollectionViewController, CollectionControllerProtocol, BookControllerProtocol,  NSFetchedResultsControllerDelegate {
 
+    
+    // MARK: - Properties
+    
+    var collectionController: CollectionController?
+    var bookController: BookController?
+    private var blockOperations: [BlockOperation] = []
+    
     lazy var fetchedResultsController: NSFetchedResultsController<Collection> = {
         let fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
@@ -30,57 +37,67 @@ class CollectionsCollectionViewController: UICollectionViewController, NSFetched
     // MARK: - NSFetchedResultsController
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //tableView.beginUpdates()
+        blockOperations.removeAll(keepingCapacity: false)
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
-        //tableView.endUpdates()
+        collectionView?.performBatchUpdates({ self.blockOperations.forEach { $0.start() } }, completion: { finished in
+            self.blockOperations.removeAll(keepingCapacity: false)
+        })
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        
+        var bo: BlockOperation?
+        
         switch type {
         case .insert:
-            collectionView.insertSections(IndexSet(integer: sectionIndex))
+            bo = BlockOperation { self.collectionView.insertSections(IndexSet(integer: sectionIndex)) }
         case .delete:
-            collectionView.deleteSections(IndexSet(integer: sectionIndex))
+            bo = BlockOperation { self.collectionView.deleteSections(IndexSet(integer: sectionIndex)) }
         default:
             break
         }
+        
+        guard let newBo = bo else { return }
+        blockOperations.append(newBo)
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        var bo: BlockOperation
+        
         switch type {
         case .insert:
             guard let newIndexPath = newIndexPath else { return }
-            collectionView.insertItems(at: [newIndexPath])
+            bo = BlockOperation { self.collectionView.insertItems(at: [newIndexPath]) }
         case .delete:
             guard let indexPath = indexPath else { return }
-            collectionView.deleteItems(at: [indexPath])
+            bo = BlockOperation { self.collectionView.deleteItems(at: [indexPath]) }
         case .update:
             guard let indexPath = indexPath else { return }
-            collectionView.reloadItems(at: [indexPath])
+            bo = BlockOperation { self.collectionView.reloadItems(at: [indexPath]) }
         case .move:
             guard let newIndexPath = newIndexPath, let oldIndexPath = indexPath else { return }
-            collectionView.deleteItems(at: [oldIndexPath])
-            collectionView.insertItems(at: [newIndexPath])
+            bo = BlockOperation {
+                self.collectionView.deleteItems(at: [oldIndexPath])
+                self.collectionView.insertItems(at: [newIndexPath])
+            }
         }
+        
+        blockOperations.append(bo)
     }
     
     // MARK: - Methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+        collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
     
@@ -112,36 +129,35 @@ class CollectionsCollectionViewController: UICollectionViewController, NSFetched
     
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowBookSummary" {
+            let vc = segue.destination as! BookSummaryViewController
+            if let indexPath = collectionView.indexPathsForSelectedItems?.first,
+                let collection = fetchedResultsController.fetchedObjects?[indexPath.section],
+                let book = collection.books?.allObjects[indexPath.row] as? Book {
+                
+                vc.book = book
+                vc.collectionController = collectionController
+                vc.bookController = bookController
+            }
+        } 
     }
-    */
 
+}
+
+extension CollectionsCollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        
+        if collectionView.numberOfItems(inSection: section) == 0 {
+            return CGSize.zero
+        } else {
+            let headerView = self.view.subviews[0].subviews[0] as! UICollectionReusableView
+            let existingSize = headerView.frame.size
+            
+            return existingSize
+        }
+    }
 }
