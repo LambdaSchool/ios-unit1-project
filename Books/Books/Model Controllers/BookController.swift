@@ -29,6 +29,7 @@ class BookController {
         
         guard let book = bookFromPersistentStore else { return }
         book.addToBookshelves(bookshelf)
+        updateGoogleServerAdding(book: book, to: bookshelf)
         
         do {
             try CoreDataStack.shared.save()
@@ -40,9 +41,11 @@ class BookController {
     func move(book: Book, to bookshelf: Bookshelf, from oldBookshelf: Bookshelf? = nil) {
         if let oldBookshelf = oldBookshelf {
             book.removeFromBookshelves(oldBookshelf)
+            updateGoogleServerRemoving(book: book, from: bookshelf)
         }
         
         book.addToBookshelves(bookshelf)
+        updateGoogleServerAdding(book: book, to: bookshelf)
 
         do {
             try CoreDataStack.shared.save()
@@ -76,6 +79,7 @@ class BookController {
         
         if let bookshelf = bookshelf {
             book.removeFromBookshelves(bookshelf)
+            updateGoogleServerRemoving(book: book, from: bookshelf)
         }
         
         if book.bookshelves?.count == 0 || bookshelf == nil {
@@ -126,6 +130,8 @@ class BookController {
     
     // MARK: - Google Books API
     
+    // MARK: -- Fetch Bookshelves
+    
     typealias CompletionHandler = (Error?) -> Void
     
     func fetchBookshelvesFromGoogleServer(completion: @escaping CompletionHandler = { _ in }) {
@@ -157,6 +163,8 @@ class BookController {
                     DispatchQueue.main.async {
                         completion(error)
                     }
+                    return
+                    
                 }
                 
                 guard let data = data else {
@@ -235,6 +243,8 @@ class BookController {
         }
     }
     
+    // MARK: -- Fetch Books
+    
     func fetchBooksFromGoogleServer(in bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
         guard let id = bookshelf.identifier as? Int else {
             completion(NSError())
@@ -270,6 +280,7 @@ class BookController {
                     DispatchQueue.main.async {
                         completion(error)
                     }
+                    return
                 }
                 
                 guard let data = data else {
@@ -352,6 +363,122 @@ class BookController {
         
         if let error = error {
             throw error
+        }
+    }
+    
+    // MARK: -- Add Books to Bookshelf
+    
+    func updateGoogleServerAdding(book: Book, to bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+        guard let bookshelfID = bookshelf.identifier as? Int, let bookID = book.identifier else {
+            completion(NSError())
+            return
+        }
+        
+        let baseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/\(bookshelfID)/addVolume")!
+        
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!
+        
+        let volumeQueryItem = URLQueryItem(name: "volumeId", value: bookID)
+        
+        urlComponents.queryItems = [volumeQueryItem]
+        
+        // Check if url can be created using the components and deal with error
+        guard let requestURL = urlComponents.url else {
+            NSLog("Problem constructing addVolume URL for \(bookID)")
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error authorizing books: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+            
+            guard let request = request else {
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error adding book: \(error) ")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }).resume()
+        }
+    }
+    
+    // MARK: -- Add Books to Bookshelf
+    
+    func updateGoogleServerRemoving(book: Book, from bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+        guard let bookshelfID = bookshelf.identifier as? Int, let bookID = book.identifier else {
+            completion(NSError())
+            return
+        }
+        
+        let baseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/\(bookshelfID)/removeVolume")!
+        
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)!
+        
+        let volumeQueryItem = URLQueryItem(name: "volumeId", value: bookID)
+        
+        urlComponents.queryItems = [volumeQueryItem]
+        
+        // Check if url can be created using the components and deal with error
+        guard let requestURL = urlComponents.url else {
+            NSLog("Problem constructing removeVolume URL for \(bookID)")
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error authorizing books: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+            
+            guard let request = request else {
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error removing book: \(error) ")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            }).resume()
         }
     }
 }
