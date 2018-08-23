@@ -97,6 +97,18 @@ class BookController {
         }
     }
     
+    func markAsRead(for book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        context.performAndWait {
+            book.hasRead = true
+            
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch {
+                NSLog("Error saving markAsRead to persistence: \(error)")
+            }
+        }
+    }
+    
     private func fetchSingleBookFromPersistenceStore(forIdentifier identifier: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Book? {
         var book: Book?
         

@@ -8,11 +8,11 @@
 
 import UIKit
 
-class ExploreTableViewController: UITableViewController, UISearchBarDelegate, CollectionControllerProtocol {
+class ExploreTableViewController: UITableViewController, UISearchBarDelegate, CollectionControllerProtocol, BookControllerProtocol {
     
     // - Properties
     @IBOutlet weak var searchBar: UISearchBar!
-    let bookController = BookController()
+    var bookController: BookController?
     var collectionController: CollectionController?
     
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate, Co
         guard let searchTerm = searchBar.text,
             !searchTerm.isEmpty else { return }
         
-        bookController.fetchFromGoogleBooks(with: searchTerm) { (error) in
+        bookController?.fetchFromGoogleBooks(with: searchTerm) { (error) in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
@@ -40,13 +40,13 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate, Co
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookController.searchedBooks.count
+        return bookController?.searchedBooks.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ExploreCell", for: indexPath) as! ExploreTableViewCell
 
-        cell.book = bookController.searchedBooks[indexPath.row]
+        cell.book = bookController?.searchedBooks[indexPath.row]
 
         return cell
     }
@@ -57,7 +57,7 @@ class ExploreTableViewController: UITableViewController, UISearchBarDelegate, Co
         if segue.identifier == "ShowBookDetail" {
             guard let detailVC = segue.destination as? ExploreDetailViewController else { return }
             if let indexPath = tableView.indexPathForSelectedRow {
-                detailVC.bookRepresentation = bookController.searchedBooks[indexPath.row]
+                detailVC.bookRepresentation = bookController?.searchedBooks[indexPath.row]
                 detailVC.collectionController = collectionController
                 detailVC.bookController = bookController
             }

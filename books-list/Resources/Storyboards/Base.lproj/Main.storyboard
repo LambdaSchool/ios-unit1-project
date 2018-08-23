@@ -112,7 +112,7 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
-                                                            <action selector="markAsFinished:" destination="eyA-to-DQM" eventType="touchUpInside" id="yYQ-4P-6If"/>
+                                                            <action selector="markAsFinished:" destination="eyA-to-DQM" eventType="touchUpInside" id="aS5-a9-gXw"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -522,6 +522,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pVy-1E-7xl"/>
+        <segue reference="WiL-SY-o1n"/>
     </inferredMetricsTieBreakers>
 </document>

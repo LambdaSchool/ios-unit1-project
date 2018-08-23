@@ -21,6 +21,7 @@ class BookListTabBarViewController: UITabBarController {
     // MARK: - Properties
     
     let collectionController = CollectionController()
+    let bookController = BookController()
     
     // MARK: - Methods
 
@@ -44,6 +45,9 @@ class BookListTabBarViewController: UITabBarController {
             for vc in navController.children {
                 if var vc = vc as? CollectionControllerProtocol {
                     vc.collectionController = collectionController
+                }
+                if var vc = vc as? BookControllerProtocol {
+                    vc.bookController = bookController
                 }
             }
         }

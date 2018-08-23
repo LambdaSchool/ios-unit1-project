@@ -9,11 +9,12 @@
 import UIKit
 import CoreData
 
-class CollectionsTableViewController: UITableViewController, CollectionControllerProtocol, NSFetchedResultsControllerDelegate {
+class CollectionsTableViewController: UITableViewController, CollectionControllerProtocol, BookControllerProtocol, NSFetchedResultsControllerDelegate {
 
     // MARK: - Properties
     
     var collectionController: CollectionController?
+    var bookController: BookController?
     
     lazy var fetchedResultsController: NSFetchedResultsController<Collection> = {
         var fetchRequest: NSFetchRequest<Collection> = Collection.fetchRequest()
@@ -132,6 +133,7 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
                 
                 vc.book = book
                 vc.collectionController = collectionController
+                vc.bookController = bookController
             }
         }
     }
