@@ -44,6 +44,11 @@ class BookController {
             updateGoogleServerRemoving(book: book, from: oldBookshelf)
         }
         
+        // Mark book as read if we move it into the HaveRead bookshelf
+        if bookshelf.identifier == 4 {
+            book.hasRead = true
+        }
+        
         book.addToBookshelves(bookshelf)
         updateGoogleServerAdding(book: book, to: bookshelf)
 
