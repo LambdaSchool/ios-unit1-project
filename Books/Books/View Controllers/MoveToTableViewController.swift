@@ -119,6 +119,9 @@ class MoveToTableViewController: UITableViewController, NSFetchedResultsControll
 
         let bookshelf = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = bookshelf.name
+        
+        cell.isUserInteractionEnabled = !((bookshelf.books?.contains(book as Any)) ?? true)
+        cell.textLabel?.textColor = cell.isUserInteractionEnabled ? UIColor.black : UIColor.lightGray
 
         return cell
     }
