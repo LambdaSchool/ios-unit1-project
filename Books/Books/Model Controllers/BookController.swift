@@ -438,7 +438,7 @@ class BookController {
         }
     }
     
-    // MARK: -- Add Books to Bookshelf
+    // MARK: -- Remove Books From Bookshelf
     
     func updateGoogleServerRemoving(book: Book, from bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
         guard let bookshelfID = bookshelf.identifier as? Int, let bookID = book.identifier else {
