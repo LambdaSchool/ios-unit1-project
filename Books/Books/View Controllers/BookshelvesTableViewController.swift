@@ -13,12 +13,11 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bookController.fetchBookshelvesFromGoogle { (error) in
+        bookController.fetchBooksFromGoogle { (error) in
             if let error = error {
                 NSLog("Error: \(error)")
                 return
             }
-            print(self.fetchResultsController.sections)
         }
         
     }
@@ -64,7 +63,9 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return Book.sectionNameDictionary[section]
+        guard let indexTitle = fetchResultsController.sections?[section].indexTitle,
+            let index = Int(indexTitle)  else {return ""}
+        return Book.sectionNameDictionary[index]
     }
     override func numberOfSections(in tableView: UITableView) -> Int {
         return fetchResultsController.sections?.count ?? 1

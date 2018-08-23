@@ -63,7 +63,7 @@ class BookController{
             }.resume()
     }
     
-    func fetchBookshelvesFromGoogle(completion: @escaping CompletionHandler = {_ in}){
+    func fetchBooksFromGoogle(completion: @escaping CompletionHandler = {_ in}){
         
         for shelf in 0 ... 8 {
             let bookshelvesURL = baseURL
@@ -73,6 +73,7 @@ class BookController{
                 .appendingPathComponent("volumes")
             
             let request = URLRequest(url: bookshelvesURL)
+            print("1: \(bookshelvesURL)")
             
             GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
                 if let error = error {
@@ -81,6 +82,7 @@ class BookController{
                 }
                 guard let request = request else {return}
                 
+                print("2: Google Add Auth \(request.url)")
                 URLSession.shared.dataTask(with: request){ (data, _, error) in
                     if let error = error {
                         NSLog("Error sending request: \(error)")
@@ -90,7 +92,7 @@ class BookController{
                     guard let data = data else {
                         NSLog("Data is nil")
                         return}
-                    
+                    print("3: URLSession \(request.url)")
                     //                    guard let stringData:String = String(data: data, encoding: String.Encoding.utf8) else {return}
                     //                    print(shelf)
                     //                    print(stringData)
@@ -100,9 +102,10 @@ class BookController{
                         let decodedBookRepresentations = try JSONDecoder().decode(Bookshelf.self, from: data).items
                         guard let bookRepresentations = decodedBookRepresentations else {return}
                         let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-                        
+                        print("4: Decoding shelfID \(shelf)")
                         self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)
-                        completion(nil)
+                        
+                        
                         
                         //check the volumes of bookshelf and compare with persistent store
                         /*
@@ -113,46 +116,56 @@ class BookController{
                     }catch {
                         NSLog("Error decoding fetch data: \(error)")
                     }
+                    
                     }.resume()
                 
             }
         }
+        completion(nil)
     }
     
     
     
-    func fetchSingleBookFromPersistentStore(id: String, context: NSManagedObjectContext) -> Book?{
+    func fetchFromPersistentStore(id: String, context: NSManagedObjectContext) -> [Book]{
         let request: NSFetchRequest<Book> = Book.fetchRequest()
         request.predicate = NSPredicate(format: "volumeID == %@", id)
-        var book: Book?
-        
+        var books = [Book]()
         context.performAndWait {
             do{
-                book = try context.fetch(request).first
+                books = try context.fetch(request)
             } catch {
                 NSLog("Error fetching from persistent store: \(error)")
             }
         }
-        return book
+        return books
     }
     
     func fetchAndCompareFromPersistentStore(bookRepresentations: [BookRepresentation], shelfID: Int, context: NSManagedObjectContext){
-        for bookRepresentation in bookRepresentations{
-            let id = bookRepresentation.id
-            let book = fetchSingleBookFromPersistentStore(id: id, context: context)
+        context.performAndWait {
             
-            if let book = book{
-                if book.haveRead && (shelfID != 4){
-                    book.haveRead = false
+           
+            for bookRepresentation in bookRepresentations{
+                 print("5: fetchAndCompare shelfID: \(shelfID) \(bookRepresentation.volumeInfo.title)")
+                let id = bookRepresentation.id
+                let books = fetchFromPersistentStore(id: id, context: context)
+                
+                //creates array of all the shelves that contain a book
+                var shelvesContainingBook = [Int]()
+                for book in books {
+                    shelvesContainingBook.append(Int(book.shelfID))
+                    //uses iteration to check if books that are on shelf "have read" are marked read
+                    if !book.haveRead && (shelfID == 4) {
+                        book.haveRead = true
+                    }
                 }
-                if !book.haveRead && (shelfID == 4) {
-                    book.haveRead = true
+                //if book does not exist in the shelf add book
+                if !shelvesContainingBook.contains(shelfID){
+                    Book(bookRepresentation: bookRepresentation, shelfID: shelfID, context: context)
                 }
-            } else {
-               Book(bookRepresentation: bookRepresentation, shelfID: shelfID, context: context)
                 
             }
         }
+        
         context.performAndWait {
             do {
                 try context.save()
