@@ -33,36 +33,54 @@ class SearchController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = "GET"
         
-        URLSession.shared.dataTask(with: request) { (data, _, error) in
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            
             if let error = error {
-                NSLog("Error fetching data: \(error)")
+                NSLog("Error adding authorization to request: \(error)")
                 DispatchQueue.main.async {
                     completion(nil, error)
                 }
                 return
             }
             
-            guard let data = data else {
-                NSLog("Error fetching data. No data returned.")
+            guard let request = request else {
                 DispatchQueue.main.async {
                     completion(nil, NSError())
                 }
                 return
             }
             
-            do {
-                let results = try JSONDecoder().decode(SearchResults.self, from: data)
-                DispatchQueue.main.async {
-                    self.searchResults = results.items
-                    completion(self.searchResults, nil)
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error fetching data: \(error)")
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                    return
                 }
                 
-            } catch {
-                NSLog("Unable to decode data into search result: \(error)")
-                DispatchQueue.main.async {
-                    completion(nil, error)
+                guard let data = data else {
+                    NSLog("Error fetching data. No data returned.")
+                    DispatchQueue.main.async {
+                        completion(nil, NSError())
+                    }
+                    return
                 }
-            }
-        }.resume()
+                
+                do {
+                    let results = try JSONDecoder().decode(SearchResults.self, from: data)
+                    DispatchQueue.main.async {
+                        self.searchResults = results.items
+                        completion(self.searchResults, nil)
+                    }
+                    
+                } catch {
+                    NSLog("Unable to decode data into search result: \(error)")
+                    DispatchQueue.main.async {
+                        completion(nil, error)
+                    }
+                }
+            }.resume()
+        }
     }
 }

@@ -16,4 +16,13 @@ extension Bookshelf {
         
         self.name = name
     }
+    
+    @discardableResult
+    convenience init?(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        
+        self.init(context: context)
+        
+        self.name = bookshelfRepresentation.title
+        self.identifier = bookshelfRepresentation.id as NSNumber
+    }
 }

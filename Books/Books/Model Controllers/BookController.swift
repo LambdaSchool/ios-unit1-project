@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class BookController {
 
@@ -92,6 +93,117 @@ class BookController {
             try CoreDataStack.shared.save()
         } catch {
             NSLog("Error deleting bookshelf: \(error)")
+        }
+    }
+    
+    // MARK: - Google Books API
+    
+    typealias CompletionHandler = (Error?) -> Void
+    
+    func fetchBookshelvesFromGoogleServer(completion: @escaping CompletionHandler = { _ in }) {
+        
+        let myBookshelvesURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
+        
+        var request = URLRequest(url: myBookshelvesURL)
+        request.httpMethod = "GET"
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error authorizing bookshelves: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+            
+            guard let request = request else {
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error loading bookshelves: \(error) ")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                }
+                
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        completion(NSError())
+                    }
+                    return
+                }
+                
+                do {
+                    let decodedBookshelves = try JSONDecoder().decode(BookshelvesRepresentation.self, from: data)
+                    
+                    let backgroundMOC = CoreDataStack.shared.container.newBackgroundContext()
+                    
+                    try self.updateBookshelves(with: decodedBookshelves.items, context: backgroundMOC)
+                    
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+
+                } catch {
+                    NSLog("Error decoding bookshelves: \(error)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                }
+            }).resume()
+        }
+    }
+    
+    func fetchSingleBookshelfFromPersistentStore(withID id: Int, context: NSManagedObjectContext) -> Bookshelf? {
+        
+        let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", id as NSNumber)
+        
+        do {
+            return try context.fetch(fetchRequest).first
+        } catch {
+            NSLog("Error fetching bookshelf with id \(id): \(error)")
+            return nil
+        }
+    }
+    
+    func update(bookshelf: Bookshelf, with bookshelfRepresentation: BookshelfRepresentation) {
+        bookshelf.name = bookshelfRepresentation.title
+    }
+    
+    func updateBookshelves(with bookshelves: [BookshelfRepresentation], context: NSManagedObjectContext) throws {
+        var error: Error?
+        
+        context.performAndWait {
+            for bookshelfRepresentation in bookshelves {
+                
+                let id = bookshelfRepresentation.id
+                
+                let bookshelf = self.fetchSingleBookshelfFromPersistentStore(withID: id, context: context)
+                
+                if let bookshelf = bookshelf {
+                    if bookshelf != bookshelfRepresentation {
+                        self.update(bookshelf: bookshelf, with: bookshelfRepresentation)
+                    }
+                } else {
+                    Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: context)
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch let saveError {
+                error = saveError
+            }
+        }
+        
+        if let error = error {
+            throw error
         }
     }
 }

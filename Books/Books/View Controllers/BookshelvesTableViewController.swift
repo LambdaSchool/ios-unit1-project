@@ -37,8 +37,25 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Want authorization the first time the app launches, viewDidLoad will only get called once when the app launches
+        
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
+            if let error = error {
+                NSLog("Authorization failed: \(error)")
+                return
+            }
+            
+            // Once the authorization is given, you want to get the bookshelves for that user
+            self.bookController.fetchBookshelvesFromGoogleServer()
+        }
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//
+//        self.bookController.fetchBookshelvesFromGoogleServer()
+//    }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
         
@@ -114,8 +131,22 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
 
         let bookshelf = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = bookshelf.name
+        
+        if bookshelf.identifier != nil {    // bookshelf exists on google server
+            cell.detailTextLabel?.text = nil
+        } else {
+            cell.detailTextLabel?.text = "Local Bookshelf"
+        }
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // if bookshelf has an id, we can't delete it (bookshelf you create doesn't have an id, but the one from the server does
+        
+        let bookshelf = fetchedResultsController.object(at: indexPath)
+        
+        return bookshelf.identifier == nil // if this is true, delete is enabled
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
