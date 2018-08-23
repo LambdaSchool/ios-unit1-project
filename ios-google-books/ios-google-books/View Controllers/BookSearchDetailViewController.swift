@@ -63,8 +63,9 @@ class BookSearchDetailViewController: UIViewController {
       } catch {
         NSLog("Error saving book from API search to Core Data")
       }
-      
-      navigationController?.popViewController(animated: true)
+
+      self.tabBarController?.selectedIndex = 0
+      self.navigationController?.popViewController(animated: true)
     }
   }
 

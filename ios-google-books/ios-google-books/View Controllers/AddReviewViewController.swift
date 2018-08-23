@@ -33,7 +33,8 @@ class AddReviewViewController: UIViewController {
         return
       }
     }
-    navigationController?.popViewController(animated: true)
+    let controller = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 3]
+    self.navigationController?.popToViewController(controller!, animated: true)
   }
   
   @IBOutlet var bookTitleLabel: UILabel!

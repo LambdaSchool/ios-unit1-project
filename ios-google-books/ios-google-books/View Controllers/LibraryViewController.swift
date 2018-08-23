@@ -24,6 +24,7 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
     self.navigationController?.setNavigationBarHidden(true, animated: animated)
   }
   
@@ -84,12 +85,12 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   
   func tableView(_ tableView: UITableView,
                  titleForHeaderInSection section: Int) -> String? {
-    if section == 1 && flag {
-      return "Read"
-    } else if section == 0 && flag {
+    if section == 0 && flag {
       return "To Read"
+    } else if section == 1 && flag {
+      return "Read"
     } else {
-      return ""
+      return nil
     }
   }
   
@@ -195,8 +196,8 @@ class LibraryViewController: UIViewController, UITableViewDataSource, UITableVie
   lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
     let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
     
-    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true), NSSortDescriptor(key: "title", ascending: true)
-    ]
+    fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true),
+                                    NSSortDescriptor(key: "title", ascending: true)]
     
     let moc = CoreDataManager.shared.mainContext
     let frc = NSFetchedResultsController(fetchRequest: fetchRequest,

@@ -41,6 +41,7 @@ class SearchBooksViewController: UIViewController, UITableViewDataSource, UITabl
       if let vc = segue.destination as? BookSearchDetailViewController {
         vc.bookController = bookController
         if let indexPath = self.tableView.indexPathForSelectedRow {
+          self.tableView.deselectRow(at: indexPath, animated: true)
           vc.book = books[indexPath.row]
         }
       }
