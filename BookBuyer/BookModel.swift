@@ -68,6 +68,7 @@ struct GBook: Codable
 		var publisher:String?
 		var description:String?
 		var authors:[String]?
+		var imageLinks:GImageLinks?
 	}
 
 	struct GImageLinks: Codable
@@ -80,7 +81,6 @@ struct GBook: Codable
 	var id:String
 	var selfLink:String
 	var volumeInfo:GVolumeInfo
-	var imageLinks:GImageLinks?
 	var publishedDate:Int?
 	var categories:[String]?
 
@@ -99,27 +99,14 @@ class BookController
 {
 	var shelves:[BookshelfStub] = []
 
-	func authorizeAndDataTask(_ req:URLRequest, _ completion:@escaping CompletionHandler, _ action: @escaping (Data?, URLResponse?, Error?) -> Void)
-	{
-		GBooksAuthClient.shared.addAuthorization(to: req) { (request, error) in
-			if let error = error {
-				App.handleError(completion, "GAuth: \(error)")
-				return
-			}
-			guard let request = request else {
-				App.handleError(completion, "GAuth: no request")
-				return
-			}
-			URLSession.shared.dataTask(with: request, completionHandler: action).resume()
-		}
-	}
+	
 
 	func fetchVolumesInBookshelf(_ shelf:GBookshelf,
 								   _ shelves:GBookshelf.GBookshelfCollection,
 								   _ completion: @escaping CompletionHandler = EmptyHandler)
 	{
 		let req = buildRequest(["mylibrary", "bookshelves", String(shelf.id), "volumes"], "GET")
-		authorizeAndDataTask(req, completion) { data, _, error in
+		GBooksAuthClient.shared.authorizeAndDataTask(req, completion) { data, _, error in
 			if let error = error {
 				NSLog("Error getting bookshelf volumes: \(error)")
 				return
@@ -134,8 +121,8 @@ class BookController
 						authors: book.volumeInfo.authors ?? [],
 						review: "",
 						tags: book.categories ?? [],
-						smallThumb: book.imageLinks?.smallThumbnail,
-						thumbnail: book.imageLinks?.thumbnail))
+						smallThumb: book.volumeInfo.imageLinks?.smallThumbnail,
+						thumbnail: book.volumeInfo.imageLinks?.thumbnail))
 				}
 				self.shelves.append(stub)
 				if self.shelves.count == shelves.items.count {
@@ -156,7 +143,7 @@ class BookController
 		let url = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/")!
 		let request = URLRequest(url: url)
 
-		authorizeAndDataTask(request, completion) { (data, _, error) in
+		GBooksAuthClient.shared.authorizeAndDataTask(request, completion) { (data, _, error) in
 			if let error = error {
 				App.handleError(completion, "Error fetching bookshelves: \(error)")
 				return

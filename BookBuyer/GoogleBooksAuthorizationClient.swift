@@ -16,7 +16,20 @@ private let redirectURI = URL(string: "com.googleusercontent.apps.51140268627-rq
 private let bookScopeURL = URL(string: "https://www.googleapis.com/auth/books")!
 
 final class GBooksAuthClient {
-    
+	func authorizeAndDataTask(_ req:URLRequest, _ completion:@escaping CompletionHandler, _ action: @escaping (Data?, URLResponse?, Error?) -> Void)
+	{
+		GBooksAuthClient.shared.addAuthorization(to: req) { (request, error) in
+			if let error = error {
+				App.handleError(completion, "GAuth: \(error)")
+				return
+			}
+			guard let request = request else {
+				App.handleError(completion, "GAuth: no request")
+				return
+			}
+			URLSession.shared.dataTask(with: request, completionHandler: action).resume()
+		}
+	}
     static let shared = GBooksAuthClient()
     
     init() {

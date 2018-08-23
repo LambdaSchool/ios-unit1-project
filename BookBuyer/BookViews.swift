@@ -66,8 +66,40 @@ class BookCell:UICollectionViewCell
 	var book:BookStub! {
 		didSet {
 			titleLabel.text = book.title
-			//coverImage = UIImage
+
+			print(book.smallThumb ?? "No small thumb", book.thumbnail ?? "no thumbnail")
+			if let thumb = book.smallThumb {
+				coverImage.downloadImage(thumb)
+			} else if let thumb = book.thumbnail {
+				coverImage.downloadImage(thumb)
+			}
 		}
+	}
+
+	func loadImageFromURL(_ urlString:String)
+	{
+		let url = URL(string: urlString)!
+		let req = URLRequest(url:url)
+		print("Loading image..")
+		GBooksAuthClient.shared.authorizeAndDataTask(req, EmptyHandler) { (data, _, error) in
+			if let error = error {
+				App.handleError(EmptyHandler, "Error loading image: \(error)")
+				return
+			}
+
+			guard let data = data else {
+				App.handleError(EmptyHandler, "Error loading image: no data")
+				return
+			}
+
+			DispatchQueue.main.async {
+				print("Got image, decoding")
+				if let img = UIImage(data: data) {
+					print("Set!")
+					self.coverImage.image = img
+				}
+			}
+    	}
 	}
 }
 
@@ -95,4 +127,52 @@ class BookListVC:UICollectionViewController
 class BookDetailVC:UIViewController
 {
 
+}
+
+class BookReviewVC:UIViewController
+{
+
+}
+
+// borrowed from simon's post
+// with some... dumb fixes
+
+let imageCache = NSCache<NSString, AnyObject>()
+extension UIImageView
+{
+	func downloadImage(_ urlString: String, completion: @escaping CompletionHandler = EmptyHandler)
+	{
+		self.image = nil
+		if let cachedImage = imageCache.object(forKey: urlString as NSString) as? UIImage {
+			self.image = cachedImage
+			completion(nil)
+			return
+		}
+
+		var us = urlString
+		if us.starts(with: "http:") {
+			us.insert("s", at: us.index(of: ":")!)
+		}
+		guard let url = URL(string: us) else { return }
+
+		URLSession.shared.dataTask(with: url) { (data, response, error) in
+			if let error = error {
+				App.handleError(completion, "Error getting image: \(error)")
+				return
+			}
+
+			guard let data = data else {
+				App.handleError(completion, "Error getting image: no data!")
+				return
+			}
+
+			DispatchQueue.main.async {
+				if let downloadedImage = UIImage(data: data) {
+					imageCache.setObject(downloadedImage, forKey: urlString as NSString)
+					self.image = downloadedImage
+					completion(nil)
+				}
+			}
+		}.resume()
+	}
 }
