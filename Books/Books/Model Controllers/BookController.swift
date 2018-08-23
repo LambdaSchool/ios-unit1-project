@@ -56,6 +56,20 @@ class BookController {
 
     func toggleHasRead(for book: Book) {
         book.hasRead = !book.hasRead
+        
+        if let haveReadBookshelf = fetchSingleBookshelfFromPersistentStore(withID: 4, context: CoreDataStack.shared.mainContext) {
+            
+            if book.hasRead {
+                // Add to HaveRead bookshelf on google server
+                book.addToBookshelves(haveReadBookshelf)
+                updateGoogleServerAdding(book: book, to: haveReadBookshelf)
+            } else {
+                // Remove from HaveRead. This function will remove it from bookshelf on device, remove it from google, and if book is not in any other bookshelves, delete from core data.
+                delete(book: book, from: haveReadBookshelf)
+            }
+        }
+        
+        
 
         do {
             try CoreDataStack.shared.save()
