@@ -66,6 +66,7 @@ class SearchBooksTableViewController: UITableViewController, UISearchBarDelegate
 //        cell.textLabel?.text = searchResult.title
 //        cell.detailTextLabel?.text = searchResult.authors.joined(separator: ", ")
         
+        cell.bookshelf = bookshelf
         cell.searchResult = searchController.searchResults[indexPath.row]
         cell.delegate = self
 

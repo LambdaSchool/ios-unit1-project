@@ -400,6 +400,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="addButton" destination="cXa-fI-khg" id="3SC-Vh-ALR"/>
                                     <outlet property="authorLabel" destination="zxb-SF-pGt" id="vRz-G4-1Hb"/>
                                     <outlet property="titleLabel" destination="bzt-lc-MkR" id="A19-ee-NRS"/>
                                 </connections>

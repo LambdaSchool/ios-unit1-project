@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol SearchBookTableViewCellDelegate: class {
     func saveBook(for cell: SearchBookTableViewCell)
@@ -15,6 +16,8 @@ protocol SearchBookTableViewCellDelegate: class {
 class SearchBookTableViewCell: UITableViewCell {
     
     // MARK: - Properties
+    
+    var bookshelf: Bookshelf?
     
     var searchResult: SearchResult? {
         didSet {
@@ -28,6 +31,7 @@ class SearchBookTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var addButton: UIButton!
     
     @IBAction func saveBook(_ sender: Any) {
         delegate?.saveBook(for: self)
@@ -42,5 +46,24 @@ class SearchBookTableViewCell: UITableViewCell {
         
         titleLabel.text = searchResult.title
         authorLabel.text = searchResult.authors?.joined(separator: ", ")
+        
+        if let bookshelf = bookshelf {
+            addButton.isEnabled = !doesBookExists(withID: searchResult.identifier, in: bookshelf)
+        } else {
+            addButton.isEnabled = true
+        }
+    }
+    
+    func doesBookExists(withID identifier: String, in bookshelf: Bookshelf) -> Bool {
+        
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@ && bookshelves CONTAINS %@", identifier, bookshelf)
+        
+        do {
+            let book = try CoreDataStack.shared.mainContext.fetch(fetchRequest).first
+            return book != nil
+        } catch {
+        }
+        return false
     }
 }
