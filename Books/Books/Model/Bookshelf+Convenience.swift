@@ -16,7 +16,7 @@ extension Bookshelf {
         self.init(context: context)
         
         self.name = name
-        self.sectionText = "Local Bookshelves"
+        self.sectionText = "iPhone Bookshelves"
     }
     
     @discardableResult
