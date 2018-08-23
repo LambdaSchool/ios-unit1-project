@@ -97,6 +97,47 @@ class BookController {
         }
     }
     
+    func createNote(with text: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) -> Note? {
+        var note: Note?
+        
+        context.performAndWait {
+            let newNote = Note(text: text)
+            do {
+                try CoreDataStack.shared.save(context: context)
+                note = newNote
+            } catch {
+                NSLog("Error saving note to persistence store: \(error)")
+                note = nil
+            }
+        }
+        
+        return note
+    }
+    
+    func add(_ note: Note, to book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        context.performAndWait {
+            book.addToNotes(note)
+            
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch {
+                NSLog("Error saving notes to book \(book): \(error)")
+            }
+        }
+    }
+    
+    func remove(_ note: Note, from book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        context.performAndWait {
+            book.removeFromNotes(note)
+            
+            do {
+                try CoreDataStack.shared.save(context: context)
+            } catch {
+                NSLog("Error removing notes from book \(book): \(error)")
+            }
+        }
+    }
+    
     func markAsRead(for book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         context.performAndWait {
             book.hasRead = true

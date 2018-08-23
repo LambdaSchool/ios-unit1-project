@@ -20,7 +20,6 @@ struct CollectionRepresentation: Decodable, Equatable {
         case identifier = "id"
         case access
     }
-    
 }
 
 struct CollectionRepresentations: Decodable {

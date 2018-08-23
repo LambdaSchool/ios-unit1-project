@@ -32,6 +32,7 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
         tableView.reloadData()
     }
     
@@ -117,9 +118,7 @@ class CollectionsTableViewController: UITableViewController, CollectionControlle
                 collectionController.delete(book, from: collection)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
-        } else if editingStyle == .insert {
-            
-        }    
+        } 
     }
 
     // MARK: - Navigation

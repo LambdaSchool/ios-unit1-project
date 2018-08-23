@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NotificationCenter
 
 class BookSummaryViewController: UIViewController {
 
@@ -23,13 +24,32 @@ class BookSummaryViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var buttonLabel: UIButton!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var noteTextField: UITextField!
     
     // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
+        
         updateViews()
     }
+    
+    @IBAction func addNote(_ sender: Any) {
+        guard let noteText = noteTextField?.text,
+            let book = book,
+            let note = bookController?.createNote(with: noteText) else { return }
+        
+        bookController?.add(note, to: book)
+        
+        noteTextField.text?.removeAll()
+        view.endEditing(true)
+        
+        // Send a notification to the notes table view to update its view
+        NotificationCenter.default.post(name: Notification.Name("AddedPost"), object: nil)
+        
+    }
+    
     
     @IBAction func markAsFinished(_ sender: Any) {
         if let book = book {
@@ -55,6 +75,10 @@ class BookSummaryViewController: UIViewController {
             let vc = segue.destination as! AddToCollectionsTableViewController
             vc.book = book
             vc.collectionController = collectionController
+        } else if segue.identifier == "EmbedNotesTable" {
+            let vc = segue.destination as! NotesTableViewController
+            vc.book = book
+            vc.bookController = bookController
         }
     }
 

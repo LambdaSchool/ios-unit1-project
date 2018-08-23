@@ -22,5 +22,4 @@ extension Collection {
                   title: collectionRepresentation.title,
                   context: context)
     }
-    
 }

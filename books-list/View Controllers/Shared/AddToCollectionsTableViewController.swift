@@ -111,7 +111,7 @@ class AddToCollectionsTableViewController: UITableViewController, NSFetchedResul
         if let book = book {
             cell.book = book
         }
-        // TODO: insert editing style when adding new collection: https://www.youtube.com/watch?v=MC4mDQ7UqEE
+        
         cell.delegate = self
 
         return cell
