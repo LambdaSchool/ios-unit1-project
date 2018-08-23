@@ -22,7 +22,7 @@ class BookShelfTableViewController: UITableViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        bookController.getVolumes(forBookshelf: 7) { (error) in
+        bookController.getBookshelves { (error) in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -32,16 +32,14 @@ class BookShelfTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookController.bookshelfVolumes.count
+        return bookController.bookshelves.count
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
 
-        cell.textLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.title
-        cell.detailTextLabel?.text = bookController.bookshelfVolumes[indexPath.row].volumeInfo.description
-
+        cell.textLabel?.text = bookController.bookshelves[indexPath.row].title
         return cell
     }
 

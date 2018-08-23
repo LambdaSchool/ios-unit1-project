@@ -76,8 +76,8 @@ class BookController {
 //                }
                 
                 do {
-                    let bookshelfRepresentations = try JSONDecoder().decode(BookshelfRepresentation.self, from: data)
-                    self.bookshelves = [bookshelfRepresentations]
+                    let bookshelfRepresentations = try JSONDecoder().decode(BookshelfRepresentations.self, from: data).items
+                    self.bookshelves = bookshelfRepresentations
                     //print(self.bookshelves)
                     completion(nil)
                 } catch {
