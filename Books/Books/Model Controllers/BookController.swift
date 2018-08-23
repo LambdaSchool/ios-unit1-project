@@ -41,7 +41,7 @@ class BookController {
     func move(book: Book, to bookshelf: Bookshelf, from oldBookshelf: Bookshelf? = nil) {
         if let oldBookshelf = oldBookshelf {
             book.removeFromBookshelves(oldBookshelf)
-            updateGoogleServerRemoving(book: book, from: bookshelf)
+            updateGoogleServerRemoving(book: book, from: oldBookshelf)
         }
         
         book.addToBookshelves(bookshelf)
