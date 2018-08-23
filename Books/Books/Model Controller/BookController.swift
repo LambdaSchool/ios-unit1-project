@@ -43,7 +43,7 @@ class BookController{
             guard let data = data else {
                 NSLog("Data is nil")
                 return}
-
+            
             do{
                 let decoded = try JSONDecoder().decode(Bookshelf.self, from: data)
                 
@@ -57,6 +57,7 @@ class BookController{
     }
     
     func fetchBooksFromGoogle( completion:@escaping CompletionHandler = {_ in}){
+        var bookRepresentationsDirectory = [Int: [BookRepresentation]]()
         //initialize dispatch group
         let group = DispatchGroup()
         for shelf in 0 ... 8 {
@@ -70,7 +71,7 @@ class BookController{
                 .appendingPathComponent("volumes")
             
             let request = URLRequest(url: bookshelvesURL)
-
+            
             GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
                 if let error = error {
                     NSLog("Error adding authorization to fetch request: \(error)")
@@ -94,27 +95,68 @@ class BookController{
                         guard let bookRepresentations = decodedBookRepresentations else { group.leave(); return}
                         
                         //add entries to bookRepresentationsDirectory
-                        self.bookRepresentationsDirectory[shelf] = bookRepresentations
+                        bookRepresentationsDirectory[shelf] = bookRepresentations
                     }catch {
                         NSLog("Error decoding fetch data: \(error)")
                     }
                     // group leaves
                     group.leave()
-                }.resume()
+                    }.resume()
             }
         }
         //notifies mainQueue that everyone in the group has left.
         group.notify(queue: .main) {
+            let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
+            self.syncPersistenceStoreWithGoogle(directory: bookRepresentationsDirectory, context: backgroundContext)
+            
             completion(nil)
         }
     }
     
-//    func syncPersistenceStoreWithGoogle{
-//
-//        let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-//        self.fetchAndCompareFromPersistentStore(bookRepresentations: bookRepresentations, shelfID: shelf, context: backgroundContext)
-//
-//    }
+    func syncPersistenceStoreWithGoogle(directory: [Int: [BookRepresentation]], context: NSManagedObjectContext){
+        context.perform {
+            self.fetchAndCompareFromPersistentStore(directory: directory, context: context)
+            
+        }
+    }
+    
+    func fetchAndCompareFromPersistentStore(directory: [Int: [BookRepresentation]], context: NSManagedObjectContext){
+        
+        for (shelf, bookRepresentations) in directory{
+
+            for bookRepresentation in bookRepresentations {
+
+                guard let id = bookRepresentation.id else {return}
+                let books = fetchFromPersistentStore(id: id, context: context)
+
+                //creates array of all the shelves that contain a book
+                var shelvesContainingBook = [Int]()
+                for book in books {
+                    shelvesContainingBook.append(Int(book.shelfID))
+                    //uses iteration to check if books that are on shelf "have read" are marked read"
+                    if !book.haveRead && (shelf == 4) {
+                        book.haveRead = true
+                    }
+                }
+                //if book does not exist in the shelf add book
+                if !shelvesContainingBook.contains(shelf){
+                    Book(bookRepresentation: bookRepresentation, shelfID: shelf, context: context)
+                }
+            }
+        }
+        
+        //save changes
+        do {
+            try context.save()
+        } catch {
+            NSLog("Error saving: \(error)")
+            context.reset()
+        }
+    
+
+    }
+    
+    
     
     func fetchFromPersistentStore(id: String, context: NSManagedObjectContext) -> [Book]{
         let request: NSFetchRequest<Book> = Book.fetchRequest()
@@ -129,45 +171,8 @@ class BookController{
         }
         return books
     }
-    
-    func fetchAndCompareFromPersistentStore(bookRepresentations: [BookRepresentation], shelfID: Int, context: NSManagedObjectContext){
-        context.performAndWait {
-            
-            
-            for bookRepresentation in bookRepresentations{
-                
-                guard let id = bookRepresentation.id else {return}
-                let books = fetchFromPersistentStore(id: id, context: context)
-                
-                //creates array of all the shelves that contain a book
-                var shelvesContainingBook = [Int]()
-                for book in books {
-                    shelvesContainingBook.append(Int(book.shelfID))
-                    //uses iteration to check if books that are on shelf "have read" are marked read"
-                    if !book.haveRead && (shelfID == 4) {
-                        book.haveRead = true
-                    }
-                }
-                //if book does not exist in the shelf add book
-                if !shelvesContainingBook.contains(shelfID){
-                    Book(bookRepresentation: bookRepresentation, shelfID: shelfID, context: context)
-                }
-                
-            }
-        }
-        
-        context.performAndWait {
-            do {
-                try context.save()
-            } catch {
-                NSLog("Error saving: \(error)")
-                context.reset()
-            }
-        }
-    }
-    
+
     
     //MARK: - Properties
-    var bookRepresentationsDirectory = [Int: [BookRepresentation]]()
     var searchResults = [BookRepresentation]()
 }

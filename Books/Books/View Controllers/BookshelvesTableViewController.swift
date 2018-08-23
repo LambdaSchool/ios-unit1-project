@@ -18,7 +18,6 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
                 NSLog("Error: \(error)")
                 return
             }
-            print("Print", self.bookController.bookRepresentationsDirectory)
         }
         
     }
