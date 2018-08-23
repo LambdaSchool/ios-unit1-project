@@ -37,5 +37,6 @@ extension Book {
         self.bookDescription = searchResult.descripton
         self.pages = searchResult.pages
         self.releasedDate = searchResult.releasedDate
+        self.identifier = searchResult.identifier
     }
 }

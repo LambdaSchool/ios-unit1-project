@@ -11,6 +11,7 @@ import CoreData
 
 class MoveToTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
+    var currentBookshelf: Bookshelf?
     var book: Book?
     var bookController: BookController?
     
@@ -115,7 +116,7 @@ class MoveToTableViewController: UITableViewController, NSFetchedResultsControll
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let book = book else { return }
         let bookshelf = fetchedResultsController.object(at: indexPath)
-        bookController?.move(book: book, to: bookshelf)
+        bookController?.move(book: book, to: bookshelf, from: currentBookshelf)
         
         navigationController?.popViewController(animated: true)
     }

@@ -14,8 +14,21 @@ class BookController {
     // MARK: - CRUD
     
     func createBook(with searchResult: SearchResult, inBookshelf bookshelf: Bookshelf) {
-        guard let book = Book(searchResult: searchResult) else { return }
-        book.bookshelf = bookshelf
+        
+        // When searching for the same book that we already have, we don't want to create a new one in core data. So lets ask core data if it already has the book, and update it if it does.
+        
+        let identifier = searchResult.identifier
+        
+        var bookFromPersistentStore = self.fetchSingleBookFromPersistentStore(withID: identifier, context: CoreDataStack.shared.mainContext)
+        
+        if let book = bookFromPersistentStore {
+            self.update(book: book, with: searchResult)
+        } else {
+            bookFromPersistentStore = Book(searchResult: searchResult)
+        }
+        
+        guard let book = bookFromPersistentStore else { return }
+        book.addToBookshelves(bookshelf)
         
         do {
             try CoreDataStack.shared.save()
@@ -24,8 +37,12 @@ class BookController {
         }
     }
 
-    func move(book: Book, to bookshelf: Bookshelf) {
-        book.bookshelf = bookshelf
+    func move(book: Book, to bookshelf: Bookshelf, from oldBookshelf: Bookshelf? = nil) {
+        if let oldBookshelf = oldBookshelf {
+            book.removeFromBookshelves(oldBookshelf)
+        }
+        
+        book.addToBookshelves(bookshelf)
 
         do {
             try CoreDataStack.shared.save()
@@ -205,5 +222,27 @@ class BookController {
         if let error = error {
             throw error
         }
+    }
+    
+    func fetchSingleBookFromPersistentStore(withID identifier: String, context: NSManagedObjectContext) -> Book? {
+        
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "identifier == %@", identifier)
+        
+        do {
+            return try context.fetch(fetchRequest).first
+        } catch {
+            NSLog("Error fetching book with id \(identifier): \(error)")
+            return nil
+        }
+    }
+    
+    func update(book: Book, with searchResult: SearchResult) {
+        book.title = searchResult.title
+        book.authorsString = searchResult.authors?.joined(separator: ", ")
+        book.imageURL = searchResult.image
+        book.bookDescription = searchResult.descripton
+        book.pages = searchResult.pages
+        book.releasedDate = searchResult.releasedDate
     }
 }

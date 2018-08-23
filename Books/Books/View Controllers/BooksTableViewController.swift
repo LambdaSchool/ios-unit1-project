@@ -76,7 +76,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
         
         // Filter all books to just the ones in that bookshelf
-        fetchRequest.predicate = NSPredicate(format: "bookshelf == %@", bookshelf!)
+        fetchRequest.predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf!)
         
         // Sort the entries based on timestamp
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "hasRead", ascending: true),
@@ -197,6 +197,7 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
         if let moveToVC = segue.destination as? MoveToTableViewController {
             moveToVC.bookController = bookController
             moveToVC.book = lastSelectedBook
+            moveToVC.currentBookshelf = bookshelf
         }
     }
 }
