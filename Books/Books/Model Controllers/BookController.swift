@@ -235,6 +235,73 @@ class BookController {
         }
     }
     
+    func fetchBooksFromGoogleServer(in bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+        guard let id = bookshelf.identifier as? Int else {
+            completion(NSError())
+            return
+        }
+        
+        let myBookshelvesURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/\(id)/volumes")!
+//        myBookshelvesURL.appendPathComponent(String(id), isDirectory: true)
+//        myBookshelvesURL.appendPathComponent("volume", isDirectory: false)
+        
+        var request = URLRequest(url: myBookshelvesURL)
+        request.httpMethod = "GET"
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error authorizing books: \(error)")
+                DispatchQueue.main.async {
+                    completion(error)
+                }
+                return
+            }
+            
+            guard let request = request else {
+                DispatchQueue.main.async {
+                    completion(NSError())
+                }
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error loading books: \(error) ")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                }
+                
+                guard let data = data else {
+                    DispatchQueue.main.async {
+                        completion(NSError())
+                    }
+                    return
+                }
+                
+                do {
+                    // The API structure is identical to the searchResults so we're reusing it
+                    let decodedBooks = try JSONDecoder().decode(SearchResults.self, from: data)
+                    
+                    let backgroundMOC = CoreDataStack.shared.container.newBackgroundContext()
+                    
+                    // Make sure the books are created within the context of the bookshelf we're loading
+                    try self.updateBooks(with: decodedBooks.items, in: bookshelf, context: backgroundMOC)
+                    
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    
+                } catch {
+                    NSLog("Error decoding books: \(error)")
+                    DispatchQueue.main.async {
+                        completion(error)
+                    }
+                }
+            }).resume()
+        }
+    }
+    
     func fetchSingleBookFromPersistentStore(withID identifier: String, context: NSManagedObjectContext) -> Book? {
         
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
@@ -255,5 +322,36 @@ class BookController {
         book.bookDescription = searchResult.descripton
         book.pages = searchResult.pages
         book.releasedDate = searchResult.releasedDate
+    }
+    
+    func updateBooks(with books: [SearchResult], in bookshelf: Bookshelf, context: NSManagedObjectContext) throws {
+        var error: Error?
+        
+        context.performAndWait {
+            for bookRep in books {
+                
+                let identifier = bookRep.identifier
+                
+                let book = self.fetchSingleBookFromPersistentStore(withID: identifier, context: context)
+                
+                if let book = book {
+                    self.update(book: book, with: bookRep)
+                } else {
+                    if let book = Book(searchResult: bookRep, context: context) {
+                        book.addToBookshelves(bookshelf)
+                    }
+                }
+            }
+            
+            do {
+                try context.save()
+            } catch let saveError {
+                error = saveError
+            }
+        }
+        
+        if let error = error {
+            throw error
+        }
     }
 }

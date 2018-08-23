@@ -12,9 +12,13 @@ import CoreData
 class BooksTableViewController: UITableViewController, BookTableViewCellDelegate, NSFetchedResultsControllerDelegate {
     
     var bookController: BookController?
+    
     var bookshelf: Bookshelf? {
         didSet {
             navigationItem.title = bookshelf?.name
+            
+            guard let bookshelf = bookshelf else { return }
+            bookController?.fetchBooksFromGoogleServer(in: bookshelf)
         }
     }
     
@@ -138,10 +142,10 @@ class BooksTableViewController: UITableViewController, BookTableViewCellDelegate
             tableView.reloadRows(at: [indexPath], with: .automatic)
         case .move:
             guard let oldIndexPath = indexPath, let newIndexPath = newIndexPath else { return }
-            //            tableView.moveRow(at: oldIndexPath, to:  newIndexPath)
+            tableView.moveRow(at: oldIndexPath, to: newIndexPath)
             // Doesn't work any more?
-            tableView.deleteRows(at: [oldIndexPath], with: .automatic)
-            tableView.insertRows(at: [newIndexPath], with: .automatic)
+//            tableView.deleteRows(at: [oldIndexPath], with: .automatic)
+//            tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
 
