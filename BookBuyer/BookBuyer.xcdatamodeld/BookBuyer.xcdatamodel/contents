@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Book" representedClassName="Book" syncable="YES" codeGenerationType="class">
-        <attribute name="coverImage" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="details" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="googleIdentifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="review" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tags" optional="YES" attributeType="Transformable" customClassName="[String]" syncable="YES"/>
+        <attribute name="shelfIds" optional="YES" attributeType="Transformable" valueTransformerName="[Int]" syncable="YES"/>
+        <attribute name="smallThumbURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="bookshelf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bookshelf" inverseName="books" inverseEntity="Bookshelf" syncable="YES"/>
-    </entity>
-    <entity name="Bookshelf" representedClassName="Bookshelf" syncable="YES" codeGenerationType="class">
-        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="books" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="bookshelf" inverseEntity="Book" syncable="YES"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="class">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
@@ -21,8 +19,7 @@
         <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-443" positionY="-118" width="128" height="118"/>
+        <element name="Book" positionX="-443" positionY="-118" width="128" height="165"/>
         <element name="Transaction" positionX="-747" positionY="-162" width="128" height="135"/>
-        <element name="Bookshelf" positionX="-596" positionY="-108" width="128" height="88"/>
     </elements>
 </model>

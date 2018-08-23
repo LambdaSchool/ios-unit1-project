@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CoreData
+
 
 struct BookStub: Equatable, Hashable
 {
@@ -18,6 +20,7 @@ struct BookStub: Equatable, Hashable
 	var thumbnail:String?
 	var details:String?
 	var googleIdentifier:String
+	var shelfIds:Set<Int> = []
 
 	static func ==(l:BookStub, r:BookStub) -> Bool
 	{
@@ -29,14 +32,19 @@ struct BookStub: Equatable, Hashable
 	}
 }
 
-struct BookshelfStub
+struct BookshelfStub: Equatable
 {
 	var id:Int
 	var title:String
 	var created:Date
 	var volumes:[BookStub]
-}
 
+	static func ==(l:BookshelfStub, r:BookshelfStub) -> Bool
+	{
+		return l.id == r.id
+	}
+
+}
 
 struct GBookshelf: Codable, Equatable, Comparable
 {
@@ -112,7 +120,8 @@ struct GBook: Codable
 			smallThumb: self.volumeInfo.imageLinks?.smallThumbnail,
 			thumbnail: self.volumeInfo.imageLinks?.thumbnail,
 			details: self.volumeInfo.description,
-			googleIdentifier: self.id)
+			googleIdentifier: self.id,
+			shelfIds:[])
 
 	}
 }
@@ -122,12 +131,20 @@ class BookController
 	// TODO(will): store bookshelves "reversed":
 	// eg: books know what bookshelves they're on, and build
 	// the bookshelves from them, rather than the other way around
+	class ManagedBookController
+	{
+		var books:[Book] = []
+	}
+
+
 	var shelves:[BookshelfStub] = []
 	var bookSet:Set<BookStub> {
 		get {
 			var all:Set<BookStub> = []
 			for shelf in shelves {
 				for book in shelf.volumes {
+					if all.contains(book) {
+					}
 					all.insert(book)
 				}
 			}
@@ -141,6 +158,75 @@ class BookController
 		}
 	}
 
+	func save()
+	{
+		// this is lol wasteful
+		// ... but should work
+		let moc = CoreDataStack.shared.container.newBackgroundContext()
+		moc.perform {
+			let req:NSFetchRequest<Book> = Book.fetchRequest()
+			do {
+				let books = try req.execute()
+				for book in books {
+					moc.delete(book)
+				}
+
+				for book in self.bookSet {
+					let b = Book(context: moc)
+					b.title = book.title
+					b.shelfIds = Array(book.shelfIds) as NSObject
+					b.googleIdentifier = book.googleIdentifier
+					b.review = book.review
+					b.details = book.details
+					b.thumbnailURL = book.thumbnail
+					b.smallThumbURL = book.smallThumb
+				}
+			} catch {
+
+			}
+		}
+	}
+
+	func load()
+	{
+		let moc = CoreDataStack.shared.mainContext
+		moc.perform {
+			let req:NSFetchRequest<Book> = Book.fetchRequest()
+			do {
+				let books = try req.execute()
+				for book in books {
+					let b = BookStub(title: book.title!,
+									 authors: b.author!,
+									 review: book.review!,
+									 tags: [],
+									 smallThumb: book.smallThumbURL!,
+									 thumbnail: book.thumbnailURL!,
+									 details: book.details!,
+									 googleIdentifier: book.googleIdentifier!,
+									 shelfIds: Set<Int>(book.shelfIds! as NSArray))
+				}
+
+				for book in self.bookSet {
+					let b = Book(context: moc)
+					b.title = book.title
+					b.shelfIds = Array(book.shelfIds) as NSObject
+					b.googleIdentifier = book.googleIdentifier
+					b.review = book.review
+					b.details = book.details
+					b.thumbnailURL = book.thumbnail
+					b.smallThumbURL = book.smallThumb
+					b.author = book.authors.first ?? "No author"
+				}
+			} catch {
+
+			}
+	}
+
+	func push()
+	{
+
+	}
+
 
 	func reloadBook(_ stub:BookStub) -> BookStub?
 	{
@@ -150,6 +236,22 @@ class BookController
 			}
 		}
 		return nil
+	}
+
+	func reloadShelf(_ stub:BookshelfStub) -> BookshelfStub?
+	{
+		if let index = shelves.index(of:stub) {
+			return shelves[index]
+		}
+		return nil
+	}
+
+
+	func updateShelf(_ stub:BookshelfStub)
+	{
+		if let index = shelves.index(of:stub) {
+			shelves[index] = stub
+		}
 	}
 
 	func updateReview(_ stub:BookStub, _ review:String)

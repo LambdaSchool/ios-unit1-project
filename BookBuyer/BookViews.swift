@@ -29,11 +29,15 @@ class ShelfListVC:UITableViewController
 	{
 		controller = App.bookController
 		controller.fetchShelvesAndContents { (error) in
-			print(error ?? "No error")
 			DispatchQueue.main.async {
 				self.tableView.reloadData()
 			}
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool)
+	{
+		tableView.reloadData()
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -80,7 +84,10 @@ class BookListVC:UICollectionViewController
 {
 	var shelf:BookshelfStub!
 
-	override func viewWillAppear(_ animated: Bool) {
+	override func viewWillAppear(_ animated: Bool)
+	{
+		shelf = App.bookController.reloadShelf(shelf)
+		collectionView?.reloadData()
 	}
 
 	override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -103,6 +110,11 @@ class BookListVC:UICollectionViewController
 				dest.isSearchedBook = false
 			}
 		}
+
+		if let dest = segue.destination as? BookSearchVC {
+			dest.shelf = shelf
+		}
+
 	}
 }
 
@@ -141,7 +153,6 @@ class BookDetailVC:UIViewController
 		}
 	}
 
-
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let dest = segue.destination as? BookReviewVC {
 			dest.book = book
@@ -175,6 +186,7 @@ class BookSearchVC:UITableViewController, UISearchBarDelegate
 	var controller:BookController!
 	var allBooks:[BookStub] = []
 	var filteredBooks:[BookStub] = []
+	var shelf:BookshelfStub!
 
 	// TODO(will): handle returning from segue without discarding the contents of the
 	// search query....
@@ -220,8 +232,7 @@ class BookSearchVC:UITableViewController, UISearchBarDelegate
 
 		allBooks = controller.bookArray
 		allBooks.sort { $0.title < $1.title }
-		filteredBooks = allBooks
-		print(filteredBooks.count)
+		filteredBooks = allBooks.filter { !self.shelf.volumes.contains($0) }
 
 		tableView.reloadData()
 	}
@@ -244,6 +255,19 @@ class BookSearchVC:UITableViewController, UISearchBarDelegate
 			dest.book = filteredBooks[tableView.indexPathForSelectedRow!.row]
 			dest.isSearchedBook = true
 		}
+	}
+
+	override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+		let insertAction = UITableViewRowAction(style: .normal, title: "Add to shelf") { (action, path) in
+			self.shelf.volumes.append(self.filteredBooks[path.row])
+			self.controller.updateShelf(self.shelf)
+			self.filteredBooks.remove(at: path.row)
+			DispatchQueue.main.async {
+				self.tableView.reloadSections([0], with: .fade)
+			}
+		}
+
+		return [insertAction]
 	}
 }
 

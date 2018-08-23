@@ -509,8 +509,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gvd-0l-pVT">
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" text="The Eye of Markov" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58j-Cr-aAS">
-                                                    <rect key="frame" x="9" y="203" width="112.5" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" verticalCompressionResistancePriority="753" text="The Eye of Markov" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58j-Cr-aAS">
+                                                    <rect key="frame" x="0.5" y="203" width="130" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -520,6 +520,7 @@
                                             <constraints>
                                                 <constraint firstItem="Gvd-0l-pVT" firstAttribute="top" secondItem="jIL-AJ-aBb" secondAttribute="top" id="245-lq-652"/>
                                                 <constraint firstItem="Gvd-0l-pVT" firstAttribute="leading" secondItem="jIL-AJ-aBb" secondAttribute="leading" id="6eu-s3-pUm"/>
+                                                <constraint firstItem="58j-Cr-aAS" firstAttribute="width" secondItem="jIL-AJ-aBb" secondAttribute="width" id="A6c-iy-zR8"/>
                                                 <constraint firstItem="58j-Cr-aAS" firstAttribute="centerX" secondItem="jIL-AJ-aBb" secondAttribute="centerX" id="BaF-me-Yb9"/>
                                                 <constraint firstItem="58j-Cr-aAS" firstAttribute="top" secondItem="Gvd-0l-pVT" secondAttribute="bottom" constant="8" id="XwQ-IC-xpo"/>
                                                 <constraint firstAttribute="bottom" secondItem="58j-Cr-aAS" secondAttribute="bottom" constant="8" id="YPC-67-Ob8"/>
@@ -765,7 +766,7 @@ Phasellus congue sagittis ipsum convallis sagittis. Vestibulum venenatis sit ame
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="OSv-Um-I9Y"/>
+        <segue reference="CTz-8W-IuD"/>
         <segue reference="6ge-FR-Jec"/>
     </inferredMetricsTieBreakers>
 </document>

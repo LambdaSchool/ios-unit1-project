@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE42E69C212F53D300C0854D /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE42E69B212F53D300C0854D /* CoreDataStack.swift */; };
 		BE932485212D2AAA008ADCAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE932484212D2AAA008ADCAF /* AppDelegate.swift */; };
 		BE93248A212D2AAA008ADCAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE932488212D2AAA008ADCAF /* Main.storyboard */; };
 		BE93248C212D2AAB008ADCAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BE93248B212D2AAB008ADCAF /* Assets.xcassets */; };
@@ -45,6 +46,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BE42E69B212F53D300C0854D /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		BE932481212D2AAA008ADCAF /* BookBuyer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookBuyer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE932484212D2AAA008ADCAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE932489212D2AAA008ADCAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				BE93249F212D33C6008ADCAF /* StatViews.swift */,
 				BE9324A1212D3477008ADCAF /* StatModel.swift */,
 				BECE1A44212DDD34000ED6F4 /* BookBuyer.xcdatamodeld */,
+				BE42E69B212F53D300C0854D /* CoreDataStack.swift */,
 			);
 			path = BookBuyer;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				BE9324A0212D33C6008ADCAF /* StatViews.swift in Sources */,
 				BECE1A52212E05FA000ED6F4 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				BE93249B212D2F05008ADCAF /* App.swift in Sources */,
+				BE42E69C212F53D300C0854D /* CoreDataStack.swift in Sources */,
 				BE932485212D2AAA008ADCAF /* AppDelegate.swift in Sources */,
 				BE93249E212D33BA008ADCAF /* BookViews.swift in Sources */,
 				BECE1A46212DDD34000ED6F4 /* BookBuyer.xcdatamodeld in Sources */,
