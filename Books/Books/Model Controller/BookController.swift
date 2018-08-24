@@ -138,7 +138,7 @@ class BookController{
                 for book in books {
                     shelvesContainingBook.append(Int(book.shelfID))
                     //uses iteration to check if books that are on shelf "have read" are marked read"
-                    if !book.haveRead && (shelf == 4) {
+                    if !book.haveRead && (book.shelfID == 4) {
                         book.haveRead = true
                     }
                 }
@@ -193,7 +193,18 @@ class BookController{
         }
         return books
     }
-    //MARK: - CRUD
+    //CRUD: - Functions
+    func update(book:Book, review: String, haveRead: Bool){
+        book.review = review
+        book.haveRead = haveRead
+        saveToPersistentStore()
+    }
+    
+    
+    
+    
+    
+    //MARK: - Persistence Functions
     
     func deleteFromPersistentStore(book: Book, context: NSManagedObjectContext = CoreDataStack.shared.mainContext){
         context.delete(book)
@@ -207,6 +218,8 @@ class BookController{
             context.reset()
         }
     }
+    
+    
     
     //MARK: - Properties
     var searchResults = [BookRepresentation]()

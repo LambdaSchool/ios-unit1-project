@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController{
     
     //MARK: - Methods
     override func viewDidLoad() {
@@ -26,8 +26,8 @@ class DetailViewController: UIViewController {
             
             self.title = book.title!
             authorLabel.text = book.author ?? "N/A"
-            readLabel.text = book.haveRead ? "Read" : "Not Read"
-            
+            let readButtonText = book.haveRead ? "Read" : "Not Read"
+            readButton.setTitle(readButtonText, for: .normal)
             reviewTextView.text = book.review!
             addButtonOutlet.title = "Save"
             
@@ -41,9 +41,8 @@ class DetailViewController: UIViewController {
         if let bookRepresentation = bookRepresentation {
             self.title = bookRepresentation.volumeInfo?.title
             authorLabel.text = bookRepresentation.volumeInfo?.authors?.first
-            readLabel.text = "Not Read"
-            reviewTextView.text = ""
-            
+            readButton.setTitle("Not Read", for: .normal)
+            readButton.isUserInteractionEnabled = false            
             addButtonOutlet.title = "Add"
             
             guard let imageLinks = bookRepresentation.volumeInfo?.imageLinks?.values,
@@ -57,16 +56,39 @@ class DetailViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction func add(_ sender: Any) {
-        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+        super.touchesBegan(touches, with: event)
     }
     
+    
+    @IBAction func add(_ sender: Any) {
+        guard let review = reviewTextView.text,
+            let book = book else {return}
+        let haveRead = readButton.titleLabel?.text == "Read" ? true: false
+        
+        //when button title is save - update review and hasRead properties
+        if addButtonOutlet.title == "Save" {
+            bookController?.update(book: book, review: review, haveRead: haveRead)
+        }
+        //when button title is add - create new book locally and tell google api that it has been added to shelf
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func toggleRead(_ sender: Any) {
+        guard let book = book else {return}
+        
+        bookController?.update(book: book, review: book.review!, haveRead: !book.haveRead)
+        
+        let readButtonText = book.haveRead ? "Read" : "Not Read"
+        readButton.setTitle(readButtonText, for: .normal)
+    }
     
     //MARK: - Properties
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var readLabel: UILabel!
+    
+    @IBOutlet weak var readButton: UIButton!
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var addButtonOutlet: UIBarButtonItem!
     
