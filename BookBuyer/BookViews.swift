@@ -153,6 +153,11 @@ class BookDetailVC:UIViewController
 		}
 	}
 
+	@IBAction func buyBook(_ sender: Any) {
+		var stub = TransactionStub(700, category:.books)
+		stub.itemName = book.title
+		App.transactionController.add(stub)
+	}
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 		if let dest = segue.destination as? BookReviewVC {
 			dest.book = book

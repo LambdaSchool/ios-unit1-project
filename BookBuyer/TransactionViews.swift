@@ -52,16 +52,13 @@ class TransactionTVC:UITableViewController
 		let t = TransactionStub(cost, category:category)
 		controller.add(t)
 		tableView.reloadSections([0], with: .fade)
+		costField.resignFirstResponder()
 	}
 
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
 		controller = App.transactionController
-
-		controller.add(TransactionStub(953))
-		controller.add(TransactionStub(3344))
-		controller.add(TransactionStub(586))
 	}
 
 	override func viewWillAppear(_ animated: Bool)

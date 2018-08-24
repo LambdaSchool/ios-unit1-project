@@ -190,36 +190,28 @@ class BookController
 	func load()
 	{
 		let moc = CoreDataStack.shared.mainContext
+
 		moc.perform {
 			let req:NSFetchRequest<Book> = Book.fetchRequest()
 			do {
 				let books = try req.execute()
 				for book in books {
 					let b = BookStub(title: book.title!,
-									 authors: b.author!,
+									 authors: [book.author!],
 									 review: book.review!,
 									 tags: [],
 									 smallThumb: book.smallThumbURL!,
 									 thumbnail: book.thumbnailURL!,
 									 details: book.details!,
 									 googleIdentifier: book.googleIdentifier!,
-									 shelfIds: Set<Int>(book.shelfIds! as NSArray))
-				}
+									 shelfIds: Set<Int>(book.shelfIds! as! [Int]))
 
-				for book in self.bookSet {
-					let b = Book(context: moc)
-					b.title = book.title
-					b.shelfIds = Array(book.shelfIds) as NSObject
-					b.googleIdentifier = book.googleIdentifier
-					b.review = book.review
-					b.details = book.details
-					b.thumbnailURL = book.thumbnail
-					b.smallThumbURL = book.smallThumb
-					b.author = book.authors.first ?? "No author"
+			
 				}
 			} catch {
 
 			}
+		}
 	}
 
 	func push()

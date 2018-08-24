@@ -698,7 +698,7 @@ Phasellus congue sagittis ipsum convallis sagittis. Vestibulum venenatis sit ame
                             </barButtonItem>
                             <barButtonItem title="Buy" id="y60-xg-X0P">
                                 <connections>
-                                    <segue destination="S3P-AL-Fms" kind="show" id="6ge-FR-Jec"/>
+                                    <action selector="buyBook:" destination="4LI-PC-bGo" id="Nja-kz-Ksj"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -766,7 +766,7 @@ Phasellus congue sagittis ipsum convallis sagittis. Vestibulum venenatis sit ame
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="CTz-8W-IuD"/>
-        <segue reference="6ge-FR-Jec"/>
+        <segue reference="OSv-Um-I9Y"/>
+        <segue reference="Bht-bx-rPx"/>
     </inferredMetricsTieBreakers>
 </document>
