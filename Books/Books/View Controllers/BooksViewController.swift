@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BooksTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, BookTableViewCellDelegate, NSFetchedResultsControllerDelegate {
+class BooksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate, BookTableViewCellDelegate, BookCollectionViewCellDelegate, NSFetchedResultsControllerDelegate {
     
     var bookController: BookController?
     
@@ -25,7 +25,23 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     var lastSelectedBook: Book?
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var renameBookshelf: UIBarButtonItem!
+    @IBOutlet weak var viewPreferenceSegmentedControl: UISegmentedControl!
+    
+    @IBAction func toggleViewPreference(_ sender: Any) {
+        
+        switch viewPreferenceSegmentedControl.selectedSegmentIndex {
+        case 0:
+            tableView.isHidden = false
+            collectionView.isHidden = true
+        case 1:
+            tableView.isHidden = true
+            collectionView.isHidden = false
+        default:
+            break
+        }
+    }
     
     @IBAction func renameBookshelf(_ sender: Any) {
         
@@ -61,6 +77,8 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         
         updateViews()
+        
+        toggleViewPreference(self)
     }
     
     func updateViews() {
@@ -79,8 +97,19 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     func moreInfoButtonWasTapped(for cell: BookTableViewCell) {
         guard let book = cell.book else { return }
     
+        showMoreInfoSheet(for: book)
+        
+    }
+    
+    func moreInfoButtonWasTapped(for cell: BookCollectionViewCell) {
+        guard let book = cell.book else { return }
+        
+        showMoreInfoSheet(for: book)
+    }
+    
+    func showMoreInfoSheet(for book: Book) {
         lastSelectedBook = book
-
+        
         let actionSheet = UIAlertController(title: "Book Actions", message: nil, preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: book.hasRead ? "Mark as Unread" : "Mark as Read", style: .default, handler: { (action) in
@@ -98,11 +127,10 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(actionSheet, animated: true, completion: nil)
-        
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
-        // Create fetchRequest from Entry object
+        // Create fetchRequest from Book object
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
         
         // Filter all books to just the ones in that bookshelf
@@ -128,7 +156,64 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
         return frc
     }()
     
-    // MARK: - NSFetchedResultsControllerDelegate
+    // MARK: - NSFetchedResultsControllerDelegate with CollectionView
+    
+//    private var blockOperations: [BlockOperation] = []
+//
+//    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        blockOperations.removeAll(keepingCapacity: false)
+//    }
+//
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+//                    didChange anObject: Any,
+//                    at indexPath: IndexPath?,
+//                    for type: NSFetchedResultsChangeType,
+//                    newIndexPath: IndexPath?) {
+//
+//        let op: BlockOperation
+//        switch type {
+//        case .insert:
+//            guard let newIndexPath = newIndexPath else { return }
+//            op = BlockOperation { self.collectionView?.insertItems(at: [newIndexPath]) }
+//        case .delete:
+//            guard let indexPath = indexPath else { return }
+//            op = BlockOperation { self.collectionView?.deleteItems(at: [indexPath]) }
+//        case .update:
+//            guard let indexPath = indexPath else { return }
+//            op = BlockOperation { self.collectionView?.reloadItems(at: [indexPath]) }
+//        case .move:
+//            guard let indexPath = indexPath,  let newIndexPath = newIndexPath else { return }
+//            op = BlockOperation { self.collectionView?.moveItem(at: indexPath, to: newIndexPath) }
+//        }
+//
+//        blockOperations.append(op)
+//    }
+//
+//    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+//
+//        var op: BlockOperation?
+//        switch type {
+//        case .insert:
+//            op = BlockOperation { self.collectionView?.insertSections(IndexSet(integer: sectionIndex)) }
+//        case .delete:
+//            op = BlockOperation { self.collectionView?.deleteSections(IndexSet(integer: sectionIndex)) }
+//        default:
+//            break
+//        }
+//
+//        guard let newOp = op else { return }
+//        blockOperations.append(newOp)
+//    }
+//
+//    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+//        collectionView?.performBatchUpdates({
+//            self.blockOperations.forEach { $0.start() }
+//        }, completion: { finished in
+//            self.blockOperations.removeAll(keepingCapacity: false)
+//        })
+//    }
+    
+    // MARK: - NSFetchedResultsControllerDelegate with TableView
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -136,6 +221,7 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.endUpdates()
+        collectionView.reloadData()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
@@ -170,8 +256,29 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
 //            tableView.insertRows(at: [newIndexPath], with: .automatic)
         }
     }
+    
+    // MARK: - CollectionViewDataSource
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
 
-    // MARK: - Table view data source
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionCell", for: indexPath) as! BookCollectionViewCell
+
+        cell.book = fetchedResultsController.object(at: indexPath)
+        cell.delegate = self
+
+        return cell
+    }
+
+
+
+    // MARK: - TableViewDataSource
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return fetchedResultsController.sections?.count ?? 1
@@ -220,8 +327,14 @@ class BooksTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
         if let bookDetailVC = segue.destination as? BookDetailViewController {
             bookDetailVC.bookController = bookController
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-            bookDetailVC.book = fetchedResultsController.object(at: indexPath)
+            
+            if segue.identifier == "ShowBookDetail" {
+                guard let indexPath = tableView.indexPathForSelectedRow else { return }
+                bookDetailVC.book = fetchedResultsController.object(at: indexPath)
+            } else if segue.identifier == "ShowCollectionBookDetail" {
+                guard let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+                bookDetailVC.book = fetchedResultsController.object(at: indexPath)
+            }
         }
         
         if let moveToVC = segue.destination as? MoveToTableViewController {

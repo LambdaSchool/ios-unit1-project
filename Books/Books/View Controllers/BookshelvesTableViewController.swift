@@ -169,7 +169,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let booksTVC = segue.destination as? BooksTableViewController {
+        if let booksTVC = segue.destination as? BooksViewController {
             booksTVC.bookController = bookController
             
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
