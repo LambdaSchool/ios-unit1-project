@@ -13,10 +13,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
+        <!--Book Tab Bar View Controller-->
         <scene sceneID="r2O-Ey-cTr">
             <objects>
-                <tabBarController id="D4k-EC-SZM" sceneMemberID="viewController">
+                <tabBarController id="D4k-EC-SZM" customClass="BookTabBarViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VIM-NG-u9r">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -48,23 +48,23 @@
                                             <constraint firstAttribute="height" constant="200" id="eme-a4-V4j"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAm-Xy-auU">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aAm-Xy-auU">
                                         <rect key="frame" x="0.0" y="208" width="275" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-22-aPx">
-                                        <rect key="frame" x="0.0" y="236.5" width="275" height="20.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Pc-22-aPx">
+                                        <rect key="frame" x="0.0" y="236.5" width="275" height="30"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="My Review:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iy4-Mq-qBT">
-                                                <rect key="frame" x="0.0" y="0.0" width="229" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Review:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iy4-Mq-qBT">
+                                                <rect key="frame" x="0.0" y="0.0" width="229" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEF-xL-f5X">
-                                                <rect key="frame" x="229" y="0.0" width="46" height="20.5"/>
+                                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MEF-xL-f5X">
+                                                <rect key="frame" x="229" y="0.0" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
                                                     <action selector="toggleRead:" destination="NMm-ig-3L3" eventType="touchUpInside" id="61N-8Y-Me8"/>
@@ -72,13 +72,16 @@
                                             </button>
                                         </subviews>
                                     </stackView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" text="Review" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DzU-Fs-2kP">
-                                        <rect key="frame" x="0.0" y="265" width="275" height="179.5"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Review" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DzU-Fs-2kP">
+                                        <rect key="frame" x="0.0" y="274.5" width="275" height="170"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="aAm-Xy-auU" firstAttribute="top" secondItem="7J3-GW-q5f" secondAttribute="bottom" constant="8" id="KeM-DD-raG"/>
+                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -94,6 +97,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Add" id="O9z-v5-Zem">
                             <connections>
                                 <action selector="add:" destination="NMm-ig-3L3" id="oFC-KG-drf"/>
+                                <segue destination="IPF-Tz-qFU" kind="presentation" identifier="SelectShelf" id="LlB-35-OqI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -107,9 +111,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sI6-jl-9rM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2934" y="-37"/>
+            <point key="canvasLocation" x="2933.5999999999999" y="-37.331334332833585"/>
         </scene>
-        <!--Bookshelves Table View Controller-->
+        <!--Title-->
+        <scene sceneID="AZw-P7-ZJz">
+            <objects>
+                <tableViewController id="IPF-Tz-qFU" customClass="SelectShelfTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="J5H-Bh-jhv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <navigationBar key="tableHeaderView" contentMode="scaleToFill" id="cug-nO-eRd">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <items>
+                                <navigationItem title="Add to Bookshelf" id="GNE-4G-hAS">
+                                    <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="uit-8M-iZg">
+                                        <connections>
+                                            <action selector="cancel:" destination="IPF-Tz-qFU" id="5Iw-fe-pbV"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ShelfCell" textLabel="Hhs-NG-xPJ" detailTextLabel="5bw-pk-bpR" style="IBUITableViewCellStyleValue1" id="ZIq-jL-q1d">
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ZIq-jL-q1d" id="jC3-Uu-Cnx">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Hhs-NG-xPJ">
+                                            <rect key="frame" x="16" y="12" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5bw-pk-bpR">
+                                            <rect key="frame" x="315" y="12" width="44" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="IPF-Tz-qFU" id="IpZ-BZ-9ee"/>
+                            <outlet property="delegate" destination="IPF-Tz-qFU" id="H9a-eS-8Yf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="euB-9f-1RH"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j6a-iC-Nz5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3759" y="-37"/>
+        </scene>
+        <!--My Bookshelves-->
         <scene sceneID="OTF-DB-8w7">
             <objects>
                 <tableViewController id="Rfi-8J-cpq" customClass="BookshelvesTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
@@ -162,7 +224,7 @@
                             <outlet property="delegate" destination="Rfi-8J-cpq" id="qkI-Ob-n1f"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="hZG-5y-7zM"/>
+                    <navigationItem key="navigationItem" title="My Bookshelves" id="hZG-5y-7zM"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Yg-ST-WDI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,6 +234,7 @@
         <!--Bookshelves-->
         <scene sceneID="XBe-Rc-aYJ">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="um1-80-In0" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="k5d-8v-QAE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bookshelves" id="D3v-gT-qmo"/>
                     <toolbarItems/>
@@ -184,11 +247,10 @@
                         <segue destination="Rfi-8J-cpq" kind="relationship" relationship="rootViewController" id="uBO-uf-JWZ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="um1-80-In0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="965.60000000000002" y="-398.05097451274366"/>
         </scene>
-        <!--Search Table View Controller-->
+        <!--Search Google Books-->
         <scene sceneID="1Ob-sN-TNh">
             <objects>
                 <tableViewController id="lzK-18-3kc" customClass="SearchTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
@@ -228,7 +290,7 @@
                             <outlet property="delegate" destination="lzK-18-3kc" id="3Bw-Ab-arc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="lZu-9L-gvT"/>
+                    <navigationItem key="navigationItem" title="Search Google Books" id="lZu-9L-gvT"/>
                     <connections>
                         <outlet property="searchBar" destination="Wz2-jT-gmX" id="vFL-Ub-iUp"/>
                     </connections>
@@ -240,6 +302,7 @@
         <!--Item-->
         <scene sceneID="sHa-SZ-T1t">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAy-yi-Se6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Y8v-Fw-AhR" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="mg7-X0-f4c"/>
                     <toolbarItems/>
@@ -252,7 +315,6 @@
                         <segue destination="lzK-18-3kc" kind="relationship" relationship="rootViewController" id="uQ5-Md-XJ3"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vAy-yi-Se6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="966" y="342"/>
         </scene>

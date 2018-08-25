@@ -27,6 +27,9 @@
 		103DAEC2212CD3D9004344F3 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */; };
 		103DAEC4212CD58B004344F3 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC3212CD58B004344F3 /* BookRepresentation.swift */; };
 		103DAEC6212CDA73004344F3 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103DAEC5212CDA73004344F3 /* BookController.swift */; };
+		1082A1262130B75A003504A6 /* SelectShelfTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1082A1252130B75A003504A6 /* SelectShelfTableViewController.swift */; };
+		1082A12A2130CBF1003504A6 /* BookTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1082A1292130CBF1003504A6 /* BookTabBarViewController.swift */; };
+		1082A12C2130CC35003504A6 /* BookControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1082A12B2130CC35003504A6 /* BookControllerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +68,9 @@
 		103DAEC1212CD3D9004344F3 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		103DAEC3212CD58B004344F3 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
 		103DAEC5212CDA73004344F3 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
+		1082A1252130B75A003504A6 /* SelectShelfTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectShelfTableViewController.swift; sourceTree = "<group>"; };
+		1082A1292130CBF1003504A6 /* BookTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTabBarViewController.swift; sourceTree = "<group>"; };
+		1082A12B2130CC35003504A6 /* BookControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookControllerProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +143,8 @@
 				103DAE9F212CBC99004344F3 /* BookshelvesTableViewController.swift */,
 				103DAEA2212CBCE7004344F3 /* SearchTableViewController.swift */,
 				103DAEA4212CBCF6004344F3 /* DetailViewController.swift */,
+				1082A1252130B75A003504A6 /* SelectShelfTableViewController.swift */,
+				1082A1292130CBF1003504A6 /* BookTabBarViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -173,6 +181,7 @@
 		103DAEC7212CDA7F004344F3 /* Model Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1082A12B2130CC35003504A6 /* BookControllerProtocol.swift */,
 				103DAEC5212CDA73004344F3 /* BookController.swift */,
 			);
 			path = "Model Controller";
@@ -250,6 +259,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1082A1262130B75A003504A6 /* SelectShelfTableViewController.swift in Sources */,
 				103DAEBA212CC3CE004344F3 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				103DAEC6212CDA73004344F3 /* BookController.swift in Sources */,
 				103DAE86212C9E82004344F3 /* AppDelegate.swift in Sources */,
@@ -260,6 +270,8 @@
 				103DAEA5212CBCF6004344F3 /* DetailViewController.swift in Sources */,
 				103DAEC0212CD256004344F3 /* Book+Convenience.swift in Sources */,
 				103DAEA7212CBD1D004344F3 /* BookshelvesTableViewCell.swift in Sources */,
+				1082A12A2130CBF1003504A6 /* BookTabBarViewController.swift in Sources */,
+				1082A12C2130CC35003504A6 /* BookControllerProtocol.swift in Sources */,
 				103DAEBD212CD121004344F3 /* Book.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

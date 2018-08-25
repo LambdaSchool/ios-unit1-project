@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController, UISearchBarDelegate {
+class SearchTableViewController: UITableViewController, UISearchBarDelegate, BookControllerProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +28,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = searchBar.text else {return}
         
-        bookController.fetchVolumeFromGoogle(searchTerm: searchTerm) { (error) in
+        bookController?.fetchVolumeFromGoogle(searchTerm: searchTerm) { (error) in
             if let error = error {
                 NSLog("Error Searching: \(error)")
             }
@@ -44,13 +44,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return bookController.searchResults.count
+        return bookController?.searchResults.count ?? 0
     }
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchCell", for: indexPath)
-        cell.textLabel?.text = bookController.searchResults[indexPath.row].volumeInfo?.title
+        cell.textLabel?.text = bookController?.searchResults[indexPath.row].volumeInfo?.title
 
         return cell
     }
@@ -63,13 +63,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate {
         destinationVC.bookController = bookController
         
         if segue.identifier == "ViewNewCollection"{
-            destinationVC.bookRepresentation = bookController.searchResults[indexPath.row]
+            destinationVC.bookRepresentation = bookController?.searchResults[indexPath.row]
         }
         
     }
     
     //MARK: - Properties
-    let bookController = BookController()
+    var bookController: BookController?
     @IBOutlet weak var searchBar: UISearchBar!
 }
 

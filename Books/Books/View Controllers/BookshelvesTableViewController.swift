@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class BookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class BookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, BookControllerProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bookController.fetchBooksFromGoogle { (error) in
+        bookController?.fetchBooksFromGoogle { (error) in
             if let error = error {
                 NSLog("Error: \(error)")
                 return
@@ -21,9 +21,13 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+            
         }
-        
     }
+    
+    
+    
+    
     // MARK: - NSFetchedResultsControllerDelegate methods
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -98,7 +102,7 @@ class BookshelvesTableViewController: UITableViewController, NSFetchedResultsCon
     }
     
     //MARK: - Properties
-    let bookController = BookController()
+    var bookController: BookController?
     
     lazy var fetchResultsController: NSFetchedResultsController<Book> = {
         let request: NSFetchRequest<Book> = Book.fetchRequest()

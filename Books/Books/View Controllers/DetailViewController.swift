@@ -37,12 +37,13 @@ class DetailViewController: UIViewController{
             } catch {
                 NSLog("Error getting image: \(error)")
             }
+            
         }
         if let bookRepresentation = bookRepresentation {
             self.title = bookRepresentation.volumeInfo?.title
             authorLabel.text = bookRepresentation.volumeInfo?.authors?.first
             readButton.setTitle("Not Read", for: .normal)
-            readButton.isUserInteractionEnabled = false            
+            readButton.isUserInteractionEnabled = false
             addButtonOutlet.title = "Add"
             
             guard let imageLinks = bookRepresentation.volumeInfo?.imageLinks?.values,
@@ -70,9 +71,12 @@ class DetailViewController: UIViewController{
         //when button title is save - update review and hasRead properties
         if addButtonOutlet.title == "Save" {
             bookController?.update(book: book, review: review, haveRead: haveRead)
-        }
+        } else{
         //when button title is add - create new book locally and tell google api that it has been added to shelf
+            
+        }
         navigationController?.popViewController(animated: true)
+        
     }
     
     @IBAction func toggleRead(_ sender: Any) {
@@ -83,11 +87,16 @@ class DetailViewController: UIViewController{
         let readButtonText = book.haveRead ? "Read" : "Not Read"
         readButton.setTitle(readButtonText, for: .normal)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "SelectShelf"{
+            let destinationVC = segue.destination as! SelectShelfTableViewController
+            destinationVC.bookController = bookController
+        }
+    }
     
     //MARK: - Properties
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var readButton: UIButton!
     @IBOutlet weak var reviewTextView: UITextView!
     @IBOutlet weak var addButtonOutlet: UIBarButtonItem!

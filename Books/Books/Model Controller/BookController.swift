@@ -57,7 +57,7 @@ class BookController{
     }
     
     func fetchBooksFromGoogle( completion:@escaping CompletionHandler = {_ in}){
-        var bookRepresentationsDirectory = [Int: [BookRepresentation]]()
+
         //initialize dispatch group
         let group = DispatchGroup()
         for shelf in 0 ... 8 {
@@ -95,7 +95,7 @@ class BookController{
                         guard let bookRepresentations = decodedBookRepresentations else { group.leave(); return}
                         
                         //add entries to bookRepresentationsDirectory
-                        bookRepresentationsDirectory[shelf] = bookRepresentations
+                        self.bookRepresentationsDirectory[shelf] = bookRepresentations
                     }catch {
                         NSLog("Error decoding fetch data: \(error)")
                     }
@@ -107,7 +107,7 @@ class BookController{
         //notifies mainQueue that everyone in the group has left.
         group.notify(queue: .main) {
             let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-            self.syncPersistenceStoreWithGoogle(directory: bookRepresentationsDirectory, context: backgroundContext)
+            self.syncPersistenceStoreWithGoogle(directory: self.bookRepresentationsDirectory, context: backgroundContext)
             
             completion(nil)
         }
@@ -223,4 +223,5 @@ class BookController{
     
     //MARK: - Properties
     var searchResults = [BookRepresentation]()
+    private (set) var bookRepresentationsDirectory = [Int: [BookRepresentation]]()
 }
