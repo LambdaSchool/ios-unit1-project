@@ -12,7 +12,7 @@
         <!--My Library-->
         <scene sceneID="tGa-bj-MXb">
             <objects>
-                <tableViewController id="Fn2-4V-gAO" sceneMemberID="viewController">
+                <tableViewController id="Fn2-4V-gAO" customClass="BookshelfTableViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="XDV-hN-0Xc">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,10 +50,10 @@
             </objects>
             <point key="canvasLocation" x="346" y="-233"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Bookshelf Detail Collection View Controller-->
         <scene sceneID="4jG-LX-L8V">
             <objects>
-                <collectionViewController id="eYh-Dy-Opx" sceneMemberID="viewController">
+                <collectionViewController id="eYh-Dy-Opx" customClass="BookshelfDetailCollectionViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Iu-S6-RHT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,10 +105,10 @@
             </objects>
             <point key="canvasLocation" x="-606" y="111"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Search Results Table View Controller-->
         <scene sceneID="Cwv-QS-ODx">
             <objects>
-                <tableViewController id="gPh-3T-xJd" sceneMemberID="viewController">
+                <tableViewController id="gPh-3T-xJd" customClass="SearchResultsTableViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ng3-Gd-uMM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -153,10 +153,10 @@
             </objects>
             <point key="canvasLocation" x="345" y="476"/>
         </scene>
-        <!--View Controller-->
+        <!--Book Detail View Controller-->
         <scene sceneID="G5r-md-nvV">
             <objects>
-                <viewController id="Q8h-KB-zl8" sceneMemberID="viewController">
+                <viewController id="Q8h-KB-zl8" customClass="BookDetailViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1aY-pa-EdY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -170,6 +170,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NwR-Ru-0fE"/>
+        <segue reference="hrl-Y3-r0H"/>
     </inferredMetricsTieBreakers>
 </document>
