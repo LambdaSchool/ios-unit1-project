@@ -115,6 +115,7 @@ class BookshelfTableViewController: UITableViewController, NSFetchedResultsContr
                 let indexPath = tableView.indexPathForSelectedRow else { return }
             let bookshelf = fetchedResultsController.object(at: indexPath)
             
+            bookshelfController.fetchBooks(for: bookshelf)
             destinationVC.bookshelf = bookshelf
         }
     }

@@ -5,12 +5,12 @@
         <attribute name="thumbnailData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="thumbnailURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="bookshelves" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bookshelf" inverseName="books" inverseEntity="Bookshelf" syncable="YES"/>
+        <relationship name="bookshelves" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Bookshelf" inverseName="books" inverseEntity="Bookshelf" syncable="YES"/>
     </entity>
     <entity name="Bookshelf" representedClassName="Bookshelf" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Book" inverseName="bookshelves" inverseEntity="Book" syncable="YES"/>
+        <relationship name="books" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Book" inverseName="bookshelves" inverseEntity="Book" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="-63" positionY="-18" width="128" height="120"/>

@@ -13,6 +13,6 @@ struct BookshelfRepresentation: Codable {
     let id: Int16
 }
 
-struct BookshelfRepresentationResults: Codable {
+struct BookshelvesRepresentationResults: Codable {
     let items: [BookshelfRepresentation]
 }

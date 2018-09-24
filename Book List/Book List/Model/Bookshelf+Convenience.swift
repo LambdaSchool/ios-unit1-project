@@ -20,4 +20,10 @@ extension Bookshelf {
     convenience init(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(title: bookshelfRepresentation.title, id: bookshelfRepresentation.id, context: context)
     }
+    
+    func containsBook(_ book: Book) -> Bool {
+        guard let books = books  else { return false }
+        
+        return books.contains(book)
+    }
 }

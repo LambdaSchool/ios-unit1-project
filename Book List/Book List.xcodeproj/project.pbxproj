@@ -28,6 +28,9 @@
 		3472AF43215966CD00D18F31 /* BookshelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF42215966CD00D18F31 /* BookshelfController.swift */; };
 		3472AF452159674D00D18F31 /* NetworkHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF442159674C00D18F31 /* NetworkHelpers.swift */; };
 		3472AF4721596CC500D18F31 /* BookshelfRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4621596CC500D18F31 /* BookshelfRepresentation.swift */; };
+		3472AF49215989E800D18F31 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF48215989E800D18F31 /* BookRepresentation.swift */; };
+		3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4A21598ED500D18F31 /* Book+Convenience.swift */; };
+		3472AF4D215992A000D18F31 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +70,9 @@
 		3472AF42215966CD00D18F31 /* BookshelfController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfController.swift; sourceTree = "<group>"; };
 		3472AF442159674C00D18F31 /* NetworkHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHelpers.swift; sourceTree = "<group>"; };
 		3472AF4621596CC500D18F31 /* BookshelfRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfRepresentation.swift; sourceTree = "<group>"; };
+		3472AF48215989E800D18F31 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
+		3472AF4A21598ED500D18F31 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
+		3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +137,7 @@
 				3472AF382159650E00D18F31 /* SearchResultsTableViewController.swift */,
 				3472AF3A2159652200D18F31 /* BookshelfTableViewController.swift */,
 				3472AF3C2159653600D18F31 /* BookshelfDetailCollectionViewController.swift */,
+				3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */,
 				3472AF3E2159654B00D18F31 /* BookDetailViewController.swift */,
 			);
 			path = View;
@@ -152,6 +159,8 @@
 				3472AF332159623400D18F31 /* BookList.xcdatamodeld */,
 				3472AF36215964B800D18F31 /* Bookshelf+Convenience.swift */,
 				3472AF4621596CC500D18F31 /* BookshelfRepresentation.swift */,
+				3472AF4A21598ED500D18F31 /* Book+Convenience.swift */,
+				3472AF48215989E800D18F31 /* BookRepresentation.swift */,
 				3472AF42215966CD00D18F31 /* BookshelfController.swift */,
 			);
 			path = Model;
@@ -232,12 +241,15 @@
 				3472AF4721596CC500D18F31 /* BookshelfRepresentation.swift in Sources */,
 				3472AF452159674D00D18F31 /* NetworkHelpers.swift in Sources */,
 				3472AF3D2159653600D18F31 /* BookshelfDetailCollectionViewController.swift in Sources */,
+				3472AF4D215992A000D18F31 /* BookCollectionViewCell.swift in Sources */,
 				3472AF43215966CD00D18F31 /* BookshelfController.swift in Sources */,
 				3472AF3121595DC100D18F31 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				3472AF3B2159652200D18F31 /* BookshelfTableViewController.swift in Sources */,
 				3472AF41215965DD00D18F31 /* CoreDataStack.swift in Sources */,
 				3472AF0F21595AC100D18F31 /* AppDelegate.swift in Sources */,
+				3472AF49215989E800D18F31 /* BookRepresentation.swift in Sources */,
 				3472AF392159650E00D18F31 /* SearchResultsTableViewController.swift in Sources */,
+				3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */,
 				3472AF352159623400D18F31 /* BookList.xcdatamodeld in Sources */,
 				3472AF3F2159654B00D18F31 /* BookDetailViewController.swift in Sources */,
 				3472AF37215964B800D18F31 /* Bookshelf+Convenience.swift in Sources */,

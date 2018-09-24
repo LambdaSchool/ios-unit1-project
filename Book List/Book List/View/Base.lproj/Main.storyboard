@@ -59,20 +59,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="tKc-yl-aoI">
-                            <size key="itemSize" width="60" height="80"/>
+                            <size key="itemSize" width="80" height="120"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="16" minY="16" maxX="16" maxY="16"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="mDv-EE-bpU">
-                                <rect key="frame" x="16" y="16" width="60" height="80"/>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="mDv-EE-bpU" customClass="BookCollectionViewCell" customModule="Book_List" customModuleProvider="target">
+                                <rect key="frame" x="16" y="16" width="80" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="60" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6pH-aU-Row">
+                                            <rect key="frame" x="0.0" y="0.0" width="80" height="120"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KR2-5A-s4N">
+                                            <rect key="frame" x="8" y="51.5" width="64" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </view>
+                                <color key="backgroundColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="6pH-aU-Row" secondAttribute="trailing" id="60q-Yn-hR8"/>
+                                    <constraint firstItem="KR2-5A-s4N" firstAttribute="width" secondItem="mDv-EE-bpU" secondAttribute="width" multiplier="4/5" id="8of-eg-W2i"/>
+                                    <constraint firstItem="KR2-5A-s4N" firstAttribute="centerY" secondItem="mDv-EE-bpU" secondAttribute="centerY" id="A4o-cq-ZFF"/>
+                                    <constraint firstItem="6pH-aU-Row" firstAttribute="leading" secondItem="mDv-EE-bpU" secondAttribute="leading" id="PZs-dX-DUp"/>
+                                    <constraint firstAttribute="bottom" secondItem="6pH-aU-Row" secondAttribute="bottom" id="Qny-gN-sgq"/>
+                                    <constraint firstItem="KR2-5A-s4N" firstAttribute="centerX" secondItem="mDv-EE-bpU" secondAttribute="centerX" id="fDU-70-efT"/>
+                                    <constraint firstItem="6pH-aU-Row" firstAttribute="top" secondItem="mDv-EE-bpU" secondAttribute="top" id="p8W-Dx-dem"/>
+                                </constraints>
                                 <connections>
+                                    <outlet property="bookImageView" destination="6pH-aU-Row" id="O7O-Yw-fJf"/>
+                                    <outlet property="titleLabel" destination="KR2-5A-s4N" id="J8M-FX-H9k"/>
                                     <segue destination="Q8h-KB-zl8" kind="show" id="hrl-Y3-r0H"/>
                                 </connections>
                             </collectionViewCell>
@@ -85,7 +108,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGz-mJ-kWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2250" y="-283"/>
+            <point key="canvasLocation" x="2248.8000000000002" y="-283.80809595202402"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ISc-rV-3rN">

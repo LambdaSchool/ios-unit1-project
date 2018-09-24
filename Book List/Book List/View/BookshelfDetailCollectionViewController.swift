@@ -7,49 +7,52 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "BookCell"
 
-class BookshelfDetailCollectionViewController: UICollectionViewController {
+class BookshelfDetailCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
     
     var bookshelf: Bookshelf?
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        
+        if let bookshelf = bookshelf {
+            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
+            fetchRequest.predicate = predicate
+        }
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        fetchedResultsController.delegate = self
+        
+        try! fetchedResultsController.performFetch()
+        return fetchedResultsController
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        title = bookshelf?.title
+        title = bookshelf?.title?.capitalized
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return fetchedResultsController.fetchedObjects?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BookCollectionViewCell
+        let book = fetchedResultsController.object(at: indexPath)
+        
+        cell.book = book
     
         return cell
     }
@@ -84,5 +87,48 @@ class BookshelfDetailCollectionViewController: UICollectionViewController {
     
     }
     */
+    
+    // MARK: - NS Fetched Results Controller
+    private var sectionChanges = [(type: NSFetchedResultsChangeType, sectionIndex: Int)]()
+    private var itemChanges = [(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?)]()
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange sectionInfo: NSFetchedResultsSectionInfo, atSectionIndex sectionIndex: Int, for type: NSFetchedResultsChangeType) {
+        sectionChanges.append((type, sectionIndex))
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+    {
+        itemChanges.append((type, indexPath, newIndexPath))
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
+    {
+        collectionView?.performBatchUpdates({
+            
+            for change in self.sectionChanges {
+                switch change.type {
+                case .insert: self.collectionView?.insertSections([change.sectionIndex])
+                case .delete: self.collectionView?.deleteSections([change.sectionIndex])
+                default: break
+                }
+            }
+            
+            for change in self.itemChanges {
+                switch change.type {
+                case .insert: self.collectionView?.insertItems(at: [change.newIndexPath!])
+                case .delete: self.collectionView?.deleteItems(at: [change.indexPath!])
+                case .update: self.collectionView?.reloadItems(at: [change.indexPath!])
+                case .move:
+                    self.collectionView?.deleteItems(at: [change.indexPath!])
+                    self.collectionView?.insertItems(at: [change.newIndexPath!])
+                }
+            }
+            
+        }, completion: { finished in
+            self.sectionChanges.removeAll()
+            self.itemChanges.removeAll()
+        })
+    }
+
 
 }
