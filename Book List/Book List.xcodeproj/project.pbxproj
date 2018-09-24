@@ -18,6 +18,8 @@
 		3472AF2D21595D9D00D18F31 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3472AF2421595D8B00D18F31 /* GTMSessionFetcher.framework */; };
 		3472AF2E21595D9D00D18F31 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3472AF2421595D8B00D18F31 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3472AF3121595DC100D18F31 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF3021595DC100D18F31 /* GoogleBooksAuthorizationClient.swift */; };
+		3472AF352159623400D18F31 /* BookList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF332159623400D18F31 /* BookList.xcdatamodeld */; };
+		3472AF37215964B800D18F31 /* Bookshelf+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF36215964B800D18F31 /* Bookshelf+Convenience.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -47,6 +49,8 @@
 		3472AF2421595D8B00D18F31 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
 		3472AF2521595D8B00D18F31 /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
 		3472AF3021595DC100D18F31 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
+		3472AF342159623400D18F31 /* BookList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookList.xcdatamodel; sourceTree = "<group>"; };
+		3472AF36215964B800D18F31 /* Bookshelf+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookshelf+Convenience.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +86,7 @@
 		3472AF0D21595AC100D18F31 /* Book List */ = {
 			isa = PBXGroup;
 			children = (
+				3472AF322159621600D18F31 /* Model */,
 				3472AF2121595C4E00D18F31 /* View */,
 				3472AF2021595C4200D18F31 /* Resources */,
 				3472AF2221595C5E00D18F31 /* Frameworks */,
@@ -117,6 +122,15 @@
 				3472AF2421595D8B00D18F31 /* GTMSessionFetcher.framework */,
 			);
 			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		3472AF322159621600D18F31 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3472AF332159623400D18F31 /* BookList.xcdatamodeld */,
+				3472AF36215964B800D18F31 /* Bookshelf+Convenience.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +207,8 @@
 			files = (
 				3472AF3121595DC100D18F31 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				3472AF0F21595AC100D18F31 /* AppDelegate.swift in Sources */,
+				3472AF352159623400D18F31 /* BookList.xcdatamodeld in Sources */,
+				3472AF37215964B800D18F31 /* Bookshelf+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +426,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		3472AF332159623400D18F31 /* BookList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				3472AF342159623400D18F31 /* BookList.xcdatamodel */,
+			);
+			currentVersion = 3472AF342159623400D18F31 /* BookList.xcdatamodel */;
+			path = BookList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 3472AF0321595AC100D18F31 /* Project object */;
 }
