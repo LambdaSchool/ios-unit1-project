@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My Library-->
+        <!--Bookshelves-->
         <scene sceneID="tGa-bj-MXb">
             <objects>
                 <tableViewController id="Fn2-4V-gAO" customClass="BookshelfTableViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
@@ -35,7 +35,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="eYh-Dy-Opx" kind="show" id="w57-kF-c1I"/>
+                                    <segue destination="eYh-Dy-Opx" kind="show" identifier="ShowBookshelfSegue" id="w57-kF-c1I"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -44,11 +44,11 @@
                             <outlet property="delegate" destination="Fn2-4V-gAO" id="sOD-ZU-vtX"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="My Library" id="SqQ-IB-lz0"/>
+                    <navigationItem key="navigationItem" title="Bookshelves" id="O3F-7E-dGc"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rfY-yG-WoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="346" y="-233"/>
+            <point key="canvasLocation" x="1316" y="-283"/>
         </scene>
         <!--Bookshelf Detail Collection View Controller-->
         <scene sceneID="4jG-LX-L8V">
@@ -85,7 +85,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TGz-mJ-kWo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1316" y="-233"/>
+            <point key="canvasLocation" x="2250" y="-283"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="ISc-rV-3rN">
@@ -98,7 +98,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="gPh-3T-xJd" kind="relationship" relationship="viewControllers" id="0kc-qo-zgR"/>
-                        <segue destination="Fn2-4V-gAO" kind="relationship" relationship="viewControllers" id="88m-Uc-Fbz"/>
+                        <segue destination="Dzv-Ae-kw2" kind="relationship" relationship="viewControllers" id="88m-Uc-Fbz"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xr8-KQ-HEj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -167,6 +167,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GCR-c5-JSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1316" y="475"/>
+        </scene>
+        <!--My Library-->
+        <scene sceneID="Lba-5I-WrO">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dzv-Ae-kw2" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="My Library" id="SqQ-IB-lz0"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="QxW-hZ-Qbg">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Fn2-4V-gAO" kind="relationship" relationship="rootViewController" id="lIs-Xs-l8J"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="koK-VP-fz0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="345" y="-284"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

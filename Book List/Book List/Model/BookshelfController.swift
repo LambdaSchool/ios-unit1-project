@@ -22,10 +22,10 @@ class BookshelfController {
     }
     
     // MARK: - Persistence
-    private func fetchSingleBookshelf(id: Int16, context: NSManagedObjectContext) -> Bookshelf? {
+    private func fetchSingleBookshelf(title: String, context: NSManagedObjectContext) -> Bookshelf? {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
-        let predicate = NSPredicate(format: "id = %@", id)
+        let predicate = NSPredicate(format: "title = %@", title)
         
         fetchRequest.predicate = predicate
         
@@ -44,23 +44,23 @@ class BookshelfController {
     
     // MARK: Networking
     func fetchBookshelves(completion: @escaping CompletionHandler = { _ in }) {
-        let requestURL = baseURL.appendingPathComponent("myLibrary").appendingPathComponent("bookshelves")
+        let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves")
         let request = URLRequest(url: requestURL)
         
-        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (newRequest, error) in
             if let error = error {
                 NSLog("Error adding authorization: \(error)")
                 completion(error)
                 return
             }
             
-            guard let request = request else {
+            guard let newRequest = newRequest else {
                 NSLog("Don't have a request.")
                 completion(NSError())
                 return
             }
             
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+            URLSession.shared.dataTask(with: newRequest, completionHandler: { (data, _, error) in
                 if let error = error {
                     NSLog("Error GETting bookshelves: \(error)")
                     completion(error)
@@ -86,12 +86,21 @@ class BookshelfController {
                 
                 let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                 
-                for bookshelfRepresentation in bookshelfRepresentations {
-                    if let bookshelf = self.fetchSingleBookshelf(id: bookshelfRepresentation.id, context: backgroundContext) {
-                        self.update(bookshelf: bookshelf, with: bookshelfRepresentation)
-                    } else {
-                        _ = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: backgroundContext)
+                backgroundContext.performAndWait {
+                    for bookshelfRepresentation in bookshelfRepresentations {
+                        if let bookshelf = self.fetchSingleBookshelf(title: bookshelfRepresentation.title, context: backgroundContext) {
+                            self.update(bookshelf: bookshelf, with: bookshelfRepresentation)
+                        } else {
+                            _ = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: backgroundContext)
+                        }
                     }
+                }
+                do {
+                    try CoreDataStack.shared.save(context: backgroundContext)
+                } catch {
+                    NSLog("Error saving background context: \(error)")
+                    completion(error)
+                    return
                 }
                 
             }).resume()
