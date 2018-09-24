@@ -76,20 +76,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="219.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nf5-9i-Pdu">
-                            <size key="itemSize" width="136" height="144"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Nf5-9i-Pdu">
+                            <size key="itemSize" width="136" height="165.5"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" id="m9U-gA-z61">
-                                <rect key="frame" x="0.0" y="0.0" width="136" height="144"/>
+                                <rect key="frame" x="5" y="5" width="136" height="165.5"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                    <rect key="frame" x="0.0" y="0.0" width="136" height="144"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="136" height="165.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </view>
+                                <connections>
+                                    <segue destination="T1d-Kp-8hF" kind="show" id="3tO-8P-P8h"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -97,15 +100,25 @@
                             <outlet property="delegate" destination="xci-Cv-Jsx" id="QK7-Te-fox"/>
                         </connections>
                     </collectionView>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uJB-y6-7XA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="662" y="-16"/>
+            <point key="canvasLocation" x="661.60000000000002" y="-16.191904047976013"/>
         </scene>
-        <!--Storyboard Reference-->
+        <!--Book-->
+        <scene sceneID="LeN-2C-Teu">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Book" id="T1d-Kp-8hF" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Deg-tn-jdV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1220" y="-16"/>
+        </scene>
+        <!--Bookshelf-->
         <scene sceneID="BDS-v2-j0h">
             <objects>
-                <viewControllerPlaceholder id="NJb-Sp-1Tw" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="Bookshelf" id="NJb-Sp-1Tw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1zx-Bo-H80" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="494" y="137"/>
