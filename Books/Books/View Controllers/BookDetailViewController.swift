@@ -1,5 +1,5 @@
 //
-//  AddBookshelfViewController.swift
+//  BookDetailViewController.swift
 //  Books
 //
 //  Created by Daniela Parra on 9/24/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AddBookshelfViewController: UIViewController {
+class BookDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
