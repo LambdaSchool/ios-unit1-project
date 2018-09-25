@@ -24,6 +24,9 @@
 		A158D7492159A83700736647 /* Volume+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7482159A83700736647 /* Volume+Convenience.swift */; };
 		A158D74B2159B3CD00736647 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D74A2159B3CD00736647 /* CoreDataStack.swift */; };
 		A158D74D2159C31200736647 /* BookShelfIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D74C2159C31200736647 /* BookShelfIdentifier.swift */; };
+		A158D7502159F20100736647 /* BooksTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D74F2159F20100736647 /* BooksTabBarViewController.swift */; };
+		A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7512159F26700736647 /* VolumeControllerProtocol.swift */; };
+		A158D7542159F3C500736647 /* VolumeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +62,9 @@
 		A158D7482159A83700736647 /* Volume+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Volume+Convenience.swift"; sourceTree = "<group>"; };
 		A158D74A2159B3CD00736647 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		A158D74C2159C31200736647 /* BookShelfIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfIdentifier.swift; sourceTree = "<group>"; };
+		A158D74F2159F20100736647 /* BooksTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTabBarViewController.swift; sourceTree = "<group>"; };
+		A158D7512159F26700736647 /* VolumeControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeControllerProtocol.swift; sourceTree = "<group>"; };
+		A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSearchTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,7 @@
 		A158D71421598C1300736647 /* Book List */ = {
 			isa = PBXGroup;
 			children = (
+				A158D74E2159F17800736647 /* View Controllers */,
 				A158D73D2159A21100736647 /* Resources */,
 				A158D73C2159A1FC00736647 /* Model Controllers */,
 				A158D73B2159A1CB00736647 /* Models */,
@@ -143,6 +150,16 @@
 				A158D72121598C1300736647 /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		A158D74E2159F17800736647 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A158D74F2159F20100736647 /* BooksTabBarViewController.swift */,
+				A158D7512159F26700736647 /* VolumeControllerProtocol.swift */,
+				A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,11 +237,14 @@
 				A158D74B2159B3CD00736647 /* CoreDataStack.swift in Sources */,
 				A158D73F2159A25F00736647 /* VolumeRepresentation.swift in Sources */,
 				A158D7492159A83700736647 /* Volume+Convenience.swift in Sources */,
+				A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */,
 				A158D7412159A27600736647 /* VolumeController.swift in Sources */,
 				A158D74D2159C31200736647 /* BookShelfIdentifier.swift in Sources */,
 				A158D7472159A2CD00736647 /* Books.xcdatamodeld in Sources */,
 				A158D73821598E2900736647 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				A158D7542159F3C500736647 /* VolumeSearchTableViewController.swift in Sources */,
 				A158D71621598C1300736647 /* AppDelegate.swift in Sources */,
+				A158D7502159F20100736647 /* BooksTabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +402,7 @@
 					"$(PROJECT_DIR)/Book\\ List/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Book List/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -409,6 +430,7 @@
 					"$(PROJECT_DIR)/Book\\ List/Frameworks",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/Book List/Resources/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

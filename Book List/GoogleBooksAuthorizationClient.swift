@@ -12,7 +12,7 @@ import GTMAppAuth
 private let gtmAuthKeychainName = "BooksAuth-GTMAuthorization"
 private let issuer = URL(string: "https://accounts.google.com")!
 private let clientID = "342807499446-rq3vv757nvoleb07sgeev09i5hbks9c5.apps.googleusercontent.com"
-private let redirectURI = URL(string: "com.googleusercontent.apps.342807499446-rq3vv757nvoleb07sgeev09i5hbks9c5")!
+private let redirectURI = URL(string: "com.googleusercontent.apps.342807499446-rq3vv757nvoleb07sgeev09i5hbks9c5:/oauthredirect")!
 private let bookScopeURL = URL(string: "https://www.googleapis.com/auth/books")!
 
 final class GoogleBooksAuthorizationClient {

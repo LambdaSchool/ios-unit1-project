@@ -30,22 +30,21 @@ func != (lhs: VolumeRepresentation, rhs: Volume) -> Bool {
 struct VolumeRepresentation: Equatable, Codable {
     let id: String
     let volumeInfo: VolumeInfo
-    let averageRating: Int
-    let imageLinks: ImageLinks
+
     let hasRead: Bool?
     let review: String?
     
     struct VolumeInfo: Codable, Equatable {
         let title: String
-    }
-    
-    struct ImageLinks: Codable, Equatable {
-        let thumbnail: String
+        let imageLinks: ImageLinks
+        struct ImageLinks: Codable, Equatable {
+            let thumbnail: String
+        }
     }
     
 }
 
 
-struct Volumes: Codable {
+struct VolumeRepresentations: Codable {
     let items: [VolumeRepresentation]
 }
