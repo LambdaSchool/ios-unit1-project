@@ -7,12 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		96474D8D215A90C40090ECBA /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */; };
+		96474D8F215AA2A00090ECBA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D8E215AA2A00090ECBA /* Helpers.swift */; };
+		96474D91215AA44D0090ECBA /* BookshelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */; };
 		969A209021598DD50027AB20 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A208F21598DD50027AB20 /* AppDelegate.swift */; };
-		969A209221598DD50027AB20 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A209121598DD50027AB20 /* ViewController.swift */; };
 		969A209521598DD50027AB20 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 969A209321598DD50027AB20 /* Main.storyboard */; };
 		969A209721598DD70027AB20 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 969A209621598DD70027AB20 /* Assets.xcassets */; };
 		969A209A21598DD70027AB20 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 969A209821598DD70027AB20 /* LaunchScreen.storyboard */; };
 		969A20A521598DD70027AB20 /* My_BooksTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A20A421598DD70027AB20 /* My_BooksTests.swift */; };
+		969A20B021599A150027AB20 /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 969A20AF21599A150027AB20 /* GoogleBooksAuthorizationClient.swift */; };
+		969A20B821599B420027AB20 /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B221599B150027AB20 /* AppAuth.framework */; };
+		969A20B921599B420027AB20 /* AppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B221599B150027AB20 /* AppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		969A20BA21599B420027AB20 /* GTMAppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B421599B150027AB20 /* GTMAppAuth.framework */; };
+		969A20BB21599B420027AB20 /* GTMAppAuth.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B421599B150027AB20 /* GTMAppAuth.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		969A20BC21599B420027AB20 /* GTMSessionFetcher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B321599B150027AB20 /* GTMSessionFetcher.framework */; };
+		969A20BD21599B420027AB20 /* GTMSessionFetcher.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 969A20B321599B150027AB20 /* GTMSessionFetcher.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,10 +34,28 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		969A20BE21599B420027AB20 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				969A20B921599B420027AB20 /* AppAuth.framework in Embed Frameworks */,
+				969A20BD21599B420027AB20 /* GTMSessionFetcher.framework in Embed Frameworks */,
+				969A20BB21599B420027AB20 /* GTMAppAuth.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
+		96474D8E215AA2A00090ECBA /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesViewController.swift; sourceTree = "<group>"; };
 		969A208C21598DD50027AB20 /* My Books.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "My Books.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		969A208F21598DD50027AB20 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		969A209121598DD50027AB20 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		969A209421598DD50027AB20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		969A209621598DD70027AB20 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		969A209921598DD70027AB20 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -36,6 +63,10 @@
 		969A20A021598DD70027AB20 /* My BooksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "My BooksTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		969A20A421598DD70027AB20 /* My_BooksTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = My_BooksTests.swift; sourceTree = "<group>"; };
 		969A20A621598DD70027AB20 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		969A20AF21599A150027AB20 /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
+		969A20B221599B150027AB20 /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
+		969A20B321599B150027AB20 /* GTMSessionFetcher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMSessionFetcher.framework; sourceTree = "<group>"; };
+		969A20B421599B150027AB20 /* GTMAppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GTMAppAuth.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +74,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				969A20B821599B420027AB20 /* AppAuth.framework in Frameworks */,
+				969A20BC21599B420027AB20 /* GTMSessionFetcher.framework in Frameworks */,
+				969A20BA21599B420027AB20 /* GTMAppAuth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +90,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9606BB82215AB5770042FB7E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */,
+				96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		96474D8421599D650090ECBA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				96474D8521599D7B0090ECBA /* Helpers */,
+				969A209621598DD70027AB20 /* Assets.xcassets */,
+				969A209821598DD70027AB20 /* LaunchScreen.storyboard */,
+				969A209B21598DD70027AB20 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		96474D8521599D7B0090ECBA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				96474D8E215AA2A00090ECBA /* Helpers.swift */,
+				969A20AF21599A150027AB20 /* GoogleBooksAuthorizationClient.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		969A208321598DD50027AB20 = {
 			isa = PBXGroup;
 			children = (
@@ -78,11 +141,10 @@
 			isa = PBXGroup;
 			children = (
 				969A208F21598DD50027AB20 /* AppDelegate.swift */,
-				969A209121598DD50027AB20 /* ViewController.swift */,
 				969A209321598DD50027AB20 /* Main.storyboard */,
-				969A209621598DD70027AB20 /* Assets.xcassets */,
-				969A209821598DD70027AB20 /* LaunchScreen.storyboard */,
-				969A209B21598DD70027AB20 /* Info.plist */,
+				9606BB82215AB5770042FB7E /* View Controllers */,
+				96474D8421599D650090ECBA /* Resources */,
+				969A20B121599AFE0027AB20 /* Frameworks */,
 			);
 			path = "My Books";
 			sourceTree = "<group>";
@@ -96,6 +158,16 @@
 			path = "My BooksTests";
 			sourceTree = "<group>";
 		};
+		969A20B121599AFE0027AB20 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				969A20B221599B150027AB20 /* AppAuth.framework */,
+				969A20B421599B150027AB20 /* GTMAppAuth.framework */,
+				969A20B321599B150027AB20 /* GTMSessionFetcher.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,6 +178,7 @@
 				969A208821598DD50027AB20 /* Sources */,
 				969A208921598DD50027AB20 /* Frameworks */,
 				969A208A21598DD50027AB20 /* Resources */,
+				969A20BE21599B420027AB20 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,8 +270,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				969A209221598DD50027AB20 /* ViewController.swift in Sources */,
+				96474D8D215A90C40090ECBA /* AuthorizationViewController.swift in Sources */,
+				969A20B021599A150027AB20 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				969A209021598DD50027AB20 /* AppDelegate.swift in Sources */,
+				96474D91215AA44D0090ECBA /* BookshelvesViewController.swift in Sources */,
+				96474D8F215AA2A00090ECBA /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,7 +438,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LHTMK9AWG;
-				INFOPLIST_FILE = "My Books/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/My Books/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -380,7 +467,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LHTMK9AWG;
-				INFOPLIST_FILE = "My Books/Info.plist";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+					"$(PROJECT_DIR)/My\\ Books/Frameworks",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/My Books/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

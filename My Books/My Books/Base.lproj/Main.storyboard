@@ -1,24 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.15" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_9" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.9"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Authorization View Controller-->
+        <scene sceneID="MML-E2-ONy">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController storyboardIdentifier="AuthorizationViewController" id="cXs-1z-cew" customClass="AuthorizationViewController" customModule="My_Books" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="enL-ya-1oo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="PDP-zt-Ovj"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="luz-RT-2h8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="980" y="-862"/>
+        </scene>
+        <!--Bookshelves View Controller-->
+        <scene sceneID="rkj-5d-s3R">
+            <objects>
+                <viewController storyboardIdentifier="BookshelvesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7uM-O8-f5c" customClass="BookshelvesViewController" customModule="My_Books" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RbC-hM-Qbd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ov7-50-WmB" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Bookshelves" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPw-NA-llj">
+                                        <rect key="frame" x="113" y="52" width="149" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="zvq-Ek-VDC"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="18"/>
+                                        <color key="textColor" red="0.079441517803349807" green="0.078976947523798052" blue="0.079906088082901561" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pWw-kL-CS5" userLabel="New Bookshelf">
+                                        <rect key="frame" x="335" y="50" width="30" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="9TZ-Ne-Mso"/>
+                                            <constraint firstAttribute="height" constant="32" id="yfM-g6-xFu"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <inset key="contentEdgeInsets" minX="2" minY="3" maxX="2" maxY="3"/>
+                                        <state key="normal" image="add-icon"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="605-bo-xci" userLabel="Settings">
+                                        <rect key="frame" x="10" y="50" width="30" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="x0m-Rq-uL3"/>
+                                            <constraint firstAttribute="height" constant="32" id="xzI-EE-dka"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <inset key="contentEdgeInsets" minX="2" minY="3" maxX="2" maxY="3"/>
+                                        <state key="normal" image="settings-icon"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95788131476683935" green="0.95788131476683935" blue="0.95788131476683935" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="605-bo-xci" secondAttribute="bottom" constant="6" id="1O5-gF-jFr"/>
+                                    <constraint firstItem="kPw-NA-llj" firstAttribute="centerX" secondItem="ov7-50-WmB" secondAttribute="centerX" id="I0Q-ab-UBa"/>
+                                    <constraint firstAttribute="bottom" secondItem="pWw-kL-CS5" secondAttribute="bottom" constant="6" id="YSU-u2-Thj"/>
+                                    <constraint firstAttribute="bottom" secondItem="kPw-NA-llj" secondAttribute="bottom" constant="8" id="cd6-iG-Zgp"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.59999999999999998"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.98872652202072542" green="0.98872652202072542" blue="0.98872652202072542" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="pWw-kL-CS5" firstAttribute="leading" secondItem="nUX-Ke-ISl" secondAttribute="trailing" constant="-40" id="Fwh-e2-JqE"/>
+                            <constraint firstItem="ov7-50-WmB" firstAttribute="trailing" secondItem="RbC-hM-Qbd" secondAttribute="trailing" id="HoN-uE-jQF"/>
+                            <constraint firstItem="nUX-Ke-ISl" firstAttribute="leading" secondItem="605-bo-xci" secondAttribute="trailing" constant="-40" id="MmK-TS-CNS"/>
+                            <constraint firstItem="nUX-Ke-ISl" firstAttribute="top" secondItem="ov7-50-WmB" secondAttribute="bottom" constant="-44" id="XbJ-ZT-RYZ"/>
+                            <constraint firstItem="ov7-50-WmB" firstAttribute="leading" secondItem="RbC-hM-Qbd" secondAttribute="leading" id="sPl-9p-sa4"/>
+                            <constraint firstItem="ov7-50-WmB" firstAttribute="top" secondItem="RbC-hM-Qbd" secondAttribute="top" id="tLD-jT-oiT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="nUX-Ke-ISl"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="S67-EI-LAO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="980" y="-150"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="add-icon" width="30" height="30"/>
+        <image name="settings-icon" width="30" height="30"/>
+    </resources>
 </document>

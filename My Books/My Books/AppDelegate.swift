@@ -16,7 +16,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        window = UIWindow()
+        window?.makeKeyAndVisible()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "AuthorizationViewController") as! AuthorizationViewController
+        
+        let navController = NavController(rootViewController: vc)
+        navController.navigationBar.isHidden = true
+        
+        window?.rootViewController = navController
+        
         return true
+    }
+    
+    // MARK:- URL Handling
+    private func application(_ app: UIApplication,
+                     open url: URL,
+                     options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        
+        return GoogleBooksAuthorizationClient.shared.resumeAuthorizationFlow(with: url)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
