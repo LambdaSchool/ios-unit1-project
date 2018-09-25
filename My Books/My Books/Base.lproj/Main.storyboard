@@ -53,6 +53,9 @@
                                         <color key="tintColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <inset key="contentEdgeInsets" minX="2" minY="3" maxX="2" maxY="3"/>
                                         <state key="normal" image="add-icon"/>
+                                        <connections>
+                                            <segue destination="vXD-Dk-hgP" kind="show" identifier="NewBookshelf" id="ic6-y9-2Z6"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="605-bo-xci" userLabel="Settings">
                                         <rect key="frame" x="10" y="50" width="30" height="32"/>
@@ -81,15 +84,37 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="120" estimatedRowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iZZ-fX-eIE">
+                                <rect key="frame" x="0.0" y="88" width="375" height="724"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BookshelfCell" rowHeight="120" id="Vci-4Y-VBa">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Vci-4Y-VBa" id="ZIg-Zu-lLJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="7uM-O8-f5c" id="erb-xN-GPs"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.98872652202072542" green="0.98872652202072542" blue="0.98872652202072542" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="iZZ-fX-eIE" firstAttribute="trailing" secondItem="nUX-Ke-ISl" secondAttribute="trailing" id="Enm-J3-vRB"/>
                             <constraint firstItem="pWw-kL-CS5" firstAttribute="leading" secondItem="nUX-Ke-ISl" secondAttribute="trailing" constant="-40" id="Fwh-e2-JqE"/>
                             <constraint firstItem="ov7-50-WmB" firstAttribute="trailing" secondItem="RbC-hM-Qbd" secondAttribute="trailing" id="HoN-uE-jQF"/>
                             <constraint firstItem="nUX-Ke-ISl" firstAttribute="leading" secondItem="605-bo-xci" secondAttribute="trailing" constant="-40" id="MmK-TS-CNS"/>
+                            <constraint firstItem="iZZ-fX-eIE" firstAttribute="top" secondItem="ov7-50-WmB" secondAttribute="bottom" id="QUa-a4-v6G"/>
                             <constraint firstItem="nUX-Ke-ISl" firstAttribute="top" secondItem="ov7-50-WmB" secondAttribute="bottom" constant="-44" id="XbJ-ZT-RYZ"/>
+                            <constraint firstItem="iZZ-fX-eIE" firstAttribute="leading" secondItem="nUX-Ke-ISl" secondAttribute="leading" id="pWW-eF-mTL"/>
                             <constraint firstItem="ov7-50-WmB" firstAttribute="leading" secondItem="RbC-hM-Qbd" secondAttribute="leading" id="sPl-9p-sa4"/>
                             <constraint firstItem="ov7-50-WmB" firstAttribute="top" secondItem="RbC-hM-Qbd" secondAttribute="top" id="tLD-jT-oiT"/>
+                            <constraint firstAttribute="bottom" secondItem="iZZ-fX-eIE" secondAttribute="bottom" id="vLu-YH-23V"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="nUX-Ke-ISl"/>
                     </view>
@@ -98,9 +123,97 @@
             </objects>
             <point key="canvasLocation" x="980" y="-150"/>
         </scene>
+        <!--Bookshelf Details View Controller-->
+        <scene sceneID="atX-Cq-p62">
+            <objects>
+                <viewController storyboardIdentifier="BookshelfDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXD-Dk-hgP" customClass="BookshelfDetailsViewController" customModule="My_Books" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1od-zL-9yq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f7v-8r-qKq" userLabel="Header">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Bookshelves" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fx-OQ-FC7">
+                                        <rect key="frame" x="113" y="52" width="149" height="28"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="28" id="28A-4o-Qul"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="18"/>
+                                        <color key="textColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Bookshelf name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rIc-xG-7El">
+                                        <rect key="frame" x="40" y="49" width="295" height="33"/>
+                                        <color key="backgroundColor" red="0.91370443933332435" green="0.90836113851850964" blue="0.91904774014813917" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="tintColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="33" id="p0b-SL-IZb"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <fontDescription key="fontDescription" name="Georgia-Bold" family="Georgia" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="vXD-Dk-hgP" id="1Nh-7g-clf"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4P-kL-FzG" userLabel="Settings">
+                                        <rect key="frame" x="6" y="50" width="30" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="bAn-rz-4q9"/>
+                                            <constraint firstAttribute="width" constant="30" id="ch8-B7-tux"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.0794415178" green="0.078976947519999993" blue="0.079906088080000007" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <inset key="contentEdgeInsets" minX="2" minY="3" maxX="2" maxY="3"/>
+                                        <state key="normal" image="back-icon"/>
+                                        <connections>
+                                            <action selector="backButtonPressed:" destination="vXD-Dk-hgP" eventType="touchUpInside" id="uTE-M9-a62"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95788131480000005" green="0.95788131480000005" blue="0.95788131480000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="j4P-kL-FzG" secondAttribute="bottom" constant="6" id="8Dm-5C-zMr"/>
+                                    <constraint firstAttribute="bottom" secondItem="rIc-xG-7El" secondAttribute="bottom" constant="6" id="IBe-fw-uZM"/>
+                                    <constraint firstAttribute="bottom" secondItem="5fx-OQ-FC7" secondAttribute="bottom" constant="8" id="sMN-YI-mZy"/>
+                                    <constraint firstItem="5fx-OQ-FC7" firstAttribute="centerX" secondItem="f7v-8r-qKq" secondAttribute="centerX" id="spF-Gw-5ah"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <real key="value" value="0.59999999999999998"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.988726522" green="0.988726522" blue="0.988726522" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="Yv8-Js-pO5" firstAttribute="leading" secondItem="j4P-kL-FzG" secondAttribute="trailing" constant="-36" id="2JF-fM-n5X"/>
+                            <constraint firstItem="rIc-xG-7El" firstAttribute="leading" secondItem="Yv8-Js-pO5" secondAttribute="leading" constant="40" id="Gi2-yt-xye"/>
+                            <constraint firstItem="f7v-8r-qKq" firstAttribute="leading" secondItem="1od-zL-9yq" secondAttribute="leading" id="MYI-9Q-CKG"/>
+                            <constraint firstItem="f7v-8r-qKq" firstAttribute="top" secondItem="1od-zL-9yq" secondAttribute="top" id="lmG-3Y-DVj"/>
+                            <constraint firstItem="Yv8-Js-pO5" firstAttribute="trailing" secondItem="rIc-xG-7El" secondAttribute="trailing" constant="40" id="nW5-lN-PJt"/>
+                            <constraint firstItem="Yv8-Js-pO5" firstAttribute="top" secondItem="f7v-8r-qKq" secondAttribute="bottom" constant="-44" id="nyf-LP-dQ3"/>
+                            <constraint firstItem="f7v-8r-qKq" firstAttribute="trailing" secondItem="1od-zL-9yq" secondAttribute="trailing" id="ueL-gV-1Sy"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Yv8-Js-pO5"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YLL-gN-Awg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1988" y="-150"/>
+        </scene>
     </scenes>
     <resources>
         <image name="add-icon" width="30" height="30"/>
+        <image name="back-icon" width="12" height="21"/>
         <image name="settings-icon" width="30" height="30"/>
     </resources>
 </document>

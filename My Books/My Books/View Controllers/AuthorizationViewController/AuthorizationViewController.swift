@@ -22,8 +22,7 @@ class AuthorizationViewController: UIViewController {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let vc = storyboard.instantiateViewController(withIdentifier: "BookshelvesViewController") as! BookshelvesViewController
             
-            vc.modalTransitionStyle = .crossDissolve
-            self.navigationController?.present(vc, animated: true)
+            self.navigationController?.pushViewController(vc, animated: false)
         }
     }
     

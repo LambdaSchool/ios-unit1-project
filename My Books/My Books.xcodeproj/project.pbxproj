@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9606BB85215AB8300042FB7E /* BookshelfDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606BB84215AB8300042FB7E /* BookshelfDetailsViewController.swift */; };
+		9606BB88215AC3200042FB7E /* BookshelvesViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9606BB87215AC3200042FB7E /* BookshelvesViewController+UITableView.swift */; };
 		96474D8D215A90C40090ECBA /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */; };
 		96474D8F215AA2A00090ECBA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D8E215AA2A00090ECBA /* Helpers.swift */; };
 		96474D91215AA44D0090ECBA /* BookshelvesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */; };
@@ -51,6 +53,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9606BB84215AB8300042FB7E /* BookshelfDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailsViewController.swift; sourceTree = "<group>"; };
+		9606BB87215AC3200042FB7E /* BookshelvesViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BookshelvesViewController+UITableView.swift"; sourceTree = "<group>"; };
 		96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		96474D8E215AA2A00090ECBA /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelvesViewController.swift; sourceTree = "<group>"; };
@@ -93,10 +97,28 @@
 		9606BB82215AB5770042FB7E /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */,
-				96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */,
+				9606BB83215AB5DB0042FB7E /* AuthorizationViewController */,
+				9606BB86215AC2DE0042FB7E /* BookshelvesViewController */,
+				9606BB84215AB8300042FB7E /* BookshelfDetailsViewController.swift */,
 			);
 			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		9606BB83215AB5DB0042FB7E /* AuthorizationViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96474D8C215A90C40090ECBA /* AuthorizationViewController.swift */,
+			);
+			path = AuthorizationViewController;
+			sourceTree = "<group>";
+		};
+		9606BB86215AC2DE0042FB7E /* BookshelvesViewController */ = {
+			isa = PBXGroup;
+			children = (
+				96474D90215AA44D0090ECBA /* BookshelvesViewController.swift */,
+				9606BB87215AC3200042FB7E /* BookshelvesViewController+UITableView.swift */,
+			);
+			path = BookshelvesViewController;
 			sourceTree = "<group>";
 		};
 		96474D8421599D650090ECBA /* Resources */ = {
@@ -271,10 +293,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				96474D8D215A90C40090ECBA /* AuthorizationViewController.swift in Sources */,
+				9606BB85215AB8300042FB7E /* BookshelfDetailsViewController.swift in Sources */,
 				969A20B021599A150027AB20 /* GoogleBooksAuthorizationClient.swift in Sources */,
 				969A209021598DD50027AB20 /* AppDelegate.swift in Sources */,
 				96474D91215AA44D0090ECBA /* BookshelvesViewController.swift in Sources */,
 				96474D8F215AA2A00090ECBA /* Helpers.swift in Sources */,
+				9606BB88215AC3200042FB7E /* BookshelvesViewController+UITableView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
