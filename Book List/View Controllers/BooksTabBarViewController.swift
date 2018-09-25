@@ -14,12 +14,22 @@ class BooksTabBarViewController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        authorizeGoogleBooks()
         passVolumeControllerToChildViewControllers()
     }
     func passVolumeControllerToChildViewControllers() {
         for childVC in children {
             guard let childVC = childVC as? VolumeControllerProtocol else { return }
             childVC.volumeController = volumeController
+        }
+    }
+    func authorizeGoogleBooks() {
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: UIViewController()) { (error) in
+            if let error = error {
+                NSLog("There was an error authenticating Google Books \(error)")
+                return
+            }
+            print("Google Authenticated")
         }
     }
     

@@ -11,7 +11,7 @@ import Foundation
 
 func == (lhs: VolumeRepresentation, rhs: Volume) -> Bool {
     // Come back and add all equtable scenarios
-    return lhs.volumeInfo.title == rhs.title
+    return lhs.volumeInfo.title == rhs.title 
 }
 
 func == (lhs: Volume, rhs: VolumeRepresentation) -> Bool {

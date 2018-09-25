@@ -28,6 +28,9 @@
 		A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7512159F26700736647 /* VolumeControllerProtocol.swift */; };
 		A158D7542159F3C500736647 /* VolumeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */; };
 		A158D7562159FC0C00736647 /* Volume+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7552159FC0C00736647 /* Volume+Encodable.swift */; };
+		A1C507F7215AD3F000DA74B1 /* BookshelfRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507F6215AD3F000DA74B1 /* BookshelfRepresentation.swift */; };
+		A1C507F9215AD4E300DA74B1 /* Bookshelf+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507F8215AD4E300DA74B1 /* Bookshelf+Convenience.swift */; };
+		A1C507FB215ADA0600DA74B1 /* BookshelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507FA215ADA0600DA74B1 /* BookshelfController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -67,6 +70,9 @@
 		A158D7512159F26700736647 /* VolumeControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeControllerProtocol.swift; sourceTree = "<group>"; };
 		A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSearchTableViewController.swift; sourceTree = "<group>"; };
 		A158D7552159FC0C00736647 /* Volume+Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Volume+Encodable.swift"; sourceTree = "<group>"; };
+		A1C507F6215AD3F000DA74B1 /* BookshelfRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfRepresentation.swift; sourceTree = "<group>"; };
+		A1C507F8215AD4E300DA74B1 /* Bookshelf+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bookshelf+Convenience.swift"; sourceTree = "<group>"; };
+		A1C507FA215ADA0600DA74B1 /* BookshelfController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				A158D7452159A2CD00736647 /* Books.xcdatamodeld */,
+				A1C507F6215AD3F000DA74B1 /* BookshelfRepresentation.swift */,
 				A158D73E2159A25F00736647 /* VolumeRepresentation.swift */,
 			);
 			path = Models;
@@ -139,8 +146,10 @@
 			isa = PBXGroup;
 			children = (
 				A158D7402159A27600736647 /* VolumeController.swift */,
+				A1C507FA215ADA0600DA74B1 /* BookshelfController.swift */,
 				A158D7482159A83700736647 /* Volume+Convenience.swift */,
 				A158D7552159FC0C00736647 /* Volume+Encodable.swift */,
+				A1C507F8215AD4E300DA74B1 /* Bookshelf+Convenience.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -238,11 +247,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A158D74B2159B3CD00736647 /* CoreDataStack.swift in Sources */,
+				A1C507F7215AD3F000DA74B1 /* BookshelfRepresentation.swift in Sources */,
 				A158D7562159FC0C00736647 /* Volume+Encodable.swift in Sources */,
 				A158D73F2159A25F00736647 /* VolumeRepresentation.swift in Sources */,
 				A158D7492159A83700736647 /* Volume+Convenience.swift in Sources */,
 				A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */,
+				A1C507FB215ADA0600DA74B1 /* BookshelfController.swift in Sources */,
 				A158D7412159A27600736647 /* VolumeController.swift in Sources */,
+				A1C507F9215AD4E300DA74B1 /* Bookshelf+Convenience.swift in Sources */,
 				A158D74D2159C31200736647 /* BookShelfIdentifier.swift in Sources */,
 				A158D7472159A2CD00736647 /* Books.xcdatamodeld in Sources */,
 				A158D73821598E2900736647 /* GoogleBooksAuthorizationClient.swift in Sources */,

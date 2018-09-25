@@ -74,7 +74,6 @@ class VolumeController {
             do {
                 let volumeRepresentations =  try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
                 self.searchedVolumes = volumeRepresentations
-//                self.createVolume(title: (self.searchedVolumes.first?.volumeInfo.title)!, id: (self.searchedVolumes.first?.id)!, imageLink: (self.searchedVolumes.first?.volumeInfo.imageLinks?.thumbnail)!)
                 completion(nil)
             } catch {
                 NSLog("Error decoding JSON data: \(error)")
@@ -88,8 +87,7 @@ class VolumeController {
         //Adds to favorites. Just Testing to make sure PUT Works
         //Will Refactor and Modularize to be dynamic for any bookshelf
         guard let id = volume.id else { return }
-        let shelfUrl = bookShelvesUrl.appendingPathComponent("0")
-        let addVolumeUrl = shelfUrl.appendingPathComponent("addVolume")
+        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("0").appendingPathComponent("addVolume")
         let queryParameters = ["volumeId": id]
         var components = URLComponents(url: addVolumeUrl, resolvingAgainstBaseURL: true)
         components?.queryItems = queryParameters.map{URLQueryItem(name: $0.key, value: $0.value)}
