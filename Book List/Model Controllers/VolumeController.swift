@@ -19,6 +19,22 @@ class VolumeController {
         //put(volume: volume)
     }
     
+    
+    func updateVolume(volume: Volume, hasRead: Bool, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        volume.hasRead = hasRead
+        volume.review = review
+        saveToPersistent(context: context)
+        //Persist on database side
+        //put(volume: volume)
+    }
+    
+    func deleteVolume(volume: Volume, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        let moc = CoreDataStack.shared.mainContext
+        deleteVolumeFromServer(volume: volume)
+        moc.delete(volume)
+        saveToPersistent(context: context)
+    }
+    
     func toggleHasRead(volume: Volume) {
         //No Network Request Needed, Only Core Data
         volume.hasRead = !volume.hasRead
@@ -35,7 +51,7 @@ class VolumeController {
     
     
     
-    func saveToPersistent() {
+    func saveToPersistent(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         do {
             try CoreDataStack.shared.save()
         } catch {
@@ -116,6 +132,14 @@ class VolumeController {
             completion(nil)
             }.resume()
     }
+    
+    func deleteVolumeFromServer(volume: Volume) {
+        
+    }
+    
+    
+    
+    
     typealias CompletionHandler = (Error?) -> Void
     var baseUrl = URL(string: "https://www.googleapis.com/books/v1/")!
     var bookShelvesUrl = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/")!
