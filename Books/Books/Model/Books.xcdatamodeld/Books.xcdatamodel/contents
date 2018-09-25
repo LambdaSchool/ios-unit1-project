@@ -7,15 +7,16 @@
     <entity name="Volume" representedClassName="Volume" syncable="YES" codeGenerationType="class">
         <attribute name="authors" attributeType="String" syncable="YES"/>
         <attribute name="hasRead" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="image" attributeType="String" syncable="YES"/>
         <attribute name="myRating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="myReview" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" attributeType="String" syncable="YES"/>
-        <attribute name="thumbnail" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
         <relationship name="bookshelfs" toMany="YES" deletionRule="Nullify" destinationEntity="Bookshelf" inverseName="volumes" inverseEntity="Bookshelf" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Volume" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Volume" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Bookshelf" positionX="-54" positionY="-9" width="128" height="75"/>
     </elements>
 </model>

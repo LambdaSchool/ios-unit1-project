@@ -1,5 +1,5 @@
 //
-//  BookResultsTableViewController.swift
+//  BookSearchResultsTableViewController.swift
 //  Books
 //
 //  Created by Daniela Parra on 9/24/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookResultsTableViewController: UITableViewController {
+class BookSearchResultsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

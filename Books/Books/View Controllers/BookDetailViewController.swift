@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import Photos
 
 class BookDetailViewController: UIViewController {
 
     private func updateViews() {
         guard let volume = volume else { return }
         
-        //book image from string url?
         bookTitleLabel.text = volume.title
         bookTitleLabel.text = volume.subtitle
         authorsLabel.text = volume.authors
@@ -25,7 +25,22 @@ class BookDetailViewController: UIViewController {
             hasReadButton.setTitle("Haven't Read", for: .normal)
         }
         
+        displayImage(volume: volume)
+        
         //set segmented controller to myRating
+    }
+    
+    private func displayImage(volume: Volume) {
+        let url = URL(string: volume.image!)
+        
+        do {
+            let data = try Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.bookImageView.image = UIImage(data: data)
+            }
+        } catch {
+            NSLog("Error creating image data from url: \(error)")
+        }
     }
     
     @IBAction func moveToAnotherBookshelf(_ sender: Any) {
