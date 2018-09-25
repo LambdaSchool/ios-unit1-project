@@ -33,6 +33,7 @@
 		7B569115215A9B2B0031A7DF /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569114215A9B2B0031A7DF /* CoreDataStack.swift */; };
 		7B569117215A9C3A0031A7DF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569116215A9C3A0031A7DF /* HTTPMethod.swift */; };
 		7B569119215AA9DE0031A7DF /* VolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569118215AA9DE0031A7DF /* VolumeController.swift */; };
+		7B56911B215ABE710031A7DF /* VolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		7B569114215A9B2B0031A7DF /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		7B569116215A9C3A0031A7DF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7B569118215AA9DE0031A7DF /* VolumeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeController.swift; sourceTree = "<group>"; };
+		7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeRepresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				7B56910F2159CFA40031A7DF /* Books.xcdatamodeld */,
+				7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				7B56910C2159CADD0031A7DF /* BookDetailViewController.swift in Sources */,
 				7B5690EB215988CD0031A7DF /* MyBookshelvesTableViewController.swift in Sources */,
 				7B569117215A9C3A0031A7DF /* HTTPMethod.swift in Sources */,
+				7B56911B215ABE710031A7DF /* VolumeRepresentation.swift in Sources */,
 				7B5690F2215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift in Sources */,
 				7B5690F821598F110031A7DF /* ViewBookshelfCollectionViewController.swift in Sources */,
 			);
