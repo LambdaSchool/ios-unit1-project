@@ -75,6 +75,7 @@
 		3472AF4A21598ED500D18F31 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
 		3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
 		3472AF4E2159AE3700D18F31 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
+		3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -479,9 +480,10 @@
 		3472AF332159623400D18F31 /* BookList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */,
 				3472AF342159623400D18F31 /* BookList.xcdatamodel */,
 			);
-			currentVersion = 3472AF342159623400D18F31 /* BookList.xcdatamodel */;
+			currentVersion = 3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */;
 			path = BookList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

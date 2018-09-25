@@ -22,6 +22,8 @@ class BookshelfController {
     }
     
     func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf) {
+        book.thumbnailURL = bookRepresentation.volumeInfo.imageLinks.thumbnail
+        book.imageURL = bookRepresentation.volumeInfo.imageLinks.biggestImage
         book.addToBookshelves(bookshelf)
         bookshelf.addToBooks(book)
         
@@ -145,9 +147,10 @@ class BookshelfController {
                     NSLog("Error saving background context: \(error)")
                 }
                 
+                completion(nil)
+                
             }).resume()
         }
-        
     }
     
     // MARK: - Utility Methods
@@ -189,6 +192,7 @@ class BookshelfController {
         }
         return book
     }
+    
     
     
 }

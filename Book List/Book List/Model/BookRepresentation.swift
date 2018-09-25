@@ -26,4 +26,13 @@ struct VolumeInfo: Codable {
 struct ImageLinks: Codable {
     let smallThumbnail: String
     let thumbnail: String
+    let small: String?
+    let medium: String?
+    let large: String?
+    let extraLarge: String?
+    
+    var biggestImage: String {
+        return extraLarge ?? large ?? medium ?? small ?? thumbnail
+    }
+    
 }

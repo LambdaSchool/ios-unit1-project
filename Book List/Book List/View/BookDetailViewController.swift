@@ -9,11 +9,16 @@
 import UIKit
 
 class BookDetailViewController: UIViewController {
+    
+    var book: Book?
 
+    @IBOutlet weak var bookImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        updateViews()
     }
     
 
@@ -27,4 +32,19 @@ class BookDetailViewController: UIViewController {
     }
     */
 
+    
+    // MARK: - Utility Methods
+    private func updateViews() {
+        guard let book = book  else { return }
+        
+        title = book.title
+        
+        if let imageData = book.imageData {
+            bookImageView.image = UIImage(data: imageData)
+            bookImageView.alpha = 0.3
+        }
+        
+        
+        
+    }
 }

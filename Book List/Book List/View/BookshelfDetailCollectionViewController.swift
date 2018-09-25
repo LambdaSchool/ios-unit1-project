@@ -11,10 +11,11 @@ import CoreData
 
 private let reuseIdentifier = "BookCell"
 
-class BookshelfDetailCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
+class BookshelfDetailCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate, UICollectionViewDelegateFlowLayout {
     
     var bookshelf: Bookshelf?
     let bookController = BookController()
+    var bookshelfController: BookshelfController?
     
     lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
@@ -40,7 +41,15 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         super.viewDidLoad()
 
         title = bookshelf?.title?.capitalized
-        updateImages()
+        
+        if let bookshelf = bookshelf {
+            bookshelfController?.fetchBooks(for: bookshelf) { (_) in
+//                guard let books = self.fetchedResultsController.fetchedObjects else { return }
+//                for book in books {
+//                    self.bookController.fetchThumbnailFor(book: book)
+//                }
+            }
+        }
     }
 
     // MARK: UI Collection View Data Source
@@ -88,6 +97,26 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     }
     */
     
+    // MARK: - UI Collection View Delegate Flow Layout
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let itemWidth = (collectionView.frame.width / 3) - 20
+        let itemHeight = itemWidth * 1.5
+        return CGSize(width: itemWidth, height: itemHeight)
+    }
+    
     // MARK: - NS Fetched Results Controller
     private var sectionChanges = [(type: NSFetchedResultsChangeType, sectionIndex: Int)]()
     private var itemChanges = [(type: NSFetchedResultsChangeType, indexPath: IndexPath?, newIndexPath: IndexPath?)]()
@@ -99,6 +128,10 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
     {
         itemChanges.append((type, indexPath, newIndexPath))
+        if let indexPath = indexPath {
+            let book = fetchedResultsController.object(at: indexPath)
+            bookController.fetchThumbnailFor(book: book)
+        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
@@ -115,12 +148,20 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
             
             for change in self.itemChanges {
                 switch change.type {
-                case .insert: self.collectionView?.insertItems(at: [change.newIndexPath!])
-                case .delete: self.collectionView?.deleteItems(at: [change.indexPath!])
-                case .update: self.collectionView?.reloadItems(at: [change.indexPath!])
+                case .insert:
+                    guard let newIndexPath = change.newIndexPath else { break }
+                    self.collectionView?.insertItems(at: [newIndexPath])
+                case .delete:
+                    guard let indexPath = change.indexPath else { break }
+                    self.collectionView?.deleteItems(at: [indexPath])
+                case .update:
+                    guard let indexPath = change.indexPath else { break }
+                    self.collectionView?.reloadItems(at: [indexPath])
                 case .move:
-                    self.collectionView?.deleteItems(at: [change.indexPath!])
-                    self.collectionView?.insertItems(at: [change.newIndexPath!])
+                    guard let indexPath = change.indexPath,
+                        let newIndexPath = change.newIndexPath else { break }
+                    self.collectionView?.deleteItems(at: [indexPath])
+                    self.collectionView?.insertItems(at: [newIndexPath])
                 }
             }
             
@@ -130,9 +171,23 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         })
     }
 
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowBookSegue" {
+            guard let destinationVC = segue.destination as? BookDetailViewController,
+                let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
+            let book = fetchedResultsController.object(at: indexPath)
+            
+            destinationVC.book = book
+        }
+    }
+    
+    // MARK: - Utility Methods
     private func updateImages() {
         for book in fetchedResultsController.fetchedObjects ?? [] {
-            bookController.fetchImageFor(book: book)
+            bookController.fetchThumbnailFor(book: book)
+//            bookController.fetchImageFor(book: book)
         }
     }
 

@@ -12,6 +12,7 @@ import CoreData
 class BookshelfTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     let bookshelfController = BookshelfController()
+    let bookController = BookController()
     
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
@@ -115,7 +116,7 @@ class BookshelfTableViewController: UITableViewController, NSFetchedResultsContr
                 let indexPath = tableView.indexPathForSelectedRow else { return }
             let bookshelf = fetchedResultsController.object(at: indexPath)
             
-            bookshelfController.fetchBooks(for: bookshelf)
+            destinationVC.bookshelfController = bookshelfController
             destinationVC.bookshelf = bookshelf
         }
     }
