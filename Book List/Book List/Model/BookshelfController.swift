@@ -21,6 +21,12 @@ class BookshelfController {
         bookshelf.title = bookshelfRepresentation.title
     }
     
+    func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf) {
+        book.addToBookshelves(bookshelf)
+        bookshelf.addToBooks(book)
+        
+    }
+    
     // MARK: Networking
     func fetchBookshelves(completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves")
@@ -125,8 +131,7 @@ class BookshelfController {
                     for bookRepresentation in bookRepresentations {
                         if let book = self.fetchSingleBook(id: bookRepresentation.id, context: backgroundContext) {
                             // Check to see if the book already exists
-                            book.addToBookshelves(bookshelf)
-                            bookshelf.addToBooks(book)
+                            self.update(book: book, with: bookRepresentation, in: bookshelf)
                         } else {
                             // If not, create it on this bookshelf
                             _ = Book(bookRepresentation: bookRepresentation, bookShelf: bookshelf, context: backgroundContext)

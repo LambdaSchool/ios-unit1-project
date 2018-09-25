@@ -23,6 +23,10 @@ class BookCollectionViewCell: UICollectionViewCell {
         guard let book = book else { return }
         
         titleLabel.text = book.title
+        if let imageData = book.thumbnailData {
+            bookImageView.image = UIImage(data: imageData)
+            titleLabel.text = nil
+        }
     }
     
 }

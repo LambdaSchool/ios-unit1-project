@@ -31,6 +31,7 @@
 		3472AF49215989E800D18F31 /* BookRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF48215989E800D18F31 /* BookRepresentation.swift */; };
 		3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4A21598ED500D18F31 /* Book+Convenience.swift */; };
 		3472AF4D215992A000D18F31 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */; };
+		3472AF4F2159AE3700D18F31 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4E2159AE3700D18F31 /* BookController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,7 @@
 		3472AF48215989E800D18F31 /* BookRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRepresentation.swift; sourceTree = "<group>"; };
 		3472AF4A21598ED500D18F31 /* Book+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Book+Convenience.swift"; sourceTree = "<group>"; };
 		3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCollectionViewCell.swift; sourceTree = "<group>"; };
+		3472AF4E2159AE3700D18F31 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				3472AF4A21598ED500D18F31 /* Book+Convenience.swift */,
 				3472AF48215989E800D18F31 /* BookRepresentation.swift */,
 				3472AF42215966CD00D18F31 /* BookshelfController.swift */,
+				3472AF4E2159AE3700D18F31 /* BookController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */,
 				3472AF352159623400D18F31 /* BookList.xcdatamodeld in Sources */,
 				3472AF3F2159654B00D18F31 /* BookDetailViewController.swift in Sources */,
+				3472AF4F2159AE3700D18F31 /* BookController.swift in Sources */,
 				3472AF37215964B800D18F31 /* Bookshelf+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

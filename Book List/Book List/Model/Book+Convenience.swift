@@ -10,15 +10,19 @@ import Foundation
 import CoreData
 
 extension Book {
-    convenience init (title: String, id: String, context: NSManagedObjectContext) {
+    convenience init (title: String, id: String, thumbnailURL: String? = nil, context: NSManagedObjectContext) {
         self.init(context: context)
         
         self.title = title
         self.id = id
+        self.thumbnailURL = thumbnailURL
     }
     
     convenience init (bookRepresentation: BookRepresentation, bookShelf: Bookshelf? = nil, context: NSManagedObjectContext) {
-        self.init(title: bookRepresentation.volumeInfo.title, id: bookRepresentation.id, context: context)
+        self.init(title: bookRepresentation.volumeInfo.title,
+                  id: bookRepresentation.id,
+                  thumbnailURL: bookRepresentation.volumeInfo.imageLinks.thumbnail,
+                  context: context)
         
         if let bookshelf = bookShelf {
             self.addToBookshelves(bookshelf)

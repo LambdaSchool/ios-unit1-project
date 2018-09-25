@@ -14,6 +14,7 @@ private let reuseIdentifier = "BookCell"
 class BookshelfDetailCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
     
     var bookshelf: Bookshelf?
+    let bookController = BookController()
     
     lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
@@ -39,12 +40,11 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         super.viewDidLoad()
 
         title = bookshelf?.title?.capitalized
+        updateImages()
     }
 
-    // MARK: UICollectionViewDataSource
-
+    // MARK: UI Collection View Data Source
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return fetchedResultsController.fetchedObjects?.count ?? 0
     }
 
@@ -130,5 +130,10 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         })
     }
 
+    private func updateImages() {
+        for book in fetchedResultsController.fetchedObjects ?? [] {
+            bookController.fetchImageFor(book: book)
+        }
+    }
 
 }
