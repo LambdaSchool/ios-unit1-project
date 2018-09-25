@@ -27,6 +27,7 @@
 		A158D7502159F20100736647 /* BooksTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D74F2159F20100736647 /* BooksTabBarViewController.swift */; };
 		A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7512159F26700736647 /* VolumeControllerProtocol.swift */; };
 		A158D7542159F3C500736647 /* VolumeSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */; };
+		A158D7562159FC0C00736647 /* Volume+Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A158D7552159FC0C00736647 /* Volume+Encodable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,7 @@
 		A158D74F2159F20100736647 /* BooksTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTabBarViewController.swift; sourceTree = "<group>"; };
 		A158D7512159F26700736647 /* VolumeControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeControllerProtocol.swift; sourceTree = "<group>"; };
 		A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeSearchTableViewController.swift; sourceTree = "<group>"; };
+		A158D7552159FC0C00736647 /* Volume+Encodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Volume+Encodable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			children = (
 				A158D7402159A27600736647 /* VolumeController.swift */,
 				A158D7482159A83700736647 /* Volume+Convenience.swift */,
+				A158D7552159FC0C00736647 /* Volume+Encodable.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A158D74B2159B3CD00736647 /* CoreDataStack.swift in Sources */,
+				A158D7562159FC0C00736647 /* Volume+Encodable.swift in Sources */,
 				A158D73F2159A25F00736647 /* VolumeRepresentation.swift in Sources */,
 				A158D7492159A83700736647 /* Volume+Convenience.swift in Sources */,
 				A158D7522159F26700736647 /* VolumeControllerProtocol.swift in Sources */,

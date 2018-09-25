@@ -19,6 +19,6 @@ extension Volume {
     }
     
     convenience init?(volumeRepresentation: VolumeRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        self.init(title: volumeRepresentation.volumeInfo.title, id: volumeRepresentation.id, hasRead: volumeRepresentation.hasRead!, review: volumeRepresentation.review!, imageLink: volumeRepresentation.volumeInfo.imageLinks.thumbnail)
+        self.init(title: volumeRepresentation.volumeInfo.title, id: volumeRepresentation.id, hasRead: volumeRepresentation.hasRead!, review: volumeRepresentation.review!, imageLink: volumeRepresentation.volumeInfo.imageLinks!.thumbnail)
     }
 }

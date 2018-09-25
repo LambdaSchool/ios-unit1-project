@@ -36,9 +36,10 @@ struct VolumeRepresentation: Equatable, Codable {
     
     struct VolumeInfo: Codable, Equatable {
         let title: String
-        let imageLinks: ImageLinks
+        let imageLinks: ImageLinks?
         struct ImageLinks: Codable, Equatable {
             let thumbnail: String
+            let smallThumbnail: String
         }
     }
     

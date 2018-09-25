@@ -12,9 +12,10 @@ import CoreData
 class VolumeController {
     
     
-    func createVolume(title: String, id: String, imageLink: String) {
-        let volume = Volume(title: title, id: id, imageLink: imageLink)
-        saveToPersistent()
+    func createVolume(title: String, id: String, imageLink: String, review: String = "", hasRead: Bool = false) {
+        let volume = Volume(title: title, id: id, hasRead: hasRead, review: review, imageLink: imageLink)
+        addVolume(volume: volume)
+        //saveToPersistent()
         //put(volume: volume)
     }
     
@@ -45,7 +46,7 @@ class VolumeController {
     
     //Network Requests
     
-    func searchForVolumes(searchTerm: String, completion: @escaping (Error?) -> Void) {
+    func searchForVolumes(searchTerm: String, completion: @escaping CompletionHandler) {
         let searchUrl = baseUrl.appendingPathComponent("volumes")
         var components = URLComponents(url: searchUrl, resolvingAgainstBaseURL: true)
         
@@ -73,7 +74,7 @@ class VolumeController {
             do {
                 let volumeRepresentations =  try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
                 self.searchedVolumes = volumeRepresentations
-                
+//                self.createVolume(title: (self.searchedVolumes.first?.volumeInfo.title)!, id: (self.searchedVolumes.first?.id)!, imageLink: (self.searchedVolumes.first?.volumeInfo.imageLinks?.thumbnail)!)
                 completion(nil)
             } catch {
                 NSLog("Error decoding JSON data: \(error)")
@@ -83,7 +84,43 @@ class VolumeController {
         }.resume()
     }
     
+    func addVolume(volume: Volume, completion: @escaping CompletionHandler = { _ in }) {
+        //Adds to favorites. Just Testing to make sure PUT Works
+        //Will Refactor and Modularize to be dynamic for any bookshelf
+        guard let id = volume.id else { return }
+        let shelfUrl = bookShelvesUrl.appendingPathComponent("0")
+        let addVolumeUrl = shelfUrl.appendingPathComponent("addVolume")
+        let queryParameters = ["volumeId": id]
+        var components = URLComponents(url: addVolumeUrl, resolvingAgainstBaseURL: true)
+        components?.queryItems = queryParameters.map{URLQueryItem(name: $0.key, value: $0.value)}
+        
+        guard let requestURL = components?.url else {
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        
+        do {
+            request.httpBody = try JSONEncoder().encode(volume)
+            completion(nil)
+        } catch {
+            NSLog("Error encoding JSON data: \(error)")
+            completion(error)
+        }
+        
+        URLSession.shared.dataTask(with: request) {(data, _, error) in
+            if let error = error {
+                NSLog("Error adding volume: \(error)")
+                completion(error)
+            }
+            completion(nil)
+            }.resume()
+    }
+    typealias CompletionHandler = (Error?) -> Void
     var baseUrl = URL(string: "https://www.googleapis.com/books/v1/")!
+    var bookShelvesUrl = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves/")!
     var dummyUrl = "https://www.googleapis.com/books/v1/users/114839501015697372432/bookshelves/0/volumes"
     var searchedVolumes: [VolumeRepresentation] = []
 }
