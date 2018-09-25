@@ -22,6 +22,9 @@ class BookshelfController {
     }
     
     func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf) {
+        book.author = bookRepresentation.volumeInfo.authors.joined(separator: ", ")
+        book.pageCount = bookRepresentation.volumeInfo.pageCount
+        book.bookDescription = bookRepresentation.volumeInfo.description
         book.thumbnailURL = bookRepresentation.volumeInfo.imageLinks.thumbnail
         book.imageURL = bookRepresentation.volumeInfo.imageLinks.biggestImage
         book.addToBookshelves(bookshelf)

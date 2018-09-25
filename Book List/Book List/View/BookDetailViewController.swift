@@ -13,6 +13,10 @@ class BookDetailViewController: UIViewController {
     var book: Book?
 
     @IBOutlet weak var bookImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var pageCountLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +25,10 @@ class BookDetailViewController: UIViewController {
         updateViews()
     }
     
-
+    @IBAction func saveBook(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -37,11 +44,15 @@ class BookDetailViewController: UIViewController {
     private func updateViews() {
         guard let book = book  else { return }
         
-        title = book.title
+        title = (book.title?.count ?? 20) < 20 ? book.title : "Edit Book"
+        titleLabel.text = book.title
+        authorLabel.text = book.author
+        pageCountLabel.text = "\(book.pageCount)"
+        descriptionTextView.text = book.bookDescription
         
         if let imageData = book.imageData {
             bookImageView.image = UIImage(data: imageData)
-            bookImageView.alpha = 0.3
+            bookImageView.alpha = 0.2
         }
         
         
