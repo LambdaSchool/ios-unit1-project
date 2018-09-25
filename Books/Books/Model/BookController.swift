@@ -10,8 +10,14 @@ import Foundation
 
 class BookController{
     
+    // MARK: - Properties
+    
+    var searchedBooks: [BookRepresentation] = []
+    
     typealias CompletionHandler = ((Error?) -> Void)
     let baseURL = URL(string: "https://www.googleapis.com/books/v1/")
+    
+    // MARK: - API Functions
     
     func searchForBook(with searchTerm: String, completion: @escaping CompletionHandler = {_ in}){
         
@@ -32,28 +38,28 @@ class BookController{
         
         print(request)
         
-//        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
-//
-//            if let error = error {
-//                NSLog("Error adding authorization to request: \(error)")
-//                return
-//            }
-//            guard let request = request else { return }
-        
-            URLSession.shared.dataTask(with: request) { (data, _, error) in
-                if let error = error {
-                    NSLog("Error getting bookshelves: \(error)")
-                    return
-                }
-                guard let data = data else { return }
-                
-                if let json = String(data: data, encoding: .utf8) {
-                    print(json)
-                }
-                }.resume()
+        URLSession.shared.dataTask(with: request) { (data, _, error) in
+            if let error = error {
+                NSLog("Error getting books: \(error)")
+                return
+            }
+            guard let data = data else {
+                NSLog("No data returned from data task")
+                completion(NSError())
+                return
+            }
             
+            do{
+                let searchResults = try JSONDecoder().decode(SearchResults.self, from: data).items
+                self.searchedBooks = searchResults
+                print (self.searchedBooks)
+                completion(nil)
+            }catch {
+                NSLog("Error decoding JSON data: \(error)")
+                completion(error)
+            }
             
-//        }
+            }.resume()
         
     }
 }
