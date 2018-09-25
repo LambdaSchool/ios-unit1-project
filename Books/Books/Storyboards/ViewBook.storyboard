@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Book Detail View Controller-->
         <scene sceneID="aWC-Db-zMG">
             <objects>
-                <viewController id="PAO-Zf-q9j" sceneMemberID="viewController">
+                <viewController id="PAO-Zf-q9j" customClass="BookDetailViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GeB-N0-myZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -52,6 +52,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pMK-iP-V9X">
                                                         <rect key="frame" x="0.0" y="123" width="205" height="30"/>
                                                         <state key="normal" title="Button"/>
+                                                        <connections>
+                                                            <action selector="changeHasRead:" destination="PAO-Zf-q9j" eventType="touchUpInside" id="b4q-jy-hW0"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -87,6 +90,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Saz-J8-hak">
                                         <rect key="frame" x="0.0" y="414.5" width="343" height="30"/>
                                         <state key="normal" title="Move to another bookshelf"/>
+                                        <connections>
+                                            <action selector="moveToAnotherBookshelf:" destination="PAO-Zf-q9j" eventType="touchUpInside" id="DJy-Xw-9cc"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -101,6 +107,15 @@
                         <viewLayoutGuide key="safeArea" id="sMc-pQ-QaJ"/>
                     </view>
                     <navigationItem key="navigationItem" id="Ji1-YX-dQG"/>
+                    <connections>
+                        <outlet property="authorsLabel" destination="fVr-IE-zis" id="YbD-8i-mus"/>
+                        <outlet property="bookImageView" destination="ZNE-RX-HaS" id="XWY-XJ-Grq"/>
+                        <outlet property="bookSubtitleLabel" destination="p1T-2Z-wRG" id="hpd-yR-7HS"/>
+                        <outlet property="bookTitleLabel" destination="hOs-xP-ES3" id="DdQ-JZ-2WB"/>
+                        <outlet property="hasReadButton" destination="pMK-iP-V9X" id="RZi-Ow-qLh"/>
+                        <outlet property="reviewSegmentedControl" destination="xdn-Ad-Zuv" id="0yh-vp-vXv"/>
+                        <outlet property="reviewTextView" destination="Pp0-fW-TPa" id="IOn-8u-ww5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGj-N2-aS2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
