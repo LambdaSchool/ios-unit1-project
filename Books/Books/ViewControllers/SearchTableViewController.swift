@@ -34,16 +34,13 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
         
         guard let bookRep = sender.book else {return}
         
-        guard let title = bookRep.volumeInfo.title, let id = bookRep.id, let publishedDate = bookRep.volumeInfo.publishedDate else {return}
-        
-       
-        
-        // create alert
+        guard let title = bookRep.volumeInfo.title, let id = bookRep.id, let publishedDate = bookRep.volumeInfo.publishedDate, let thumbnail = bookRep.volumeInfo.imageLinks?.thumbnail else {return}
+    
         let alert = UIAlertController(title: "Do you want to add this book to your library?", message: "This will add the book to your library so that you can review it later.", preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
             
-            self.bookController.addBook(title: title, id: id, thumbnail: bookRep.volumeInfo.imageLinks?.thumbnail, avgRating: bookRep.volumeInfo.averageRating, author: bookRep.volumeInfo.authors?.first, publishedDate: publishedDate)
+            self.bookController.addBook(title: title, id: id, thumbnail: thumbnail, avgRating: bookRep.volumeInfo.averageRating, author: bookRep.volumeInfo.authors?.first, publishedDate: publishedDate)
             self.navigationController?.popViewController(animated: true)
             
             
