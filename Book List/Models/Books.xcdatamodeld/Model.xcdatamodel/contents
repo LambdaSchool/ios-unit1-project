@@ -3,6 +3,7 @@
     <entity name="Bookshelf" representedClassName="Bookshelf" syncable="YES" codeGenerationType="class">
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="volumeCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="volumes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Volume" inverseName="bookshelf" inverseEntity="Volume" syncable="YES"/>
     </entity>
     <entity name="Volume" representedClassName="Volume" syncable="YES" codeGenerationType="class">
@@ -14,7 +15,7 @@
         <relationship name="bookshelf" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bookshelf" inverseName="volumes" inverseEntity="Bookshelf" syncable="YES"/>
     </entity>
     <elements>
+        <element name="Bookshelf" positionX="-63" positionY="18" width="128" height="105"/>
         <element name="Volume" positionX="-577.16796875" positionY="106.68359375" width="128" height="135"/>
-        <element name="Bookshelf" positionX="-63" positionY="18" width="128" height="88"/>
     </elements>
 </model>

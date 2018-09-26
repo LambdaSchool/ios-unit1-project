@@ -10,7 +10,7 @@ import UIKit
 
 class VolumeSearchTableViewController: UITableViewController, UISearchBarDelegate, SearchVolumeTableViewCellDelegate, VolumeControllerProtocol {
     func addVolume(volumeRep: VolumeRepresentation) {
-        volumeController?.createVolume(title: volumeRep.volumeInfo.title, id: volumeRep.id, imageLink: (volumeRep.volumeInfo.imageLinks?.thumbnail)!)
+        volumeController?.createVolume(title: volumeRep.volumeInfo.title, id: volumeRep.id, imageLink: (volumeRep.volumeInfo.imageLinks?.thumbnail) ?? "http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg")
     }
     
 

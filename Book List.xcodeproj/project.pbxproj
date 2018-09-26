@@ -185,8 +185,8 @@
 				A1C507FC215AE85800DA74B1 /* SearchVolumeTableViewCell.swift */,
 				A158D74F2159F20100736647 /* BooksTabBarViewController.swift */,
 				A158D7512159F26700736647 /* VolumeControllerProtocol.swift */,
-				A1C507FE215AF4C500DA74B1 /* BookshelfsTableViewController.swift */,
 				A1C50800215AF8B000DA74B1 /* BookshelfControllerProtocol.swift */,
+				A1C507FE215AF4C500DA74B1 /* BookshelfsTableViewController.swift */,
 				A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */,
 			);
 			path = "View Controllers";

@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class BookshelfsTableViewController: UITableViewController, BookshelfControllerProtocol, NSFetchedResultsControllerDelegate {
+class BookshelfsTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.reloadData()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -21,7 +21,8 @@ class BookshelfsTableViewController: UITableViewController, BookshelfControllerP
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     override func viewWillAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewWillAppear(animated)
+        bookshelfController.fetchBookShelvesFromServer()
         tableView.reloadData()
     }
     
@@ -110,7 +111,7 @@ class BookshelfsTableViewController: UITableViewController, BookshelfControllerP
     }
     
     
-    var bookshelfController: BookshelfController?
+    let bookshelfController = BookshelfController()
     
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()

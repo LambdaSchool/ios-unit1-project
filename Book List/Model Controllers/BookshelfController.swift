@@ -12,18 +12,33 @@ import CoreData
 class BookshelfController {
     
     init() {
+//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Bookshelf")
+//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+//
+//        do {
+//                 let result = try CoreDataStack.shared.mainContext.execute(request)
+//        }
+//        catch {
+//            NSLog("\(error)")
+//        }
         fetchBookShelvesFromServer()
     }
     
-    func createBookshelf(title: String, id: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        let _ = Bookshelf(title: title, id: id)
+    func createBookshelf(title: String, id: Int16, volumeCount: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        let _ = Bookshelf(title: title, id: id, volumeCount: volumeCount)
         //Can't create bookshelf in server
         saveToPersistent()
     }
     
     func update(bookshelf: Bookshelf, bookshelfRepresentation: BookshelfRepresentation) {
-        bookshelf.title = bookshelfRepresentation.title
-        bookshelf.id = bookshelfRepresentation.id
+            bookshelf.title = bookshelfRepresentation.title
+            bookshelf.id = bookshelfRepresentation.id
+            bookshelf.volumeCount = bookshelfRepresentation.volumeCount
+    }
+    func updateVolume(volume: Volume, volumeRepresentation: VolumeRepresentation) {
+        volume.id = volumeRepresentation.id
+        volume.title = volumeRepresentation.volumeInfo.title
+        volume.imageLink = volumeRepresentation.volumeInfo.imageLinks?.thumbnail
     }
     
     func saveToPersistent(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
@@ -51,23 +66,22 @@ class BookshelfController {
     }
     
     
-    func fetchVolumeFromPersistentStore(id: String, context: NSManagedObjectContext) -> Volume? {
+    func fetchSingleVolumeFromPersistentStore(id: String, context: NSManagedObjectContext) -> Volume? {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
         fetchRequest.predicate = predicate
-        
+
         var volume: Volume? = nil
-        
+
         do {
             volume = try context.fetch(fetchRequest).first
         } catch {
             NSLog("Error fetching volume with id \(id): \(error)")
         }
-        
+
         return volume
     }
     
-    //Wasted time on this. Didn't need it. I can access the volumes from books in core data
     func fetchVolumesFromShelf(bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent(String(bookshelf.id)).appendingPathComponent("volumes")
         let request = URLRequest(url: requestURL)
@@ -94,7 +108,25 @@ class BookshelfController {
                 do {
                     let volumeRepresentations =  try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
-                    
+                    for volumeRep in volumeRepresentations {
+                        if let volume = self.fetchSingleVolumeFromPersistentStore(id: String(volumeRep.id), context: backgroundContext) {
+
+                            guard let bookshelfVolumes = bookshelf.volumes else { return }
+                            //Check to see if Bookshelf contains this volume
+                            if bookshelfVolumes.contains(volume) {
+                                print("Update volume in bookshelf")
+                                self.updateVolume(volume: volume, volumeRepresentation: volumeRep)
+                            } else {
+                                //If not add it
+                                print("Create volume in bookshelf")
+                                bookshelf.addToVolumes(volume)
+                            }
+                        } else {
+                            // If not create it using Volume Represenations and add it to the bookshelf
+                            print("Creates Volume in Bookshelf from scratch")
+                            bookshelf.addToVolumes(Volume(title: volumeRep.volumeInfo.title, id: volumeRep.id, imageLink: (volumeRep.volumeInfo.imageLinks?.thumbnail) ?? "http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg"))
+                        }
+                    }
                     self.saveToPersistent(context: backgroundContext)
                     completion(nil)
                     

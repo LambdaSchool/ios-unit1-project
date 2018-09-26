@@ -19,9 +19,6 @@ class BooksTabBarViewController: UITabBarController {
     }
     func passControllersToChildViewControllers() {
         for childVC in children {
-            if let childVC = childVC as? VolumeControllerProtocol {
-                childVC.volumeController = volumeController
-            }
             if let childVC = childVC as? BookshelfControllerProtocol {
                 childVC.bookshelfController = bookshelfController
             }

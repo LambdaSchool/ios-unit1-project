@@ -9,11 +9,16 @@
 import UIKit
 import CoreData
 
-class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, BookshelfControllerProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(bookshelf?.volumes!.count)
+//        guard let bookshelf = bookshelf else { return }
+//        bookshelfController?.fetchVolumesFromShelf(bookshelf: bookshelf) { (_) in
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,10 +43,10 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfCell", for: indexPath)
-        let bookshelf = fetchedResultsController.object(at: indexPath)
-        
-        cell.textLabel?.text = bookshelf.title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath)
+        //let volume = bookshelf?.volumes?.object(at: indexPath.row) as? Volume
+        let volume = fetchedResultsController.object(at: indexPath)
+        cell.textLabel?.text = volume.title
         
         return cell
     }
@@ -99,5 +104,23 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     var bookshelf: Bookshelf?
     var bookshelfController: BookshelfController?
+    
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
+        let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
+        
+
+        let moc = CoreDataStack.shared.mainContext
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        frc.delegate = self
+
+        try! frc.performFetch()
+
+        return frc
+    }()
 
 }

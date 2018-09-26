@@ -11,12 +11,24 @@ import CoreData
 
 class VolumeController {
     
+    init() {
+//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Volume")
+//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+//
+//        do {
+//            let result = try CoreDataStack.shared.mainContext.execute(request)
+//        }
+//        catch {
+//            NSLog("\(error)")
+//        }
+    }
+    
     
     func createVolume(title: String, id: String, imageLink: String, review: String = "", hasRead: Bool = false) {
         let volume = Volume(title: title, id: id, hasRead: hasRead, review: review, imageLink: imageLink)
         guard let bookshelf = fetchBookshelfFromPersistentStore(title: "To read", context: CoreDataStack.shared.mainContext) else { return }
         volume.bookshelf = bookshelf
-        addVolumeToBookshelf(volume: volume)
+        addVolumeToBookshelf(volume: volume, bookshelfId: BookShelfIdentifier.toRead.rawValue)
         saveToPersistent()
     }
     
@@ -40,8 +52,8 @@ class VolumeController {
         volume.hasRead = hasRead
         volume.review = review
         saveToPersistent(context: context)
-        //Persist on database side
-        //put(volume: volume)
+        // Not need to Persist on database
+        //Review and toggle hasRead is exclusive to Core Data
     }
     
     func deleteVolume(volume: Volume, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
@@ -115,11 +127,25 @@ class VolumeController {
         }.resume()
     }
     
-    func addVolumeToBookshelf(volume: Volume, completion: @escaping CompletionHandler = { _ in }) {
-        //Adds to favorites. Just Testing to make sure PUT Works
-        //Will Refactor and Modularize to be dynamic for any bookshelf
+    func fetchSingleVolumeFromPersistentStore(id: String, context: NSManagedObjectContext) -> Volume? {
+        let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = predicate
+        
+        var volume: Volume? = nil
+        
+        do {
+            volume = try context.fetch(fetchRequest).first
+        } catch {
+            NSLog("Error fetching volume with id \(id): \(error)")
+        }
+        
+        return volume
+    }
+    
+    func addVolumeToBookshelf(volume: Volume, bookshelfId: String, completion: @escaping CompletionHandler = { _ in }) {
         guard let id = volume.id else { return }
-        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("2").appendingPathComponent("addVolume")
+        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent(bookshelfId).appendingPathComponent("addVolume")
         let queryParameters = ["volumeId": id]
         var components = URLComponents(url: addVolumeUrl, resolvingAgainstBaseURL: true)
         components?.queryItems = queryParameters.map{URLQueryItem(name: $0.key, value: $0.value)}
