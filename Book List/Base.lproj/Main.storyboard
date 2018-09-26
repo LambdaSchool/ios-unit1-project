@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="711.20000000000005" y="218.1409295352324"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Bookshelf Volumes Table View Controller-->
         <scene sceneID="bP9-Ny-qCr">
             <objects>
-                <tableViewController id="bl4-sV-s4T" sceneMemberID="viewController">
+                <tableViewController id="bl4-sV-s4T" customClass="BookshelfVolumesTableViewController" customModule="Book_List" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="jOV-Tm-XTZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
