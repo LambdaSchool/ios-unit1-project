@@ -100,6 +100,15 @@ class BookshelfsTableViewController: UITableViewController, BookshelfControllerP
 //        let sectionInfo = fetchedResultsController.sections?[section]
 //    }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ViewVolumes" {
+            guard let destVC = segue.destination as? BookshelfVolumesTableViewController else { return }
+            destVC.bookshelfController = bookshelfController
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            destVC.bookshelf = fetchedResultsController.object(at: indexPath)
+        }
+    }
+    
     
     var bookshelfController: BookshelfController?
     

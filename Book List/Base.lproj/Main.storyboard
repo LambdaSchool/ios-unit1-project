@@ -120,7 +120,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="bl4-sV-s4T" kind="show" id="2Cs-pb-2jE"/>
+                                    <segue destination="bl4-sV-s4T" kind="show" identifier="ViewVolumes" id="2Cs-pb-2jE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

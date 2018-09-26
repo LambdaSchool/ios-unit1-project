@@ -17,9 +17,8 @@ class BookshelfController {
     
     func createBookshelf(title: String, id: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         let _ = Bookshelf(title: title, id: id)
-        saveToPersistent()
         //Can't create bookshelf in server
-        //put(bookshelf: bookshelf)
+        saveToPersistent()
     }
     
     func update(bookshelf: Bookshelf, bookshelfRepresentation: BookshelfRepresentation) {
@@ -51,6 +50,62 @@ class BookshelfController {
         return bookshelf
     }
     
+    
+    func fetchVolumeFromPersistentStore(id: String, context: NSManagedObjectContext) -> Volume? {
+        let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
+        let predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = predicate
+        
+        var volume: Volume? = nil
+        
+        do {
+            volume = try context.fetch(fetchRequest).first
+        } catch {
+            NSLog("Error fetching volume with id \(id): \(error)")
+        }
+        
+        return volume
+    }
+    
+    //Wasted time on this. Didn't need it. I can access the volumes from books in core data
+    func fetchVolumesFromShelf(bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+        let requestURL = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent(String(bookshelf.id)).appendingPathComponent("volumes")
+        let request = URLRequest(url: requestURL)
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                completion(error)
+                return
+            }
+            
+            guard let request = request else { return }
+            URLSession.shared.dataTask(with: request) {(data, _, error) in
+                if let error = error {
+                    NSLog("Error getting all volumes in bookshelf: \(error)")
+                    completion(error)
+                }
+                
+                guard let data = data else {
+                    NSLog("No data was returned")
+                    completion(NSError())
+                    return
+                }
+                
+                do {
+                    let volumeRepresentations =  try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
+                    let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
+                    
+                    self.saveToPersistent(context: backgroundContext)
+                    completion(nil)
+                    
+                } catch {
+                    NSLog("Error decoding JSON data: \(error)")
+                    completion(error)
+                }
+                
+                }.resume()
+        }
+    }
     
     
     func fetchBookShelvesFromServer(completion: @escaping CompletionHandler = { _ in }) {

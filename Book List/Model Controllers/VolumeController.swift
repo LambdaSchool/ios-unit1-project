@@ -36,7 +36,6 @@ class VolumeController {
         return bookshelf
     }
     
-    
     func updateVolume(volume: Volume, hasRead: Bool, review: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         volume.hasRead = hasRead
         volume.review = review
