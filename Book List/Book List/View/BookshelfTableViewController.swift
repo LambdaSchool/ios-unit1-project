@@ -36,7 +36,10 @@ class BookshelfTableViewController: UITableViewController, NSFetchedResultsContr
             if let error = error {
                 NSLog("Error getting authorization: \(error)")
             }
+            
+            self.bookshelfController.fetchBookshelves()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

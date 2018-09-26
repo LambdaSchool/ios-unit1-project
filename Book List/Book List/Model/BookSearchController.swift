@@ -10,12 +10,15 @@ import Foundation
 
 class BookSearchController {
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
-    var searchResults: [BookRepresentation] = []
+    private(set) var searchResults: [BookRepresentation] = []
+    
+    func resetResults() {
+        searchResults = []
+    }
     
     func performSearch(with term: String, page: Int = 0, reset: Bool = true, completion: @escaping CompletionHandler = { _ in }) {
-        if reset { searchResults = [] }
-        let numberOfResults = 15
-        let startIndex = page == 0 ? 0 : numberOfResults * page + 1
+        let numberOfResults = 20
+        let startIndex = page == 0 ? 0 : (numberOfResults * page)
         let requestURL = baseURL.appendingPathComponent("volumes")
         
         let searchQuery = URLQueryItem(name: "q", value: term)
@@ -24,7 +27,11 @@ class BookSearchController {
         
         var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
         components?.queryItems = [searchQuery, maxResultsQuery, startIndexQuery]
-        guard let url = components?.url else { return }
+        guard let url = components?.url else {
+            NSLog("Error getting url from components.")
+            completion(NSError())
+            return
+        }
         let request = URLRequest(url: url)
         
         GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
@@ -61,4 +68,5 @@ class BookSearchController {
             }).resume()
         }
     }
+    
 }

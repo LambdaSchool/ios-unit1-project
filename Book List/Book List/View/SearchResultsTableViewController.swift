@@ -12,9 +12,9 @@ import CoreData
 class SearchResultsTableViewController: UITableViewController, UISearchResultsUpdating {
     
     let bookSearchController = BookSearchController()
+    let bookshelfController = BookshelfController()
     let bookController = BookController()
     var searchController: UISearchController!
-    var objectIDs: [NSManagedObjectID] = []
     
     lazy var tempContext: NSManagedObjectContext = {
         let tempContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
@@ -25,7 +25,7 @@ class SearchResultsTableViewController: UITableViewController, UISearchResultsUp
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initializing with searchResultsController set to use this view controller to display the search results
+        // Initialize with searchResultsController set to use this view controller to display the search results
         searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         
@@ -35,53 +35,55 @@ class SearchResultsTableViewController: UITableViewController, UISearchResultsUp
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         
-        // Sets this view controller as presenting view controller for the search interface
         definesPresentationContext = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        searchController.searchBar.endEditing(true)
     }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objectIDs.count
+        return bookSearchController.searchResults.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BookResultCell", for: indexPath)
-        let book = tempContext.object(with: objectIDs[indexPath.row]) as! Book
+        let bookRepresentation = bookSearchController.searchResults[indexPath.row]
         
-        cell.textLabel?.text = book.title
-        cell.detailTextLabel?.text = book.author
+        cell.textLabel?.text = bookRepresentation.volumeInfo.title
+        cell.detailTextLabel?.text = bookRepresentation.volumeInfo.authors?.joined(separator: ", ")
         
-        if let imageData = book.thumbnailData {
+        if let imageData = bookRepresentation.thumbnailData {
             cell.imageView?.image = UIImage(data: imageData)
         }
         
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == (objectIDs.count - 4) {
-            let page = objectIDs.count/15
-            guard let searchTerm = searchController.searchBar.text else { return }
-            bookSearchController.performSearch(with: searchTerm, page: page) { (_) in
-                DispatchQueue.main.async {
-                    self.updateTableView()
-                }
-            }
-        }
-    }
+//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        if indexPath.row == (bookSearchController.searchResults.count - 5) {
+//            let page = bookSearchController.searchResults.count/20
+//            guard let searchTerm = searchController.searchBar.text else { return }
+//            bookSearchController.performSearch(with: searchTerm, page: page, reset: false) { (_) in
+//                DispatchQueue.main.async {
+//                    self.updateTableView()
+//                }
+//            }
+//        }
+//    }
     
     // MARK: - UI Search Results Updating
     func updateSearchResults(for searchController: UISearchController) {
-        objectIDs = []
-        tempContext.reset()
-        URLSession.shared.reset {}
-        guard let searchTerm = searchController.searchBar.text, !searchTerm.isEmpty else {
-            tableView.reloadData()
-            return
-        }
-        bookSearchController.performSearch(with: searchTerm) { (_) in
-            DispatchQueue.main.async {
-                self.updateTableView()
+        DispatchQueue.main.async {
+            URLSession.shared.reset {}
+            self.bookSearchController.resetResults()
+            self.tableView.reloadData()
+            guard let searchTerm = searchController.searchBar.text, !searchTerm.isEmpty else { return }
+            self.bookSearchController.performSearch(with: searchTerm) { (_) in
+                DispatchQueue.main.async {
+                    self.updateTableView()
+                }
             }
         }
     }
@@ -91,28 +93,28 @@ class SearchResultsTableViewController: UITableViewController, UISearchResultsUp
         if segue.identifier == "AddBookSegue" {
             guard let destinationVC = segue.destination as? BookDetailViewController,
             let indexPath = tableView.indexPathForSelectedRow else { return }
-            let objectID = objectIDs[indexPath.row]
+            let bookRepresentation = bookSearchController.searchResults[indexPath.row]
             
-            destinationVC.objectID = objectID
+            let bookshelf = bookshelfController.fetchSingleBookshelf(title: "To read", context: CoreDataStack.shared.mainContext)
+            destinationVC.bookshelfController = bookshelfController
+            destinationVC.book = Book(bookRepresentation: bookRepresentation, bookshelf: bookshelf, context: destinationVC.childContext)
+            
         }
     }
     
     // MARK: - Utility Methods
     private func updateTableView() {
-        for bookRepresentation in self.bookSearchController.searchResults {
-            let book = Book(bookRepresentation: bookRepresentation, context: self.tempContext)
-            self.objectIDs.append(book.objectID)
-        }
         self.tableView.reloadData()
-        
-        for (index, objectID) in objectIDs.enumerated() {
-            let book = tempContext.object(with: objectID) as! Book
-            bookController.fetchThumbnailFor(book: book) { (_) in
-                DispatchQueue.main.async {
-                    self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+        for bookRepresentation in self.bookSearchController.searchResults {
+            bookController.fetchImagesFor(bookRepresentation: bookRepresentation) { (_) in
+                if let index = self.bookSearchController.searchResults.index(of: bookRepresentation) {
+                    DispatchQueue.main.async {
+                        self.tableView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
+                    }
                 }
             }
         }
+        
     }
 
 }

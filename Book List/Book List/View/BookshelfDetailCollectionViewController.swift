@@ -48,7 +48,7 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
             bookshelfController?.fetchBooks(for: bookshelf) { (_) in
                 guard let books = self.fetchedResultsController?.fetchedObjects else { return }
                 for book in books {
-                    self.bookController.fetchThumbnailFor(book: book) { _ in
+                    self.bookController.fetchImagesFor(book: book) { _ in
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
@@ -62,7 +62,7 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         super.viewWillAppear(animated)
         guard let books = fetchedResultsController?.fetchedObjects else { return }
         for book in books {
-            bookController.fetchThumbnailFor(book: book) { _ in
+            bookController.fetchImagesFor(book: book) { _ in
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -148,7 +148,7 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         itemChanges.append((type, indexPath, newIndexPath))
         //        if let indexPath = indexPath {
         //            let book = fetchedResultsController.object(at: indexPath)
-        //            bookController.fetchThumbnailFor(book: book)
+        //            bookController.fetchImagesFor(book: book)
         //        }
     }
     
@@ -204,7 +204,7 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     // MARK: - Utility Methods
     private func updateImages() {
         for book in fetchedResultsController?.fetchedObjects ?? [] {
-            bookController.fetchThumbnailFor(book: book)
+            bookController.fetchImagesFor(book: book)
             //            bookController.fetchImageFor(book: book)
         }
     }

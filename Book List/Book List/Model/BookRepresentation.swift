@@ -8,18 +8,22 @@
 
 import Foundation
 
-struct BookRepresentation: Codable {
+class BookRepresentation: Codable, Equatable {
     let volumeInfo: VolumeInfo
     let id: String
-    let thumbnailData: Data?
-    let imageData: Data?
+    var thumbnailData: Data?
+    var imageData: Data?
+    
+    static func == (lhs: BookRepresentation, rhs: BookRepresentation) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
-struct BooksResults: Codable {
+struct BooksResults: Codable, Equatable {
     let items: [BookRepresentation]?
 }
 
-struct VolumeInfo: Codable {
+struct VolumeInfo: Codable, Equatable {
     let title: String
     let authors: [String]?
     let imageLinks: ImageLinks?
@@ -27,7 +31,7 @@ struct VolumeInfo: Codable {
     let pageCount: Int16?
 }
 
-struct ImageLinks: Codable {
+struct ImageLinks: Codable, Equatable {
     let thumbnail: String
     let small: String?
     let medium: String?
@@ -38,4 +42,20 @@ struct ImageLinks: Codable {
         return extraLarge ?? large ?? medium ?? small ?? thumbnail
     }
     
+}
+
+func == (lhs: BookRepresentation, rhs: Book) -> Bool {
+    return lhs.id == rhs.id && lhs.volumeInfo.title == rhs.title && lhs.volumeInfo.imageLinks?.thumbnail == rhs.thumbnailURL && lhs.volumeInfo.imageLinks?.biggestImage == rhs.imageURL && lhs.volumeInfo.description == rhs.bookDescription && lhs.volumeInfo.pageCount == rhs.pageCount
+}
+
+func == (lhs: Book, rhs: BookRepresentation) -> Bool {
+    return rhs == lhs
+}
+
+func != (lhs: BookRepresentation, rhs: Book) -> Bool {
+    return !(rhs == lhs)
+}
+
+func != (lhs: Book, rhs: BookRepresentation) -> Bool {
+    return rhs != lhs
 }

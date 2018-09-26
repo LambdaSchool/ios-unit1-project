@@ -12,10 +12,6 @@ import CoreData
 class BookshelfController {
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
     
-    init() {
-        fetchBookshelves()
-    }
-    
     // MARK: - CRUD Methods
     func update(bookshelf: Bookshelf, with bookshelfRepresentation: BookshelfRepresentation) {
         bookshelf.title = bookshelfRepresentation.title
@@ -136,10 +132,13 @@ class BookshelfController {
                     for bookRepresentation in bookRepresentations {
                         if let book = self.fetchSingleBook(id: bookRepresentation.id, context: backgroundContext) {
                             // Check to see if the book already exists
-                            self.update(book: book, with: bookRepresentation, in: bookshelf)
+                            if book != bookRepresentation {
+                                //Check to see if the book needs to be updated
+                                self.update(book: book, with: bookRepresentation, in: bookshelf)
+                            }
                         } else {
                             // If not, create it on this bookshelf
-                            _ = Book(bookRepresentation: bookRepresentation, bookShelf: bookshelf, context: backgroundContext)
+                            _ = Book(bookRepresentation: bookRepresentation, bookshelf: bookshelf, context: backgroundContext)
                         }
                     }
                 }
@@ -151,13 +150,53 @@ class BookshelfController {
                 }
                 
                 completion(nil)
+            }).resume()
+        }
+    }
+    
+    func post(book: Book, to bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+        let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("\(bookshelf.id)").appendingPathComponent("addVolume")
+        
+        let volumeQuery = URLQueryItem(name: "volumeId", value: book.id)
+        
+        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
+        components?.queryItems = [volumeQuery]
+        guard let url = components?.url else {
+            NSLog("Error getting url from components.")
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = HTTPMethod.post.rawValue
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to POST book request: \(error)")
+                completion(error)
+                return
+            }
+            
+            guard let request = request else {
+                completion(NSError())
+                return
+            }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (_, _, error) in
+                if let error = error {
+                    NSLog("Error POSTing book to bookshelf: \(error)")
+                    completion(error)
+                    return
+                }
                 
+                self.fetchBooks(for: bookshelf, completion: completion)
+                return
             }).resume()
         }
     }
     
     // MARK: - Utility Methods
-    private func fetchSingleBookshelf(title: String, context: NSManagedObjectContext) -> Bookshelf? {
+    func fetchSingleBookshelf(title: String, context: NSManagedObjectContext) -> Bookshelf? {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
         let predicate = NSPredicate(format: "title = %@", title)
