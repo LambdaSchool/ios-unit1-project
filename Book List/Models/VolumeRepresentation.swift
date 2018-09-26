@@ -26,7 +26,6 @@ func != (lhs: VolumeRepresentation, rhs: Volume) -> Bool {
     return !(rhs == lhs)
 }
 
-
 struct VolumeRepresentation: Equatable, Codable {
     let id: String
     let volumeInfo: VolumeInfo

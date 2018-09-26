@@ -42,24 +42,24 @@
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchVolumeCell" rowHeight="81" id="vEJ-U9-xkD" customClass="SearchVolumeTableViewCell" customModule="Book_List" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="81"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchVolumeCell" rowHeight="105" id="vEJ-U9-xkD" customClass="SearchVolumeTableViewCell" customModule="Book_List" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vEJ-U9-xkD" id="7cH-jw-QNu">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="80.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="104.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="a61-Lr-Qbt">
-                                            <rect key="frame" x="16" y="11" width="343" height="59"/>
+                                            <rect key="frame" x="16" y="11" width="343" height="83"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KiT-sB-RFj">
-                                                    <rect key="frame" x="0.0" y="0.0" width="167.5" height="59"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="167.5" height="83"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4yU-Q4-Ldf">
-                                                    <rect key="frame" x="175.5" y="0.0" width="167.5" height="59"/>
+                                                    <rect key="frame" x="175.5" y="0.0" width="167.5" height="83"/>
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title="Add Volume">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -95,7 +95,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgb-zq-gGi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-228" y="-455.62218890554726"/>
+            <point key="canvasLocation" x="-228" y="-535"/>
         </scene>
         <!--Bookshelfs Table View Controller-->
         <scene sceneID="ccL-py-qUf">
@@ -228,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gtC-9y-vys" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3399.1999999999998" y="216.34182908545728"/>
+            <point key="canvasLocation" x="3204" y="205"/>
         </scene>
         <!--Item-->
         <scene sceneID="xpx-rk-mSV">

@@ -10,17 +10,16 @@ import Foundation
 import CoreData
 
 extension Bookshelf {
-    convenience init(title: String, id: Int16, volumeCount: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    convenience init(title: String, id: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         
         self.title = title
         self.id = id
-        self.volumeCount = volumeCount
     }
     
     
     convenience init?(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        self.init(title: bookshelfRepresentation.title, id: bookshelfRepresentation.id, volumeCount: bookshelfRepresentation.volumeCount, context: context)
+        self.init(title: bookshelfRepresentation.title, id: bookshelfRepresentation.id, context: context)
     }
     
 }

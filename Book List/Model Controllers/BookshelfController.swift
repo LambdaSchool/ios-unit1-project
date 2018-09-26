@@ -12,20 +12,20 @@ import CoreData
 class BookshelfController {
     
     init() {
-//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Bookshelf")
-//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
-//
-//        do {
-//                 let result = try CoreDataStack.shared.mainContext.execute(request)
-//        }
-//        catch {
-//            NSLog("\(error)")
-//        }
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Bookshelf")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+
+        do {
+                 let result = try CoreDataStack.shared.mainContext.execute(request)
+        }
+        catch {
+            NSLog("\(error)")
+        }
         fetchBookShelvesFromServer()
     }
     
     func createBookshelf(title: String, id: Int16, volumeCount: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        let _ = Bookshelf(title: title, id: id, volumeCount: volumeCount)
+        let _ = Bookshelf(title: title, id: id)
         //Can't create bookshelf in server
         saveToPersistent()
     }
@@ -33,7 +33,7 @@ class BookshelfController {
     func update(bookshelf: Bookshelf, bookshelfRepresentation: BookshelfRepresentation) {
             bookshelf.title = bookshelfRepresentation.title
             bookshelf.id = bookshelfRepresentation.id
-            bookshelf.volumeCount = bookshelfRepresentation.volumeCount
+            //bookshelf.volumeCount = bookshelfRepresentation.volumeCount
     }
     func updateVolume(volume: Volume, volumeRepresentation: VolumeRepresentation) {
         volume.id = volumeRepresentation.id
@@ -104,12 +104,13 @@ class BookshelfController {
                     completion(NSError())
                     return
                 }
+                var volumeRepresentations: [VolumeRepresentation] = []
                 
                 do {
                     let volumeRepresentations =  try JSONDecoder().decode(VolumeRepresentations.self, from: data).items
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                     for volumeRep in volumeRepresentations {
-                        if let volume = self.fetchSingleVolumeFromPersistentStore(id: String(volumeRep.id), context: backgroundContext) {
+                        if let volume = self.fetchSingleVolumeFromPersistentStore(id: String(volumeRep.id), context: CoreDataStack.shared.mainContext) {
 
                             guard let bookshelfVolumes = bookshelf.volumes else { return }
                             //Check to see if Bookshelf contains this volume

@@ -13,12 +13,12 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        guard let bookshelf = bookshelf else { return }
-//        bookshelfController?.fetchVolumesFromShelf(bookshelf: bookshelf) { (_) in
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//            }
-//        }
+        guard let bookshelf = bookshelf else { return }
+        bookshelfController?.fetchVolumesFromShelf(bookshelf: bookshelf) { (_) in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -38,13 +38,13 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+        return fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath)
-        //let volume = bookshelf?.volumes?.object(at: indexPath.row) as? Volume
+        //let volume = bookshelf?.volumes?.object(at: indexPath.row)
         let volume = fetchedResultsController.object(at: indexPath)
         cell.textLabel?.text = volume.title
         
@@ -108,12 +108,13 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
-        
-
+        if let bookshelf = bookshelf {
+            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
+            fetchRequest.predicate = predicate
+        }
         let moc = CoreDataStack.shared.mainContext
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
-
 
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
         frc.delegate = self

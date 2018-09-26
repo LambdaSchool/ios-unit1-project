@@ -10,7 +10,7 @@ import Foundation
 
 
 func == (lhs: BookshelfRepresentation, rhs: Bookshelf) -> Bool {
-    return lhs.title == rhs.title && lhs.id == rhs.id && lhs.volumeCount == rhs.volumeCount
+    return lhs.title == rhs.title && lhs.id == rhs.id && lhs.id == rhs.id
 }
 
 func == (lhs: Bookshelf, rhs: BookshelfRepresentation) -> Bool {
@@ -28,7 +28,6 @@ func != (lhs: BookshelfRepresentation, rhs: Bookshelf) -> Bool {
 struct BookshelfRepresentation: Codable {
     let title: String
     let id: Int16
-    let volumeCount: Int16
 }
 
 

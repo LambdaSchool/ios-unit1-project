@@ -12,15 +12,15 @@ import CoreData
 class VolumeController {
     
     init() {
-//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Volume")
-//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
-//
-//        do {
-//            let result = try CoreDataStack.shared.mainContext.execute(request)
-//        }
-//        catch {
-//            NSLog("\(error)")
-//        }
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Volume")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+
+        do {
+            let result = try CoreDataStack.shared.mainContext.execute(request)
+        }
+        catch {
+            NSLog("\(error)")
+        }
     }
     
     
