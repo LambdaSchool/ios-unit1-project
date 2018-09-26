@@ -11,7 +11,7 @@ import CoreData
 
 extension Volume {
     
-    convenience init(volumeRepresentation: VolumeRepresentation, hasRead: Bool = false, myRating: Int = 1, myReview: String = "", context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    @discardableResult convenience init(volumeRepresentation: VolumeRepresentation, hasRead: Bool = false, myRating: Int = 1, myReview: String = "", context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.id = volumeRepresentation.id
         self.title = volumeRepresentation.volumeInfo.title

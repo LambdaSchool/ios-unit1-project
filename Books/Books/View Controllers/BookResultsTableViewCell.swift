@@ -9,25 +9,23 @@
 import UIKit
 
 class BookResultsTableViewCell: UITableViewCell {
+    
+    // MARK: - Private Methods
 
     private func updateViews() {
         guard let volume = volume else { return }
         
         bookTitleLabel.text = volume.title
-        authorsLabel.text = "by \(volume.authors)"
+        authorsLabel.text = "by \(String(describing: volume.authors))"
         displayImage(volume: volume)
         
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        
-    }
-    
     
     //Doesn't work yet.
     private func displayImage(volume: Volume) {
+        //check that image string exists or works
+        //set volumes without image to a default image
+        
         let url = URL(string: volume.image!)
         
         do {
@@ -38,6 +36,11 @@ class BookResultsTableViewCell: UITableViewCell {
         } catch {
             NSLog("Error creating image data from url: \(error)")
         }
+    }
+    
+    // MARK: - Action Method
+    
+    @IBAction func addBookToBookshelf(_ sender: Any) {
     }
     
     // MARK: - Properties

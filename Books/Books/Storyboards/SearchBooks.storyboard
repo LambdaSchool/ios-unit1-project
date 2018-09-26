@@ -85,13 +85,18 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lfd-J6-Yhb">
-                                    <rect key="frame" x="0.0" y="1" width="375" height="56"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Lfd-J6-Yhb">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="58"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </searchBar>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="Lfd-J6-Yhb" firstAttribute="leading" secondItem="fNX-fl-S5v" secondAttribute="leading" id="6lW-Af-s8W"/>
+                                <constraint firstAttribute="bottom" secondItem="Lfd-J6-Yhb" secondAttribute="bottom" id="UXV-tI-E8Z"/>
+                                <constraint firstAttribute="trailing" secondItem="Lfd-J6-Yhb" secondAttribute="trailing" id="p3Y-7C-NOI"/>
+                                <constraint firstItem="Lfd-J6-Yhb" firstAttribute="top" secondItem="fNX-fl-S5v" secondAttribute="top" id="w4S-jY-TfG"/>
+                            </constraints>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookCell" rowHeight="133" id="ISZ-OI-eHu" customClass="BookResultsTableViewCell" customModule="Books" customModuleProvider="target">
@@ -131,9 +136,10 @@
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OB-g3-01i">
                                                     <rect key="frame" x="0.0" y="81" width="343" height="30"/>
-                                                    <state key="normal" title="Add to bookshelf"/>
+                                                    <state key="normal" title="Add to a bookshelf"/>
                                                     <connections>
-                                                        <segue destination="iYs-nu-vQk" kind="presentation" id="vVd-e3-q9j"/>
+                                                        <action selector="addBookToBookshelf:" destination="ISZ-OI-eHu" eventType="touchUpInside" id="CY3-Av-kEj"/>
+                                                        <segue destination="iYs-nu-vQk" kind="presentation" modalPresentationStyle="overFullScreen" id="vVd-e3-q9j"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
