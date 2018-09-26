@@ -198,7 +198,6 @@
 			isa = PBXGroup;
 			children = (
 				7B5690EA215988CD0031A7DF /* MyBookshelvesTableViewController.swift */,
-				7B569128215BDE0A0031A7DF /* Bookshelf+Convenience.swift */,
 				7B569126215BD4E40031A7DF /* BookshelfTableViewCell.swift */,
 				7B569124215BD4C70031A7DF /* BookshelfVolumeCollectionViewCell.swift */,
 				7B5690F521598E140031A7DF /* BookSearchTableViewController.swift */,
@@ -226,8 +225,9 @@
 			children = (
 				7B56910F2159CFA40031A7DF /* Books.xcdatamodeld */,
 				7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */,
-				7B569122215B4CE50031A7DF /* BookshelfRepresentation.swift */,
 				7B56911C215AC7020031A7DF /* Volume+Convenience.swift */,
+				7B569122215B4CE50031A7DF /* BookshelfRepresentation.swift */,
+				7B569128215BDE0A0031A7DF /* Bookshelf+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -235,8 +235,8 @@
 		7B56910E2159CB8D0031A7DF /* Model Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7B569112215A98150031A7DF /* BookshelfController.swift */,
 				7B569118215AA9DE0031A7DF /* VolumeController.swift */,
+				7B569112215A98150031A7DF /* BookshelfController.swift */,
 			);
 			path = "Model Controllers";
 			sourceTree = "<group>";

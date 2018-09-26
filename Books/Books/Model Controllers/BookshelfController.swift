@@ -11,6 +11,7 @@ import Foundation
 class BookshelfController {
     
     init() {
+        
         fetchAllBookshelves { (_) in
             
         }
@@ -31,31 +32,45 @@ class BookshelfController {
     //Get all bookshelves from user's profile.
     func fetchAllBookshelves(completion: @escaping (Error?) -> Void) {
         
-        let requestURL = baseURL
+        let requestURL = bookshelvesBaseURL
+        let request = URLRequest(url: requestURL)
         
-        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
             if let error = error {
-                NSLog("Error fetching bookshelves: \(error)")
-                completion(error)
+                NSLog("Error adding authorization to request: \(error)")
                 return
             }
+            guard let request = request else { return }
             
-            guard let data = data else {
-                NSLog("No data returned from data task")
-                completion(NSError())
-                return
-            }
-            
-            do {
-                let searchResults = try JSONDecoder().decode(BookshelfResults.self, from: data)
-                self.bookshelves = searchResults.items
-            } catch {
-                NSLog("Error decoding data: \(error)")
-                completion(error)
-                return
-            }
-            completion(nil)
-        }.resume()
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    NSLog("Error fetching data for bookshelves: \(error)")
+                    completion(error)
+                    return
+                }
+                
+                guard let data = data else {
+                    NSLog("No data returned from data task")
+                    completion(NSError())
+                    return
+                }
+                
+                //prints out json
+                if let json = String(data: data, encoding: .utf8) {
+                    print(json)
+                }
+                
+                do {
+                    let searchResults = try JSONDecoder().decode(BookshelfResults.self, from: data)
+                    self.bookshelves = searchResults.items
+                } catch {
+                    NSLog("Error decoding data: \(error)")
+                    completion(error)
+                    return
+                }
+                completion(nil)
+            }.resume()
+        }
         
     }
     
@@ -70,5 +85,5 @@ class BookshelfController {
     var bookshelves: [BookshelfRepresentation] = []
     
     private let userId = "111772930908716729442"
-    private let baseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
+    private let bookshelvesBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }

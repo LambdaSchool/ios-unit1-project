@@ -10,12 +10,22 @@ import UIKit
 
 class BookshelfTableViewCell: UITableViewCell {
     
+    private func updateViews() {
+        guard let bookshelf = bookshelf else { return }
+        
+        bookshelfTitleLabel.text = bookshelf.title
+    }
+    
     //To connect table view cell to collection view cell.
     func registerCollectionView<DataSource: UICollectionViewDataSource>(datasource: DataSource) {
         self.collectionView.dataSource = datasource
     }
     
-    var bookshelf: Bookshelf?
+    var bookshelf: Bookshelf? {
+        didSet{
+            updateViews()
+        }
+    }
     var volumeController: VolumeController?
     var bookshelfController: BookshelfTableViewCell?
     

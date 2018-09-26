@@ -13,11 +13,16 @@ class MyBookshelvesTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
+            if let error = error {
+                NSLog("Authorization failed: \(error)")
+                return
+            }
+            
+//            self.bookshelfController.fetchAllBookshelves(completion: { (_) in
+//            
+//            })
+        }
     }
 
     // MARK: - Table view data source
@@ -33,7 +38,7 @@ class MyBookshelvesTableViewController: UITableViewController {
         cell.registerCollectionView(datasource: self)
         
         let bookshelfRep = bookshelfController.bookshelves[indexPath.row]
-        cell.bookshelf = Bookshelf
+        cell.bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRep)
 
         return cell
     }

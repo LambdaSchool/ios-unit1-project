@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="17G65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Bookshelf" representedClassName="Bookshelf" syncable="YES" codeGenerationType="class">
+        <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="volumes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Volume" inverseName="bookshelfs" inverseEntity="Volume" syncable="YES"/>
     </entity>
@@ -17,6 +18,6 @@
     </entity>
     <elements>
         <element name="Volume" positionX="-63" positionY="-18" width="128" height="180"/>
-        <element name="Bookshelf" positionX="-54" positionY="-9" width="128" height="75"/>
+        <element name="Bookshelf" positionX="-54" positionY="-9" width="128" height="90"/>
     </elements>
 </model>
