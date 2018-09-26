@@ -73,7 +73,7 @@
             </objects>
             <point key="canvasLocation" x="1903" y="188"/>
         </scene>
-        <!--Book Search Table View Controller-->
+        <!--Search a book-->
         <scene sceneID="At4-rk-QOX">
             <objects>
                 <tableViewController id="DYe-11-1T9" customClass="BookSearchTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
@@ -164,7 +164,7 @@
                             <outlet property="delegate" destination="DYe-11-1T9" id="y0y-3S-1zc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="jn9-1v-gP2"/>
+                    <navigationItem key="navigationItem" title="Search a book" id="jn9-1v-gP2"/>
                     <connections>
                         <outlet property="bookSearchBar" destination="Lfd-J6-Yhb" id="HP9-46-QWn"/>
                     </connections>

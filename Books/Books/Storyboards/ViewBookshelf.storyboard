@@ -23,7 +23,7 @@
                             <inset key="sectionInset" minX="15" minY="15" maxX="15" maxY="15"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FCH-eJ-FvS">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FCH-eJ-FvS" customClass="VolumeCollectionViewCell" customModule="Books" customModuleProvider="target">
                                 <rect key="frame" x="15" y="15" width="158" height="227"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -36,6 +36,9 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUe-z6-iEf">
                                             <rect key="frame" x="0.0" y="197" width="158" height="30"/>
                                             <state key="normal" title="Button"/>
+                                            <connections>
+                                                <action selector="updateHasRead:" destination="Lm2-h7-Gks" eventType="touchUpInside" id="Ss4-gO-XS0"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                 </view>
@@ -50,6 +53,8 @@
                                     <constraint firstAttribute="bottom" secondItem="lUe-z6-iEf" secondAttribute="bottom" id="wh1-5h-SI1"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="bookImageView" destination="fsF-ko-1vw" id="GSS-dE-ImQ"/>
+                                    <outlet property="hasReadButton" destination="lUe-z6-iEf" id="anf-Ng-nLf"/>
                                     <segue destination="S1Z-aU-zDO" kind="show" identifier="ViewBook" id="7xG-8v-s2y"/>
                                 </connections>
                             </collectionViewCell>

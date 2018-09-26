@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class VolumeController {
     
@@ -95,6 +96,19 @@ class VolumeController {
             completion(nil)
         }.resume()
         
+    }
+    
+    func displayImage(volume: Volume, imageView: UIImageView) {
+        let url = URL(string: volume.image!)
+        
+        do {
+            let data = try Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
+            }
+        } catch {
+            NSLog("Error creating image data from url: \(error)")
+        }
     }
     
     // MARK: - Properties

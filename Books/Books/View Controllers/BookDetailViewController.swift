@@ -56,8 +56,8 @@ class BookDetailViewController: UIViewController {
             updateViews()
         }
     }
-    //add volumecontroller
-    //add bookshelf?
+    var volumeController: VolumeController?
+    var bookshelfController: BookshelfController?
 
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!

@@ -35,6 +35,7 @@
 		7B56911B215ABE710031A7DF /* VolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */; };
 		7B56911D215AC7020031A7DF /* Volume+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911C215AC7020031A7DF /* Volume+Convenience.swift */; };
 		7B56911F215AE2490031A7DF /* BookResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */; };
+		7B569121215B29B50031A7DF /* VolumeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569120215B29B50031A7DF /* VolumeCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeRepresentation.swift; sourceTree = "<group>"; };
 		7B56911C215AC7020031A7DF /* Volume+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Volume+Convenience.swift"; sourceTree = "<group>"; };
 		7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResultsTableViewCell.swift; sourceTree = "<group>"; };
+		7B569120215B29B50031A7DF /* VolumeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */,
 				7B5691092159C9AA0031A7DF /* PickBookshelfTableViewController.swift */,
 				7B5690F721598F110031A7DF /* ViewBookshelfCollectionViewController.swift */,
+				7B569120215B29B50031A7DF /* VolumeCollectionViewCell.swift */,
 				7B56910B2159CADD0031A7DF /* BookDetailViewController.swift */,
 			);
 			path = "View Controllers";
@@ -370,6 +373,7 @@
 				7B56911D215AC7020031A7DF /* Volume+Convenience.swift in Sources */,
 				7B569115215A9B2B0031A7DF /* CoreDataStack.swift in Sources */,
 				7B5691112159CFA40031A7DF /* Books.xcdatamodeld in Sources */,
+				7B569121215B29B50031A7DF /* VolumeCollectionViewCell.swift in Sources */,
 				7B569119215AA9DE0031A7DF /* VolumeController.swift in Sources */,
 				7B5690FA2159A1B60031A7DF /* GoogleBooksAuthorizationClient.swift in Sources */,
 				7B56910A2159C9AA0031A7DF /* PickBookshelfTableViewController.swift in Sources */,
