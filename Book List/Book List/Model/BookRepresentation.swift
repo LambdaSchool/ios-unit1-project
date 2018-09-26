@@ -11,22 +11,23 @@ import Foundation
 struct BookRepresentation: Codable {
     let volumeInfo: VolumeInfo
     let id: String
+    let thumbnailData: Data?
+    let imageData: Data?
 }
 
 struct BooksResults: Codable {
-    let items: [BookRepresentation]
+    let items: [BookRepresentation]?
 }
 
 struct VolumeInfo: Codable {
     let title: String
-    let authors: [String]
-    let imageLinks: ImageLinks
-    let description: String
-    let pageCount: Int16
+    let authors: [String]?
+    let imageLinks: ImageLinks?
+    let description: String?
+    let pageCount: Int16?
 }
 
 struct ImageLinks: Codable {
-    let smallThumbnail: String
     let thumbnail: String
     let small: String?
     let medium: String?

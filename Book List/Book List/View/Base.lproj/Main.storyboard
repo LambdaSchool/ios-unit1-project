@@ -162,7 +162,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Q8h-KB-zl8" kind="show" id="NwR-Ru-0fE"/>
+                                    <segue destination="Q8h-KB-zl8" kind="show" identifier="AddBookSegue" id="NwR-Ru-0fE"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -248,7 +248,7 @@
                     <navigationItem key="navigationItem" title="Title" id="VHc-Jd-dr6">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="y5M-kr-BIP">
                             <connections>
-                                <action selector="saveBook:" destination="Q8h-KB-zl8" id="Tte-GV-u4Q"/>
+                                <action selector="saveBook:" destination="Q8h-KB-zl8" id="rOn-t9-rVz"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -304,6 +304,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="hrl-Y3-r0H"/>
+        <segue reference="NwR-Ru-0fE"/>
     </inferredMetricsTieBreakers>
 </document>

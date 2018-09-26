@@ -32,6 +32,7 @@
 		3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4A21598ED500D18F31 /* Book+Convenience.swift */; };
 		3472AF4D215992A000D18F31 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */; };
 		3472AF4F2159AE3700D18F31 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4E2159AE3700D18F31 /* BookController.swift */; };
+		3472AF53215AC65700D18F31 /* BookSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF52215AC65700D18F31 /* BookSearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +78,7 @@
 		3472AF4E2159AE3700D18F31 /* BookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookController.swift; sourceTree = "<group>"; };
 		3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 2.xcdatamodel"; sourceTree = "<group>"; };
 		3472AF51215AA91500D18F31 /* BookList 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 3.xcdatamodel"; sourceTree = "<group>"; };
+		3472AF52215AC65700D18F31 /* BookSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 				3472AF48215989E800D18F31 /* BookRepresentation.swift */,
 				3472AF42215966CD00D18F31 /* BookshelfController.swift */,
 				3472AF4E2159AE3700D18F31 /* BookController.swift */,
+				3472AF52215AC65700D18F31 /* BookSearchController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				3472AF41215965DD00D18F31 /* CoreDataStack.swift in Sources */,
 				3472AF0F21595AC100D18F31 /* AppDelegate.swift in Sources */,
 				3472AF49215989E800D18F31 /* BookRepresentation.swift in Sources */,
+				3472AF53215AC65700D18F31 /* BookSearchController.swift in Sources */,
 				3472AF392159650E00D18F31 /* SearchResultsTableViewController.swift in Sources */,
 				3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */,
 				3472AF352159623400D18F31 /* BookList.xcdatamodeld in Sources */,

@@ -17,7 +17,7 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     let bookController = BookController()
     var bookshelfController: BookshelfController?
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Book> = {
+    func setupFRC() {
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
@@ -34,68 +34,86 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
         fetchedResultsController.delegate = self
         
         try! fetchedResultsController.performFetch()
-        return fetchedResultsController
-    }()
-
+        self.fetchedResultsController = fetchedResultsController
+    }
+    
+    var fetchedResultsController: NSFetchedResultsController<Book>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupFRC()
         title = bookshelf?.title?.capitalized
         
         if let bookshelf = bookshelf {
             bookshelfController?.fetchBooks(for: bookshelf) { (_) in
-//                guard let books = self.fetchedResultsController.fetchedObjects else { return }
-//                for book in books {
-//                    self.bookController.fetchThumbnailFor(book: book)
-//                }
+                guard let books = self.fetchedResultsController?.fetchedObjects else { return }
+                for book in books {
+                    self.bookController.fetchThumbnailFor(book: book) { _ in
+                        DispatchQueue.main.async {
+                            self.collectionView.reloadData()
+                        }
+                    }
+                }
             }
         }
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        guard let books = fetchedResultsController?.fetchedObjects else { return }
+        for book in books {
+            bookController.fetchThumbnailFor(book: book) { _ in
+                DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                }
+            }
+        }
+    }
+    
     // MARK: UI Collection View Data Source
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fetchedResultsController.fetchedObjects?.count ?? 0
+        return fetchedResultsController?.fetchedObjects?.count ?? 0
     }
-
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! BookCollectionViewCell
-        let book = fetchedResultsController.object(at: indexPath)
+        let book = fetchedResultsController?.object(at: indexPath)
         
         cell.book = book
-    
+        
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
-    }
-    */
+    // MARK: UICollectionViewDelegate
+    
+    /*
+     // Uncomment this method to specify if the specified item should be highlighted during tracking
+     override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+     return true
+     }
+     */
+    
+    /*
+     // Uncomment this method to specify if the specified item should be selected
+     override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
+     return true
+     }
+     */
+    
+    /*
+     // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+     override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
+     return false
+     }
+     
+     override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
+     return false
+     }
+     
+     override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+     
+     }
+     */
     
     // MARK: - UI Collection View Delegate Flow Layout
     
@@ -128,10 +146,10 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
     {
         itemChanges.append((type, indexPath, newIndexPath))
-        if let indexPath = indexPath {
-            let book = fetchedResultsController.object(at: indexPath)
-            bookController.fetchThumbnailFor(book: book)
-        }
+        //        if let indexPath = indexPath {
+        //            let book = fetchedResultsController.object(at: indexPath)
+        //            bookController.fetchThumbnailFor(book: book)
+        //        }
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>)
@@ -170,14 +188,14 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
             self.itemChanges.removeAll()
         })
     }
-
+    
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowBookSegue" {
             guard let destinationVC = segue.destination as? BookDetailViewController,
                 let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
-            let book = fetchedResultsController.object(at: indexPath)
+            let book = fetchedResultsController?.object(at: indexPath)
             
             destinationVC.book = book
         }
@@ -185,10 +203,10 @@ class BookshelfDetailCollectionViewController: UICollectionViewController, NSFet
     
     // MARK: - Utility Methods
     private func updateImages() {
-        for book in fetchedResultsController.fetchedObjects ?? [] {
+        for book in fetchedResultsController?.fetchedObjects ?? [] {
             bookController.fetchThumbnailFor(book: book)
-//            bookController.fetchImageFor(book: book)
+            //            bookController.fetchImageFor(book: book)
         }
     }
-
+    
 }

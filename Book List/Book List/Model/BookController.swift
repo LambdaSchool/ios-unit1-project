@@ -16,10 +16,14 @@ class BookController {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
                 NSLog("Error fetching image data: \(error)")
+                completion(error)
                 return
             }
             
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(NSError())
+                return
+            }
             
             context.performAndWait {
                 book.thumbnailData = data
@@ -48,10 +52,15 @@ class BookController {
         URLSession.shared.dataTask(with: url) { (data, _, error) in
             if let error = error {
                 NSLog("Error fetching image data: \(error)")
+                completion(error)
                 return
             }
             
-            guard let data = data else { return }
+            guard let data = data else {
+                completion(NSError())
+                return
+                
+            }
             
             context.performAndWait {
                 book.imageData = data

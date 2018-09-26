@@ -22,11 +22,11 @@ class BookshelfController {
     }
     
     func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf) {
-        book.author = bookRepresentation.volumeInfo.authors.joined(separator: ", ")
-        book.pageCount = bookRepresentation.volumeInfo.pageCount
+        book.author = bookRepresentation.volumeInfo.authors?.joined(separator: ", ")
+        book.pageCount = bookRepresentation.volumeInfo.pageCount ?? 0
         book.bookDescription = bookRepresentation.volumeInfo.description
-        book.thumbnailURL = bookRepresentation.volumeInfo.imageLinks.thumbnail
-        book.imageURL = bookRepresentation.volumeInfo.imageLinks.biggestImage
+        book.thumbnailURL = bookRepresentation.volumeInfo.imageLinks?.thumbnail
+        book.imageURL = bookRepresentation.volumeInfo.imageLinks?.biggestImage
         book.addToBookshelves(bookshelf)
         bookshelf.addToBooks(book)
         
@@ -123,7 +123,7 @@ class BookshelfController {
                 
                 do {
                     let results = try JSONDecoder().decode(BooksResults.self, from: data)
-                    bookRepresentations = results.items
+                    bookRepresentations = results.items ?? []
                 } catch {
                     NSLog("Error decoding books data: \(error)")
                     completion(error)

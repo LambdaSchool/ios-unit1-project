@@ -7,10 +7,31 @@
 //
 
 import UIKit
+import CoreData
 
 class BookDetailViewController: UIViewController {
     
-    var book: Book?
+    var book: Book? {
+        didSet {
+            updateViews()
+        }
+    }
+    
+    var objectID: NSManagedObjectID? {
+        didSet{
+            if let objectID = objectID {
+                childContext.performAndWait {
+                    book = childContext.object(with: objectID) as? Book
+                }
+            }
+        }
+    }
+    
+    lazy var childContext: NSManagedObjectContext = {
+        let childContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        childContext.parent = CoreDataStack.shared.mainContext
+        return childContext
+    }()
 
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -42,7 +63,7 @@ class BookDetailViewController: UIViewController {
     
     // MARK: - Utility Methods
     private func updateViews() {
-        guard let book = book  else { return }
+        guard let book = book, isViewLoaded else { return }
         
         title = (book.title?.count ?? 20) < 20 ? book.title : "Edit Book"
         titleLabel.text = book.title
@@ -52,7 +73,13 @@ class BookDetailViewController: UIViewController {
         
         if let imageData = book.imageData {
             bookImageView.image = UIImage(data: imageData)
-            bookImageView.alpha = 0.2
+            bookImageView.alpha = 0.5
+            
+            let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+            let blurEffectView = UIVisualEffectView(effect: blurEffect)
+            blurEffectView.frame = bookImageView.bounds
+            blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            bookImageView.addSubview(blurEffectView)
         }
         
         
