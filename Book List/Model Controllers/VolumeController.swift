@@ -14,9 +14,26 @@ class VolumeController {
     
     func createVolume(title: String, id: String, imageLink: String, review: String = "", hasRead: Bool = false) {
         let volume = Volume(title: title, id: id, hasRead: hasRead, review: review, imageLink: imageLink)
-        //volume.bookshelf = bookshelf
+        guard let bookshelf = fetchBookshelfFromPersistentStore(title: "To read", context: CoreDataStack.shared.mainContext) else { return }
+        volume.bookshelf = bookshelf
+        addVolumeToBookshelf(volume: volume)
         saveToPersistent()
-        //put(volume: volume)
+    }
+    
+    func fetchBookshelfFromPersistentStore(title: String, context: NSManagedObjectContext) -> Bookshelf? {
+        let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
+        let predicate = NSPredicate(format: "title == %@", title)
+        fetchRequest.predicate = predicate
+        
+        var bookshelf: Bookshelf? = nil
+        
+        do {
+            bookshelf = try context.fetch(fetchRequest).first
+        } catch {
+            NSLog("Error fetching bookshelf with title \(title): \(error)")
+        }
+        
+        return bookshelf
     }
     
     
@@ -99,11 +116,11 @@ class VolumeController {
         }.resume()
     }
     
-    func addVolume(volume: Volume, completion: @escaping CompletionHandler = { _ in }) {
+    func addVolumeToBookshelf(volume: Volume, completion: @escaping CompletionHandler = { _ in }) {
         //Adds to favorites. Just Testing to make sure PUT Works
         //Will Refactor and Modularize to be dynamic for any bookshelf
         guard let id = volume.id else { return }
-        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("0").appendingPathComponent("addVolume")
+        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("2").appendingPathComponent("addVolume")
         let queryParameters = ["volumeId": id]
         var components = URLComponents(url: addVolumeUrl, resolvingAgainstBaseURL: true)
         components?.queryItems = queryParameters.map{URLQueryItem(name: $0.key, value: $0.value)}
@@ -116,25 +133,58 @@ class VolumeController {
         var request = URLRequest(url: requestURL)
         request.httpMethod = "POST"
         
-        do {
-            request.httpBody = try JSONEncoder().encode(volume)
-            completion(nil)
-        } catch {
-            NSLog("Error encoding JSON data: \(error)")
-            completion(error)
-        }
-        
-        URLSession.shared.dataTask(with: request) {(data, _, error) in
+    
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
             if let error = error {
-                NSLog("Error adding volume: \(error)")
+                NSLog("Error adding authorization to request: \(error)")
                 completion(error)
+                return
             }
-            completion(nil)
+            guard let request = request else { return }
+            URLSession.shared.dataTask(with: request) {(data, _, error) in
+                if let error = error {
+                    NSLog("Error adding volume: \(error)")
+                    completion(error)
+                }
+                
+                completion(nil)
             }.resume()
+        }
     }
     
-    func deleteVolumeFromServer(volume: Volume) {
+    func deleteVolumeFromServer(volume: Volume, completion: @escaping CompletionHandler = { _ in }) {
+        guard let id = volume.id else { return }
+        guard let bookshelf = volume.bookshelf else { return }
+        let addVolumeUrl = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent(String(bookshelf.id)).appendingPathComponent("removeVolume")
+        let queryParameters = ["volumeId": id]
+        var components = URLComponents(url: addVolumeUrl, resolvingAgainstBaseURL: true)
+        components?.queryItems = queryParameters.map{URLQueryItem(name: $0.key, value: $0.value)}
         
+        guard let requestURL = components?.url else {
+            completion(NSError())
+            return
+        }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "DELETE"
+        
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                completion(error)
+                return
+            }
+            guard let request = request else { return }
+            URLSession.shared.dataTask(with: request) {(data, _, error) in
+                if let error = error {
+                    NSLog("Error deleting volume: \(error)")
+                    completion(error)
+                }
+                
+                completion(nil)
+                }.resume()
+        }
     }
     
     

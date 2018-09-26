@@ -49,6 +49,7 @@ class VolumeSearchTableViewController: UITableViewController, UISearchBarDelegat
         let volumeRep = volumeController?.searchedVolumes[indexPath.row]
         
         cell.volumeRep = volumeRep
+        cell.delegate = self
         return cell
     }
     
