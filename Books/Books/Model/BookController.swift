@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class BookController{
     
@@ -17,7 +18,24 @@ class BookController{
     typealias CompletionHandler = ((Error?) -> Void)
     let baseURL = URL(string: "https://www.googleapis.com/books/v1/")
     
+    // MARK: - Local Methods
+    
+    func addBook(title: String, id: String, thumbnail: String?, avgRating: Double?, author: String?, publishedDate: String, context: NSManagedObjectContext = CoreDataStack.shared.mainContext ){
+        
+        let _ = Book(title: title, id: id, thumbnail: thumbnail, review: "", averageRating: avgRating, author: author, publishedDate: publishedDate)
+        
+        do {
+            try CoreDataStack.shared.save(context: context)
+        } catch {
+            NSLog("Error saving task: \(error)")
+        }
+    }
+    
     // MARK: - API Functions
+    
+    func putBookOnBookShelf(book: Book, completion: @escaping (Error?) -> Void = {_ in}){
+        // finish this OR pull stuff from fetched results contorller
+    }
     
     func searchForBook(with searchTerm: String, completion: @escaping CompletionHandler = {_ in}){
         
@@ -52,7 +70,6 @@ class BookController{
             do{
                 let searchResults = try JSONDecoder().decode(SearchResults.self, from: data).items
                 self.searchedBooks = searchResults
-                print (self.searchedBooks)
                 completion(nil)
             }catch {
                 NSLog("Error decoding JSON data: \(error)")

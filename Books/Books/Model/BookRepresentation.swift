@@ -11,11 +11,13 @@ import Foundation
 struct BookRepresentation: Equatable, Codable{
     
     let id: String?
+    let hasRead: Bool?
+    let review: String?
     
     struct VolumeInfo: Equatable, Codable{
         
         let title: String?
-        let pageCount: Int?
+        let publishedDate: String?
         let authors: [String]?
         let averageRating: Double?
         struct ImageLinks: Equatable, Codable{

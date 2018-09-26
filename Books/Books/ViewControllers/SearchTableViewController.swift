@@ -23,14 +23,34 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
         bookController.searchForBook(with: searchText) { (_) in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.view.endEditing(true)
             }
-            self.view.endEditing(true)
+            
         }
         
     }
     
     func borrowButtonWasPressed(_ sender: SearchTableViewCell) {
-        print("Book was added to library")
+        
+        guard let bookRep = sender.book else {return}
+        
+        guard let title = bookRep.volumeInfo.title, let id = bookRep.id, let publishedDate = bookRep.volumeInfo.publishedDate else {return}
+        
+       
+        
+        // create alert
+        let alert = UIAlertController(title: "Do you want to add this book to your library?", message: "This will add the book to your library so that you can review it later.", preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
+            
+            self.bookController.addBook(title: title, id: id, thumbnail: bookRep.volumeInfo.imageLinks?.thumbnail, avgRating: bookRep.volumeInfo.averageRating, author: bookRep.volumeInfo.authors?.first, publishedDate: publishedDate)
+            self.navigationController?.popViewController(animated: true)
+            
+            
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true)
     }
 
     // MARK: - Table view data source
@@ -47,6 +67,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
         let book = bookController.searchedBooks[indexPath.row]
         
         cell.book = book
+        cell.delegate = self
 
         return cell
     }
