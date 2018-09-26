@@ -84,7 +84,7 @@
                                 <connections>
                                     <outlet property="bookshelfTitleLabel" destination="r8M-Lx-Yqz" id="qrc-a3-fCS"/>
                                     <outlet property="collectionView" destination="mk8-0I-0ly" id="LxN-EC-tnF"/>
-                                    <segue destination="NJb-Sp-1Tw" kind="show" id="mBW-Br-Iec"/>
+                                    <segue destination="NJb-Sp-1Tw" kind="show" id="hfl-9j-vyS"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

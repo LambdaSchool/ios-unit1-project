@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="fdn-73-Ve2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DYe-11-1T9">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Pick Bookshelf Table View Controller-->
+        <!--View Controller-->
         <scene sceneID="OBg-GF-L7p">
             <objects>
-                <viewController id="iYs-nu-vQk" customClass="PickBookshelfTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iYs-nu-vQk" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5G1-12-nwv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,7 +71,44 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xl4-ux-2Cb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1903" y="188"/>
+            <point key="canvasLocation" x="2506" y="188"/>
+        </scene>
+        <!--Pick a bookshelf-->
+        <scene sceneID="wNo-ee-hmT">
+            <objects>
+                <tableViewController title="Pick a bookshelf" id="ino-HD-t5h" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZzY-le-WFo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookshelfCell" textLabel="Uaz-di-WPg" style="IBUITableViewCellStyleDefault" id="vdt-H0-lv7">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vdt-H0-lv7" id="4Hm-pV-7sh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uaz-di-WPg">
+                                            <rect key="frame" x="16" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ino-HD-t5h" id="4R9-lN-ueM"/>
+                            <outlet property="delegate" destination="ino-HD-t5h" id="ZHm-Yc-EHA"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eVw-hj-LRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1815" y="188"/>
         </scene>
         <!--Search a book-->
         <scene sceneID="At4-rk-QOX">
@@ -139,7 +176,7 @@
                                                     <state key="normal" title="Add to a bookshelf"/>
                                                     <connections>
                                                         <action selector="addBookToBookshelf:" destination="ISZ-OI-eHu" eventType="touchUpInside" id="CY3-Av-kEj"/>
-                                                        <segue destination="iYs-nu-vQk" kind="presentation" modalPresentationStyle="overFullScreen" id="vVd-e3-q9j"/>
+                                                        <segue destination="ino-HD-t5h" kind="show" id="sUC-wd-66E"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -176,7 +213,6 @@
         <!--Navigation Controller-->
         <scene sceneID="9l7-mZ-LBE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9vD-jb-cfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="fdn-73-Ve2" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="yIF-Ej-cYA">
@@ -188,6 +224,7 @@
                         <segue destination="DYe-11-1T9" kind="relationship" relationship="rootViewController" id="Ovz-RS-qEc"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9vD-jb-cfv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="128.80000000000001" y="188.45577211394306"/>
         </scene>

@@ -16,6 +16,7 @@ class VolumeController {
     
     //Create volume from volume representation.
     func createVolume(from volumeRepresentation: VolumeRepresentation, bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        //Create volume data model with convience initializer.
         Volume(volumeRepresentation: volumeRepresentation, bookshelf: bookshelf, context: context)
         
         //save to Persistent Store should I do this in perform block?
@@ -71,6 +72,7 @@ class VolumeController {
             return
         }
         
+        
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
             if let error = error {
                 NSLog("Error searching for books with search term \(searchTerm): \(error)")
@@ -98,16 +100,22 @@ class VolumeController {
     }
     
     func displayImage(volume: Volume, imageView: UIImageView) {
-        let url = URL(string: volume.image!)
         
-        do {
-            let data = try Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                imageView.image = UIImage(data: data)
+        guard let thumbnailString = volume.image else { return }
+        let url = URL(string: thumbnailString)!
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
             }
-        } catch {
-            NSLog("Error creating image data from url: \(error)")
-        }
+            
+            guard let data = data else { return }
+            
+            guard let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                imageView.image = image
+            }
+        }.resume()
     }
     
     // MARK: - Properties

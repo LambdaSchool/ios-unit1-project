@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class BookResultsTableViewCell: UITableViewCell {
     
@@ -15,22 +16,27 @@ class BookResultsTableViewCell: UITableViewCell {
     private func updateViews() {
         guard let volumeRepresentation = volumeRepresentation else { return }
         let authorsText = volumeRepresentation.volumeInfo.authors.joined(separator: ", ")
-        let thumbnail = volumeRepresentation.volumeInfo.imageLinks.thumbnail
+        let thumbnailString = volumeRepresentation.volumeInfo.imageLinks.thumbnail
         
         bookTitleLabel.text = volumeRepresentation.volumeInfo.title
         authorsLabel.text = "by \(authorsText)"
         
-        let url = URL(string: thumbnail)
+        //Make image
+        let url = URL(string: thumbnailString)!
         
-        do {
-            let data = try Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.bookImageView.image = UIImage(data: data)
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
             }
-        } catch {
-            NSLog("Error creating image data from url: \(error)")
-        }
-        
+            
+            guard let data = data else { return }
+            
+            guard let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.bookImageView.image = image
+            }
+        }.resume()
+    
     }
     
     // MARK: - Action Method

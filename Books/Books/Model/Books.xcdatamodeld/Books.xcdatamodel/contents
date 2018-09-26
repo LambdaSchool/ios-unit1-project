@@ -17,7 +17,7 @@
         <relationship name="bookshelves" toMany="YES" deletionRule="Nullify" destinationEntity="Bookshelf" inverseName="volumes" inverseEntity="Bookshelf" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Volume" positionX="-63" positionY="-18" width="128" height="180"/>
         <element name="Bookshelf" positionX="-54" positionY="-9" width="128" height="90"/>
+        <element name="Volume" positionX="-63" positionY="-18" width="128" height="180"/>
     </elements>
 </model>
