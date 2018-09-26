@@ -17,11 +17,7 @@ class BookshelfController {
     
     func createBookshelf(title: String, id: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         let _ = Bookshelf(title: title, id: id)
-        do {
-            try CoreDataStack.shared.save(context: context)
-        } catch {
-            NSLog("Error creating an bookshelf \(error)")
-        }
+        saveToPersistent()
         //Can't create bookshelf in server
         //put(bookshelf: bookshelf)
     }
@@ -31,15 +27,15 @@ class BookshelfController {
         bookshelf.id = bookshelfRepresentation.id
     }
     
-    func saveToPersistent() {
+    func saveToPersistent(context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         do {
-            try CoreDataStack.shared.save()
+            try CoreDataStack.shared.save(context: context)
         } catch {
             NSLog("Error Saving to Core Data: \(error)")
         }
     }
     
-    func fetchSingleBookshelfFromPersistentStore(id: Int16, context: NSManagedObjectContext) -> Bookshelf? {
+    func fetchSingleBookshelfFromPersistentStore(id: String, context: NSManagedObjectContext) -> Bookshelf? {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         let predicate = NSPredicate(format: "id == %@", id)
         fetchRequest.predicate = predicate
@@ -61,7 +57,15 @@ class BookshelfController {
         let requestURL = baseUrl.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves")
         let request = URLRequest(url: requestURL)
         
-        URLSession.shared.dataTask(with: request) {(data, _, error) in
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                completion(error)
+                return
+            }
+            
+            guard let request = request else { return }
+            URLSession.shared.dataTask(with: request) {(data, _, error) in
             if let error = error {
                 NSLog("Error getting all Bookshelves: \(error)")
                 completion(error)
@@ -80,7 +84,7 @@ class BookshelfController {
                 
                 backgroundContext.performAndWait {
                     for bookshelfRep in bookshelfRepresentations {
-                        if let bookshelf = self.fetchSingleBookshelfFromPersistentStore(id: bookshelfRep.id, context: backgroundContext) {
+                        if let bookshelf = self.fetchSingleBookshelfFromPersistentStore(id: String(bookshelfRep.id), context: backgroundContext) {
                             if bookshelf != bookshelfRep {
                                 print("goes to update bookshelf in core data")
                                 self.update(bookshelf: bookshelf, bookshelfRepresentation: bookshelfRep)
@@ -91,7 +95,8 @@ class BookshelfController {
                         }
                     }
                 }
-                self.saveToPersistent()
+                
+                self.saveToPersistent(context: backgroundContext)
                 completion(nil)
                 
             } catch {
@@ -100,10 +105,10 @@ class BookshelfController {
             }
             
             }.resume()
+        }
     }
     
     typealias CompletionHandler = (Error?) -> Void
-    var fetchedBookshelves: [Bookshelf] = []
     var baseUrl = URL(string: "https://www.googleapis.com/books/v1/")!
     
 }

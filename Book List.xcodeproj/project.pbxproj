@@ -123,7 +123,6 @@
 				A158D71921598C1300736647 /* Main.storyboard */,
 				A158D71E21598C1300736647 /* LaunchScreen.storyboard */,
 				A158D74C2159C31200736647 /* BookShelfIdentifier.swift */,
-				A158D74A2159B3CD00736647 /* CoreDataStack.swift */,
 			);
 			path = "Book List";
 			sourceTree = "<group>";
@@ -144,6 +143,7 @@
 				A158D7452159A2CD00736647 /* Books.xcdatamodeld */,
 				A1C507F6215AD3F000DA74B1 /* BookshelfRepresentation.swift */,
 				A158D73E2159A25F00736647 /* VolumeRepresentation.swift */,
+				A158D74A2159B3CD00736647 /* CoreDataStack.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
