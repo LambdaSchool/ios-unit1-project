@@ -35,14 +35,14 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return volumeController?.volumes.count ?? 0
+        return volumeController?.volumeSearchResults.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as? BookResultsTableViewCell else { return UITableViewCell()}
 
-        let volumeRepresentation = volumeController?.volumes[indexPath.row]
-        cell.volume = Volume(volumeRepresentation: volumeRepresentation!)
+        cell.volumeRepresentation = volumeController?.volumeSearchResults[indexPath.row]
+        cell.volumeController = volumeController
 
         return cell
     }

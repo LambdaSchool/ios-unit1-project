@@ -9,19 +9,21 @@
 import UIKit
 
 class MyBookshelvesTableViewController: UITableViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
             if let error = error {
                 NSLog("Authorization failed: \(error)")
                 return
             }
-            
-//            self.bookshelfController.fetchAllBookshelves(completion: { (_) in
-//            
-//            })
+        }
+        
+        bookshelfController.fetchAllBookshelves { (_) in
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
 
@@ -29,7 +31,7 @@ class MyBookshelvesTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return bookshelfController.bookshelves.count
+        return bookshelfController.bookshelfRepresentations.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -37,19 +39,11 @@ class MyBookshelvesTableViewController: UITableViewController {
 
         cell.registerCollectionView(datasource: self)
         
-        let bookshelfRep = bookshelfController.bookshelves[indexPath.row]
+        let bookshelfRep = bookshelfController.bookshelfRepresentations[indexPath.row]
         cell.bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRep)
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
 
     /*
     // Override to support editing the table view.
@@ -92,8 +86,8 @@ class MyBookshelvesTableViewController: UITableViewController {
     // MARK: - Properties
     
     var bookshelf: Bookshelf?
-    let volumeController = VolumeController()
     let bookshelfController = BookshelfController()
+    let volumeController = VolumeController()
 }
 
 extension UITableViewController: UICollectionViewDataSource {

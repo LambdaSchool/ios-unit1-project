@@ -13,12 +13,23 @@ class BookResultsTableViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func updateViews() {
-        guard let volume = volume else { return }
+        guard let volumeRepresentation = volumeRepresentation else { return }
+        let authorsText = volumeRepresentation.volumeInfo.authors.joined(separator: ", ")
+        let thumbnail = volumeRepresentation.volumeInfo.imageLinks.thumbnail
         
-        bookTitleLabel.text = volume.title
-        authorsLabel.text = "by \(String(describing: volume.authors))"
+        bookTitleLabel.text = volumeRepresentation.volumeInfo.title
+        authorsLabel.text = "by \(authorsText)"
         
-        volumeController?.displayImage(volume: volume, imageView: bookImageView)
+        let url = URL(string: thumbnail)
+        
+        do {
+            let data = try Data(contentsOf: url!)
+            DispatchQueue.main.async {
+                self.bookImageView.image = UIImage(data: data)
+            }
+        } catch {
+            NSLog("Error creating image data from url: \(error)")
+        }
         
     }
     
@@ -29,7 +40,7 @@ class BookResultsTableViewCell: UITableViewCell {
     
     // MARK: - Properties
     
-    var volume: Volume? {
+    var volumeRepresentation: VolumeRepresentation? {
         didSet {
             updateViews()
         }

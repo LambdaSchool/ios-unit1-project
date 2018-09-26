@@ -15,8 +15,8 @@ class VolumeController {
     // MARK: - CRUD Methods
     
     //Create volume from volume representation.
-    func createVolume(from volumeRepresentation: VolumeRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        Volume(volumeRepresentation: volumeRepresentation, context: context)
+    func createVolume(from volumeRepresentation: VolumeRepresentation, bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        Volume(volumeRepresentation: volumeRepresentation, bookshelf: bookshelf, context: context)
         
         //save to Persistent Store should I do this in perform block?
         do {
@@ -25,7 +25,6 @@ class VolumeController {
             NSLog("Error saving newly created volume: \(error)")
         }
         
-        //PUT volume
     }
     
     //Update book.
@@ -87,7 +86,7 @@ class VolumeController {
             
             do {
                 let searchResults = try JSONDecoder().decode(VolumeSearchResults.self, from: data)
-                self.volumes = searchResults.items
+                self.volumeSearchResults = searchResults.items
             } catch {
                 NSLog("Error decoding data: \(error)")
                 completion(error)
@@ -113,7 +112,7 @@ class VolumeController {
     
     // MARK: - Properties
     
-    var volumes: [VolumeRepresentation] = []
+    var volumeSearchResults: [VolumeRepresentation] = []
     var bookshelfController: BookshelfController?
     lazy var fetchController = ""
     

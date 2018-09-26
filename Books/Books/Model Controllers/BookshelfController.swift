@@ -7,16 +7,27 @@
 //
 
 import Foundation
+import CoreData
 
 class BookshelfController {
-    
-    init() {
-        
-        fetchAllBookshelves { (_) in
-            
-        }
-    }
 
+    // MARK: - CRUD Methods
+    
+    func createBookshelf(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        
+        let bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: context)
+        
+        if bookshelfRepresentation.volumeCount != 0 {
+            performRequestForTheirVolumes(bookshelfRep: bookshelfRepresentation, bookshelf: bookshelf, context: context)
+        }
+        
+        do {
+            try context.save()
+        } catch {
+            NSLog("Error saving newly created volume: \(error)")
+        }
+        //save to Persistent Store
+    }
     
     // MARK: - Networking (Books API)
     
@@ -30,7 +41,7 @@ class BookshelfController {
     
     
     //Get all bookshelves from user's profile.
-    func fetchAllBookshelves(completion: @escaping (Error?) -> Void) {
+    func fetchAllBookshelves(completion: @escaping (Error?) -> Void = { _ in }) {
         
         let requestURL = bookshelvesBaseURL
         let request = URLRequest(url: requestURL)
@@ -54,15 +65,15 @@ class BookshelfController {
                     completion(NSError())
                     return
                 }
-                
-                //prints out json
-                if let json = String(data: data, encoding: .utf8) {
-                    print(json)
-                }
-                
+
                 do {
                     let searchResults = try JSONDecoder().decode(BookshelfResults.self, from: data)
-                    self.bookshelves = searchResults.items
+                    self.bookshelfRepresentations = searchResults.items
+                    print(self.bookshelfRepresentations)
+                    
+                    for bookshelfRep in self.bookshelfRepresentations {
+                        self.createBookshelf(bookshelfRepresentation: bookshelfRep)
+                    }
                 } catch {
                     NSLog("Error decoding data: \(error)")
                     completion(error)
@@ -71,7 +82,6 @@ class BookshelfController {
                 completion(nil)
             }.resume()
         }
-        
     }
     
     // MARK: - Core Data Persistence
@@ -82,8 +92,39 @@ class BookshelfController {
     
     //Delete book from bookshelf.
     
-    var bookshelves: [BookshelfRepresentation] = []
+    private func performRequestForTheirVolumes(bookshelfRep: BookshelfRepresentation, bookshelf: Bookshelf, context: NSManagedObjectContext) {
+        
+        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelfRep.id)).appendingPathComponent("volumes")
+        
+        URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
+            if let error = error {
+                NSLog("Error fetching data for volumes of bookshelves: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("No data returned from data task")
+                return
+            }
+            
+            do {
+                let volumeResults = try JSONDecoder().decode(VolumeSearchResults.self, from: data)
+                let volumeReps = volumeResults.items
+                for volumeRep in volumeReps {
+                    self.volumeController.createVolume(from: volumeRep, bookshelf: bookshelf, context: context)
+                }
+                
+            } catch {
+                NSLog("Error decoding data: \(error)")
+                return
+            }
+        }.resume()
+    }
+    
+    var bookshelfRepresentations: [BookshelfRepresentation] = []
+    let volumeController = VolumeController()
     
     private let userId = "111772930908716729442"
     private let bookshelvesBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
+    private let betterBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }
