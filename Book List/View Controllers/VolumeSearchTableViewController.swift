@@ -33,8 +33,10 @@ class VolumeSearchTableViewController: UITableViewController, UISearchBarDelegat
                 self.tableView.reloadData()
             }
         }
+        searchBar.resignFirstResponder()
         
     }
+    
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -43,9 +45,10 @@ class VolumeSearchTableViewController: UITableViewController, UISearchBarDelegat
 
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchVolumeCell", for: indexPath)
-        // Configure the cell...
-        cell.textLabel?.text = volumeController?.searchedVolumes[indexPath.row].volumeInfo.title
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchVolumeCell", for: indexPath) as? SearchVolumeTableViewCell else { return UITableViewCell() }
+        let volumeRep = volumeController?.searchedVolumes[indexPath.row]
+        
+        cell.volumeRep = volumeRep
         return cell
     }
     
