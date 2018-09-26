@@ -15,12 +15,16 @@ class BooksTabBarViewController: UITabBarController {
 
         // Do any additional setup after loading the view.
         authorizeGoogleBooks()
-        passVolumeControllerToChildViewControllers()
+        passControllersToChildViewControllers()
     }
-    func passVolumeControllerToChildViewControllers() {
+    func passControllersToChildViewControllers() {
         for childVC in children {
-            guard let childVC = childVC as? VolumeControllerProtocol else { return }
-            childVC.volumeController = volumeController
+            if let childVC = childVC as? VolumeControllerProtocol {
+                childVC.volumeController = volumeController
+            }
+            if let childVC = childVC as? BookshelfControllerProtocol {
+                childVC.bookshelfController = bookshelfController
+            }
         }
     }
     func authorizeGoogleBooks() {
@@ -39,6 +43,7 @@ class BooksTabBarViewController: UITabBarController {
     }
     
     let volumeController = VolumeController()
+    let bookshelfController = BookshelfController()
 
     /*
     // MARK: - Navigation

@@ -14,8 +14,8 @@ class VolumeController {
     
     func createVolume(title: String, id: String, imageLink: String, review: String = "", hasRead: Bool = false) {
         let volume = Volume(title: title, id: id, hasRead: hasRead, review: review, imageLink: imageLink)
-        addVolume(volume: volume)
-        //saveToPersistent()
+        //volume.bookshelf = bookshelf
+        saveToPersistent()
         //put(volume: volume)
     }
     

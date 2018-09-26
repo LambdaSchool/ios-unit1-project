@@ -15,7 +15,6 @@ class BookshelfController {
         fetchBookShelvesFromServer()
     }
     
-    
     func createBookshelf(title: String, id: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         let _ = Bookshelf(title: title, id: id)
         do {
@@ -50,7 +49,7 @@ class BookshelfController {
         do {
             bookshelf = try context.fetch(fetchRequest).first
         } catch {
-            NSLog("Error fetching bookshelf with UUID \(id): \(error)")
+            NSLog("Error fetching bookshelf with id \(id): \(error)")
         }
         
         return bookshelf
@@ -92,6 +91,8 @@ class BookshelfController {
                         }
                     }
                 }
+                self.saveToPersistent()
+                completion(nil)
                 
             } catch {
                 NSLog("Error decoding JSON data: \(error)")
