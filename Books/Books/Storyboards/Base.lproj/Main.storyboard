@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="195" id="zWA-Ub-Kqt">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookshelfDetailCell" rowHeight="195" id="zWA-Ub-Kqt" customClass="BookshelfTableViewCell" customModule="Books" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="195"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zWA-Ub-Kqt" id="Tl1-6Q-vxR">
@@ -56,7 +56,7 @@
                                                 <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                                             </collectionViewFlowLayout>
                                             <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zhs-Nd-yXL">
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="zhs-Nd-yXL" customClass="BookshelfVolumeCollectionViewCell" customModule="Books" customModuleProvider="target">
                                                     <rect key="frame" x="5" y="5" width="109" height="138"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -82,6 +82,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="bookshelfTitleLabel" destination="r8M-Lx-Yqz" id="qrc-a3-fCS"/>
+                                    <outlet property="collectionView" destination="mk8-0I-0ly" id="LxN-EC-tnF"/>
                                     <segue destination="NJb-Sp-1Tw" kind="show" id="mBW-Br-Iec"/>
                                 </connections>
                             </tableViewCell>

@@ -19,7 +19,7 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = bookSearchBar.text else { return }
         
-        volumeController.searchBooks(searchTerm: searchTerm) { (error) in
+        volumeController?.searchBooks(searchTerm: searchTerm) { (error) in
             if let error = error {
                 NSLog("Error: \(error)")
                 return
@@ -35,21 +35,21 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return volumeController.volumes.count
+        return volumeController?.volumes.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as? BookResultsTableViewCell else { return UITableViewCell()}
 
-        let volumeRepresentation = volumeController.volumes[indexPath.row]
-        cell.volume = Volume(volumeRepresentation: volumeRepresentation)
+        let volumeRepresentation = volumeController?.volumes[indexPath.row]
+        cell.volume = Volume(volumeRepresentation: volumeRepresentation!)
 
         return cell
     }
     
     // MARK: - Properties
     
-    let volumeController = VolumeController()
+    var volumeController: VolumeController?
 
     @IBOutlet weak var bookSearchBar: UISearchBar!
     

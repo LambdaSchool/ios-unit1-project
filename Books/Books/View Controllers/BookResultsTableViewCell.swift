@@ -17,25 +17,9 @@ class BookResultsTableViewCell: UITableViewCell {
         
         bookTitleLabel.text = volume.title
         authorsLabel.text = "by \(String(describing: volume.authors))"
-        displayImage(volume: volume)
         
-    }
-    
-    //Doesn't work yet.
-    private func displayImage(volume: Volume) {
-        //check that image string exists or works
-        //set volumes without image to a default image
+        volumeController?.displayImage(volume: volume, imageView: bookImageView)
         
-        let url = URL(string: volume.image!)
-        
-        do {
-            let data = try Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.bookImageView.image = UIImage(data: data)
-            }
-        } catch {
-            NSLog("Error creating image data from url: \(error)")
-        }
     }
     
     // MARK: - Action Method
