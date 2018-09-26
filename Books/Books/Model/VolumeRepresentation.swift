@@ -17,18 +17,16 @@ struct VolumeRepresentation: Codable {
         let title: String
         let subtitle: String?
         let authors: [String]
-        let averageRating: Double
-        let imagelinks: ImageLinks
+        let averageRating: Double?
+        let imageLinks: ImageLinks
         
         struct ImageLinks: Codable {
-            let smallThumbnail: String
             let thumbnail: String
-            let small: String
         }
     }
 }
 
-struct VolumeSearchResults {
+struct VolumeSearchResults: Codable {
     let items: [VolumeRepresentation]
 }
 

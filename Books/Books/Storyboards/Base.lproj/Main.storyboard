@@ -27,7 +27,7 @@
         <!--My Bookshelves-->
         <scene sceneID="M8V-qZ-mNB">
             <objects>
-                <tableViewController id="Ryj-pm-NA0" sceneMemberID="viewController">
+                <tableViewController id="Ryj-pm-NA0" customClass="MyBookshelvesTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="GbM-Lz-762">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -94,7 +94,7 @@
                     <navigationItem key="navigationItem" title="My Bookshelves" id="e1A-QS-s85">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="LAU-SU-m5X">
                             <connections>
-                                <segue destination="Q7H-w9-Kyf" kind="show" id="qSR-nL-DyN"/>
+                                <segue destination="Q7H-w9-Kyf" kind="show" identifier="SearchBooks" id="qSR-nL-DyN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

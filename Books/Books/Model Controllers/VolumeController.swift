@@ -48,15 +48,21 @@ class VolumeController {
             }
             
             do {
-                
+                let searchResults = try JSONDecoder().decode(VolumeSearchResults.self, from: data)
+                self.volumes = searchResults.items
             } catch {
-                
+                NSLog("Error decoding data: \(error)")
+                completion(error)
+                return
             }
-            
+            completion(nil)
         }.resume()
         
     }
     
+    // MARK: - Properties
+    
+    var volumes: [VolumeRepresentation] = []
     
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")!
 }

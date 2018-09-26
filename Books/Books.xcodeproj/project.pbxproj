@@ -16,8 +16,7 @@
 		7B5690E92159842E0031A7DF /* ViewBook.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B5690E82159842E0031A7DF /* ViewBook.storyboard */; };
 		7B5690EB215988CD0031A7DF /* MyBookshelvesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690EA215988CD0031A7DF /* MyBookshelvesTableViewController.swift */; };
 		7B5690F2215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F1215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift */; };
-		7B5690F421598C040031A7DF /* SearchForBookViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F321598C040031A7DF /* SearchForBookViewController.swift */; };
-		7B5690F621598E140031A7DF /* BookSearchResultsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F521598E140031A7DF /* BookSearchResultsTableViewController.swift */; };
+		7B5690F621598E140031A7DF /* BookSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F521598E140031A7DF /* BookSearchTableViewController.swift */; };
 		7B5690F821598F110031A7DF /* ViewBookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F721598F110031A7DF /* ViewBookshelfCollectionViewController.swift */; };
 		7B5690FA2159A1B60031A7DF /* GoogleBooksAuthorizationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5690F92159A1B50031A7DF /* GoogleBooksAuthorizationClient.swift */; };
 		7B5691022159C2C10031A7DF /* AppAuth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B5690FC2159C2640031A7DF /* AppAuth.framework */; };
@@ -34,6 +33,8 @@
 		7B569117215A9C3A0031A7DF /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569116215A9C3A0031A7DF /* HTTPMethod.swift */; };
 		7B569119215AA9DE0031A7DF /* VolumeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B569118215AA9DE0031A7DF /* VolumeController.swift */; };
 		7B56911B215ABE710031A7DF /* VolumeRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */; };
+		7B56911D215AC7020031A7DF /* Volume+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911C215AC7020031A7DF /* Volume+Convenience.swift */; };
+		7B56911F215AE2490031A7DF /* BookResultsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,8 +84,7 @@
 		7B5690E82159842E0031A7DF /* ViewBook.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ViewBook.storyboard; sourceTree = "<group>"; };
 		7B5690EA215988CD0031A7DF /* MyBookshelvesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookshelvesTableViewController.swift; sourceTree = "<group>"; };
 		7B5690F1215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalBookshelfCollectionViewController.swift; sourceTree = "<group>"; };
-		7B5690F321598C040031A7DF /* SearchForBookViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchForBookViewController.swift; path = "Books/View Controllers/SearchForBookViewController.swift"; sourceTree = SOURCE_ROOT; };
-		7B5690F521598E140031A7DF /* BookSearchResultsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchResultsTableViewController.swift; sourceTree = "<group>"; };
+		7B5690F521598E140031A7DF /* BookSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchTableViewController.swift; sourceTree = "<group>"; };
 		7B5690F721598F110031A7DF /* ViewBookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBookshelfCollectionViewController.swift; sourceTree = "<group>"; };
 		7B5690F92159A1B50031A7DF /* GoogleBooksAuthorizationClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleBooksAuthorizationClient.swift; sourceTree = "<group>"; };
 		7B5690FC2159C2640031A7DF /* AppAuth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AppAuth.framework; sourceTree = "<group>"; };
@@ -98,6 +98,8 @@
 		7B569116215A9C3A0031A7DF /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		7B569118215AA9DE0031A7DF /* VolumeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeController.swift; sourceTree = "<group>"; };
 		7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeRepresentation.swift; sourceTree = "<group>"; };
+		7B56911C215AC7020031A7DF /* Volume+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Volume+Convenience.swift"; sourceTree = "<group>"; };
+		7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookResultsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,13 +189,13 @@
 		7B5690EE215989010031A7DF /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7B56910B2159CADD0031A7DF /* BookDetailViewController.swift */,
 				7B5690EA215988CD0031A7DF /* MyBookshelvesTableViewController.swift */,
-				7B5690F321598C040031A7DF /* SearchForBookViewController.swift */,
-				7B5690F521598E140031A7DF /* BookSearchResultsTableViewController.swift */,
+				7B5690F1215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift */,
+				7B5690F521598E140031A7DF /* BookSearchTableViewController.swift */,
+				7B56911E215AE2490031A7DF /* BookResultsTableViewCell.swift */,
 				7B5691092159C9AA0031A7DF /* PickBookshelfTableViewController.swift */,
 				7B5690F721598F110031A7DF /* ViewBookshelfCollectionViewController.swift */,
-				7B5690F1215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift */,
+				7B56910B2159CADD0031A7DF /* BookDetailViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -213,6 +215,7 @@
 			children = (
 				7B56910F2159CFA40031A7DF /* Books.xcdatamodeld */,
 				7B56911A215ABE710031A7DF /* VolumeRepresentation.swift */,
+				7B56911C215AC7020031A7DF /* Volume+Convenience.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -363,18 +366,19 @@
 			files = (
 				7B569113215A98150031A7DF /* BookshelfController.swift in Sources */,
 				7B5690B72159437A0031A7DF /* AppDelegate.swift in Sources */,
-				7B5690F621598E140031A7DF /* BookSearchResultsTableViewController.swift in Sources */,
+				7B5690F621598E140031A7DF /* BookSearchTableViewController.swift in Sources */,
+				7B56911D215AC7020031A7DF /* Volume+Convenience.swift in Sources */,
 				7B569115215A9B2B0031A7DF /* CoreDataStack.swift in Sources */,
 				7B5691112159CFA40031A7DF /* Books.xcdatamodeld in Sources */,
 				7B569119215AA9DE0031A7DF /* VolumeController.swift in Sources */,
 				7B5690FA2159A1B60031A7DF /* GoogleBooksAuthorizationClient.swift in Sources */,
-				7B5690F421598C040031A7DF /* SearchForBookViewController.swift in Sources */,
 				7B56910A2159C9AA0031A7DF /* PickBookshelfTableViewController.swift in Sources */,
 				7B56910C2159CADD0031A7DF /* BookDetailViewController.swift in Sources */,
 				7B5690EB215988CD0031A7DF /* MyBookshelvesTableViewController.swift in Sources */,
 				7B569117215A9C3A0031A7DF /* HTTPMethod.swift in Sources */,
 				7B56911B215ABE710031A7DF /* VolumeRepresentation.swift in Sources */,
 				7B5690F2215989B10031A7DF /* HorizontalBookshelfCollectionViewController.swift in Sources */,
+				7B56911F215AE2490031A7DF /* BookResultsTableViewCell.swift in Sources */,
 				7B5690F821598F110031A7DF /* ViewBookshelfCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
