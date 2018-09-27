@@ -13,22 +13,6 @@ class BookshelfController {
 
     init() {
         fetchBookshelvesFromServer()
-        //fetchVolumesforBookshelfFromServer()
-    }
-    
-    // MARK: - CRUD Methods
-    
-    //Might need to fix this.
-    func createBookshelf(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
-        
-        let bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: context)
-        
-        //save to Persistent Store
-        do {
-            try context.save()
-        } catch {
-            NSLog("Error saving newly created volume: \(error)")
-        }
     }
     
     // MARK: - Networking (Books API)
@@ -144,13 +128,10 @@ class BookshelfController {
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                     
                     backgroundContext.performAndWait {
-                    
-                    
+
                         for bookshelfRep in self.bookshelfRepresentations {
-                            self.createBookshelf(bookshelfRepresentation: bookshelfRep)
                             
                             let idString = String(bookshelfRep.id)
-                            
                             
                             if let bookshelf = self.fetchSingleBookshelfFromPersistentStore(id: idString, context: backgroundContext) {
                                 if bookshelf != bookshelfRep {
@@ -286,47 +267,7 @@ class BookshelfController {
         return volume
     }
     
-//    private func performRequestForTheirVolumes(bookshelfRep: BookshelfRepresentation, bookshelf: Bookshelf, context: NSManagedObjectContext) {
-//
-//        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelfRep.id)).appendingPathComponent("volumes")
-//        let request = URLRequest(url: requestURL)
-//
-//        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
-//            if let error = error {
-//                NSLog("Error adding authorization to request: \(error)")
-//                return
-//            }
-//            guard let request = request else { return }
-//
-//            URLSession.shared.dataTask(with: request) { (data, _, error) in
-//                if let error = error {
-//                    NSLog("Error fetching data for volumes of bookshelves: \(error)")
-//                    return
-//                }
-//
-//                guard let data = data else {
-//                    NSLog("No data returned from data task")
-//                    return
-//                }
-//
-//                if let json = String(data: data, encoding: .utf8) {
-//                    print(json)
-//                }
-//
-//                do {
-//                    let volumeResults = try JSONDecoder().decode(VolumeSearchResults.self, from: data)
-//                    let volumeReps = volumeResults.items
-//                    for volumeRep in volumeReps {
-//                        self.volumeController.createVolume(from: volumeRep, bookshelf: bookshelf, context: context)
-//                    }
-//
-//                } catch {
-//                    NSLog("Error decoding data: \(error)")
-//                    return
-//                }
-//            }.resume()
-//        }
-//    }
+    // MARK: - Properties
     
     var bookshelfRepresentations: [BookshelfRepresentation] = []
     let volumeController = VolumeController()
