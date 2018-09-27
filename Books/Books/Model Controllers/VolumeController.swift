@@ -44,12 +44,26 @@ class VolumeController {
         }
     }
     
-    //Delete book.
+    //Move volume to another bookshelf.
+    func moveVolume(volume: Volume, from oldBookshelf: Bookshelf, to newBookshelf: Bookshelf) {
+        let moc = CoreDataStack.shared.mainContext
+        
+        //Add volume to new bookshelf in persistent store.
+        
+        //Remove volume from old bookshelf in persistent store.
+        moc.delete(volume) //This doesn't seem right?
+        
+        //Move volume in server.
+        moveVolumeToAnotherBookshelfinServer(volume: volume, oldBookshelf: oldBookshelf, newBookshelf: newBookshelf)
+    }
+    
+    //Delete book from bookshelf.
     func delete(volume: Volume, bookshelf: Bookshelf) {
         let moc = CoreDataStack.shared.mainContext
         
         deleteVolumeFromBookselfInServer(volume: volume, bookshelf: bookshelf)
         
+        //This only works if it only exists in one bookshelf, what about > 1?
         moc.delete(volume)
         
         do {
