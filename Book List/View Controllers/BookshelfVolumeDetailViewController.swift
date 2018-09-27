@@ -12,20 +12,33 @@ class BookshelfVolumeDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
 
         // Do any additional setup after loading the view.
+    }
+    
+    func checkhasRead(volume: Volume) {
+        if volume.hasRead == true {
+            hasRead = true
+        } else {
+            hasRead = false
+        }
     }
     
     
     
     func updateViews() {
-        guard let volume = volume else {
-            return
-        }
-        title = volume.title
-        //titleLabel.text = volume.title
+        guard let volume = volume else { return }
+        guard let volumeTitle = volume.title,
+        let volumeReview = volume.review else { return }
         
-        //volume.hasRead ? hasReadButton.setTitle("NOT READ", for: .normal) : hasReadButton.setTitle("HAS READ", for: .normal)
+        checkhasRead(volume: volume)
+        
+        
+        title = volume.title
+        detailTitleLabel.text = volumeTitle
+        reviewTextView.text = volumeReview
+        volume.hasRead ? hasReadButton.setTitle("NOT READ", for: .normal) : hasReadButton.setTitle("HAS READ", for: .normal)
         
         guard let imageLink = volume.imageLink else { return }
         let imageUrl = URL(string: imageLink)!
@@ -50,36 +63,36 @@ class BookshelfVolumeDetailViewController: UIViewController {
         super.awakeFromNib()
     }
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var volumeImage: UIImageView!
-    
     @IBOutlet weak var reviewTextView: UITextView!
-    
     @IBOutlet weak var hasReadButton: UIButton!
+    @IBOutlet weak var detailTitleLabel: UILabel!
+    
     
 
     var hasRead: Bool?
     
+
+    
     @IBAction func toggleHasRead(_ sender: Any) {
 
         if hasReadButton.currentTitle == "HAS READ" {
-            hasRead = false
+            hasRead = true
             hasReadButton.setTitle("NOT READ", for: .normal)
         } else if hasReadButton.currentTitle == "NOT READ" {
-            hasRead = true
+            hasRead = false
             hasReadButton.setTitle("HAS READ", for: .normal)
         }
     }
     
     @IBAction func saveChanges(_ sender: Any) {
-        guard let title = titleLabel.text,
+        guard let title = detailTitleLabel.text,
             let review = reviewTextView.text,
-            let hasRead = hasRead,
             let volume = volume else { return }
-        
+        bookshelfController?.updateVolumeInBookshelf(volume: volume, hasRead: hasRead, review: review)
         navigationController?.popViewController(animated: true)
     }
+    
     
     
     /*
@@ -94,8 +107,11 @@ class BookshelfVolumeDetailViewController: UIViewController {
     
     var volume: Volume? {
         didSet {
-            updateViews()
+            DispatchQueue.main.async {
+                self.updateViews()
+            }
         }
     }
+    var bookshelfController: BookshelfController?
 
 }

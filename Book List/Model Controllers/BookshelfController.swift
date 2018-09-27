@@ -12,15 +12,15 @@ import CoreData
 class BookshelfController {
     
     init() {
-//        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Bookshelf")
-//        let request = NSBatchDeleteRequest(fetchRequest: fetch)
-//
-//        do {
-//                 let result = try CoreDataStack.shared.mainContext.execute(request)
-//        }
-//        catch {
-//            NSLog("\(error)")
-//        }
+        let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "Bookshelf")
+        let request = NSBatchDeleteRequest(fetchRequest: fetch)
+
+        do {
+                 let result = try CoreDataStack.shared.mainContext.execute(request)
+        }
+        catch {
+            NSLog("\(error)")
+        }
         fetchBookShelvesFromServer()
     }
     
@@ -36,8 +36,14 @@ class BookshelfController {
             //bookshelf.volumeCount = bookshelfRepresentation.volumeCount
     }
     
-    func updateVolumeInBookshelf() {
-        
+    func updateVolumeInBookshelf(volume: Volume, hasRead: Bool?, review: String?) {
+        if let hasRead = hasRead {
+            volume.hasRead = hasRead
+        }
+        if let review = review {
+            volume.review = review
+        }
+        saveToPersistent()
     }
     
     func updateVolume(volume: Volume, volumeRepresentation: VolumeRepresentation) {

@@ -102,7 +102,7 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
             guard let destVC = segue.destination as? BookshelfVolumeDetailViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
             let volume = fetchedResultsController.object(at: indexPath)
-            
+            destVC.bookshelfController = bookshelfController
             destVC.volume = volume
         }
     }
@@ -113,10 +113,10 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
-//        if let bookshelf = bookshelf {
-//            //let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
-//            fetchRequest.predicate = predicate
-//        }
+        if let bookshelf = bookshelf {
+            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf!)
+            fetchRequest.predicate = predicate
+        }
         let moc = CoreDataStack.shared.mainContext
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
