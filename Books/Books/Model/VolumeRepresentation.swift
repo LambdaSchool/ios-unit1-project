@@ -30,3 +30,24 @@ struct VolumeSearchResults: Codable {
     let items: [VolumeRepresentation]
 }
 
+func == (lhs: VolumeRepresentation, rhs: Volume) -> Bool {
+    return
+        lhs.id == rhs.id &&
+            lhs.volumeInfo.title == rhs.title &&
+            lhs.volumeInfo.subtitle == rhs.subtitle &&
+            lhs.volumeInfo.authors.joined(separator: ", ") == rhs.authors &&
+            lhs.volumeInfo.imageLinks.thumbnail == rhs.image
+    
+}
+
+func == (lhs: Volume, rhs: VolumeRepresentation) -> Bool {
+    return rhs == lhs
+}
+
+func != (lhs: VolumeRepresentation, rhs: Volume) -> Bool {
+    return !(rhs == lhs)
+}
+
+func != (lhs: Volume, rhs: VolumeRepresentation) -> Bool {
+    return rhs != lhs
+}
