@@ -250,22 +250,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Books/Model Controllers/VolumeController.swift"
-            timestampString = "559694582.580766"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "searchBooks(searchTerm:completion:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Books/Model Controllers/VolumeController.swift"
             timestampString = "559694582.580826"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"

@@ -17,83 +17,6 @@ class BookshelfController {
     
     // MARK: - Networking (Books API)
     
-    //Add volume to a bookshelf.
-    func addVolumeToBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
-        
-        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("addVolume")
-        
-        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
-        
-        let queryParameters = ["volumeId": volume.id]
-        
-        components?.queryItems = queryParameters.map({URLQueryItem(name: $0.key, value: $0.value)})
-        
-        guard let newRequestURL = components?.url else { return }
-        
-        var request = URLRequest(url: newRequestURL)
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
-            if let error = error {
-                NSLog("Error adding authorization to request: \(error)")
-                return
-            }
-            guard let request = request else { return }
-            
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
-                if let error = error {
-                    NSLog("Error POSTing volume in bookshelf: \(error)")
-                    return
-                }
-            }).resume()
-        }
-    }
-    
-    //Update volume's position in a bookshelf.
-    //developers.google.com/books/docs/v1/reference/mylibrary/bookshelves/moveVolume
-    
-    
-    //Delete volume from a bookshelf.
-    func deleteVolumeFromBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
-        
-        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("removeVolume")
-        
-        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
-        
-        let queryParameters = ["volumeId": volume.id]
-        
-        components?.queryItems = queryParameters.map({URLQueryItem(name: $0.key, value: $0.value)})
-        
-        guard let newRequestURL = components?.url else { return }
-        
-        var request = URLRequest(url: newRequestURL)
-        request.httpMethod = HTTPMethod.post.rawValue
-        
-        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
-            if let error = error {
-                NSLog("Error adding authorization to request: \(error)")
-                return
-            }
-            guard let request = request else { return }
-            
-            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
-                if let error = error {
-                    NSLog("Error deleting volume from bookshelf: \(error)")
-                    return
-                }
-                
-            }).resume()
-        }
-    }
-    
-    //Move volume to another bookshelf.
-    func moveVolumeToAnotherBookshelfinServer(volume: Volume, oldBookshelf: Bookshelf, newBookshelf: Bookshelf) {
-        
-        addVolumeToBookselfInServer(volume: volume, bookshelf: newBookshelf)
-        deleteVolumeFromBookselfInServer(volume: volume, bookshelf: oldBookshelf)
-        
-    }
-    
     //Get all bookshelves from user's profile.
     func fetchBookshelvesFromServer(completion: @escaping (Error?) -> Void = { _ in }) {
         
@@ -144,8 +67,6 @@ class BookshelfController {
                             }
                         }
                         
-                        //self.checkEntryRepresentation(entryRepresentations: entryRepresentations, context: backgroundContext)
-                        
                         do {
                             try CoreDataStack.shared.save(context: backgroundContext)
                         } catch {
@@ -163,13 +84,7 @@ class BookshelfController {
         }
     }
     
-    
-    
     // MARK: - Core Data Persistence
-    
-    //Put book in bookshelf.
-    
-    //Delete book from bookshelf.
     
     //Fetch a single bookshelf to compare with bookshelf from API
     func fetchSingleBookshelfFromPersistentStore(id: String, context: NSManagedObjectContext) -> Bookshelf? {
@@ -189,7 +104,7 @@ class BookshelfController {
         return bookshelf
     }
     
-    //Fetch volumes for a given bookshelf
+    //Fetch volumes for a given bookshelf.
     func fetchVolumesforBookshelfFromServer(bookshelf: Bookshelf, completion: @escaping (Error?) -> Void) {
         
         let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("volumes")
@@ -272,7 +187,6 @@ class BookshelfController {
     var bookshelfRepresentations: [BookshelfRepresentation] = []
     let volumeController = VolumeController()
     
-    private let userId = "111772930908716729442"
     private let bookshelvesBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
     private let betterBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }

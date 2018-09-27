@@ -14,36 +14,41 @@ class VolumeController {
     
     // MARK: - CRUD Methods
     
-    //Create volume from volume representation.
+    //Create volume from volume representation in search results.
     func createVolume(from volumeRepresentation: VolumeRepresentation, bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         //Create volume data model with convience initializer.
-        Volume(volumeRepresentation: volumeRepresentation, bookshelf: bookshelf, context: context)
+        let volume = Volume(volumeRepresentation: volumeRepresentation, bookshelf: bookshelf, context: context)
         
-        //save to Persistent Store should I do this in perform block?
+        //Adds volume to bookshelf in API.
+        addVolumeToBookselfInServer(volume: volume, bookshelf: bookshelf)
+        
         do {
             try context.save()
         } catch {
             NSLog("Error saving newly created volume: \(error)")
         }
-        
     }
     
-    //Update book.
+    //Update book with data entered from user.
     func updateVolume(volume: Volume, myReview: String, myRating: Int, hasRead: Bool) {
         volume.myReview = myReview
         volume.myRating = Int16(myRating)
         volume.hasRead = hasRead
         
-        
-        //Save to PS?
-        //PUT volume
+        //Use volume's original context to save to persistent store or use the main context.
+        let context = volume.managedObjectContext ?? CoreDataStack.shared.mainContext
+        do {
+            try context.save()
+        } catch {
+            NSLog("Error saving newly created volume: \(error)")
+        }
     }
     
     //Delete book.
-    func delete(volume: Volume) {
+    func delete(volume: Volume, bookshelf: Bookshelf) {
         let moc = CoreDataStack.shared.mainContext
         
-        //delete volume from server
+        deleteVolumeFromBookselfInServer(volume: volume, bookshelf: bookshelf)
         
         moc.delete(volume)
         
@@ -55,10 +60,9 @@ class VolumeController {
         }
     }
     
+    // MARK: - Networking (Books API)
     
-    // MARK: - API Search Query
-    
-    //Search books
+    //Search query for books with given search term.
     func searchBooks(searchTerm: String, completion: @escaping (Error?) -> Void) {
         
         var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
@@ -71,7 +75,6 @@ class VolumeController {
             completion(NSError())
             return
         }
-        
         
         URLSession.shared.dataTask(with: requestURL) { (data, _, error) in
             if let error = error {
@@ -99,6 +102,83 @@ class VolumeController {
         
     }
     
+    //Add volume to an existing bookshelf in server.
+    func addVolumeToBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
+        
+        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("addVolume")
+        
+        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
+        
+        let queryParameters = ["volumeId": volume.id]
+        
+        components?.queryItems = queryParameters.map({URLQueryItem(name: $0.key, value: $0.value)})
+        
+        guard let newRequestURL = components?.url else { return }
+        
+        var request = URLRequest(url: newRequestURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error POSTing volume in bookshelf: \(error)")
+                    return
+                }
+            }).resume()
+        }
+    }
+    
+    //Update volume's position in a bookshelf.
+    //developers.google.com/books/docs/v1/reference/mylibrary/bookshelves/moveVolume
+    
+    
+    //Delete volume from an existing bookshelf in server.
+    func deleteVolumeFromBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
+        
+        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("removeVolume")
+        
+        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
+        
+        let queryParameters = ["volumeId": volume.id]
+        
+        components?.queryItems = queryParameters.map({URLQueryItem(name: $0.key, value: $0.value)})
+        
+        guard let newRequestURL = components?.url else { return }
+        
+        var request = URLRequest(url: newRequestURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error deleting volume from bookshelf: \(error)")
+                    return
+                }
+                
+            }).resume()
+        }
+    }
+    
+    //Move volume to another bookshelf in server.
+    func moveVolumeToAnotherBookshelfinServer(volume: Volume, oldBookshelf: Bookshelf, newBookshelf: Bookshelf) {
+        
+        addVolumeToBookselfInServer(volume: volume, bookshelf: newBookshelf)
+        deleteVolumeFromBookselfInServer(volume: volume, bookshelf: oldBookshelf)
+        
+    }
+    
     func displayImage(volume: Volume, imageView: UIImageView) {
         
         guard let thumbnailString = volume.image else { return }
@@ -121,8 +201,7 @@ class VolumeController {
     // MARK: - Properties
     
     var volumeSearchResults: [VolumeRepresentation] = []
-    var bookshelfController: BookshelfController?
-    lazy var fetchController = ""
     
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")!
+    private let betterBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }
