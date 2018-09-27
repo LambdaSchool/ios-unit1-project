@@ -42,6 +42,7 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookCell", for: indexPath) as? BookResultsTableViewCell else { return UITableViewCell()}
 
         cell.volumeRepresentation = volumeController?.volumeSearchResults[indexPath.row]
+        cell.bookshelfController = bookshelfController
         cell.volumeController = volumeController
 
         return cell
@@ -49,6 +50,7 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
     
     // MARK: - Properties
     
+    var bookshelfController: BookshelfController?
     var volumeController: VolumeController?
 
     @IBOutlet weak var bookSearchBar: UISearchBar!

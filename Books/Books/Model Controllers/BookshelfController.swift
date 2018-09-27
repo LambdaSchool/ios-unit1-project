@@ -11,11 +11,17 @@ import CoreData
 
 class BookshelfController {
 
+    init() {
+        fetchAllBookshelves()
+    }
+    
     // MARK: - CRUD Methods
     
     func createBookshelf(bookshelfRepresentation: BookshelfRepresentation, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         
         let bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: context)
+        
+        //DO THIS SOMEWHERE ELSE
         guard let volumeCount = bookshelfRepresentation.volumeCount else { return }
         
         if volumeCount > 0 {
@@ -33,13 +39,43 @@ class BookshelfController {
     // MARK: - Networking (Books API)
     
     //Add volume to a bookshelf.
-    func addVolumeToBookself(volume: Volume, bookshelf: Bookshelf) {
-//        let idString =
-//        
-//        let requestURL = betterBaseURL.appendingPathComponent(bookshelf.id)
+    func addVolumeToBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
+        
+        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("addVolume")
+        
+        var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
+        
+        let queryParameters = ["volumeId": volume.id]
+        
+        components?.queryItems = queryParameters.map({URLQueryItem(name: $0.key, value: $0.value)})
+        
+        guard let newRequestURL = components?.url else { return }
+        
+        var request = URLRequest(url: newRequestURL)
+        request.httpMethod = HTTPMethod.post.rawValue
+        
+        GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
+            if let error = error {
+                NSLog("Error adding authorization to request: \(error)")
+                return
+            }
+            guard let request = request else { return }
+            
+            URLSession.shared.dataTask(with: request, completionHandler: { (data, _, error) in
+                if let error = error {
+                    NSLog("Error PUTting entry: \(error)")
+                    return
+                }
+
+            }).resume()
+        }
     }
     
     //Update volume in a bookshelf.
+    func moveVolumeInServer(volume: Volume, bookshelf: Bookshelf) {
+        
+    }
+    
     
     //Delete volume from a bookshelf.
     

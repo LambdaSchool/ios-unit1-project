@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class MyBookshelvesTableViewController: UITableViewController {
+class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -20,18 +21,18 @@ class MyBookshelvesTableViewController: UITableViewController {
             }
         }
         
-        bookshelfController.fetchAllBookshelves { (_) in
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
+//        bookshelfController.fetchAllBookshelves { (_) in
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//            }
+//        }
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return bookshelfController.bookshelfRepresentations.count
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -39,8 +40,10 @@ class MyBookshelvesTableViewController: UITableViewController {
 
         cell.registerCollectionView(datasource: self)
         
-        let bookshelfRep = bookshelfController.bookshelfRepresentations[indexPath.row]
-        cell.bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRep)
+//        let bookshelfRep = bookshelfController.bookshelfRepresentations[indexPath.row]
+        cell.bookshelf = fetchedResultsController.object(at: indexPath)
+        cell.bookshelfController = bookshelfController
+        cell.volumeController = bookshelfController.volumeController
 
         return cell
     }
@@ -51,6 +54,7 @@ class MyBookshelvesTableViewController: UITableViewController {
         if segue.identifier == "SearchBooks" {
             guard let destinationVC = segue.destination as? BookSearchTableViewController else { return }
             
+            destinationVC.bookshelfController = bookshelfController
             destinationVC.volumeController = bookshelfController.volumeController
         }
     }
@@ -59,7 +63,21 @@ class MyBookshelvesTableViewController: UITableViewController {
     
     var bookshelf: Bookshelf?
     let bookshelfController = BookshelfController()
-    
+    lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
+        let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let moc = CoreDataStack.shared.mainContext
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        
+        frc.delegate = self
+        try! frc.performFetch()
+        return frc
+    }()
 }
 
 extension UITableViewController: UICollectionViewDataSource {

@@ -27,7 +27,7 @@ class BookshelfTableViewCell: UITableViewCell {
         }
     }
     var volumeController: VolumeController?
-    var bookshelfController: BookshelfTableViewCell?
+    var bookshelfController: BookshelfController?
     
     @IBOutlet weak var bookshelfTitleLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
