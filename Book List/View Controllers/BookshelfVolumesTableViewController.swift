@@ -19,11 +19,6 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
                 self.tableView.reloadData()
             }
         }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +38,10 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VolumeCell", for: indexPath) as? BookshelfVolumeTableViewCell else { return UITableViewCell() }
         //let volume = bookshelf?.volumes?.object(at: indexPath.row)
         let volume = fetchedResultsController.object(at: indexPath)
-        cell.textLabel?.text = volume.title
+        cell.volume = volume
         
         return cell
     }
@@ -102,16 +97,26 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ViewVolume" {
+            guard let destVC = segue.destination as? BookshelfVolumeDetailViewController else { return }
+            guard let indexPath = tableView.indexPathForSelectedRow else { return }
+            let volume = fetchedResultsController.object(at: indexPath)
+            
+            destVC.volume = volume
+        }
+    }
+    
     var bookshelf: Bookshelf?
     var bookshelfController: BookshelfController?
     
     
     lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
-        if let bookshelf = bookshelf {
-            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
-            fetchRequest.predicate = predicate
-        }
+//        if let bookshelf = bookshelf {
+//            //let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
+//            fetchRequest.predicate = predicate
+//        }
         let moc = CoreDataStack.shared.mainContext
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
