@@ -12,6 +12,8 @@ import CoreData
 private let reuseIdentifier = "BookCell"
 
 class LibraryCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
+    
+    var bookController: BookController?
 
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -110,6 +112,19 @@ class LibraryCollectionViewController: UICollectionViewController, NSFetchedResu
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "SearchSegue" {
+            
+            guard let destVC = segue.destination as? SearchTableViewController else {return}
+            destVC.bookController = bookController
+            
+        } else if segue.identifier == "BookSegue"{
+            guard let destVC = segue.destination as? BookDetailViewController else {return}
+            guard let indexPath = collectionView.indexPathsForSelectedItems?.first else {return}
+            destVC.book = fetchedResultsController.object(at: indexPath)
+            //            destVC.bookController = bookController // HOW DO I DO THIS IF BOOK CONTROLLER IS COMING FROM TABLEVIEW
+        }
+        
     }
     
 
@@ -133,5 +148,31 @@ class LibraryCollectionViewController: UICollectionViewController, NSFetchedResu
     
         return cell
     }
+    
+    // MARK:-  Collection view Deletegate methods
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let book = fetchedResultsController.object(at: indexPath)
+        
+        let deleteAlert = UIAlertController(title: "What would like to do with this book?", message: nil , preferredStyle: .actionSheet)
+        
+        deleteAlert.addAction(UIAlertAction(title: "View", style: .default, handler: {(action) in
+            
+            let storyboard = UIStoryboard(name: "DetailViewStoryboard", bundle: nil)
+            let vc = storyboard.instantiateViewController(withIdentifier: "BookDetailViewController") as! BookDetailViewController
+            vc.book = book
+            
+            self.navigationController?.pushViewController(vc, animated: true)
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { (action) in
+            self.bookController?.deleteBook(book: book)
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(deleteAlert, animated: true)
+    }
+    
 
 }

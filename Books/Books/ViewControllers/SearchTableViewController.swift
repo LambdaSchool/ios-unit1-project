@@ -10,8 +10,9 @@ import UIKit
 
 class SearchTableViewController: UITableViewController, UISearchBarDelegate, BorrowButtonDelegate {
     
+    var bookController: BookController?
     @IBOutlet weak var searchBar: UISearchBar!
-    let bookController = BookController()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,7 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text else {return}
-        bookController.searchForBook(with: searchText) { (_) in
+        bookController?.searchForBook(with: searchText) { (_) in
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.view.endEditing(true)
@@ -36,11 +37,11 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
         
         guard let title = bookRep.volumeInfo.title, let id = bookRep.id, let publishedDate = bookRep.volumeInfo.publishedDate, let thumbnail = bookRep.volumeInfo.imageLinks?.thumbnail else {return}
     
-        let alert = UIAlertController(title: "Do you want to add this book to your library?", message: "This will add the book to your library so that you can review it later.", preferredStyle: .actionSheet)
+        let alert = UIAlertController(title: "Do you want to add this book to your library?", message: "This will add the book to your library so that you can review it later.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {action in
             
-            self.bookController.addBook(title: title, id: id, thumbnail: thumbnail, avgRating: bookRep.volumeInfo.averageRating, author: bookRep.volumeInfo.authors?.first, publishedDate: publishedDate)
+            self.bookController?.addBook(title: title, id: id, thumbnail: thumbnail, avgRating: bookRep.volumeInfo.averageRating, author: bookRep.volumeInfo.authors?.first, publishedDate: publishedDate)
             self.navigationController?.popViewController(animated: true)
             
             
@@ -54,14 +55,14 @@ class SearchTableViewController: UITableViewController, UISearchBarDelegate, Bor
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return bookController.searchedBooks.count
+        return bookController?.searchedBooks.count ?? 0
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookSearchCell", for: indexPath) as? SearchTableViewCell else {return UITableViewCell()}
 
-        let book = bookController.searchedBooks[indexPath.row]
+        let book = bookController?.searchedBooks[indexPath.row]
         
         cell.book = book
         cell.delegate = self

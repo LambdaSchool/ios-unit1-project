@@ -27,8 +27,16 @@ class BookController{
         do {
             try CoreDataStack.shared.save(context: context)
         } catch {
-            NSLog("Error saving task: \(error)")
+            NSLog("Error saving book: \(error)")
         }
+    }
+    
+    func deleteBook(book: Book){
+        
+        let moc = CoreDataStack.shared.mainContext
+        moc.delete(book)
+        try? moc.save()
+       
     }
     
     // MARK: - API Functions

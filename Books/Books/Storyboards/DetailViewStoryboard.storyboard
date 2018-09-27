@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Book Detail View Controller-->
         <scene sceneID="evg-Hd-6et">
             <objects>
-                <viewController id="zXK-PV-NDg" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BookDetailViewController" id="zXK-PV-NDg" customClass="BookDetailViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iQS-22-4aZ">
                         <rect key="frame" x="0.0" y="0.0" width="896" height="414"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="283" height="353"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleAspectFill" axis="vertical" alignment="top" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="YIe-Be-jWc">
-                                        <rect key="frame" x="291" y="0.0" width="501" height="354"/>
+                                        <rect key="frame" x="291" y="0.0" width="501" height="236"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="240" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="A6v-tf-gOc">
                                                 <rect key="frame" x="0.0" y="0.0" width="89" height="18"/>
@@ -45,16 +45,16 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="255" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BdU-3E-aBy">
-                                                <rect key="frame" x="0.0" y="26" width="123" height="18"/>
+                                                <rect key="frame" x="0.0" y="26" width="111.5" height="18"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Page Count:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlG-3m-shd">
-                                                        <rect key="frame" x="0.0" y="0.0" width="87.5" height="18"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Published:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jlG-3m-shd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TBF" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hbj-0y-OzQ">
-                                                        <rect key="frame" x="95.5" y="0.0" width="27.5" height="18"/>
+                                                        <rect key="frame" x="84" y="0.0" width="27.5" height="18"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -78,16 +78,33 @@
                                                     </label>
                                                 </subviews>
                                             </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ns4-Q9-96K">
+                                                <rect key="frame" x="0.0" y="78" width="233.5" height="31"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remind me to read daily:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywL-KV-kic">
+                                                        <rect key="frame" x="0.0" y="0.0" width="176.5" height="31"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Odr-GQ-cr2">
+                                                        <rect key="frame" x="184.5" y="0.0" width="51" height="31"/>
+                                                        <connections>
+                                                            <action selector="dailyReminderSwitch:" destination="zXK-PV-NDg" eventType="valueChanged" id="aNb-rA-f6E"/>
+                                                        </connections>
+                                                    </switch>
+                                                </subviews>
+                                            </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Review: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pio-T6-OjD">
-                                                <rect key="frame" x="0.0" y="78" width="96" height="18"/>
+                                                <rect key="frame" x="0.0" y="117" width="96" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xgi-Tu-Q8p">
-                                                <rect key="frame" x="0.0" y="104" width="486" height="250"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="What did you think about the book?" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Xgi-Tu-Q8p">
+                                                <rect key="frame" x="0.0" y="143" width="486" height="93"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
@@ -105,6 +122,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NAi-kV-tX1"/>
                     </view>
+                    <connections>
+                        <outlet property="authorLabel" destination="txG-lc-h6F" id="7Mc-oB-6uX"/>
+                        <outlet property="coverImageView" destination="241-YJ-tSt" id="5ev-LW-uno"/>
+                        <outlet property="publishedLabel" destination="hbj-0y-OzQ" id="iq8-Nq-3Zr"/>
+                        <outlet property="ratingLabel" destination="kWF-q7-5XY" id="Mq7-7i-xA0"/>
+                        <outlet property="reminderSwitch" destination="Odr-GQ-cr2" id="VEe-eG-ZNW"/>
+                        <outlet property="reviewTextView" destination="Xgi-Tu-Q8p" id="7cD-3w-SZ7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wvg-be-Rsc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
