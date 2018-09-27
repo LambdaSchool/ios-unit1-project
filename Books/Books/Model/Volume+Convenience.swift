@@ -22,6 +22,7 @@ extension Volume {
         self.myRating = Int16(myRating)
         self.myReview = myReview
         bookshelf.addToVolumes(self)
+        self.addToBookshelves(bookshelf)
         
     }
 }

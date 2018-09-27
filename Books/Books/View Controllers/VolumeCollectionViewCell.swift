@@ -22,8 +22,27 @@ class VolumeCollectionViewCell: UICollectionViewCell {
             hasReadButton.setTitle("Haven't Read", for: .normal)
         }
         
-        volumeController?.displayImage(volume: volume, imageView: bookImageView)
+        guard let thumbnailString = volume.image else { return }
+        let url = URL(string: thumbnailString)!
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
+            }
+            
+            guard let data = data else { return }
+            
+            guard let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.bookImageView.image = image
+            }
+        }.resume()
     }
+    
+    @IBAction func changeHaveReadStatus(_ sender: Any) {
+        
+    }
+    
     
     // MARK: - Properties
     

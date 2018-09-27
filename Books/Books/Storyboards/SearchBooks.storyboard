@@ -76,7 +76,7 @@
         <!--Pick a bookshelf-->
         <scene sceneID="wNo-ee-hmT">
             <objects>
-                <tableViewController title="Pick a bookshelf" id="ino-HD-t5h" sceneMemberID="viewController">
+                <tableViewController title="Pick a bookshelf" id="ino-HD-t5h" customClass="PickBookshelfTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ZzY-le-WFo">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,6 +105,13 @@
                             <outlet property="delegate" destination="ino-HD-t5h" id="ZHm-Yc-EHA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="CoR-HB-SrT">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="kws-RL-aeG">
+                            <connections>
+                                <action selector="pickBookshelf:" destination="ino-HD-t5h" id="8kW-Id-noF"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVw-hj-LRU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,22 +154,27 @@
                                             <rect key="frame" x="16" y="11" width="343" height="111"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="LGR-hh-khr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="73"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="70"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="253" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rCv-IC-tLg">
-                                                            <rect key="frame" x="0.0" y="0.0" width="73" height="73"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="258" verticalHuggingPriority="255" horizontalCompressionResistancePriority="742" translatesAutoresizingMaskIntoConstraints="NO" id="rCv-IC-tLg">
+                                                            <rect key="frame" x="0.0" y="0.0" width="65" height="70"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="65" id="LPt-eW-7bj"/>
+                                                                <constraint firstAttribute="height" constant="70" id="XpD-7C-zW1"/>
+                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="70" id="iLb-3G-xNj"/>
+                                                            </constraints>
                                                         </imageView>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="uhM-fQ-tmJ">
-                                                            <rect key="frame" x="81" y="0.0" width="262" height="73"/>
+                                                            <rect key="frame" x="73" y="0.0" width="270" height="70"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-H5-h5t">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="262" height="45.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="754" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ioN-H5-h5t">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="270" height="42.5"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THE-bs-7tD">
-                                                                    <rect key="frame" x="0.0" y="53.5" width="262" height="19.5"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="756" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="THE-bs-7tD">
+                                                                    <rect key="frame" x="0.0" y="50.5" width="270" height="19.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <nil key="textColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -172,11 +184,10 @@
                                                     </subviews>
                                                 </stackView>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="252" verticalHuggingPriority="252" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1OB-g3-01i">
-                                                    <rect key="frame" x="0.0" y="81" width="343" height="30"/>
+                                                    <rect key="frame" x="0.0" y="78" width="343" height="33"/>
                                                     <state key="normal" title="Add to a bookshelf"/>
                                                     <connections>
                                                         <action selector="addBookToBookshelf:" destination="ISZ-OI-eHu" eventType="touchUpInside" id="CY3-Av-kEj"/>
-                                                        <segue destination="ino-HD-t5h" kind="show" id="sUC-wd-66E"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -193,6 +204,7 @@
                                     <outlet property="authorsLabel" destination="THE-bs-7tD" id="40g-9X-uqm"/>
                                     <outlet property="bookImageView" destination="rCv-IC-tLg" id="SPb-9H-u3D"/>
                                     <outlet property="bookTitleLabel" destination="ioN-H5-h5t" id="Mhu-YK-HhZ"/>
+                                    <segue destination="ino-HD-t5h" kind="show" identifier="PickBookshelf" id="soc-Gc-4fH"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

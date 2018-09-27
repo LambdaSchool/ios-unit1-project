@@ -17,8 +17,14 @@ class BookshelfTableViewCell: UITableViewCell {
     }
     
     //To connect table view cell to collection view cell.
-    func registerCollectionView<DataSource: UICollectionViewDataSource>(datasource: DataSource) {
-        self.collectionView.dataSource = datasource
+    func setCollectionViewDataSourceDelegate
+        <D: UICollectionViewDataSource & UICollectionViewDelegate>
+        (dataSourceDelegate: D, forRow row: Int) {
+        
+        collectionView.delegate = dataSourceDelegate
+        collectionView.dataSource = dataSourceDelegate
+        collectionView.tag = row
+        collectionView.reloadData()
     }
     
     var bookshelf: Bookshelf? {
@@ -30,6 +36,36 @@ class BookshelfTableViewCell: UITableViewCell {
     var bookshelfController: BookshelfController?
     
     @IBOutlet weak var bookshelfTitleLabel: UILabel!
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
     
 }
+
+//extension UITableViewCell: UICollectionViewDataSource {
+//    
+//    //Set up number of items in section for nested collection view
+//    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return 0
+//    }
+//    
+//    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VolumeInBookshelfCell", for: indexPath) as! BookshelfVolumeCollectionViewCell
+//        
+//        // Configure the cell
+//        
+//        return cell
+//}
+
+/*
+ // MARK: - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+//    var bookshelf: Bookshelf?
+//    var bookshelfController: BookshelfController?
+//    var volumeController: VolumeController?
+

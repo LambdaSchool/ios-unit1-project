@@ -15,7 +15,7 @@ class BookDetailViewController: UIViewController {
         guard let volume = volume else { return }
         
         bookTitleLabel.text = volume.title
-        bookTitleLabel.text = volume.subtitle
+        bookSubtitleLabel.text = volume.subtitle
         authorsLabel.text = volume.authors
         reviewTextView.text = volume.myReview
         
@@ -25,9 +25,22 @@ class BookDetailViewController: UIViewController {
             hasReadButton.setTitle("Haven't Read", for: .normal)
         }
         
-        displayImage(volume: volume)
+        guard let thumbnailString = volume.image else { return }
+        let url = URL(string: thumbnailString)!
         
-        //set segmented controller to myRating
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
+            }
+            
+            guard let data = data else { return }
+            
+            guard let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.bookImageView.image = image
+            }
+            }.resume()
+        
     }
     
     private func displayImage(volume: Volume) {
@@ -64,7 +77,6 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookSubtitleLabel: UILabel!
     @IBOutlet weak var authorsLabel: UILabel!
     @IBOutlet weak var hasReadButton: UIButton!
-    @IBOutlet weak var reviewSegmentedControl: UISegmentedControl!
     @IBOutlet weak var reviewTextView: UITextView!
     
 }

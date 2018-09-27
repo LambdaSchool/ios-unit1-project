@@ -50,8 +50,9 @@ class VolumeController {
         
         //Add volume to new bookshelf in persistent store.
         
+        
         //Remove volume from old bookshelf in persistent store.
-        moc.delete(volume) //This doesn't seem right?
+        
         
         //Move volume in server.
         moveVolumeToAnotherBookshelfinServer(volume: volume, oldBookshelf: oldBookshelf, newBookshelf: newBookshelf)
@@ -64,7 +65,7 @@ class VolumeController {
         deleteVolumeFromBookselfInServer(volume: volume, bookshelf: bookshelf)
         
         //This only works if it only exists in one bookshelf, what about > 1?
-        moc.delete(volume)
+        
         
         do {
             try CoreDataStack.shared.save(context: moc)
@@ -79,7 +80,7 @@ class VolumeController {
     //Search query for books with given search term.
     func searchBooks(searchTerm: String, completion: @escaping (Error?) -> Void) {
         
-        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        var components = URLComponents(url: searchBaseURL, resolvingAgainstBaseURL: true)
         
         let queryParameters = ["q": searchTerm]
         
@@ -119,7 +120,7 @@ class VolumeController {
     //Add volume to an existing bookshelf in server.
     func addVolumeToBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
         
-        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("addVolume")
+        let requestURL = baseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("addVolume")
         
         var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
         
@@ -155,7 +156,7 @@ class VolumeController {
     //Delete volume from an existing bookshelf in server.
     func deleteVolumeFromBookselfInServer(volume: Volume, bookshelf: Bookshelf) {
         
-        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("removeVolume")
+        let requestURL = baseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("removeVolume")
         
         var components = URLComponents(url: requestURL, resolvingAgainstBaseURL: true)
         
@@ -216,6 +217,6 @@ class VolumeController {
     
     var volumeSearchResults: [VolumeRepresentation] = []
     
-    private let baseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")!
-    private let betterBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
+    private let searchBaseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")!
+    private let baseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }

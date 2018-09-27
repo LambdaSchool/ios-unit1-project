@@ -16,6 +16,13 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         bookSearchBar.delegate = self
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        //Sometimes causes an issue
+        volumeController?.volumeSearchResults = []
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchTerm = bookSearchBar.text else { return }
         
@@ -34,7 +41,6 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return volumeController?.volumeSearchResults.count ?? 0
     }
 
@@ -46,6 +52,17 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
         cell.volumeController = volumeController
 
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PickBookshelf" {
+            guard let destinationVC = segue.destination as? PickBookshelfTableViewController,
+                let indexPath = tableView.indexPathForSelectedRow else { return }
+            
+            destinationVC.volumeRepresentation = volumeController?.volumeSearchResults[indexPath.row]
+            destinationVC.bookshelfController = bookshelfController
+            destinationVC.volumeController = volumeController
+        }
     }
     
     // MARK: - Properties

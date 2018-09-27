@@ -11,16 +11,13 @@ import CoreData
 
 class BookshelfController {
 
-    init() {
-        fetchBookshelvesFromServer()
-    }
     
     // MARK: - Networking (Books API)
     
     //Get all bookshelves from user's profile.
     func fetchBookshelvesFromServer(completion: @escaping (Error?) -> Void = { _ in }) {
         
-        let requestURL = bookshelvesBaseURL
+        let requestURL = baseURL
         let request = URLRequest(url: requestURL)
         
         GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
@@ -36,7 +33,6 @@ class BookshelfController {
                     completion(error)
                     return
                 }
-                
                 guard let data = data else {
                     NSLog("No data returned from data task")
                     completion(NSError())
@@ -46,7 +42,6 @@ class BookshelfController {
                 do {
                     let searchResults = try JSONDecoder().decode(BookshelfResults.self, from: data)
                     self.bookshelfRepresentations = searchResults.items
-                    print(self.bookshelfRepresentations)
                     
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                     
@@ -55,22 +50,22 @@ class BookshelfController {
                         for bookshelfRep in self.bookshelfRepresentations {
                             
                             let idString = String(bookshelfRep.id)
+                            let bookshelf = self.fetchSingleBookshelfFromPersistentStore(id: idString, context: backgroundContext)
                             
-                            if let bookshelf = self.fetchSingleBookshelfFromPersistentStore(id: idString, context: backgroundContext) {
+                            if let bookshelf = bookshelf {
                                 if bookshelf != bookshelfRep {
-                                    //Update bookshelf with bookshelf rep's info
+                                    //Update bookshelf with bookshelf rep's title
                                     bookshelf.title = bookshelfRep.title
-                                    bookshelf.id = Int16(bookshelfRep.id)
                                 }
                             } else {
-                                Bookshelf(bookshelfRepresentation: bookshelfRep)
+                                Bookshelf(bookshelfRepresentation: bookshelfRep, context: backgroundContext)
                             }
                         }
                         
                         do {
                             try CoreDataStack.shared.save(context: backgroundContext)
                         } catch {
-                            NSLog("\(error)")
+                            NSLog("Error saving after fetching bookshelves: \(error)")
                         }
                     
                     }
@@ -91,7 +86,7 @@ class BookshelfController {
         
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
-        fetchRequest.predicate = NSPredicate(format: "identifier == %@", id)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         
         var bookshelf: Bookshelf? = nil
         context.performAndWait {
@@ -107,7 +102,8 @@ class BookshelfController {
     //Fetch volumes for a given bookshelf.
     func fetchVolumesforBookshelfFromServer(bookshelf: Bookshelf, completion: @escaping (Error?) -> Void) {
         
-        let requestURL = betterBaseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("volumes")
+        let requestURL = baseURL.appendingPathComponent(String(bookshelf.id)).appendingPathComponent("volumes")
+
         let request = URLRequest(url: requestURL)
         
         GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
@@ -128,13 +124,10 @@ class BookshelfController {
                     return
                 }
                 
-                if let json = String(data: data, encoding: .utf8) {
-                    print(json)
-                }
-                
                 do {
                     let volumeResults = try JSONDecoder().decode(VolumeSearchResults.self, from: data)
                     let volumeReps = volumeResults.items
+                    print(volumeReps)
                     
                     let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
                     
@@ -169,7 +162,7 @@ class BookshelfController {
         
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
         
-        fetchRequest.predicate = NSPredicate(format: "identifier == %@", id)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
         
         var volume: Volume? = nil
         context.performAndWait {
@@ -185,8 +178,6 @@ class BookshelfController {
     // MARK: - Properties
     
     var bookshelfRepresentations: [BookshelfRepresentation] = []
-    let volumeController = VolumeController()
     
-    private let bookshelvesBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
-    private let betterBaseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
+    private let baseURL = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
 }

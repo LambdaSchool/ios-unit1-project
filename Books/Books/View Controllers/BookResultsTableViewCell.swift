@@ -42,6 +42,7 @@ class BookResultsTableViewCell: UITableViewCell {
     // MARK: - Action Method
     
     @IBAction func addBookToBookshelf(_ sender: Any) {
+        
     }
     
     // MARK: - Properties

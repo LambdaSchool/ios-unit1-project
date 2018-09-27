@@ -61,28 +61,18 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="O7f-5G-lKY">
-                                        <rect key="frame" x="0.0" y="161" width="343" height="28"/>
+                                        <rect key="frame" x="0.0" y="161" width="343" height="20.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="My review:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SpN-Ow-oQC">
-                                                <rect key="frame" x="0.0" y="0.0" width="166" height="28"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <segmentedControl opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="253" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xdn-Ad-Zuv">
-                                                <rect key="frame" x="174" y="0.0" width="169" height="29"/>
-                                                <segments>
-                                                    <segment title="⭐️"/>
-                                                    <segment title="⭐️"/>
-                                                    <segment title="⭐️"/>
-                                                    <segment title="⭐️"/>
-                                                    <segment title="⭐️"/>
-                                                </segments>
-                                            </segmentedControl>
                                         </subviews>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Pp0-fW-TPa">
-                                        <rect key="frame" x="0.0" y="197" width="343" height="209.5"/>
+                                        <rect key="frame" x="0.0" y="189.5" width="343" height="217"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -92,6 +82,7 @@
                                         <state key="normal" title="Move to another bookshelf"/>
                                         <connections>
                                             <action selector="moveToAnotherBookshelf:" destination="PAO-Zf-q9j" eventType="touchUpInside" id="DJy-Xw-9cc"/>
+                                            <segue destination="YSO-lD-nZB" kind="show" identifier="MoveToBookshelf" id="JJb-uB-DSl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -113,13 +104,20 @@
                         <outlet property="bookSubtitleLabel" destination="p1T-2Z-wRG" id="hpd-yR-7HS"/>
                         <outlet property="bookTitleLabel" destination="hOs-xP-ES3" id="DdQ-JZ-2WB"/>
                         <outlet property="hasReadButton" destination="pMK-iP-V9X" id="RZi-Ow-qLh"/>
-                        <outlet property="reviewSegmentedControl" destination="xdn-Ad-Zuv" id="0yh-vp-vXv"/>
                         <outlet property="reviewTextView" destination="Pp0-fW-TPa" id="IOn-8u-ww5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SGj-N2-aS2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2848.8000000000002" y="131.78410794602701"/>
+        </scene>
+        <!--PickBookshelf-->
+        <scene sceneID="vLH-Sn-yxY">
+            <objects>
+                <viewControllerPlaceholder storyboardName="PickBookshelf" id="YSO-lD-nZB" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qa0-ti-i2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3580" y="131"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="K28-Fh-Td7">

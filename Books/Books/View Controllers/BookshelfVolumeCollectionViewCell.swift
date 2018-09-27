@@ -10,9 +10,18 @@ import UIKit
 
 class BookshelfVolumeCollectionViewCell: UICollectionViewCell {
     
+    func updateViews() {
+        //Set image of volume
+//        volumeController?.displayImage(volume: volume, imageView: )
+    }
     
     
-    var volume: Volume?
+    var volume: Volume? {
+        didSet {
+            updateViews()
+        }
+    }
     var volumeController: VolumeController?
     var bookshelfController: BookshelfController?
+    @IBOutlet weak var bookImageView: UIImageView!
 }
