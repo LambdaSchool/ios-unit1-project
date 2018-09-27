@@ -33,6 +33,7 @@
 		3472AF4D215992A000D18F31 /* BookCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4C215992A000D18F31 /* BookCollectionViewCell.swift */; };
 		3472AF4F2159AE3700D18F31 /* BookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF4E2159AE3700D18F31 /* BookController.swift */; };
 		3472AF53215AC65700D18F31 /* BookSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF52215AC65700D18F31 /* BookSearchController.swift */; };
+		3472AF56215D7E0600D18F31 /* PossibleBookshelvesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3472AF55215D7E0600D18F31 /* PossibleBookshelvesTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -79,6 +80,9 @@
 		3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 2.xcdatamodel"; sourceTree = "<group>"; };
 		3472AF51215AA91500D18F31 /* BookList 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 3.xcdatamodel"; sourceTree = "<group>"; };
 		3472AF52215AC65700D18F31 /* BookSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchController.swift; sourceTree = "<group>"; };
+		3472AF54215D635D00D18F31 /* BookList 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 4.xcdatamodel"; sourceTree = "<group>"; };
+		3472AF55215D7E0600D18F31 /* PossibleBookshelvesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PossibleBookshelvesTableViewController.swift; sourceTree = "<group>"; };
+		3472AF57215D858700D18F31 /* BookList 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "BookList 5.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				3472AF1221595AC100D18F31 /* Main.storyboard */,
+				3472AF55215D7E0600D18F31 /* PossibleBookshelvesTableViewController.swift */,
 				3472AF382159650E00D18F31 /* SearchResultsTableViewController.swift */,
 				3472AF3A2159652200D18F31 /* BookshelfTableViewController.swift */,
 				3472AF3C2159653600D18F31 /* BookshelfDetailCollectionViewController.swift */,
@@ -256,6 +261,7 @@
 				3472AF41215965DD00D18F31 /* CoreDataStack.swift in Sources */,
 				3472AF0F21595AC100D18F31 /* AppDelegate.swift in Sources */,
 				3472AF49215989E800D18F31 /* BookRepresentation.swift in Sources */,
+				3472AF56215D7E0600D18F31 /* PossibleBookshelvesTableViewController.swift in Sources */,
 				3472AF53215AC65700D18F31 /* BookSearchController.swift in Sources */,
 				3472AF392159650E00D18F31 /* SearchResultsTableViewController.swift in Sources */,
 				3472AF4B21598ED500D18F31 /* Book+Convenience.swift in Sources */,
@@ -485,11 +491,13 @@
 		3472AF332159623400D18F31 /* BookList.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				3472AF57215D858700D18F31 /* BookList 5.xcdatamodel */,
+				3472AF54215D635D00D18F31 /* BookList 4.xcdatamodel */,
 				3472AF51215AA91500D18F31 /* BookList 3.xcdatamodel */,
 				3472AF50215A84A100D18F31 /* BookList 2.xcdatamodel */,
 				3472AF342159623400D18F31 /* BookList.xcdatamodel */,
 			);
-			currentVersion = 3472AF51215AA91500D18F31 /* BookList 3.xcdatamodel */;
+			currentVersion = 3472AF57215D858700D18F31 /* BookList 5.xcdatamodel */;
 			path = BookList.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

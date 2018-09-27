@@ -10,6 +10,8 @@ import Foundation
 import CoreData
 
 extension Book {
+    
+    /// Convenience initializer for making a Book with the necessary properties
     convenience init (title: String, id: String, author: String?, pageCount: Int16, description: String?, thumbnailURL: String? = nil, imageURL: String? = nil, thumbnailData: Data? = nil, imageData: Data? = nil, context: NSManagedObjectContext) {
         self.init(context: context)
         
@@ -24,6 +26,7 @@ extension Book {
         self.imageData = imageData
     }
     
+    /// Convenienve initializer for making a book from a book representation
     convenience init (bookRepresentation: BookRepresentation, bookshelf: Bookshelf? = nil, context: NSManagedObjectContext) {
         let author = bookRepresentation.volumeInfo.authors?.joined(separator: ", ")
         self.init(title: bookRepresentation.volumeInfo.title,
@@ -43,6 +46,7 @@ extension Book {
         }
     }
     
+    /// Returns a list of the book's bookshelves as a string.
     var bookshelfList: String {
         var string = ""
         guard let bookshelves = bookshelves else { return string }

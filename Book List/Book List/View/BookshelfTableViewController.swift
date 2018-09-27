@@ -18,8 +18,11 @@ class BookshelfTableViewController: UITableViewController, NSFetchedResultsContr
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        // TODO: Figure out how to only show bookshelves with books on them.
+        //let predicate = NSPredicate(format: "books.count > 0")
         
         fetchRequest.sortDescriptors = [sortDescriptor]
+        //fetchRequest.predicate = predicate
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.shared.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         

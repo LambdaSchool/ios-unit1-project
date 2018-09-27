@@ -9,6 +9,8 @@
 import Foundation
 
 class BookSearchController {
+    
+    // MARK: - Properties
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
     private(set) var searchResults: [BookRepresentation] = []
     
@@ -16,9 +18,11 @@ class BookSearchController {
         searchResults = []
     }
     
+    // MARK: - Networking
+    /// Performs a search with the given search term
     func performSearch(with term: String, page: Int = 0, reset: Bool = true, completion: @escaping CompletionHandler = { _ in }) {
         let numberOfResults = 20
-        let startIndex = page == 0 ? 0 : (numberOfResults * page)
+        let startIndex = (numberOfResults * page)
         let requestURL = baseURL.appendingPathComponent("volumes")
         
         let searchQuery = URLQueryItem(name: "q", value: term)

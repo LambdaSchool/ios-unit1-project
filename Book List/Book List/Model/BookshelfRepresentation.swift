@@ -8,11 +8,14 @@
 
 import Foundation
 
+/// Representation for handling a JSON bookshelf object
 struct BookshelfRepresentation: Codable {
     let title: String
     let id: Int16
+    let volumeCount: Int
 }
 
+/// Represents the top level JSON object
 struct BookshelvesRepresentationResults: Codable {
     let items: [BookshelfRepresentation]
 }

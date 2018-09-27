@@ -8,6 +8,7 @@
 
 import Foundation
 
+/// Representation for handling a JSON book object
 class BookRepresentation: Codable, Equatable {
     let volumeInfo: VolumeInfo
     let id: String
@@ -19,10 +20,12 @@ class BookRepresentation: Codable, Equatable {
     }
 }
 
+/// Represents the top level JSON object
 struct BooksResults: Codable, Equatable {
     let items: [BookRepresentation]?
 }
 
+// Other objects for handling JSON
 struct VolumeInfo: Codable, Equatable {
     let title: String
     let authors: [String]?
@@ -44,8 +47,9 @@ struct ImageLinks: Codable, Equatable {
     
 }
 
+// MARK: - Equatable Methods
 func == (lhs: BookRepresentation, rhs: Book) -> Bool {
-    return lhs.id == rhs.id && lhs.volumeInfo.title == rhs.title && lhs.volumeInfo.imageLinks?.thumbnail == rhs.thumbnailURL && lhs.volumeInfo.imageLinks?.biggestImage == rhs.imageURL && lhs.volumeInfo.description == rhs.bookDescription && lhs.volumeInfo.pageCount == rhs.pageCount
+    return lhs.id == rhs.id && lhs.volumeInfo.title == rhs.title && lhs.volumeInfo.imageLinks?.thumbnail == rhs.thumbnailURL && lhs.volumeInfo.imageLinks?.biggestImage == rhs.imageURL && lhs.volumeInfo.pageCount == rhs.pageCount
 }
 
 func == (lhs: Book, rhs: BookRepresentation) -> Bool {

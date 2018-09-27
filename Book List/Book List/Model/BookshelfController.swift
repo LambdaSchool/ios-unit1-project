@@ -10,25 +10,36 @@ import Foundation
 import CoreData
 
 class BookshelfController {
+    // MARK: - Properties
     private let baseURL = URL(string: "https://www.googleapis.com/books/v1")!
+    let bookController = BookController()
     
     // MARK: - CRUD Methods
     func update(bookshelf: Bookshelf, with bookshelfRepresentation: BookshelfRepresentation) {
         bookshelf.title = bookshelfRepresentation.title
     }
     
-    func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf) {
+    func update(book: Book, with bookRepresentation: BookRepresentation, in bookshelf: Bookshelf?) {
         book.author = bookRepresentation.volumeInfo.authors?.joined(separator: ", ")
         book.pageCount = bookRepresentation.volumeInfo.pageCount ?? 0
-        book.bookDescription = bookRepresentation.volumeInfo.description
         book.thumbnailURL = bookRepresentation.volumeInfo.imageLinks?.thumbnail
         book.imageURL = bookRepresentation.volumeInfo.imageLinks?.biggestImage
-        book.addToBookshelves(bookshelf)
-        bookshelf.addToBooks(book)
+        if let bookshelf = bookshelf {
+            book.addToBookshelves(bookshelf)
+            bookshelf.addToBooks(book)
+        }
         
     }
     
+    func add(book: Book, to bookshelf: Bookshelf) {
+        bookshelf.addToBooks(book)
+        book.addToBookshelves(bookshelf)
+        
+        post(book: book, to: bookshelf)
+    }
+    
     // MARK: Networking
+    /// Fetches all the bookshelves from the user's library and adds/updates them in CoreData
     func fetchBookshelves(completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves")
         let request = URLRequest(url: requestURL)
@@ -70,10 +81,11 @@ class BookshelfController {
                 
                 backgroundContext.performAndWait {
                     for bookshelfRepresentation in bookshelfRepresentations {
-                        if let bookshelf = self.fetchSingleBookshelf(title: bookshelfRepresentation.title, context: backgroundContext) {
+                        var bookshelf = self.fetchSingleBookshelf(title: bookshelfRepresentation.title, context: backgroundContext)
+                        if let bookshelf = bookshelf {
                             self.update(bookshelf: bookshelf, with: bookshelfRepresentation)
                         } else {
-                            _ = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: backgroundContext)
+                            bookshelf = Bookshelf(bookshelfRepresentation: bookshelfRepresentation, context: backgroundContext)
                         }
                     }
                 }
@@ -89,9 +101,11 @@ class BookshelfController {
         }
     }
     
-    func fetchBooks(for bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+    /// Fetches all the books from a given bookshelf and adds them if they don't exist or updates them if they need to be updated.
+    func fetchBooks(for bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.container.newBackgroundContext(), completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("\(bookshelf.id)").appendingPathComponent("volumes")
         let request = URLRequest(url: requestURL)
+        guard let title = bookshelf.title else { return }
         
         GoogleBooksAuthorizationClient.shared.addAuthorization(to: request) { (request, error) in
             if let error = error {
@@ -126,19 +140,23 @@ class BookshelfController {
                     return
                 }
                 
-                let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
+                let backgroundContext = context
                 
                 backgroundContext.performAndWait {
+                    let backgroundBookshelf = self.fetchSingleBookshelf(title: title, context: backgroundContext)
+                    
                     for bookRepresentation in bookRepresentations {
                         if let book = self.fetchSingleBook(id: bookRepresentation.id, context: backgroundContext) {
                             // Check to see if the book already exists
                             if book != bookRepresentation {
                                 //Check to see if the book needs to be updated
-                                self.update(book: book, with: bookRepresentation, in: bookshelf)
+                                self.update(book: book, with: bookRepresentation, in: backgroundBookshelf)
                             }
+                            self.bookController.fetchImagesFor(book: book, context: backgroundContext)
                         } else {
                             // If not, create it on this bookshelf
-                            _ = Book(bookRepresentation: bookRepresentation, bookshelf: bookshelf, context: backgroundContext)
+                            let book = Book(bookRepresentation: bookRepresentation, bookshelf: backgroundBookshelf, context: backgroundContext)
+                            self.bookController.fetchImagesFor(book: book, context: backgroundContext)
                         }
                     }
                 }
@@ -149,12 +167,15 @@ class BookshelfController {
                     NSLog("Error saving background context: \(error)")
                 }
                 
+                self.cleanUpBookshelf(bookshelf)
+                
                 completion(nil)
             }).resume()
         }
     }
     
-    func post(book: Book, to bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
+    /// Posts the given book to the given bookshelf
+    private func post(book: Book, to bookshelf: Bookshelf, completion: @escaping CompletionHandler = { _ in }) {
         let requestURL = baseURL.appendingPathComponent("mylibrary").appendingPathComponent("bookshelves").appendingPathComponent("\(bookshelf.id)").appendingPathComponent("addVolume")
         
         let volumeQuery = URLQueryItem(name: "volumeId", value: book.id)
@@ -189,13 +210,13 @@ class BookshelfController {
                     return
                 }
                 
-                self.fetchBooks(for: bookshelf, completion: completion)
                 return
             }).resume()
         }
     }
     
     // MARK: - Utility Methods
+    /// Fetches a single bookshelf based on the given title
     func fetchSingleBookshelf(title: String, context: NSManagedObjectContext) -> Bookshelf? {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
         
@@ -216,6 +237,7 @@ class BookshelfController {
         return bookshelf
     }
     
+    /// Fetches a single book based on the given id
     private func fetchSingleBook(id: String, context: NSManagedObjectContext) -> Book? {
         let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
         
@@ -235,6 +257,38 @@ class BookshelfController {
         return book
     }
     
-    
-    
+    /// Deletes duplicate
+    private func cleanUpBookshelf(_ bookshelf: Bookshelf) {
+        let fetchRequest: NSFetchRequest<Book> = Book.fetchRequest()
+        
+        let predicate = NSPredicate(format: "bookshelves CONTAINS %@ ", bookshelf)
+        
+        fetchRequest.predicate = predicate
+        
+        let backgroundContext = CoreDataStack.shared.container.newBackgroundContext()
+        
+        backgroundContext.performAndWait {
+            do {
+                var books = try backgroundContext.fetch(fetchRequest)
+                var booksToDelete: [Book] = []
+                for _ in books {
+                    let bookToCheck = books.removeFirst()
+                    let duplicates = books.filter() { $0.id == bookToCheck.id }
+                    // TODO: Write logic to update first book with missing data from any duplicates
+                    booksToDelete.append(contentsOf: duplicates)
+                }
+                
+                if booksToDelete.count > 0 {
+                    for book in booksToDelete {
+                        backgroundContext.delete(book)
+                    }
+                    
+                    try backgroundContext.save()
+                }
+            } catch {
+                NSLog("Error fetching books on bookshelf: \(error)")
+            }
+            
+        }
+    }
 }
