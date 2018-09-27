@@ -25,6 +25,8 @@ class BookDetailViewController: UIViewController, UIScrollViewDelegate, UITextVi
     }()
     
     var bookshelfController: BookshelfController?
+    let bookController = BookController()
+    var bookshelfTableView: PossibleBookshelvesTableViewController?
     
     var titleString = ""
     var activeView: UITextView?
@@ -71,7 +73,7 @@ class BookDetailViewController: UIViewController, UIScrollViewDelegate, UITextVi
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        containerViewHeightConstraint.constant = stackView.frame.height + 16
+        containerViewHeightConstraint.constant = stackView.frame.height + 60
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -101,6 +103,12 @@ class BookDetailViewController: UIViewController, UIScrollViewDelegate, UITextVi
                 bookshelfController?.add(book: book, to: bookshelf)
             }
         }
+        if let bookshelfTableView = bookshelfTableView {
+            for bookshelf in bookshelfTableView.notOnBookshelf {
+                bookController.remove(book: book, from: bookshelf)
+            }
+        }
+        
         reset = false
         navigationController?.popViewController(animated: true)
     }
@@ -154,9 +162,9 @@ class BookDetailViewController: UIViewController, UIScrollViewDelegate, UITextVi
     
     // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "EditBookshelvesSegue" {
+        if segue.identifier == "EditBookshelvesEmbedSegue" {
             let desintationVC = segue.destination as! PossibleBookshelvesTableViewController
-            
+            bookshelfTableView = desintationVC
             desintationVC.book = book
         }
     }
