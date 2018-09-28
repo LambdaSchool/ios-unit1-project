@@ -11,8 +11,23 @@ import UIKit
 class BookshelfVolumeCollectionViewCell: UICollectionViewCell {
     
     func updateViews() {
-        //Set image of volume
-//        volumeController?.displayImage(volume: volume, imageView: )
+        guard let volume = volume else { return }
+        
+        let thumbnailString = volume.image ?? ""
+        let url = URL(string: thumbnailString)!
+        
+        URLSession.shared.dataTask(with: url) { (data, _, error) in
+            if let error = error {
+                NSLog("Error: \(error)")
+            }
+            
+            guard let data = data else { return }
+            
+            guard let image = UIImage(data: data) else { return }
+            DispatchQueue.main.async {
+                self.bookImageView.image = image
+            }
+        }.resume()
     }
     
     

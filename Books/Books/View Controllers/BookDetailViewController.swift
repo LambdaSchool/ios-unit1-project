@@ -59,7 +59,7 @@ class BookDetailViewController: UIViewController {
         guard let volume = volume else { return }
 
         volumeController?.changeVolumeReadStatus(volume: volume, oldStatus: volume.hasRead)
-        print("Clicked!")
+        updateViews()
     }
     
     // MARK: - Properties

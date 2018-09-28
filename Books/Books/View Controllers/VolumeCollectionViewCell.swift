@@ -44,6 +44,7 @@ class VolumeCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func changeHaveReadStatus(_ sender: Any) {
+        
         delegate?.clickedHaveReadButton(on: self)
     }
     

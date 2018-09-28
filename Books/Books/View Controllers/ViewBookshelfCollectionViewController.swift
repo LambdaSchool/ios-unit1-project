@@ -9,13 +9,19 @@
 import UIKit
 import CoreData
 
-class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeCollectionViewCellDelegate {
+class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeCollectionViewCellDelegate, NSFetchedResultsControllerDelegate {
     
     // MARK: - Lifecycle Methods
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        collectionView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         guard let bookshelf = bookshelf else { return }
         bookshelfController?.fetchVolumesforBookshelfFromServer(bookshelf: bookshelf, completion: { (_) in
             DispatchQueue.main.async {
@@ -35,9 +41,10 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeC
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VolumeCell", for: indexPath) as! VolumeCollectionViewCell
         
         //Pass variable to the cell to display image
-        guard let bookshelf = bookshelf else { return UICollectionViewCell() }
+        guard let volumes = fetchedResultsController.fetchedObjects else { return UICollectionViewCell()}
         
-        cell.volume = bookshelf.volumes?.object(at: indexPath.row) as! Volume
+        cell.delegate = self
+        cell.volume = volumes[indexPath.row]
         cell.volumeController = volumeController
     
         return cell
@@ -50,6 +57,8 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeC
         guard let volume = cell.volume else { return }
         
         volumeController?.changeVolumeReadStatus(volume: volume, oldStatus: volume.hasRead)
+        
+        collectionView.reloadData()
     }
     
     // MARK: - Private Methods
@@ -66,8 +75,8 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeC
         if segue.identifier == "ViewBook" {
             guard let destinationVC = segue.destination as? BookDetailViewController, let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
             
-            
-            destinationVC.volume = bookshelf?.volumes?.object(at: indexPath.row) as! Volume
+            guard let volumes = fetchedResultsController.fetchedObjects else { return }
+            destinationVC.volume = volumes[indexPath.row]
             destinationVC.volumeController = volumeController
         }
     }
@@ -82,7 +91,21 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeC
     var bookshelfController: BookshelfController?
     var volumeController: VolumeController?
     
-    //LAZY VARIABLE
+    lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
+        let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        let moc = CoreDataStack.shared.mainContext
+        
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
+        
+        frc.delegate = self
+        try! frc.performFetch()
+        return frc
+    }()
     
     //Contains
 }

@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -25,14 +25,7 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
                 }
             })
         }
-        
     }
-    
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let tableViewCell = cell as? BookshelfTableViewCell else { return }
-        tableViewCell.setCollectionViewDataSourceDelegate(dataSourceDelegate: self, forRow: indexPath.row)
-    }
-
 
     // MARK: - Table view data source
     
@@ -44,16 +37,12 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
     //Set up custom cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "BookshelfDetailCell", for: indexPath) as? BookshelfTableViewCell else { return UITableViewCell() }
-        
-        //Make this cell the delegate for collection view
-        
-        
+
         //Pass variables to custom cell.
         let bookshelf = fetchedResultsController.object(at: indexPath)
         cell.bookshelf = bookshelf
         cell.bookshelfController = bookshelfController
         cell.volumeController = volumeController
-    
 
         return cell
     }
@@ -98,11 +87,6 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let sectionInfo = fetchedResultsController.sections?[section]
-        return sectionInfo?.name.capitalized
-    }
-
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -119,7 +103,6 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
             
             
             let bookshelf = fetchedResultsController.object(at: indexPath)
-            
             destinationVC.bookshelf = bookshelf
             destinationVC.bookshelfController = bookshelfController
             destinationVC.volumeController = volumeController
@@ -127,22 +110,7 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         }
     }
     
-    // MARK: - Collection View
-    
-    //Set up number of items in section for nested collection view
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bookshelf?.volumes?.count ?? 0
-    }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "VolumeInBookshelfCell", for: indexPath) as! BookshelfVolumeCollectionViewCell
-        
-        return cell
-    }
-    
     // MARK: - Properties
-    
-    var bookshelf: Bookshelf?
     let bookshelfController = BookshelfController()
     let volumeController = VolumeController()
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
