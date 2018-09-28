@@ -43,11 +43,10 @@ class VolumeCollectionViewCell: UICollectionViewCell {
         }.resume()
     }
     
+    //Call cell delegate to change have read button's title when clicked.
     @IBAction func changeHaveReadStatus(_ sender: Any) {
-        
         delegate?.clickedHaveReadButton(on: self)
     }
-    
     
     // MARK: - Properties
     

@@ -31,7 +31,6 @@ class BookshelfTableViewCell: UITableViewCell, NSFetchedResultsControllerDelegat
         }
     }
     var volumeController: VolumeController?
-    var bookshelfController: BookshelfController?
     lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
         

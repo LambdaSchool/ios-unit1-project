@@ -62,6 +62,17 @@ class BookDetailViewController: UIViewController {
         updateViews()
     }
     
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "MoveToBookshelf" {
+            guard let destinationVC = segue.destination as? PickBookshelfTableViewController else { return }
+            //Should I unwrap this volume?
+            destinationVC.volume = volume
+            destinationVC.volumeController = volumeController
+        }
+    }
+    
     // MARK: - Properties
     
     var volume: Volume? {
@@ -69,8 +80,8 @@ class BookDetailViewController: UIViewController {
             updateViews()
         }
     }
+    var bookshelf: Bookshelf?
     var volumeController: VolumeController?
-    var bookshelfController: BookshelfController?
 
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!

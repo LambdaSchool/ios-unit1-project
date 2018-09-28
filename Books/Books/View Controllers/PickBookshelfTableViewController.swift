@@ -18,12 +18,15 @@ class PickBookshelfTableViewController: UITableViewController, NSFetchedResultsC
     }
     
     @IBAction func pickBookshelf(_ sender: Any) {
-        guard let volumeRepresentation = volumeRepresentation,
-            let indexPath = tableView.indexPathForSelectedRow else { return }
+        guard let indexPath = tableView.indexPathForSelectedRow else { return }
         
         let bookshelf = fetchedResultsController.object(at: indexPath)
         
-        volumeController?.createVolume(from: volumeRepresentation, bookshelf: bookshelf)
+        if let volumeRepresentation = volumeRepresentation {
+            volumeController?.createVolume(from: volumeRepresentation, bookshelf: bookshelf)
+        } else if let volume = volume {
+            volumeController?.moveVolume(volume: volume, from: bookshelf, to: bookshelf)
+        }
         
         navigationController?.popViewController(animated: true)
     }
@@ -51,7 +54,8 @@ class PickBookshelfTableViewController: UITableViewController, NSFetchedResultsC
     // MARK: - Properties
     
     var volumeRepresentation: VolumeRepresentation?
-    var bookshelfController: BookshelfController?
+    var volume: Volume?
+    var oldBookshelf: Bookshelf?
     var volumeController: VolumeController?
     lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
         let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()

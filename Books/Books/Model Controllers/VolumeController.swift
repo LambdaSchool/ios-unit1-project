@@ -131,8 +131,7 @@ class VolumeController {
                 return
             }
             completion(nil)
-        }.resume()
-        
+        }.resume()   
     }
     
     //Add volume to an existing bookshelf in server.
@@ -210,25 +209,6 @@ class VolumeController {
         addVolumeToBookselfInServer(volume: volume, bookshelf: newBookshelf)
         deleteVolumeFromBookselfInServer(volume: volume, bookshelf: oldBookshelf)
         
-    }
-    
-    func displayImage(volume: Volume, imageView: UIImageView) {
-        
-        guard let thumbnailString = volume.image else { return }
-        let url = URL(string: thumbnailString)!
-        
-        URLSession.shared.dataTask(with: url) { (data, _, error) in
-            if let error = error {
-                NSLog("Error: \(error)")
-            }
-            
-            guard let data = data else { return }
-            
-            guard let image = UIImage(data: data) else { return }
-            DispatchQueue.main.async {
-                imageView.image = image
-            }
-        }.resume()
     }
     
     // MARK: - Properties

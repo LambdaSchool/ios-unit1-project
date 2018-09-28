@@ -10,7 +10,10 @@ import UIKit
 
 class BookshelfVolumeCollectionViewCell: UICollectionViewCell {
     
-    func updateViews() {
+    // MARK: - Private Methods
+    
+    //Set up custom collection view cell with data from volume
+    private func updateViews() {
         guard let volume = volume else { return }
         
         let thumbnailString = volume.image ?? ""
@@ -30,13 +33,13 @@ class BookshelfVolumeCollectionViewCell: UICollectionViewCell {
         }.resume()
     }
     
-    
+    // MARK: - Properties
     var volume: Volume? {
         didSet {
             updateViews()
         }
     }
     var volumeController: VolumeController?
-    var bookshelfController: BookshelfController?
+    
     @IBOutlet weak var bookImageView: UIImageView!
 }

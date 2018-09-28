@@ -41,7 +41,6 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         //Pass variables to custom cell.
         let bookshelf = fetchedResultsController.object(at: indexPath)
         cell.bookshelf = bookshelf
-        cell.bookshelfController = bookshelfController
         cell.volumeController = volumeController
 
         return cell
@@ -93,8 +92,7 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         if segue.identifier == "SearchBooks" {
             guard let destinationVC = segue.destination as? BookSearchTableViewController else { return }
             
-            //Pass variables to the book search table view controller.
-            destinationVC.bookshelfController = bookshelfController
+            //Pass variable to the book search table view controller.
             destinationVC.volumeController = volumeController
         }
         

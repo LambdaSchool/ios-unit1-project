@@ -75,8 +75,10 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeC
         if segue.identifier == "ViewBook" {
             guard let destinationVC = segue.destination as? BookDetailViewController, let indexPath = collectionView.indexPathsForSelectedItems?.first else { return }
             
+            //Pass variables to the next view controller.
             guard let volumes = fetchedResultsController.fetchedObjects else { return }
             destinationVC.volume = volumes[indexPath.row]
+            destinationVC.bookshelf = bookshelf
             destinationVC.volumeController = volumeController
         }
     }
