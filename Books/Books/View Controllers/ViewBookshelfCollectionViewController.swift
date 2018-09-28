@@ -9,28 +9,19 @@
 import UIKit
 import CoreData
 
-private let reuseIdentifier = "VolumeCell"
-
-class ViewBookshelfCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
-
+class ViewBookshelfCollectionViewController: UICollectionViewController, VolumeCollectionViewCellDelegate {
+    
+    // MARK: - Lifecycle Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         guard let bookshelf = bookshelf else { return }
-        
         bookshelfController?.fetchVolumesforBookshelfFromServer(bookshelf: bookshelf, completion: { (_) in
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
         })
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-            
-        guard let bookshelf = bookshelf else { return }
-        
-        title = bookshelf.title    
     }
 
     // MARK: UICollectionViewDataSource
@@ -52,13 +43,22 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, NSFetch
         return cell
     }
     
-    func updateViews() {
+    // MARK: - VolumeCollectionViewCellDelegate
+    
+    func clickedHaveReadButton(on cell: VolumeCollectionViewCell) {
+        
+        guard let volume = cell.volume else { return }
+        
+        volumeController?.changeVolumeReadStatus(volume: volume, oldStatus: volume.hasRead)
+    }
+    
+    // MARK: - Private Methods
+    
+    private func updateViews() {
         guard let bookshelf = bookshelf else { return }
         
         title = bookshelf.title
     }
-    
-    
     
     // MARK: - Navigation
     
@@ -82,19 +82,7 @@ class ViewBookshelfCollectionViewController: UICollectionViewController, NSFetch
     var bookshelfController: BookshelfController?
     var volumeController: VolumeController?
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Bookshelf> = {
-        let fetchRequest: NSFetchRequest<Bookshelf> = Bookshelf.fetchRequest()
-        
-        let sortDescriptor = NSSortDescriptor(key: "id", ascending: true)
-        
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        let moc = CoreDataStack.shared.mainContext
-        
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: moc, sectionNameKeyPath: nil, cacheName: nil)
-        
-        frc.delegate = self
-        try! frc.performFetch()
-        return frc
-    }()
+    //LAZY VARIABLE
+    
+    //Contains
 }

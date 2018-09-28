@@ -38,7 +38,6 @@
                                             <state key="normal" title="Button"/>
                                             <connections>
                                                 <action selector="changeHaveReadStatus:" destination="FCH-eJ-FvS" eventType="touchUpInside" id="1fz-yU-zTk"/>
-                                                <action selector="updateHasRead:" destination="Lm2-h7-Gks" eventType="touchUpInside" id="Ss4-gO-XS0"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -65,7 +64,9 @@
                             <outlet property="delegate" destination="Lm2-h7-Gks" id="1WQ-OS-l5z"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="Title" id="0GA-lM-lWU"/>
+                    <navigationItem key="navigationItem" title="Title" id="0GA-lM-lWU">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="8y8-3k-pyQ"/>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3md-Jq-woa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

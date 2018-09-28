@@ -19,8 +19,8 @@ class BookSearchTableViewController: UITableViewController, UISearchBarDelegate 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        //Sometimes causes an issue
-        volumeController?.volumeSearchResults = []
+        //Clear search bar when needed
+        
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

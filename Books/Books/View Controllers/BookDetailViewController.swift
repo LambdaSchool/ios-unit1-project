@@ -10,9 +10,15 @@ import UIKit
 import Photos
 
 class BookDetailViewController: UIViewController {
-
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        updateViews()
+    }
+    
     private func updateViews() {
-        guard let volume = volume else { return }
+        guard let volume = volume, isViewLoaded else { return }
         
         bookTitleLabel.text = volume.title
         bookSubtitleLabel.text = volume.subtitle
@@ -39,27 +45,21 @@ class BookDetailViewController: UIViewController {
             DispatchQueue.main.async {
                 self.bookImageView.image = image
             }
-            }.resume()
-        
+        }.resume() 
     }
     
-    private func displayImage(volume: Volume) {
-        let url = URL(string: volume.image!)
+    @IBAction func saveUpdates(_ sender: Any) {
+        guard let volume = volume,
+            let myReview = reviewTextView.text else { return }
         
-        do {
-            let data = try Data(contentsOf: url!)
-            DispatchQueue.main.async {
-                self.bookImageView.image = UIImage(data: data)
-            }
-        } catch {
-            NSLog("Error creating image data from url: \(error)")
-        }
-    }
-    
-    @IBAction func moveToAnotherBookshelf(_ sender: Any) {
+        volumeController?.updateVolumeReview(volume: volume, myReview: myReview)
     }
     
     @IBAction func changeHasRead(_ sender: Any) {
+        guard let volume = volume else { return }
+
+        volumeController?.changeVolumeReadStatus(volume: volume, oldStatus: volume.hasRead)
+        print("Clicked!")
     }
     
     // MARK: - Properties

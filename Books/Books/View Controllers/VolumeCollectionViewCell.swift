@@ -9,6 +9,10 @@
 
 import UIKit
 
+protocol VolumeCollectionViewCellDelegate: class {
+    func clickedHaveReadButton(on cell: VolumeCollectionViewCell)
+}
+
 class VolumeCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
@@ -40,7 +44,7 @@ class VolumeCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func changeHaveReadStatus(_ sender: Any) {
-        
+        delegate?.clickedHaveReadButton(on: self)
     }
     
     
@@ -52,6 +56,7 @@ class VolumeCollectionViewCell: UICollectionViewCell {
         }
     }
     var volumeController: VolumeController?
+    weak var delegate: VolumeCollectionViewCellDelegate?
     
     @IBOutlet weak var hasReadButton: UIButton!
     @IBOutlet weak var bookImageView: UIImageView!

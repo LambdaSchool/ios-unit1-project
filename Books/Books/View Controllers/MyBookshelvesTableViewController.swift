@@ -49,9 +49,11 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         
         
         //Pass variables to custom cell.
-        cell.bookshelf = fetchedResultsController.object(at: indexPath)
+        let bookshelf = fetchedResultsController.object(at: indexPath)
+        cell.bookshelf = bookshelf
         cell.bookshelfController = bookshelfController
         cell.volumeController = volumeController
+    
 
         return cell
     }
@@ -115,9 +117,13 @@ class MyBookshelvesTableViewController: UITableViewController, NSFetchedResultsC
         if segue.identifier == "ViewBookshelf" {
             guard let destinationVC = segue.destination as? ViewBookshelfCollectionViewController, let indexPath = tableView.indexPathForSelectedRow else { return }
             
-            destinationVC.bookshelf = fetchedResultsController.object(at: indexPath)
+            
+            let bookshelf = fetchedResultsController.object(at: indexPath)
+            
+            destinationVC.bookshelf = bookshelf
             destinationVC.bookshelfController = bookshelfController
             destinationVC.volumeController = volumeController
+            
         }
     }
     

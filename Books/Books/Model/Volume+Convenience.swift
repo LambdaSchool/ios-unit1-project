@@ -11,7 +11,7 @@ import CoreData
 
 extension Volume {
     
-    @discardableResult convenience init(volumeRepresentation: VolumeRepresentation, hasRead: Bool = false, myRating: Int = 1, myReview: String = "", bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+    @discardableResult convenience init(volumeRepresentation: VolumeRepresentation, hasRead: Bool = false, myReview: String = "", bookshelf: Bookshelf, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         self.init(context: context)
         self.id = volumeRepresentation.id
         self.title = volumeRepresentation.volumeInfo.title
@@ -19,7 +19,6 @@ extension Volume {
         self.image = volumeRepresentation.volumeInfo.imageLinks.thumbnail
         self.authors = volumeRepresentation.volumeInfo.authors.joined(separator: ", ")
         self.hasRead = hasRead
-        self.myRating = Int16(myRating)
         self.myReview = myReview
         bookshelf.addToVolumes(self)
         self.addToBookshelves(bookshelf)

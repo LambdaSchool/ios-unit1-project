@@ -29,11 +29,23 @@ class VolumeController {
         }
     }
     
-    //Update book with data entered from user.
-    func updateVolume(volume: Volume, myReview: String, myRating: Int, hasRead: Bool) {
+    //Update book review entered from user.
+    func updateVolumeReview(volume: Volume, myReview: String) {
         volume.myReview = myReview
-        volume.myRating = Int16(myRating)
-        volume.hasRead = hasRead
+        
+        //Use volume's original context to save to persistent store or use the main context.
+        let context = volume.managedObjectContext ?? CoreDataStack.shared.mainContext
+        do {
+            try context.save()
+        } catch {
+            NSLog("Error saving newly created volume: \(error)")
+        }
+    }
+    
+    //Change volume's has read status
+    func changeVolumeReadStatus(volume: Volume, oldStatus: Bool) {
+        let newStatus = !oldStatus
+        volume.hasRead = newStatus
         
         //Use volume's original context to save to persistent store or use the main context.
         let context = volume.managedObjectContext ?? CoreDataStack.shared.mainContext
@@ -46,31 +58,37 @@ class VolumeController {
     
     //Move volume to another bookshelf.
     func moveVolume(volume: Volume, from oldBookshelf: Bookshelf, to newBookshelf: Bookshelf) {
-        let moc = CoreDataStack.shared.mainContext
+        let context = volume.managedObjectContext ?? CoreDataStack.shared.mainContext
         
         //Add volume to new bookshelf in persistent store.
-        
+        volume.addToBookshelves(newBookshelf)
         
         //Remove volume from old bookshelf in persistent store.
-        
+        volume.removeFromBookshelves(oldBookshelf)
         
         //Move volume in server.
         moveVolumeToAnotherBookshelfinServer(volume: volume, oldBookshelf: oldBookshelf, newBookshelf: newBookshelf)
+        
+        do {
+            try context.save()
+        } catch {
+            NSLog("Error saving newly created volume: \(error)")
+        }
+        
     }
     
     //Delete book from bookshelf.
     func delete(volume: Volume, bookshelf: Bookshelf) {
-        let moc = CoreDataStack.shared.mainContext
+        let context = volume.managedObjectContext ?? CoreDataStack.shared.mainContext
         
         deleteVolumeFromBookselfInServer(volume: volume, bookshelf: bookshelf)
         
-        //This only works if it only exists in one bookshelf, what about > 1?
-        
+        volume.removeFromBookshelves(bookshelf)
         
         do {
-            try CoreDataStack.shared.save(context: moc)
+            try CoreDataStack.shared.save(context: context)
         } catch {
-            moc.reset()
+            context.reset()
             NSLog("Error saving moc after deleting volume: \(error)")
         }
     }
