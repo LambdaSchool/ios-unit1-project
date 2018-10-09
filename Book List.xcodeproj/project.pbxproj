@@ -33,7 +33,6 @@
 		A1C507FB215ADA0600DA74B1 /* BookshelfController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507FA215ADA0600DA74B1 /* BookshelfController.swift */; };
 		A1C507FD215AE85800DA74B1 /* SearchVolumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507FC215AE85800DA74B1 /* SearchVolumeTableViewCell.swift */; };
 		A1C507FF215AF4C500DA74B1 /* BookshelfsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C507FE215AF4C500DA74B1 /* BookshelfsTableViewController.swift */; };
-		A1C50801215AF8B000DA74B1 /* BookshelfControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C50800215AF8B000DA74B1 /* BookshelfControllerProtocol.swift */; };
 		A1C50803215B346500DA74B1 /* BookshelfVolumesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C50802215B346500DA74B1 /* BookshelfVolumesTableViewController.swift */; };
 		A1C50805215B349700DA74B1 /* BookshelfVolumeDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C50804215B349700DA74B1 /* BookshelfVolumeDetailViewController.swift */; };
 		A1C50807215B4A5400DA74B1 /* BookshelfVolumeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C50806215B4A5400DA74B1 /* BookshelfVolumeTableViewCell.swift */; };
@@ -81,7 +80,6 @@
 		A1C507FA215ADA0600DA74B1 /* BookshelfController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfController.swift; sourceTree = "<group>"; };
 		A1C507FC215AE85800DA74B1 /* SearchVolumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVolumeTableViewCell.swift; sourceTree = "<group>"; };
 		A1C507FE215AF4C500DA74B1 /* BookshelfsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfsTableViewController.swift; sourceTree = "<group>"; };
-		A1C50800215AF8B000DA74B1 /* BookshelfControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfControllerProtocol.swift; sourceTree = "<group>"; };
 		A1C50802215B346500DA74B1 /* BookshelfVolumesTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVolumesTableViewController.swift; sourceTree = "<group>"; };
 		A1C50804215B349700DA74B1 /* BookshelfVolumeDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVolumeDetailViewController.swift; sourceTree = "<group>"; };
 		A1C50806215B4A5400DA74B1 /* BookshelfVolumeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfVolumeTableViewCell.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				A1C507FC215AE85800DA74B1 /* SearchVolumeTableViewCell.swift */,
 				A158D74F2159F20100736647 /* BooksTabBarViewController.swift */,
 				A158D7512159F26700736647 /* VolumeControllerProtocol.swift */,
-				A1C50800215AF8B000DA74B1 /* BookshelfControllerProtocol.swift */,
 				A1C507FE215AF4C500DA74B1 /* BookshelfsTableViewController.swift */,
 				A158D7532159F3C500736647 /* VolumeSearchTableViewController.swift */,
 			);
@@ -265,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A158D74B2159B3CD00736647 /* CoreDataStack.swift in Sources */,
-				A1C50801215AF8B000DA74B1 /* BookshelfControllerProtocol.swift in Sources */,
 				A1C507FF215AF4C500DA74B1 /* BookshelfsTableViewController.swift in Sources */,
 				A1C507F7215AD3F000DA74B1 /* BookshelfRepresentation.swift in Sources */,
 				A158D7562159FC0C00736647 /* Volume+Encodable.swift in Sources */,

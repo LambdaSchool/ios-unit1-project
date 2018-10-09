@@ -24,6 +24,13 @@ class BookshelfController {
         fetchBookShelvesFromServer()
     }
     
+    func deleteVolumeFromBookshelf(volume: Volume, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
+        let moc = CoreDataStack.shared.mainContext
+        //Insert deleteFromServer function
+        moc.delete(volume)
+        saveToPersistent()
+    }
+    
     func createBookshelf(title: String, id: Int16, volumeCount: Int16, context: NSManagedObjectContext = CoreDataStack.shared.mainContext) {
         let _ = Bookshelf(title: title, id: id)
         //Can't create bookshelf in server
@@ -149,6 +156,10 @@ class BookshelfController {
                 
                 }.resume()
         }
+    }
+    
+    func deleteVolumeFromBookShelfInServer(volume: Volume) {
+        
     }
     
     

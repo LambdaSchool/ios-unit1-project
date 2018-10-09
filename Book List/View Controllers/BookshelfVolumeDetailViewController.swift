@@ -8,13 +8,22 @@
 
 import UIKit
 
-class BookshelfVolumeDetailViewController: UIViewController {
+class BookshelfVolumeDetailViewController: UIViewController, UITextFieldDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        reviewTextView.resignFirstResponder()
+        return true
     }
     
     func checkhasRead(volume: Volume) {

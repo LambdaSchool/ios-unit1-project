@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, BookshelfControllerProtocol {
+class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,13 +46,13 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
         return cell
     }
     
-    //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-    //        if editingStyle == .delete {
-    //            let bookshelf = fetchedResultsController.object(at: indexPath)
-    //
-    //            //tableView.deleteRows(at: [indexPath], with: .fade)
-    //        }
-    //    }
+        override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+            if editingStyle == .delete {
+                let volume = fetchedResultsController.object(at: indexPath)
+                bookshelfController?.deleteVolumeFromBookshelf(volume: volume)
+                //tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+        }
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView.beginUpdates()
@@ -113,10 +113,10 @@ class BookshelfVolumesTableViewController: UITableViewController, NSFetchedResul
     
     lazy var fetchedResultsController: NSFetchedResultsController<Volume> = {
         let fetchRequest: NSFetchRequest<Volume> = Volume.fetchRequest()
-        if let bookshelf = bookshelf {
-            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf!)
-            fetchRequest.predicate = predicate
-        }
+//        if let bookshelf = bookshelf {
+//            let predicate = NSPredicate(format: "bookshelves CONTAINS %@", bookshelf)
+//            fetchRequest.predicate = predicate
+//        }
         let moc = CoreDataStack.shared.mainContext
         let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
