@@ -1,18 +1,11 @@
-//
-//  GoogleBooksAuthorizationClient.swift
-//  BooksAuth
-//
-//  Created by Andrew R Madsen on 8/20/18.
-//  Copyright © 2018 Lambda School. All rights reserved.
-//
 
 import Foundation
 import GTMAppAuth
 
 private let gtmAuthKeychainName = "BooksAuth-GTMAuthorization"
 private let issuer = URL(string: "https://accounts.google.com")!
-private let clientID = "644706638286-dknddjfp4hdqv2qebq8q5rci6bht20ou.apps.googleusercontent.com"
-private let redirectURI = URL(string: "com.googleusercontent.apps.644706638286-dknddjfp4hdqv2qebq8q5rci6bht20ou:/oauthredirect")!
+private let clientID = "580447186888-2mlvmdi40o3823qn8sj1t26dr85s6nra.apps.googleusercontent.com"
+private let redirectURI = URL(string: "com.googleusercontent.apps.580447186888-2mlvmdi40o3823qn8sj1t26dr85s6nra:/oauthredirect")!
 private let bookScopeURL = URL(string: "https://www.googleapis.com/auth/books")!
 
 final class GoogleBooksAuthorizationClient {
