@@ -1,5 +1,12 @@
 import Foundation
 
+struct Bookshelves {
+    var bookshelves: [Bookshelf]
+}
+struct Bookshelf {
+    let name: String
+    var volumes: [Volumes]
+}
 struct Volumes: Codable {
     let items: [VolumeInfo]
 }

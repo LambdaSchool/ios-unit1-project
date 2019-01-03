@@ -14,8 +14,6 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
     @IBOutlet weak var updateButton: UIButton!
-    @IBOutlet weak var insertButton: UIButton!
-    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var hasReadLabel: UILabel!
     @IBOutlet weak var hasReadSwitch: UISwitch!
     
