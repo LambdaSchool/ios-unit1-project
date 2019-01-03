@@ -1,16 +1,16 @@
 import Foundation
 
 class GoogleBooksAPINetworkingClient {
-    var books: Books? {
+    var volumes: Volumes? {
         didSet {
-            Model.shared.books = self.books
+            Model.shared.volumes = self.volumes
         }
     }
     
-    let baseURL = URL(fileURLWithPath: "https://www.googleapis.com/books/v1/volumes")
+    let baseURL = URL(string: "https://www.googleapis.com/books/v1/volumes")
     func fetchBooks(searchQuery: String, completion: @escaping (Error?) -> Void) {
         
-        var components = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        var components = URLComponents(url: baseURL!, resolvingAgainstBaseURL: true)
         
         let searchQueryItems = URLQueryItem(name: "q", value: searchQuery)
         
@@ -31,8 +31,8 @@ class GoogleBooksAPINetworkingClient {
                 return
             }
             do {
-              let books = try JSONDecoder().decode(Books.self, from: data)
-                self.books = books
+              let volumes = try JSONDecoder().decode(Volumes.self, from: data)
+                self.volumes = volumes
                 completion(nil)
                 return
             }catch {

@@ -8,14 +8,22 @@
 
 import UIKit
 
-class BookSearchViewController: UIViewController {
-
+class BookSearchViewController: UIViewController, UISearchBarDelegate {
+    @IBOutlet weak var bookSearchBar: UISearchBar!
+    @IBOutlet weak var containerView: UIView!
+    
+    var bookSearchCVC: BookSearchCollectionViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        bookSearchBar.delegate = self
         // Do any additional setup after loading the view.
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchTerm = bookSearchBar.text else{return}
+        Model.shared.searchForBooks(searchTerm: searchTerm) {
+        }
+    }
 
     /*
     // MARK: - Navigation

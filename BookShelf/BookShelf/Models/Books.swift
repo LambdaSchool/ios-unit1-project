@@ -1,11 +1,14 @@
 import Foundation
 
-struct Books: Codable {
-    let items: [Book]
+struct Volumes: Codable {
+    let items: [VolumeInfo]
+}
+struct VolumeInfo: Codable {
+    let volumeInfo: Book
 }
 struct Book: Codable {
     let title: String
-    let imageLinks: Image
+//    let imageLinks: Image
 }
 struct Image: Codable {
     let smallThumbnail: String

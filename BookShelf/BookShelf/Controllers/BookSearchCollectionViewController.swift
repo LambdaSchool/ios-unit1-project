@@ -11,10 +11,12 @@ import UIKit
 private let reuseIdentifier = "Cell"
 
 class BookSearchCollectionViewController: UICollectionViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadData()
     }
 
     /*
@@ -31,23 +33,24 @@ class BookSearchCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        print(Model.shared.numberOfVolumes())
+        return Model.shared.numberOfVolumes()
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
-    
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookSearchCollectionViewCell else{fatalError("Could not DQ BookSearchCollectionViewCell")}
+//        guard let imageURL = Model.shared.volumes?.items[indexPath.row].volumeInfo.imageLinks.smallThumbnail else {fatalError("Could not get image string")}
+//        guard let url = URL(string: (imageURL)), let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
+//        cell.bookImageView.image = UIImage(data: imageData)
+        cell.bookTitleLabel.text = Model.shared.volumes?.items[indexPath.row].volumeInfo.title
         return cell
     }
-
     // MARK: UICollectionViewDelegate
 
     /*
