@@ -8,7 +8,7 @@ struct VolumeInfo: Codable {
 }
 struct Book: Codable {
     let title: String
-//    let imageLinks: Image
+    let imageLinks: Image?
 }
 struct Image: Codable {
     let smallThumbnail: String

@@ -45,9 +45,11 @@ class BookSearchCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookSearchCollectionViewCell else{fatalError("Could not DQ BookSearchCollectionViewCell")}
-//        guard let imageURL = Model.shared.volumes?.items[indexPath.row].volumeInfo.imageLinks.smallThumbnail else {fatalError("Could not get image string")}
-//        guard let url = URL(string: (imageURL)), let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
-//        cell.bookImageView.image = UIImage(data: imageData)
+        guard let imageURL = Model.shared.volumes?.items[indexPath.row].volumeInfo.imageLinks?.smallThumbnail else {fatalError("Could not get image string")}
+        guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
+        print(url)
+        guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
+        cell.bookImageView.image = UIImage(data: imageData)
         cell.bookTitleLabel.text = Model.shared.volumes?.items[indexPath.row].volumeInfo.title
         return cell
     }
