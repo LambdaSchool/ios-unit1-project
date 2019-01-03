@@ -12,5 +12,6 @@ struct Book: Codable {
 }
 struct Image: Codable {
     let smallThumbnail: String
+    let thumbnail: String
 }
 

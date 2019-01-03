@@ -9,7 +9,6 @@ class Model {
     var volumes: Volumes?
     
     func numberOfVolumes() -> Int {
-        print(volumes?.items.count)
         return volumes?.items.count ?? 0
         
     }
@@ -19,6 +18,5 @@ class Model {
                 fatalError("Could not fetchBooks in Model.searchForBooks: \(error)")
             }
         }
-        print(volumes)
     }
 }

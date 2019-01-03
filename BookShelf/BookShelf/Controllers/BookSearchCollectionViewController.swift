@@ -39,7 +39,6 @@ class BookSearchCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        print(Model.shared.numberOfVolumes())
         return Model.shared.numberOfVolumes()
     }
 
@@ -48,9 +47,14 @@ class BookSearchCollectionViewController: UICollectionViewController {
         cell.bookImageView.image = UIImage(named: "book_image_not_available")
         if let imageURL = Model.shared.volumes?.items[indexPath.row].volumeInfo.imageLinks?.smallThumbnail {
         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
-        print(url)
         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
         cell.bookImageView.image = UIImage(data: imageData)
+        }
+        
+        else if let imageURL = Model.shared.volumes?.items[indexPath.row].volumeInfo.imageLinks?.thumbnail {
+            guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
+            guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
+            cell.bookImageView.image = UIImage(data: imageData)
         }
         cell.bookTitleLabel.text = Model.shared.volumes?.items[indexPath.row].volumeInfo.title
         return cell
