@@ -9,8 +9,11 @@
 import UIKit
 
 class BookDetailViewController: UIViewController {
+    
     var book: Book?
-    var bookshelves = Model.shared.bookshelves
+    var indexPath: IndexPath?
+    var bookshelves: [Bookshelf]?
+    var selectiveBookshelfTVC: SelectiveBookshelfTableViewController?
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
@@ -22,33 +25,41 @@ class BookDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let book = book else {return}
         bookImageView.image = UIImage(named: "book_image_not_available")
-        if let imageURL = book?.imageLinks?.smallThumbnail{
+        if let imageURL = book.imageLinks?.smallThumbnail{
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             bookImageView.image = UIImage(data: imageData)
         }
             
-        else if let imageURL = book?.imageLinks?.thumbnail {
+        else if let imageURL = book.imageLinks?.thumbnail {
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             bookImageView.image = UIImage(data: imageData)
         }
-        bookTitleLabel.text = book?.title
-        // Do any additional setup after loading the view.
+        bookTitleLabel.text = book.title
+        hasReadSwitch.isOn = Model.shared.hasRead(book: book)
     }
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func insertRemoveAction(_ sender: Any) {
+        guard let book = book else {return}
+        switch insertRemoveSegmentedControl.selectedSegmentIndex {
+        case 0:
+            SelectiveBookshelfTableViewController.shared.bookshelves = Model.shared.insertBook(book: book)
+            SelectiveBookshelfTableViewController.shared.tableView.reloadData()
+        case 1:
+            SelectiveBookshelfTableViewController.shared.bookshelves = Model.shared.insertBook(book: book)
+            SelectiveBookshelfTableViewController.shared.tableView.reloadData()
+        default:
+            return
+        }
     }
-    */
+    @IBAction func updateAction(_ sender: Any) {
+        guard let text = userReviewTextView.text else {return}
+        guard let bookTitle = book?.title else {return}
+        Model.shared.saveReview(bookTitle: bookTitle, review: text)
+    }
+    @IBAction func hasReadSwitchAction(_ sender: Any) {
 
+    }
 }

@@ -113,9 +113,9 @@
 				A2F69A0021DE705C002F33E4 /* BookSearchCollectionViewCell.swift */,
 				A2F699E821DD63E0002F33E4 /* BookShelvesCollectionViewController.swift */,
 				A2F699EA21DD6403002F33E4 /* BookShelvesDetailCollectionViewController.swift */,
+				A2F699EC21DD6414002F33E4 /* BookDetailViewController.swift */,
 				A2F69A1021DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift */,
 				A2F69A0E21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift */,
-				A2F699EC21DD6414002F33E4 /* BookDetailViewController.swift */,
 				A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */,
 				A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */,
 			);

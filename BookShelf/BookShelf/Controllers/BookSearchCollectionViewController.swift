@@ -25,7 +25,7 @@ class BookSearchCollectionViewController: UICollectionViewController {
         let destination = segue.destination as? BookDetailViewController
         guard let indexPath = collectionView.indexPathsForSelectedItems else {return}
         let book = Model.shared.volumes?.items[indexPath[0].row].volumeInfo
-        
+        destination?.indexPath = indexPath[0]
         destination?.book = book
     }
 
