@@ -56,51 +56,18 @@ class Model {
     func hasRead(book: Book) -> Bool {
         var response = false
         guard let books = alreadyReadBookshelf.books else {return false}
-        books.contains { (book) -> Bool in
+        response = books.contains { (book) -> Bool in
             if book.title == book.title {
-                response = true
+                return true
             }
-            return response
+            return false
         }
         return response
     }
     func insertBook(book: Book) -> [Bookshelf] {
-        var response = false
-        var nonSelectedBookShelves: [Bookshelf] = []
-        for bookshelf in bookshelves {
-            if bookshelf.books?.count != nil {
-                print(bookshelf.books?.count)
-            guard let books = bookshelf.books else {fatalError("Could not got books from bookshelf.")}
-            for book in books {
-                if book.title == book.title {
-                    response = true
-                }
-            }
-            if response == false {
-                nonSelectedBookShelves.append(bookshelf)
-                }
-            }
-            else {
-                nonSelectedBookShelves = bookshelves
-                print(bookshelves)
-            }
-        }
-        return nonSelectedBookShelves
+
     }
     func removeBook(book: Book) -> [Bookshelf] {
-        var response = false
-        var selectedBookShelves: [Bookshelf] = []
-        for bookshelf in bookshelves {
-            guard let books = bookshelf.books else {fatalError("Could not got books from bookshelf.")}
-            for book in books {
-                if book.title == book.title {
-                    response = true
-                }
-            }
-            if response == true {
-                selectedBookShelves.append(bookshelf)
-            }
-        }
-        return selectedBookShelves
+        
     }
 }

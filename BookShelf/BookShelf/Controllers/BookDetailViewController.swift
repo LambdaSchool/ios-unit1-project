@@ -13,14 +13,25 @@ class BookDetailViewController: UIViewController {
     var book: Book?
     var indexPath: IndexPath?
     var bookshelves: [Bookshelf]?
-    var selectiveBookshelfTVC: SelectiveBookshelfTableViewController?
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var hasReadLabel: UILabel!
     @IBOutlet weak var hasReadSwitch: UISwitch!
-    @IBOutlet weak var insertRemoveSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var favoritesBookshelfImage: UIImageView!
+    @IBOutlet weak var alreadyReadBookshelfImage: UIImageView!
+    @IBOutlet weak var wantToReadBookshelfImage: UIImageView!
+    @IBOutlet weak var wantToBuyBookshelfImage: UIImageView!
+    @IBOutlet weak var favoritesBookShelfLabel: UILabel!
+    @IBOutlet weak var alreadyReadBookShelfLabel: UILabel!
+    @IBOutlet weak var wantToReadBookShelfLabel: UILabel!
+    @IBOutlet weak var wantToBuyBookShelfLabel: UILabel!
+    @IBOutlet weak var favoritesBookshelfSwitch: UISwitch!
+    @IBOutlet weak var alreadyReadBookshelfSwitch: UISwitch!
+    @IBOutlet weak var wantToReadBookshelfSwitch: UISwitch!
+    @IBOutlet weak var wantToBuyBookshelfSwitch: UISwitch!
+    
     
     
     override func viewDidLoad() {
@@ -40,19 +51,7 @@ class BookDetailViewController: UIViewController {
         }
         bookTitleLabel.text = book.title
         hasReadSwitch.isOn = Model.shared.hasRead(book: book)
-    }
-    @IBAction func insertRemoveAction(_ sender: Any) {
-        guard let book = book else {return}
-        switch insertRemoveSegmentedControl.selectedSegmentIndex {
-        case 0:
-            SelectiveBookshelfTableViewController.shared.bookshelves = Model.shared.insertBook(book: book)
-            SelectiveBookshelfTableViewController.shared.tableView.reloadData()
-        case 1:
-            SelectiveBookshelfTableViewController.shared.bookshelves = Model.shared.insertBook(book: book)
-            SelectiveBookshelfTableViewController.shared.tableView.reloadData()
-        default:
-            return
-        }
+        
     }
     @IBAction func updateAction(_ sender: Any) {
         guard let text = userReviewTextView.text else {return}
