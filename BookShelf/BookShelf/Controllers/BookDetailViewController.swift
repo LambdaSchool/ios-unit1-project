@@ -50,7 +50,13 @@ class BookDetailViewController: UIViewController {
             bookImageView.image = UIImage(data: imageData)
         }
         bookTitleLabel.text = book.title
+        
         hasReadSwitch.isOn = Model.shared.hasRead(book: book)
+        favoritesBookshelfSwitch.isOn = Model.shared.loadSwitches(book: book, bookshelfCases: .favorites)
+        alreadyReadBookshelfSwitch.isOn = Model.shared.loadSwitches(book: book, bookshelfCases: .alreadyRead)
+        wantToReadBookshelfSwitch.isOn = Model.shared.loadSwitches(book: book, bookshelfCases: .wantToRead)
+        wantToBuyBookshelfSwitch.isOn = Model.shared.loadSwitches(book: book, bookshelfCases: .wantToBuy)
+        
         
     }
     @IBAction func updateAction(_ sender: Any) {
@@ -60,5 +66,33 @@ class BookDetailViewController: UIViewController {
     }
     @IBAction func hasReadSwitchAction(_ sender: Any) {
 
+    }
+    @IBAction func favoritesSwitchAction(_ sender: Any) {
+        guard let book = book else {return}
+        if favoritesBookshelfSwitch.isOn {
+            Model.shared.insertBookToBookshelf(book: book, bookshelf: .favorites)
+        }
+        
+    }
+    @IBAction func alreadyReadSwitchAction(_ sender: Any) {
+        guard let book = book else {return}
+        if alreadyReadBookshelfSwitch.isOn {
+            Model.shared.insertBookToBookshelf(book: book, bookshelf: .alreadyRead)
+        }
+        
+    }
+    @IBAction func wantToReadSwitchAction(_ sender: Any) {
+        guard let book = book else {return}
+        if wantToReadBookshelfSwitch.isOn {
+            Model.shared.insertBookToBookshelf(book: book, bookshelf: .wantToRead)
+        }
+        
+    }
+    @IBAction func wantToBuySwitchAction(_ sender: Any) {
+        guard let book = book else {return}
+        if wantToBuyBookshelfSwitch.isOn {
+            Model.shared.insertBookToBookshelf(book: book, bookshelf: .wantToBuy)
+        }
+        
     }
 }

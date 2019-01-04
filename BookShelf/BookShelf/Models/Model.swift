@@ -14,10 +14,20 @@ class Model {
     var wantToBuyBookshelf = Bookshelf.init(name: "Want to Buy", books: nil)
     var reviewsDictionary: [String:String] = [:]
     
+    enum BookshelfSelections {
+        case favorites
+        case alreadyRead
+        case wantToRead
+        case wantToBuy
+        
+    }
+    
     func numberOfVolumes() -> Int {
-        return volumes?.items.count ?? 0
+        guard let volumes = volumes else {fatalError("Error getting volumes")}
+        return volumes.items.count
     }
     func createBookShelves() {
+        bookshelves = []
         bookshelves.append(favoritesBookshelf)
         bookshelves.append(alreadyReadBookshelf)
         bookshelves.append(wantToReadBookshelf)
@@ -64,10 +74,46 @@ class Model {
         }
         return response
     }
-    func insertBook(book: Book) -> [Bookshelf] {
-
+    func insertBookToBookshelf(book: Book, bookshelf: BookshelfSelections) {
+        switch bookshelf {
+        case .favorites:
+            favoritesBookshelf.books?.append(book)
+        case .alreadyRead:
+            alreadyReadBookshelf.books?.append(book)
+        case .wantToRead:
+            wantToReadBookshelf.books?.append(book)
+        case .wantToBuy:
+            wantToBuyBookshelf.books?.append(book)
+        }
+        createBookShelves()
     }
-    func removeBook(book: Book) -> [Bookshelf] {
-        
+    func removeBookToBookshelf(book: Book, bookshelf: BookshelfSelections) {
+        switch bookshelf {
+        case .favorites:
+            favoritesBookshelf.books = favoritesBookshelf.books?.filter{$0.title != book.title}
+        case .alreadyRead:
+            alreadyReadBookshelf.books = favoritesBookshelf.books?.filter{$0.title != book.title}
+        case .wantToRead:
+            wantToReadBookshelf.books = favoritesBookshelf.books?.filter{$0.title != book.title}
+        case .wantToBuy:
+            wantToBuyBookshelf.books = favoritesBookshelf.books?.filter{$0.title != book.title}
+        }
+        createBookShelves()
+    }
+    func loadSwitches(book: Book, bookshelfCases: BookshelfSelections) -> Bool {
+        switch bookshelfCases {
+        case .favorites:
+            guard let books = favoritesBookshelf.books else {fatalError("Could not get book")}
+            return books.contains{ $0.title == book.title}
+        case .alreadyRead:
+            guard let books = alreadyReadBookshelf.books else {fatalError("Could not get book")}
+            return books.contains{ $0.title == book.title}
+        case .wantToRead:
+            guard let books = wantToReadBookshelf.books else {fatalError("Could not get book")}
+            return books.contains{ $0.title == book.title}
+        case .wantToBuy:
+            guard let books = wantToBuyBookshelf.books else {fatalError("Could not get book")}
+            return books.contains{ $0.title == book.title}
+        }
     }
 }
