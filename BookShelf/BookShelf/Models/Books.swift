@@ -5,7 +5,7 @@ struct Bookshelves {
 }
 struct Bookshelf {
     let name: String
-    var volumes: [Volumes]
+    var books: [Book]?
 }
 struct Volumes: Codable {
     let items: [VolumeInfo]

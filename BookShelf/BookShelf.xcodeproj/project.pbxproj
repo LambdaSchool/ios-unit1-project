@@ -23,7 +23,8 @@
 		A2F69A0321DE706B002F33E4 /* BookShelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */; };
 		A2F69A0521DE7078002F33E4 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */; };
 		A2F69A0721DE70CF002F33E4 /* BookSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0621DE70CF002F33E4 /* BookSearchViewController.swift */; };
-		A2F69A0B21DEB1F1002F33E4 /* SelectiveBookshelfCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0A21DEB1F1002F33E4 /* SelectiveBookshelfCollectionViewController.swift */; };
+		A2F69A0F21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0E21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift */; };
+		A2F69A1121DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A1021DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -58,7 +59,8 @@
 		A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2F69A0621DE70CF002F33E4 /* BookSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewController.swift; sourceTree = "<group>"; };
-		A2F69A0A21DEB1F1002F33E4 /* SelectiveBookshelfCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBookshelfCollectionViewController.swift; sourceTree = "<group>"; };
+		A2F69A0E21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBookshelfTableViewCell.swift; sourceTree = "<group>"; };
+		A2F69A1021DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectiveBookshelfTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,11 +110,12 @@
 			children = (
 				A2F69A0621DE70CF002F33E4 /* BookSearchViewController.swift */,
 				A2F699E621DD63D5002F33E4 /* BookSearchCollectionViewController.swift */,
+				A2F69A0021DE705C002F33E4 /* BookSearchCollectionViewCell.swift */,
 				A2F699E821DD63E0002F33E4 /* BookShelvesCollectionViewController.swift */,
 				A2F699EA21DD6403002F33E4 /* BookShelvesDetailCollectionViewController.swift */,
+				A2F69A1021DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift */,
+				A2F69A0E21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift */,
 				A2F699EC21DD6414002F33E4 /* BookDetailViewController.swift */,
-				A2F69A0A21DEB1F1002F33E4 /* SelectiveBookshelfCollectionViewController.swift */,
-				A2F69A0021DE705C002F33E4 /* BookSearchCollectionViewCell.swift */,
 				A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */,
 				A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */,
 			);
@@ -202,14 +205,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F69A1121DFBCAD002F33E4 /* SelectiveBookshelfTableViewController.swift in Sources */,
 				A2F69A0521DE7078002F33E4 /* DetailCollectionViewCell.swift in Sources */,
 				A2F69A0721DE70CF002F33E4 /* BookSearchViewController.swift in Sources */,
 				A2F699E921DD63E0002F33E4 /* BookShelvesCollectionViewController.swift in Sources */,
 				A2F699E321DD5D69002F33E4 /* Model.swift in Sources */,
 				A2F69A0321DE706B002F33E4 /* BookShelfCollectionViewCell.swift in Sources */,
-				A2F69A0B21DEB1F1002F33E4 /* SelectiveBookshelfCollectionViewController.swift in Sources */,
 				A2F699E721DD63D5002F33E4 /* BookSearchCollectionViewController.swift in Sources */,
 				A2F699E121DD5B6E002F33E4 /* Books.swift in Sources */,
+				A2F69A0F21DFBC95002F33E4 /* SelectiveBookshelfTableViewCell.swift in Sources */,
 				A2F69A0121DE705C002F33E4 /* BookSearchCollectionViewCell.swift in Sources */,
 				A2F699DF21DD3C23002F33E4 /* GoogleBooksAPINetworkingClient.swift in Sources */,
 				A2F699ED21DD6414002F33E4 /* BookDetailViewController.swift in Sources */,

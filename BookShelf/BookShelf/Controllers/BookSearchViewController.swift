@@ -17,7 +17,6 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
         bookSearchBar.delegate = self
         Model.shared.createBookShelves()
-        // Do any additional setup after loading the view.
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {

@@ -9,32 +9,35 @@
 import UIKit
 
 class BookDetailViewController: UIViewController {
-    var book: VolumeInfo?
+    var book: Book?
+    var bookshelves = Model.shared.bookshelves
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var hasReadLabel: UILabel!
     @IBOutlet weak var hasReadSwitch: UISwitch!
+    @IBOutlet weak var insertRemoveSegmentedControl: UISegmentedControl!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         bookImageView.image = UIImage(named: "book_image_not_available")
-        if let imageURL = book?.volumeInfo.imageLinks?.smallThumbnail{
+        if let imageURL = book?.imageLinks?.smallThumbnail{
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             bookImageView.image = UIImage(data: imageData)
         }
             
-        else if let imageURL = book?.volumeInfo.imageLinks?.thumbnail {
+        else if let imageURL = book?.imageLinks?.thumbnail {
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             bookImageView.image = UIImage(data: imageData)
         }
-        bookTitleLabel.text = book?.volumeInfo.title
+        bookTitleLabel.text = book?.title
         // Do any additional setup after loading the view.
     }
+    
     
     
 

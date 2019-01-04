@@ -24,7 +24,7 @@ class BookSearchCollectionViewController: UICollectionViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let destination = segue.destination as? BookDetailViewController
         guard let indexPath = collectionView.indexPathsForSelectedItems else {return}
-        let book = Model.shared.volumes?.items[indexPath[0].row]
+        let book = Model.shared.volumes?.items[indexPath[0].row].volumeInfo
         
         destination?.book = book
     }
