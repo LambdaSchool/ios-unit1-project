@@ -325,18 +325,30 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="BkI-lz-RYB">
                                 <rect key="frame" x="209" y="471" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="alreadyReadSwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="g4v-UM-loR"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cV6-cP-Sfi">
                                 <rect key="frame" x="123" y="571" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="wantToReadSwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="dm9-QA-PRl"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="P6c-JB-PxF">
                                 <rect key="frame" x="207" y="571" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="wantToBuySwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="bid-5l-QrQ"/>
+                                </connections>
                             </switch>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Z5S-u6-WfB">
                                 <rect key="frame" x="123" y="471" width="49" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="favoritesSwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="6s6-dV-eK4"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JiM-n6-YFJ">
                                 <rect key="frame" x="209" y="525" width="142" height="21"/>
@@ -383,23 +395,23 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="xZs-Jw-LIs"/>
                     <connections>
-                        <outlet property="alreadyReadBookShelfLabel" destination="JiM-n6-YFJ" id="NG1-sh-KPV"/>
                         <outlet property="alreadyReadBookshelfImage" destination="WrC-LV-LpK" id="jCW-p2-pBG"/>
+                        <outlet property="alreadyReadBookshelfLabel" destination="JiM-n6-YFJ" id="8qn-dl-J7O"/>
                         <outlet property="alreadyReadBookshelfSwitch" destination="BkI-lz-RYB" id="Ioa-2Y-IOm"/>
                         <outlet property="bookImageView" destination="em3-He-g6p" id="vVH-KG-Y1m"/>
                         <outlet property="bookTitleLabel" destination="UHg-e1-Njo" id="WnT-IK-4XM"/>
-                        <outlet property="favoritesBookShelfLabel" destination="M5W-DN-yUg" id="BWS-Yq-2Ty"/>
                         <outlet property="favoritesBookshelfImage" destination="Rwh-UN-VuK" id="C3F-uh-UJc"/>
+                        <outlet property="favoritesBookshelfLabel" destination="M5W-DN-yUg" id="AD3-Ma-iui"/>
                         <outlet property="favoritesBookshelfSwitch" destination="Z5S-u6-WfB" id="BKl-EJ-NDc"/>
                         <outlet property="hasReadLabel" destination="O4t-SE-ZsH" id="hN5-0M-XC0"/>
                         <outlet property="hasReadSwitch" destination="AAa-7e-ohb" id="vmr-Yj-T2n"/>
                         <outlet property="updateButton" destination="gxb-Gy-y3B" id="8hX-85-8NR"/>
                         <outlet property="userReviewTextView" destination="FF2-kO-0eF" id="mTy-W7-dR6"/>
-                        <outlet property="wantToBuyBookShelfLabel" destination="Vii-AQ-aGO" id="6Pd-k4-rLF"/>
                         <outlet property="wantToBuyBookshelfImage" destination="EXt-9t-EdH" id="hAw-rJ-2Eb"/>
+                        <outlet property="wantToBuyBookshelfLabel" destination="Vii-AQ-aGO" id="isW-Fe-UeX"/>
                         <outlet property="wantToBuyBookshelfSwitch" destination="P6c-JB-PxF" id="6Xa-a9-Y6H"/>
-                        <outlet property="wantToReadBookShelfLabel" destination="TBs-kj-wRU" id="GiV-9B-pI7"/>
                         <outlet property="wantToReadBookshelfImage" destination="OHi-d9-aBV" id="tYN-pi-4a7"/>
+                        <outlet property="wantToReadBookshelfLabel" destination="TBs-kj-wRU" id="drk-Zb-vRS"/>
                         <outlet property="wantToReadBookshelfSwitch" destination="cV6-cP-Sfi" id="GKE-LF-rPg"/>
                     </connections>
                 </viewController>

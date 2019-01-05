@@ -15,7 +15,7 @@ class BookSearchViewController: UIViewController, UISearchBarDelegate {
     var bookSearchCVC: BookSearchCollectionViewController?
     override func viewDidLoad() {
         super.viewDidLoad()
-        Model.shared.createBookShelves()
+//        Model.shared.createBookShelves()
         bookSearchBar.delegate = self
     }
     
