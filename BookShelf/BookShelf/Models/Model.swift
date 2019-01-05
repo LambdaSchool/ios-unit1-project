@@ -7,7 +7,11 @@ class Model {
     let googleBooksAPI = GoogleBooksAPINetworkingClient()
     var bookSearchCVC: BookSearchCollectionViewController?
     var volumes: Volumes?
-    var bookshelves: [Bookshelf] = []
+    var bookshelves: Bookshelves?
+    var favoritesBookshelf: Bookshelf?
+    var alreadyReadBookshelf: Bookshelf?
+    var wantToBuyBookshelf: Bookshelf?
+    var wantToReadBookshelf: Bookshelf?
     var reviewsDictionary: [String:String] = [:]
     
     enum BookshelfSelections {
@@ -22,6 +26,7 @@ class Model {
         return volumes?.items.count ?? 10
     }
     func createBookShelves(bookshelf: BookshelfSelections, book: Book) {
+        bookshelves.append(favoritesBookshelf)
         switch bookshelf {
         case .favorites:
             bookshelves.append(Bookshelf.init(name: "Favorites", books: [book]))
@@ -47,80 +52,38 @@ class Model {
         switch bookshelf {
             
         case .alreadyRead:
-            let boolean = bookshelves.contains{ $0.name == "Already Read"}
-            if boolean == true {
-            var index = -1
-                for bookshelf in Model.shared.bookshelves {
-                    index += 1
-                    if bookshelf.name == "Already Read" {
-                        
-                        guard let imageURL = Model.shared.bookshelves[index].books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            
+            guard let imageURL = alreadyReadBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                         return image
-                        
-                    }
-                }
-            
-            }
+    
             
         case .favorites:
-            let boolean = bookshelves.contains{ $0.name == "Favorites"}
-            if boolean == true {
-            var index = -1
-            for bookshelf in Model.shared.bookshelves {
-                index += 1
-                if bookshelf.name == "Favorites" {
-                    
-                    guard let imageURL = Model.shared.bookshelves[index].books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            
+            guard let imageURL = favoritesBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                     return image
-                    
-                }
-                }
-            
-            }
             
         case .wantToBuy:
-            let boolean = bookshelves.contains{ $0.name == "Want to Buy"}
-            if boolean == true {
-            var index = -1
-            for bookshelf in Model.shared.bookshelves {
-                index += 1
-                if bookshelf.name == "Want to Buy" {
-                    
-                    guard let imageURL = Model.shared.bookshelves[index].books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+
+guard let imageURL = wantToBuyBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                     return image
-                }
-            }
-            
-            }
             
         case .wantToRead:
-            let boolean = bookshelves.contains{ $0.name == "Want to Read"}
-            if boolean == true {
-            var index = -1
-            for bookshelf in Model.shared.bookshelves {
-                index += 1
-                if bookshelf.name == "Want to Read" {
-                    
-                    guard let imageURL = Model.shared.bookshelves[index].books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
-                    print(Model.shared.bookshelves[index].books?.randomElement()?.imageLinks?.thumbnail)
+
+guard let imageURL = wantToReadBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                     return image
-                    
-                }
-            }
             
-            }
         }
         return UIImage(named: "book_image_not_available")
     }

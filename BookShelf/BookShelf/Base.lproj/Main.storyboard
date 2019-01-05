@@ -190,7 +190,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hEj-95-ffk">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="hEj-95-ffk" customClass="BookShelfCollectionViewCell" customModule="BookShelf" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -218,6 +218,8 @@
                                     <constraint firstAttribute="bottomMargin" secondItem="36U-1n-HlL" secondAttribute="bottom" constant="20" id="xby-Bo-Ybv"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="bookshelfImage" destination="2DV-P6-TWI" id="qxz-Is-Smj"/>
+                                    <outlet property="bookshelfLabel" destination="36U-1n-HlL" id="7HG-Ja-63O"/>
                                     <segue destination="XDy-eP-4ev" kind="show" id="Pfm-VI-l4c"/>
                                 </connections>
                             </collectionViewCell>

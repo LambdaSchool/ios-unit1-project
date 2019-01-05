@@ -14,14 +14,6 @@ class BookShelvesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
     }
 
     /*
@@ -37,20 +29,27 @@ class BookShelvesCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
-        return 0
+
+        return Model.shared.bookshelves.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-    
-        // Configure the cell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookShelfCollectionViewCell else {fatalError("Failed to DQ cell")}
+        
+        
+        guard let imageURL = Model.shared.bookshelves[indexPath.row].books?.last?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+        guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
+        guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
+        guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
+        
+        cell.bookshelfImage.image = image
+        cell.bookshelfLabel.text = Model.shared.bookshelves[indexPath.row].name
+        
     
         return cell
     }

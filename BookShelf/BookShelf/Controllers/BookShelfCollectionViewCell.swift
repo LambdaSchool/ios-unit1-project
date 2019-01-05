@@ -9,5 +9,7 @@
 import UIKit
 
 class BookShelfCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var bookshelfImage: UIImageView!
+    @IBOutlet weak var bookshelfLabel: UILabel!
     
 }
