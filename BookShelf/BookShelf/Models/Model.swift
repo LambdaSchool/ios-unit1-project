@@ -8,15 +8,17 @@ class Model {
     var bookSearchCVC: BookSearchCollectionViewController?
     var volumes: Volumes?
     var bookshelves = Bookshelves.init(bookshelves: [])
-    var favoritesBookshelf = Bookshelf.init(name: "Favorites", books: [])
     var alreadyReadBookshelf = Bookshelf.init(name: "Already Read", books: [])
+    var favoritesBookshelf = Bookshelf.init(name: "Favorites", books: [])
+    var recommendedBookshelf = Bookshelf.init(name: "Recommended", books: [])
     var wantToBuyBookshelf = Bookshelf.init(name: "Want to Buy", books: [])
     var wantToReadBookshelf = Bookshelf.init(name: "Want to Read", books: [])
     var reviewsDictionary: [String:String] = [:]
     
     enum BookshelfSelections {
-        case favorites
         case alreadyRead
+        case favorites
+        case recommended
         case wantToRead
         case wantToBuy
         
@@ -31,6 +33,7 @@ class Model {
         bookshelves.bookshelves.append(favoritesBookshelf)
         bookshelves.bookshelves.append(wantToBuyBookshelf)
         bookshelves.bookshelves.append(wantToReadBookshelf)
+        bookshelves.bookshelves.append(recommendedBookshelf)
     }
     func isInBookshelf(book: Book, bookshelf: BookshelfSelections) -> Bool {
         var boolean = false
@@ -40,6 +43,9 @@ class Model {
             return boolean
         case .favorites:
             boolean = favoritesBookshelf.books.contains{ $0.title == book.title }
+            return boolean
+        case .recommended:
+            boolean = recommendedBookshelf.books.contains{ $0.title == book.title }
             return boolean
         case .wantToBuy:
             boolean = wantToBuyBookshelf.books.contains{ $0.title == book.title }
@@ -54,9 +60,9 @@ class Model {
         case .alreadyRead:
             alreadyReadBookshelf.books.append(book)
         case .favorites:
-            print(book)
             favoritesBookshelf.books.append(book)
-            print(favoritesBookshelf.books)
+        case .recommended:
+            recommendedBookshelf.books.append(book)
         case .wantToBuy:
             wantToBuyBookshelf.books.append(book)
         case .wantToRead:
@@ -69,6 +75,8 @@ class Model {
             alreadyReadBookshelf.books = alreadyReadBookshelf.books.filter( { $0.title != book.title} )
         case .favorites:
             favoritesBookshelf.books =  favoritesBookshelf.books.filter( { $0.title != book.title} )
+        case .recommended:
+            recommendedBookshelf.books = recommendedBookshelf.books.filter( { $0.title != book.title} )
         case .wantToBuy:
             wantToBuyBookshelf.books = wantToBuyBookshelf.books.filter( { $0.title != book.title} )
         case .wantToRead:
@@ -103,6 +111,15 @@ class Model {
                     return image
                 }
             }
+        case .recommended:
+            if recommendedBookshelf.books.count != 0 {
+                if let imageURL = recommendedBookshelf.books.randomElement()?.imageLinks?.thumbnail {
+                    guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
+                    guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
+                    guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
+                    return image
+                }
+            }
         case .wantToBuy:
             if wantToBuyBookshelf.books.count != 0 {
                 if let imageURL = wantToBuyBookshelf.books.randomElement()?.imageLinks?.thumbnail {
@@ -127,7 +144,7 @@ class Model {
     func saveReview(bookTitle: String, review: String) {
         reviewsDictionary[bookTitle] = review
     }
-    func getReview(bookTitle: String) -> String {
+    func loadReview(bookTitle: String) -> String {
         guard let returnValue = reviewsDictionary[bookTitle] else {return ""}
         return returnValue
     }

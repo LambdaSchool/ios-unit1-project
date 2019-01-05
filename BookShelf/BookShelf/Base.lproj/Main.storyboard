@@ -292,7 +292,7 @@
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="AAa-7e-ohb">
                                 <rect key="frame" x="165" y="276" width="51" height="31"/>
                                 <connections>
-                                    <action selector="hasReadSwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="v3h-zP-nlK"/>
+                                    <action selector="recommendedBookshelfSwitchAction:" destination="QZ9-S0-fbD" eventType="valueChanged" id="nZe-cf-6AR"/>
                                 </connections>
                             </switch>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="em3-He-g6p">
@@ -405,8 +405,8 @@
                         <outlet property="favoritesBookshelfImage" destination="Rwh-UN-VuK" id="C3F-uh-UJc"/>
                         <outlet property="favoritesBookshelfLabel" destination="M5W-DN-yUg" id="AD3-Ma-iui"/>
                         <outlet property="favoritesBookshelfSwitch" destination="Z5S-u6-WfB" id="BKl-EJ-NDc"/>
-                        <outlet property="hasReadLabel" destination="O4t-SE-ZsH" id="hN5-0M-XC0"/>
-                        <outlet property="hasReadSwitch" destination="AAa-7e-ohb" id="vmr-Yj-T2n"/>
+                        <outlet property="recommendedBookshelfLabel" destination="O4t-SE-ZsH" id="QPW-ld-g2q"/>
+                        <outlet property="recommendedBookshelfSwitch" destination="AAa-7e-ohb" id="LfI-RD-SDv"/>
                         <outlet property="updateButton" destination="gxb-Gy-y3B" id="8hX-85-8NR"/>
                         <outlet property="userReviewTextView" destination="FF2-kO-0eF" id="mTy-W7-dR6"/>
                         <outlet property="wantToBuyBookshelfImage" destination="EXt-9t-EdH" id="hAw-rJ-2Eb"/>

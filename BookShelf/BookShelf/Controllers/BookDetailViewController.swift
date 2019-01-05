@@ -16,8 +16,8 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
     @IBOutlet weak var updateButton: UIButton!
-    @IBOutlet weak var hasReadLabel: UILabel!
-    @IBOutlet weak var hasReadSwitch: UISwitch!
+    @IBOutlet weak var recommendedBookshelfLabel: UILabel!
+    @IBOutlet weak var recommendedBookshelfSwitch: UISwitch!
     @IBOutlet weak var favoritesBookshelfImage: UIImageView!
     @IBOutlet weak var alreadyReadBookshelfImage: UIImageView!
     @IBOutlet weak var wantToReadBookshelfImage: UIImageView!
@@ -58,10 +58,15 @@ class BookDetailViewController: UIViewController {
             
             wantToReadBookshelfImage.image = Model.shared.getImage(bookshelf: .wantToRead)
         
+        
+        
         favoritesBookshelfLabel.text = "Favorites"
         alreadyReadBookshelfLabel.text = "Already Read"
         wantToReadBookshelfLabel.text = "Want to Read"
         wantToBuyBookshelfLabel.text = "Want to Buy"
+        recommendedBookshelfLabel.text = "Recommended"
+        
+        userReviewTextView.text = Model.shared.loadReview(bookTitle: book.title)
         
         
     }
@@ -78,16 +83,16 @@ class BookDetailViewController: UIViewController {
         
         alreadyReadBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .alreadyRead)
         favoritesBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .favorites)
+        recommendedBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .recommended)
         wantToReadBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .wantToRead)
         wantToBuyBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .wantToBuy)
+        
+        userReviewTextView.text = Model.shared.loadReview(bookTitle: book.title)
     }
     @IBAction func updateAction(_ sender: Any) {
         guard let text = userReviewTextView.text else {return}
         guard let bookTitle = book?.title else {return}
         Model.shared.saveReview(bookTitle: bookTitle, review: text)
-    }
-    @IBAction func hasReadSwitchAction(_ sender: Any) {
-
     }
     
     //MARK: Bookshelf switch actions
@@ -108,6 +113,15 @@ class BookDetailViewController: UIViewController {
             Model.shared.addVolume(book: book, bookshelf: .alreadyRead)
         case false:
             Model.shared.removeVolume(book: book, bookshelf: .alreadyRead)
+        }
+    }
+    @IBAction func recommendedBookshelfSwitchAction(_ sender: Any) {
+        guard let book = book else {return}
+        switch recommendedBookshelfSwitch.isOn {
+        case true:
+            Model.shared.addVolume(book: book, bookshelf: .recommended)
+        case false:
+            Model.shared.removeVolume(book: book, bookshelf: .recommended)
         }
     }
     @IBAction func wantToReadSwitchAction(_ sender: Any) {
