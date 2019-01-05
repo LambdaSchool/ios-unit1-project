@@ -90,29 +90,9 @@ class BookDetailViewController: UIViewController {
         guard let book = book else {return}
         switch favoritesBookshelfSwitch.isOn {
         case true:
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Favorites"}
-            if boolean == false {
-                Model.shared.createBookShelves(bookshelf: .favorites, book: book)
-            }
-            else {
-                var filteredFavorites = Model.shared.bookshelves.filter{ $0.name == "Favorites"}
-                filteredFavorites[0].books?.append(book)
-            }
+            Model.shared.addVolume(book: book, bookshelf: .favorites)
         case false:
-            var index = -1
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Favorites"}
-            if boolean == true {
-                for bookshelf in Model.shared.bookshelves {
-                    index += 1
-                    if bookshelf.name == "Favorites" {
-                        break
-                    }
-                }
-                Model.shared.bookshelves[index].books = Model.shared.bookshelves[index].books?.filter{ $0.title != book.title}
-            }
-            else {
-                return
-            }
+            Model.shared.removeVolume(book: book, bookshelf: .favorites)
         }
         
     }
@@ -120,89 +100,28 @@ class BookDetailViewController: UIViewController {
         guard let book = book else {return}
         switch alreadyReadBookshelfSwitch.isOn {
         case true:
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Already Read"}
-            if boolean == false {
-                Model.shared.createBookShelves(bookshelf: .alreadyRead, book: book)
-            }
-            else {
-                var filteredAlreadyRead = Model.shared.bookshelves.filter{ $0.name == "Already Read"}
-                filteredAlreadyRead[0].books?.append(book)
-            }
+            Model.shared.addVolume(book: book, bookshelf: .alreadyRead)
         case false:
-            var index = -1
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Already Read"}
-            if boolean == true {
-                for bookshelf in Model.shared.bookshelves {
-                    index += 1
-                    if bookshelf.name == "Already Read" {
-                        break
-                    }
-                }
-                Model.shared.bookshelves[index].books = Model.shared.bookshelves[index].books?.filter{ $0.title != book.title}
-            }
-            else {
-                return
-            }
+            Model.shared.removeVolume(book: book, bookshelf: .alreadyRead)
         }
     }
     @IBAction func wantToReadSwitchAction(_ sender: Any) {
         guard let book = book else {return}
         switch wantToReadBookshelfSwitch.isOn {
         case true:
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Want to Read"}
-            if boolean == false {
-                Model.shared.createBookShelves(bookshelf: .wantToRead, book: book)
-            }
-            else {
-                var filteredWantToRead = Model.shared.bookshelves.filter{ $0.name == "Want to Read"}
-                filteredWantToRead[0].books?.append(book)
-            }
+        Model.shared.addVolume(book: book, bookshelf: .wantToRead)
         case false:
-            var index = -1
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Want to Read"}
-            if boolean == true {
-                for bookshelf in Model.shared.bookshelves {
-                    index += 1
-                    if bookshelf.name == "Want to Read" {
-                        break
-                    }
-                }
-                Model.shared.bookshelves[index].books = Model.shared.bookshelves[index].books?.filter{ $0.title != book.title}
-            }
-            else {
-                return
-            }
+            Model.shared.removeVolume(book: book, bookshelf: .wantToRead)
         }
         
     }
     @IBAction func wantToBuySwitchAction(_ sender: Any) {
         guard let book = book else {return}
-        switch favoritesBookshelfSwitch.isOn {
+        switch wantToBuyBookshelfSwitch.isOn {
         case true:
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Want to Buy"}
-            if boolean == false {
-                Model.shared.createBookShelves(bookshelf: .wantToBuy, book: book)
-            }
-            else {
-                var filteredWantToBuy = Model.shared.bookshelves.filter{ $0.name == "Want to Buy"}
-                filteredWantToBuy[0].books?.append(book)
-                    
-            }
+            Model.shared.addVolume(book: book, bookshelf: .wantToBuy)
         case false:
-            var index = -1
-            let boolean = Model.shared.bookshelves.contains{ $0.name == "Want to Buy"}
-            if boolean == true {
-                for bookshelf in Model.shared.bookshelves {
-                    index += 1
-                    if bookshelf.name == "Want to Buy" {
-                        break
-                    }
-                }
-                Model.shared.bookshelves[index].books = Model.shared.bookshelves[index].books?.filter{ $0.title != book.title}
-            }
-            else {
-                return
-            }
+            Model.shared.removeVolume(book: book, bookshelf: .wantToBuy)
         }
     }
 }
