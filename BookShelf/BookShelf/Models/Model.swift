@@ -8,10 +8,10 @@ class Model {
     var bookSearchCVC: BookSearchCollectionViewController?
     var volumes: Volumes?
     var bookshelves: Bookshelves?
-    var favoritesBookshelf: Bookshelf?
-    var alreadyReadBookshelf: Bookshelf?
-    var wantToBuyBookshelf: Bookshelf?
-    var wantToReadBookshelf: Bookshelf?
+    var favoritesBookshelf = Bookshelf.init(name: "Favorites", books: [])
+    var alreadyReadBookshelf = Bookshelf.init(name: "Already Read", books: [])
+    var wantToBuyBookshelf = Bookshelf.init(name: "Want to Buy", books: [])
+    var wantToReadBookshelf = Bookshelf.init(name: "Want to Read", books: [])
     var reviewsDictionary: [String:String] = [:]
     
     enum BookshelfSelections {
@@ -27,33 +27,35 @@ class Model {
     }
     func editBookShelves() {
         bookshelves?.bookshelves.removeAll()
-        bookshelves?.bookshelves.append(alreadyReadBookshelf!)
-        bookshelves?.bookshelves.append(favoritesBookshelf!)
-        bookshelves?.bookshelves.append(wantToBuyBookshelf!)
-        bookshelves?.bookshelves.append(wantToReadBookshelf!)
+        bookshelves?.bookshelves.append(alreadyReadBookshelf)
+        bookshelves?.bookshelves.append(favoritesBookshelf)
+        bookshelves?.bookshelves.append(wantToBuyBookshelf)
+        bookshelves?.bookshelves.append(wantToReadBookshelf)
     }
     func addVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {
         case .alreadyRead:
-            alreadyReadBookshelf?.books?.append(book)
+            alreadyReadBookshelf.books.append(book)
         case .favorites:
-            favoritesBookshelf?.books?.append(book)
+            print(book)
+            favoritesBookshelf.books.append(book)
+            print(favoritesBookshelf.books)
         case .wantToBuy:
-            wantToBuyBookshelf?.books?.append(book)
+            wantToBuyBookshelf.books.append(book)
         case .wantToRead:
-            wantToReadBookshelf?.books?.append(book)
+            wantToReadBookshelf.books.append(book)
         }
     }
     func removeVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {
         case .alreadyRead:
-            alreadyReadBookshelf?.books = alreadyReadBookshelf?.books?.filter( { $0.title != book.title} )
+            alreadyReadBookshelf.books = alreadyReadBookshelf.books.filter( { $0.title != book.title} )
         case .favorites:
-            favoritesBookshelf?.books =  favoritesBookshelf?.books?.filter( { $0.title != book.title} )
+            favoritesBookshelf.books =  favoritesBookshelf.books.filter( { $0.title != book.title} )
         case .wantToBuy:
-            wantToBuyBookshelf?.books = wantToBuyBookshelf?.books?.filter( { $0.title != book.title} )
+            wantToBuyBookshelf.books = wantToBuyBookshelf.books.filter( { $0.title != book.title} )
         case .wantToRead:
-            wantToReadBookshelf?.books = wantToReadBookshelf?.books?.filter( { $0.title != book.title} )
+            wantToReadBookshelf.books = wantToReadBookshelf.books.filter( { $0.title != book.title} )
         }
     }
     func searchForBooks(searchTerm: String, completionHandler: @escaping () -> Void) {
@@ -67,32 +69,32 @@ class Model {
         switch bookshelf {
             
         case .alreadyRead:
-            if alreadyReadBookshelf?.books != nil {
-            guard let imageURL = alreadyReadBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            if alreadyReadBookshelf.books.count != 0 {
+                guard let imageURL = alreadyReadBookshelf.books.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                         return image
             }
         case .favorites:
-            if favoritesBookshelf?.books != nil {
-            guard let imageURL = favoritesBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            if favoritesBookshelf.books.count != 0 {
+                guard let imageURL = favoritesBookshelf.books.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                     return image
             }
         case .wantToBuy:
-            if wantToBuyBookshelf?.books != nil {
-                guard let imageURL = wantToBuyBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            if wantToBuyBookshelf.books.count != 0 {
+                guard let imageURL = wantToBuyBookshelf.books.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
                     return image
             }
         case .wantToRead:
-                if wantToReadBookshelf?.books != nil {
-                    guard let imageURL = wantToReadBookshelf?.books?.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+            if wantToReadBookshelf.books.count != 0{
+                guard let imageURL = wantToReadBookshelf.books.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
