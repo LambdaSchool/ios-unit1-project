@@ -25,7 +25,12 @@ class Model {
     func numberOfVolumes() -> Int {
         return volumes?.items.count ?? 10
     }
-    func createBookShelves(bookshelf: BookshelfSelections, book: Book) {
+    func editBookShelves() {
+        bookshelves?.bookshelves.removeAll()
+        bookshelves?.bookshelves.append(alreadyReadBookshelf!)
+        bookshelves?.bookshelves.append(favoritesBookshelf!)
+        bookshelves?.bookshelves.append(wantToBuyBookshelf!)
+        bookshelves?.bookshelves.append(wantToReadBookshelf!)
     }
     func addVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {

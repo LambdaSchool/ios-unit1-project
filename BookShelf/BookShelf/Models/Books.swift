@@ -4,6 +4,7 @@ struct Bookshelves {
     var bookshelves: [Bookshelf]
 }
 struct Bookshelf {
+    var name: String
     var books: [Book]?
 }
 struct Volumes: Codable {

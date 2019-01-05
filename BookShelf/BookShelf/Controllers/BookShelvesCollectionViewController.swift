@@ -14,6 +14,14 @@ class BookShelvesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        Model.shared.alreadyReadBookshelf?.name = "Already Read"
+        Model.shared.favoritesBookshelf?.name = "Favorites"
+        Model.shared.wantToBuyBookshelf?.name = "Want to Buy"
+        Model.shared.wantToReadBookshelf?.name = "Want to Read"
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        Model.shared.editBookShelves()
     }
 
     /*
@@ -34,21 +42,20 @@ class BookShelvesCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-
-        return Model.shared.bookshelves.count
+        return Model.shared.bookshelves?.bookshelves.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookShelfCollectionViewCell else {fatalError("Failed to DQ cell")}
         
         
-        guard let imageURL = Model.shared.bookshelves[indexPath.row].books?.last?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+        guard let imageURL = Model.shared.bookshelves?.bookshelves[indexPath.row].books?.last?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
         
         cell.bookshelfImage.image = image
-        cell.bookshelfLabel.text = Model.shared.bookshelves[indexPath.row].name
+        cell.bookshelfLabel.text = Model.shared.bookshelves?.bookshelves[indexPath.row].name
         
     
         return cell
