@@ -133,7 +133,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="qRg-lN-v7c">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="qRg-lN-v7c" customClass="DetailCollectionViewCell" customModule="BookShelf" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -161,6 +161,8 @@
                                     <constraint firstItem="caw-0j-SNR" firstAttribute="top" secondItem="zmK-00-eNN" secondAttribute="bottom" constant="8" id="vi8-Js-81R"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="bookImageView" destination="zmK-00-eNN" id="bZ6-YM-6qM"/>
+                                    <outlet property="bookNameLabel" destination="caw-0j-SNR" id="LeA-TQ-kxO"/>
                                     <segue destination="QZ9-S0-fbD" kind="show" id="H1g-dO-FEx"/>
                                 </connections>
                             </collectionViewCell>
@@ -220,7 +222,7 @@
                                 <connections>
                                     <outlet property="bookshelfImage" destination="2DV-P6-TWI" id="qxz-Is-Smj"/>
                                     <outlet property="bookshelfLabel" destination="36U-1n-HlL" id="7HG-Ja-63O"/>
-                                    <segue destination="XDy-eP-4ev" kind="show" id="Pfm-VI-l4c"/>
+                                    <segue destination="XDy-eP-4ev" kind="show" identifier="CollectionDetailViewSegue" id="Pfm-VI-l4c"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -257,7 +259,7 @@
             <objects>
                 <viewController id="QZ9-S0-fbD" customClass="BookDetailViewController" customModule="BookShelf" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mw8-IV-Brz">
-                        <rect key="frame" x="0.0" y="0.0" width="335" height="507"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UHg-e1-Njo">
@@ -423,6 +425,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yNy-eg-heR"/>
+        <segue reference="H1g-dO-FEx"/>
     </inferredMetricsTieBreakers>
 </document>

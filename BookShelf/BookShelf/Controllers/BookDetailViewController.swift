@@ -59,12 +59,11 @@ class BookDetailViewController: UIViewController {
             wantToReadBookshelfImage.image = Model.shared.getImage(bookshelf: .wantToRead)
         
         
-        
-        favoritesBookshelfLabel.text = "Favorites"
         alreadyReadBookshelfLabel.text = "Already Read"
+        favoritesBookshelfLabel.text = "Favorites"
+        recommendedBookshelfLabel.text = "Recommended"
         wantToReadBookshelfLabel.text = "Want to Read"
         wantToBuyBookshelfLabel.text = "Want to Buy"
-        recommendedBookshelfLabel.text = "Recommended"
         
         userReviewTextView.text = Model.shared.loadReview(bookTitle: book.title)
         

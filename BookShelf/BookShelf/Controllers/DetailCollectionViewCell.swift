@@ -9,5 +9,7 @@
 import UIKit
 
 class DetailCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var bookImageView: UIImageView!
+    @IBOutlet weak var bookNameLabel: UILabel!
     
 }

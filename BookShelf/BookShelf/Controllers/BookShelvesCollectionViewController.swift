@@ -20,16 +20,19 @@ class BookShelvesCollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         Model.shared.editBookShelves()
     }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "CollectionDetailViewSegue", sender: self)
+    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        let destination = segue.destination as? BookShelvesDetailCollectionViewController
+        guard let indexPath = collectionView.indexPathsForSelectedItems else {return}
+        let bookshelf = Model.shared.bookshelves.bookshelves[indexPath[0].row]
+        destination?.bookshelf = bookshelf
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
