@@ -12,7 +12,6 @@ class BookDetailViewController: UIViewController {
     
     var book: Book?
     var indexPath: IndexPath?
-    var bookshelves: [Bookshelf]?
     @IBOutlet weak var bookImageView: UIImageView!
     @IBOutlet weak var bookTitleLabel: UILabel!
     @IBOutlet weak var userReviewTextView: UITextView!
@@ -68,6 +67,7 @@ class BookDetailViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        guard let book = book else {return}
         alreadyReadBookshelfImage.image = Model.shared.getImage(bookshelf: .alreadyRead)
         
         favoritesBookshelfImage.image = Model.shared.getImage(bookshelf: .favorites)
@@ -75,6 +75,11 @@ class BookDetailViewController: UIViewController {
         wantToBuyBookshelfImage.image = Model.shared.getImage(bookshelf: .wantToBuy)
         
         wantToReadBookshelfImage.image = Model.shared.getImage(bookshelf: .wantToRead)
+        
+        alreadyReadBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .alreadyRead)
+        favoritesBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .favorites)
+        wantToReadBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .wantToRead)
+        wantToBuyBookshelfSwitch.isOn = Model.shared.isInBookshelf(book: book, bookshelf: .wantToBuy)
     }
     @IBAction func updateAction(_ sender: Any) {
         guard let text = userReviewTextView.text else {return}

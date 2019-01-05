@@ -32,6 +32,23 @@ class Model {
         bookshelves.bookshelves.append(wantToBuyBookshelf)
         bookshelves.bookshelves.append(wantToReadBookshelf)
     }
+    func isInBookshelf(book: Book, bookshelf: BookshelfSelections) -> Bool {
+        var boolean = false
+        switch bookshelf {
+        case .alreadyRead:
+            boolean = alreadyReadBookshelf.books.contains{ $0.title == book.title }
+            return boolean
+        case .favorites:
+            boolean = favoritesBookshelf.books.contains{ $0.title == book.title }
+            return boolean
+        case .wantToBuy:
+            boolean = wantToBuyBookshelf.books.contains{ $0.title == book.title }
+            return boolean
+        case .wantToRead:
+            boolean = wantToReadBookshelf.books.contains{ $0.title == book.title }
+            return boolean
+        }
+    }
     func addVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {
         case .alreadyRead:
