@@ -46,12 +46,12 @@ class BookShelvesCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookShelfCollectionViewCell else {fatalError("Failed to DQ cell")}
         
         
-        guard let imageURL = Model.shared.bookshelves.bookshelves[indexPath.row].books.randomElement()?.imageLinks?.thumbnail else{fatalError("Could not get imageURL")}
+        if let imageURL = Model.shared.bookshelves.bookshelves[indexPath.row].books.randomElement()?.imageLinks?.thumbnail {
         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
-        
-        cell.bookshelfImage.image = image
+            cell.bookshelfImage.image = image
+        } else {cell.bookshelfImage.image = UIImage(named: "book_image_not_available")}
         cell.bookshelfLabel.text = Model.shared.bookshelves.bookshelves[indexPath.row].name
         
     
