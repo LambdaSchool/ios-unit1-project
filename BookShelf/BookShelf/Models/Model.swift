@@ -7,7 +7,7 @@ class Model {
     let googleBooksAPI = GoogleBooksAPINetworkingClient()
     var bookSearchCVC: BookSearchCollectionViewController?
     var volumes: Volumes?
-    var bookshelves = Bookshelves.init(bookshelves: [])
+    var bookshelves = Bookshelves.init(recordIdentifier: "", bookshelves: [])
     var alreadyReadBookshelf = Bookshelf.init(name: "Already Read", books: [])
     var favoritesBookshelf = Bookshelf.init(name: "Favorites", books: [])
     var recommendedBookshelf = Bookshelf.init(name: "Recommended", books: [])

@@ -23,6 +23,7 @@
 		A2F69A0321DE706B002F33E4 /* BookShelfCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */; };
 		A2F69A0521DE7078002F33E4 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */; };
 		A2F69A0721DE70CF002F33E4 /* BookSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A0621DE70CF002F33E4 /* BookSearchViewController.swift */; };
+		A2F69A1521E178C5002F33E4 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F69A1421E178C5002F33E4 /* Firebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,6 +58,7 @@
 		A2F69A0221DE706B002F33E4 /* BookShelfCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookShelfCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2F69A0421DE7078002F33E4 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2F69A0621DE70CF002F33E4 /* BookSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookSearchViewController.swift; sourceTree = "<group>"; };
+		A2F69A1421E178C5002F33E4 /* Firebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				A2F699DE21DD3C23002F33E4 /* GoogleBooksAPINetworkingClient.swift */,
+				A2F69A1421E178C5002F33E4 /* Firebase.swift */,
 				A2F699E221DD5D69002F33E4 /* Model.swift */,
 				A2F699E021DD5B6E002F33E4 /* Books.swift */,
 			);
@@ -202,6 +205,7 @@
 				A2F69A0521DE7078002F33E4 /* DetailCollectionViewCell.swift in Sources */,
 				A2F69A0721DE70CF002F33E4 /* BookSearchViewController.swift in Sources */,
 				A2F699E921DD63E0002F33E4 /* BookShelvesCollectionViewController.swift in Sources */,
+				A2F69A1521E178C5002F33E4 /* Firebase.swift in Sources */,
 				A2F699E321DD5D69002F33E4 /* Model.swift in Sources */,
 				A2F69A0321DE706B002F33E4 /* BookShelfCollectionViewCell.swift in Sources */,
 				A2F699E721DD63D5002F33E4 /* BookSearchCollectionViewController.swift in Sources */,

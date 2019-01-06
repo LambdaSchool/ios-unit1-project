@@ -1,9 +1,10 @@
 import Foundation
 
-struct Bookshelves {
+struct Bookshelves: Codable {
+    var recordIdentifier: String = ""
     var bookshelves: [Bookshelf]
 }
-struct Bookshelf {
+struct Bookshelf: Codable {
     var name: String
     var books: [Book]
 }
