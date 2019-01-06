@@ -38,25 +38,25 @@ class BookShelvesDetailCollectionViewController: UICollectionViewController {
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bookshelf?.books.count ?? 0
+        return bookshelf?.books?.count ?? 0
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? DetailCollectionViewCell else {fatalError("Failed to DQ cell")}
         
         cell.bookImageView.image = UIImage(named: "book_image_not_available")
-        if let imageURL = bookshelf?.books[indexPath.row].imageLinks?.smallThumbnail {
+        if let imageURL = bookshelf?.books?[indexPath.row].imageLinks?.smallThumbnail {
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             cell.bookImageView.image = UIImage(data: imageData)
         }
             
-        else if let imageURL = bookshelf?.books[indexPath.row].imageLinks?.thumbnail {
+        else if let imageURL = bookshelf?.books?[indexPath.row].imageLinks?.thumbnail {
             guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
             guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
             cell.bookImageView.image = UIImage(data: imageData)
         }
-        cell.bookNameLabel.text = bookshelf?.books[indexPath.row].title
+        cell.bookNameLabel.text = bookshelf?.books?[indexPath.row].title
         return cell
     }
 

@@ -14,11 +14,11 @@ class BookShelvesCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        Model.shared.editBookShelves()
+        Model.shared.updateBookshelves()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Model.shared.editBookShelves()
+        Model.shared.updateBookshelves()
     }
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         performSegue(withIdentifier: "CollectionDetailViewSegue", sender: self)
@@ -49,7 +49,7 @@ class BookShelvesCollectionViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? BookShelfCollectionViewCell else {fatalError("Failed to DQ cell")}
         
         
-        if let imageURL = Model.shared.bookshelves.bookshelves[indexPath.row].books.randomElement()?.imageLinks?.thumbnail {
+        if let imageURL = Model.shared.bookshelves.bookshelves[indexPath.row].books?.randomElement()?.imageLinks?.thumbnail {
         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}

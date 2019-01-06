@@ -1,7 +1,7 @@
 import Foundation
 
-class Firebase<Item: Codable > {
-    static var baseURL: URL!  { return URL(string: "https://put-and-post2.firebaseio.com/") }
+class Firebase {
+    static var baseURL: URL!  { return URL(string: "https://bookshelf-67481.firebaseio.com/") }
     
     static func requestURL(_ method: String, for recordIdentifier: String = "unknownid") -> URL {
         switch method {
@@ -101,14 +101,16 @@ class Firebase<Item: Codable > {
     static func save(bookshelves: Bookshelves, completion: @escaping (_ success: Bool) -> Void = { _ in }) {
         switch bookshelves.recordIdentifier.isEmpty {
         case true: // POST, new record
+            print(bookshelves.recordIdentifier)
             processRequest(method: "POST", for: bookshelves, with: completion)
+            
         case false: // PUT, existing record
             processRequest(method: "PUT", for: bookshelves, with: completion)
         }
     }
     
     // Fetch all records and pass them to sender via completion handler
-    static func fetchRecords(completion: @escaping ([Item]?) -> Void) {
+    static func fetchRecords(completion: @escaping ([Bookshelves]?) -> Void) {
         let requestURL = baseURL.appendingPathExtension("json")
         let dataTask = URLSession.shared.dataTask(with: requestURL) { data, _, error in
             
@@ -127,6 +129,7 @@ class Firebase<Item: Codable > {
                 let recordDict = try JSONDecoder().decode([String: Bookshelves].self, from:data)
                 let records = recordDict.map({ $0.value })
                 Model.shared.bookshelves = records[0]
+                print (Model.shared.bookshelves)
                 completion(nil)
             } catch {
                 NSLog("Error decoding received data: \(error)")

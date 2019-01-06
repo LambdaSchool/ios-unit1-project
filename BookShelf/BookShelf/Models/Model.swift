@@ -27,60 +27,55 @@ class Model {
     func numberOfVolumes() -> Int {
         return volumes?.items.count ?? 10
     }
-    func editBookShelves() {
-        bookshelves.bookshelves.removeAll()
-        bookshelves.bookshelves.append(alreadyReadBookshelf)
-        bookshelves.bookshelves.append(favoritesBookshelf)
-        bookshelves.bookshelves.append(wantToBuyBookshelf)
-        bookshelves.bookshelves.append(wantToReadBookshelf)
-        bookshelves.bookshelves.append(recommendedBookshelf)
-    }
     func isInBookshelf(book: Book, bookshelf: BookshelfSelections) -> Bool {
         var boolean = false
         switch bookshelf {
         case .alreadyRead:
-            boolean = alreadyReadBookshelf.books.contains{ $0.title == book.title }
+            boolean = (alreadyReadBookshelf.books?.contains{ $0.title == book.title })!
             return boolean
         case .favorites:
-            boolean = favoritesBookshelf.books.contains{ $0.title == book.title }
+            boolean = (favoritesBookshelf.books?.contains{ $0.title == book.title })!
             return boolean
         case .recommended:
-            boolean = recommendedBookshelf.books.contains{ $0.title == book.title }
+            boolean = (recommendedBookshelf.books?.contains{ $0.title == book.title })!
             return boolean
         case .wantToBuy:
-            boolean = wantToBuyBookshelf.books.contains{ $0.title == book.title }
+            boolean = (wantToBuyBookshelf.books?.contains{ $0.title == book.title })!
             return boolean
         case .wantToRead:
-            boolean = wantToReadBookshelf.books.contains{ $0.title == book.title }
+            boolean = (wantToReadBookshelf.books?.contains{ $0.title == book.title })!
             return boolean
         }
     }
     func addVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {
         case .alreadyRead:
-            alreadyReadBookshelf.books.append(book)
+            alreadyReadBookshelf.books?.append(book)
         case .favorites:
-            favoritesBookshelf.books.append(book)
+            favoritesBookshelf.books?.append(book)
         case .recommended:
-            recommendedBookshelf.books.append(book)
+            print(bookshelves.recordIdentifier)
+            recommendedBookshelf.books?.append(book)
         case .wantToBuy:
-            wantToBuyBookshelf.books.append(book)
+            wantToBuyBookshelf.books?.append(book)
         case .wantToRead:
-            wantToReadBookshelf.books.append(book)
+            wantToReadBookshelf.books?.append(book)
         }
     }
     func removeVolume(book: Book, bookshelf: BookshelfSelections) {
         switch bookshelf {
         case .alreadyRead:
-            alreadyReadBookshelf.books = alreadyReadBookshelf.books.filter( { $0.title != book.title} )
+            alreadyReadBookshelf.books = alreadyReadBookshelf.books?.filter( { $0.title != book.title} )
         case .favorites:
-            favoritesBookshelf.books =  favoritesBookshelf.books.filter( { $0.title != book.title} )
+            let favoriteBooks =  favoritesBookshelf.books?.filter( { $0.title != book.title} )
+            favoritesBookshelf.books = favoriteBooks
         case .recommended:
-            recommendedBookshelf.books = recommendedBookshelf.books.filter( { $0.title != book.title} )
+            let recommendedBookshelfBooks = recommendedBookshelf.books!.filter( { $0.title != book.title} )
+            recommendedBookshelf.books = recommendedBookshelfBooks
         case .wantToBuy:
-            wantToBuyBookshelf.books = wantToBuyBookshelf.books.filter( { $0.title != book.title} )
+            wantToBuyBookshelf.books = wantToBuyBookshelf.books?.filter( { $0.title != book.title} )
         case .wantToRead:
-            wantToReadBookshelf.books = wantToReadBookshelf.books.filter( { $0.title != book.title} )
+            wantToReadBookshelf.books = wantToReadBookshelf.books?.filter( { $0.title != book.title} )
         }
     }
     func searchForBooks(searchTerm: String, completionHandler: @escaping () -> Void) {
@@ -94,8 +89,8 @@ class Model {
         switch bookshelf {
             
         case .alreadyRead:
-            if alreadyReadBookshelf.books.count != 0 {
-                if let imageURL = alreadyReadBookshelf.books.randomElement()?.imageLinks?.thumbnail {
+            if alreadyReadBookshelf.books?.count != 0 {
+                if let imageURL = alreadyReadBookshelf.books?.randomElement()?.imageLinks?.thumbnail {
                         guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                         guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                         guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
@@ -103,8 +98,8 @@ class Model {
                 }
             }
         case .favorites:
-            if favoritesBookshelf.books.count != 0 {
-                if let imageURL = favoritesBookshelf.books.randomElement()?.imageLinks?.thumbnail { 
+            if favoritesBookshelf.books?.count != 0 {
+                if let imageURL = favoritesBookshelf.books?.randomElement()?.imageLinks?.thumbnail {
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
@@ -112,8 +107,8 @@ class Model {
                 }
             }
         case .recommended:
-            if recommendedBookshelf.books.count != 0 {
-                if let imageURL = recommendedBookshelf.books.randomElement()?.imageLinks?.thumbnail {
+            if recommendedBookshelf.books?.count != 0 {
+                if let imageURL = recommendedBookshelf.books!.randomElement()?.imageLinks?.thumbnail {
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
@@ -121,8 +116,8 @@ class Model {
                 }
             }
         case .wantToBuy:
-            if wantToBuyBookshelf.books.count != 0 {
-                if let imageURL = wantToBuyBookshelf.books.randomElement()?.imageLinks?.thumbnail {
+            if wantToBuyBookshelf.books?.count != 0 {
+                if let imageURL = wantToBuyBookshelf.books?.randomElement()?.imageLinks?.thumbnail {
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
@@ -130,8 +125,8 @@ class Model {
                 }
             }
         case .wantToRead:
-            if wantToReadBookshelf.books.count != 0{
-                if let imageURL = wantToReadBookshelf.books.randomElement()?.imageLinks?.thumbnail {
+            if wantToReadBookshelf.books?.count != 0{
+                if let imageURL = wantToReadBookshelf.books?.randomElement()?.imageLinks?.thumbnail {
                     guard let url = URL(string: (imageURL)) else {fatalError("Could not turn string into url")}
                     guard let imageData = try? Data(contentsOf: url) else {fatalError("Could not turn url into data")}
                     guard let image = UIImage(data: imageData) else {fatalError("Could not turn data into image")}
@@ -147,6 +142,18 @@ class Model {
     func loadReview(bookTitle: String) -> String {
         guard let returnValue = reviewsDictionary[bookTitle] else {return ""}
         return returnValue
+    }
+    func getBookshelves() {
+        Firebase.fetchRecords { (bookshelves) in}
+}
+    func updateBookshelves() {
+        bookshelves.bookshelves.removeAll()
+        bookshelves.bookshelves.append(alreadyReadBookshelf)
+        bookshelves.bookshelves.append(favoritesBookshelf)
+        bookshelves.bookshelves.append(wantToBuyBookshelf)
+        bookshelves.bookshelves.append(wantToReadBookshelf)
+        bookshelves.bookshelves.append(recommendedBookshelf)
+        Firebase.save(bookshelves: bookshelves)
     }
 }
 
