@@ -16,8 +16,7 @@ class BookTableViewCell: UITableViewCell {
     @IBOutlet weak var bookImage: UIImageView!
     
     @IBAction func action(_ sender: Any) {
-        //Model.shared.addNewBook()
-       BooksTableViewController().tableView.reloadData()
+        
         
         
     }

@@ -17,15 +17,19 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
     
+    var book: Book?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        guard let book = Model.shared.book else {return}
-        bookTitle.text = book.items[0].volumeInfo.title
-        subtitle.text = book.items[0].volumeInfo.subtitle
-        authorLabel.text = "\(String(describing: book.items[0].volumeInfo.authors))"
-        bookDescription.text = book.items[0].volumeInfo.description
-        guard let url = URL(string: book.items[0].volumeInfo.imageLinks?.thumbnail ?? "No image"),
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    
+        
+        guard let book = book else {return}
+        
+        bookTitle.text = book.volumeInfo.title
+        subtitle.text = book.volumeInfo.subtitle
+        authorLabel.text = "\(String(describing: book.volumeInfo.authors))"
+        bookDescription.text = book.volumeInfo.description
+        guard let url = URL(string: book.volumeInfo.imageLinks?.smallThumbnail ?? "No image"),
             let imageData = try? Data(contentsOf: url) else { return }
         bookImage.image = UIImage(data: imageData)
         

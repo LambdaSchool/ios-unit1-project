@@ -10,7 +10,7 @@ class Model {
             Model.shared.book = self.book
         }
     }
-    var books: [BookModel] = []
+    private(set) var books: [BookModel] = []
 //    var bookshelves: Bookshelves?
 //    var bookshelvess: [Bookshelves] = []
     
@@ -47,16 +47,18 @@ class Model {
         
         var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
         let searchQueryItem = URLQueryItem(name: "q", value: searchTerm)
-        urlComponents?.queryItems = [searchQueryItem]
+        let maxQueryItem = URLQueryItem(name: "maxResults", value: "30")
+        urlComponents?.queryItems = [searchQueryItem, maxQueryItem]
         
-        guard let request = urlComponents?.url else {
+        guard let request1 = urlComponents?.url else {
             NSLog("Error recive URL using \(String(describing: urlComponents)) ")
             completion(NSError())
             return
-//        var request = URLRequest(url: baseURL)
-//        request.httpMethod = "GET"
-//
         }
+        var request = URLRequest(url: request1)
+        request.httpMethod = "GET"
+
+        
                 URLSession.shared.dataTask(with: request) { (data, _, error) in
                     if let error = error {
                         NSLog("Error getting bookshelves: \(error)")

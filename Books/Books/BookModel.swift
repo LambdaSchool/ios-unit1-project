@@ -4,10 +4,10 @@ import Foundation
 struct BookModel: Codable {
     let totalItems: Int?
     var items: [Book]
-        
-    struct Book: Codable {
-        let volumeInfo: VolumeInfo
-    }
+}
+struct Book: Codable {
+    let volumeInfo: VolumeInfo
+    
         struct VolumeInfo: Codable {
             let title: String?
             let subtitle: String?
@@ -20,5 +20,5 @@ struct BookModel: Codable {
                 let thumbnail: String?
                 }
             }
-        }
+}
 

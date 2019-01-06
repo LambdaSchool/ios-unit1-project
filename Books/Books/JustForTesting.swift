@@ -4,7 +4,7 @@ import UIKit
 class ViewController: UIViewController, UISearchBarDelegate {
     
     var book: BookModel?
-    var bookshelves: Bookshelves?
+   // var bookshelf: Bookshelf?
     var table = BooksTableViewController()
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -12,7 +12,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
+        
         Model.shared.addNewBook()
     }
     
