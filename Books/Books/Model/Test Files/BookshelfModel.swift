@@ -8,26 +8,17 @@
 
 import Foundation
 
-struct Bookshelf: Codable {
-    
-    struct Booksshelf: Codable {
+
+    struct BookshelfJson: Codable {
         let items: [Bookshelf]
-    }
     
     struct Bookshelf: Codable {
-        
-        let volumeInfo: VolumeInfo?
+      
         let title: String?
         let volumeCount: Int?
         let id: Int
         
-        struct VolumeInfo: Codable {
-            let title: String
-            let imageLinks: ImageLink?
-            
-            struct ImageLink: Codable {
-                let thumbnail: String
             }
-        }
+
 }
-}
+

@@ -11,11 +11,23 @@ class Model {
         }
     }
     private(set) var books: [BookModel] = []
-//    var bookshelves: Bookshelves?
-//    var bookshelvess: [Bookshelves] = []
+    
+    
+    
+    //    var bookshelves: Bookshelves?
+    //    var bookshelvess: [Bookshelves] = []
+    
+    
+    
+    func moveBook(from index: Int, to destinationIndex: Int) {
+        let book = books.remove(at: index)
+        books.insert(book, at: destinationIndex)
+        
+    }
+    
     
     func numberOfBooks() -> Int {
-        return books.count
+        return book?.items.count ?? 8
     }
     
     func clearBooks() {
@@ -37,6 +49,7 @@ class Model {
     
     func deleteBook(at indexPath: IndexPath) {
         books.remove(at: indexPath.row)
+        
     }
     
     func performSearch (with searchTerm: String, completion: @escaping  (Error?) -> Void) {

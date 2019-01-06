@@ -21,10 +21,14 @@
 		A54198FD21DD3CD4008D1992 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54198FC21DD3CD4008D1992 /* AppDelegate.swift */; };
 		A54198FF21DE03EF008D1992 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A54198FE21DE03EF008D1992 /* BookModel.swift */; };
 		A541990121DE1060008D1992 /* Book.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990021DE1060008D1992 /* Book.swift */; };
-		A541990721DF367C008D1992 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990621DF367C008D1992 /* Bookshelf.swift */; };
+		A541990721DF367C008D1992 /* BookshelfModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990621DF367C008D1992 /* BookshelfModel.swift */; };
 		A541990921DF428C008D1992 /* BooksTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990821DF428C008D1992 /* BooksTableViewController.swift */; };
 		A541990B21DF4D60008D1992 /* BookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990A21DF4D60008D1992 /* BookTableViewCell.swift */; };
 		A541990D21E07B91008D1992 /* BookDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A541990C21E07B91008D1992 /* BookDetailViewController.swift */; };
+		A57C443121E1D9360080E970 /* BookshelfTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C443021E1D9360080E970 /* BookshelfTableViewController.swift */; };
+		A57C443321E1D9730080E970 /* BookshelfTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C443221E1D9730080E970 /* BookshelfTableViewCell.swift */; };
+		A57C443521E1E5310080E970 /* Bookshelf.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C443421E1E5310080E970 /* Bookshelf.swift */; };
+		A57C443921E2AE070080E970 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C443821E2AE070080E970 /* TestTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -57,10 +61,14 @@
 		A54198FC21DD3CD4008D1992 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A54198FE21DE03EF008D1992 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		A541990021DE1060008D1992 /* Book.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Book.swift; sourceTree = "<group>"; };
-		A541990621DF367C008D1992 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
+		A541990621DF367C008D1992 /* BookshelfModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfModel.swift; sourceTree = "<group>"; };
 		A541990821DF428C008D1992 /* BooksTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BooksTableViewController.swift; sourceTree = "<group>"; };
 		A541990A21DF4D60008D1992 /* BookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewCell.swift; sourceTree = "<group>"; };
 		A541990C21E07B91008D1992 /* BookDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailViewController.swift; sourceTree = "<group>"; };
+		A57C443021E1D9360080E970 /* BookshelfTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfTableViewController.swift; sourceTree = "<group>"; };
+		A57C443221E1D9730080E970 /* BookshelfTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfTableViewCell.swift; sourceTree = "<group>"; };
+		A57C443421E1E5310080E970 /* Bookshelf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookshelf.swift; sourceTree = "<group>"; };
+		A57C443821E2AE070080E970 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,19 +104,13 @@
 		A54198D921DD3C64008D1992 /* Books */ = {
 			isa = PBXGroup;
 			children = (
-				A54198FC21DD3CD4008D1992 /* AppDelegate.swift */,
-				A54198DC21DD3C64008D1992 /* JustForTesting.swift */,
 				A54198DE21DD3C64008D1992 /* Main.storyboard */,
-				A541990821DF428C008D1992 /* BooksTableViewController.swift */,
-				A541990C21E07B91008D1992 /* BookDetailViewController.swift */,
-				A541990A21DF4D60008D1992 /* BookTableViewCell.swift */,
-				A54198FE21DE03EF008D1992 /* BookModel.swift */,
-				A541990021DE1060008D1992 /* Book.swift */,
-				A54198FA21DD3CB7008D1992 /* GoogleBooksAuthorizationClient.swift */,
+				A57C442F21E1D8A60080E970 /* Controllers */,
+				A541991321E1C857008D1992 /* Model */,
+				A54198FC21DD3CD4008D1992 /* AppDelegate.swift */,
 				A54198E121DD3C66008D1992 /* Assets.xcassets */,
 				A54198E321DD3C66008D1992 /* LaunchScreen.storyboard */,
 				A54198E621DD3C66008D1992 /* Info.plist */,
-				A541991221E14FB1008D1992 /* Test Files */,
 				A54198EC21DD3C88008D1992 /* Frameworks */,
 			);
 			path = Books;
@@ -127,9 +129,35 @@
 		A541991221E14FB1008D1992 /* Test Files */ = {
 			isa = PBXGroup;
 			children = (
-				A541990621DF367C008D1992 /* Bookshelf.swift */,
+				A54198DC21DD3C64008D1992 /* JustForTesting.swift */,
+				A541990621DF367C008D1992 /* BookshelfModel.swift */,
+				A57C443421E1E5310080E970 /* Bookshelf.swift */,
+				A57C443821E2AE070080E970 /* TestTableViewController.swift */,
 			);
 			path = "Test Files";
+			sourceTree = "<group>";
+		};
+		A541991321E1C857008D1992 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A54198FE21DE03EF008D1992 /* BookModel.swift */,
+				A541990021DE1060008D1992 /* Book.swift */,
+				A54198FA21DD3CB7008D1992 /* GoogleBooksAuthorizationClient.swift */,
+				A541991221E14FB1008D1992 /* Test Files */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		A57C442F21E1D8A60080E970 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A541990C21E07B91008D1992 /* BookDetailViewController.swift */,
+				A541990821DF428C008D1992 /* BooksTableViewController.swift */,
+				A541990A21DF4D60008D1992 /* BookTableViewCell.swift */,
+				A57C443021E1D9360080E970 /* BookshelfTableViewController.swift */,
+				A57C443221E1D9730080E970 /* BookshelfTableViewCell.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,12 +233,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A54198FD21DD3CD4008D1992 /* AppDelegate.swift in Sources */,
+				A57C443321E1D9730080E970 /* BookshelfTableViewCell.swift in Sources */,
 				A54198FB21DD3CB7008D1992 /* GoogleBooksAuthorizationClient.swift in Sources */,
-				A541990721DF367C008D1992 /* Bookshelf.swift in Sources */,
+				A57C443521E1E5310080E970 /* Bookshelf.swift in Sources */,
+				A541990721DF367C008D1992 /* BookshelfModel.swift in Sources */,
 				A541990D21E07B91008D1992 /* BookDetailViewController.swift in Sources */,
 				A541990B21DF4D60008D1992 /* BookTableViewCell.swift in Sources */,
 				A54198FF21DE03EF008D1992 /* BookModel.swift in Sources */,
+				A57C443921E2AE070080E970 /* TestTableViewController.swift in Sources */,
 				A54198DD21DD3C64008D1992 /* JustForTesting.swift in Sources */,
+				A57C443121E1D9360080E970 /* BookshelfTableViewController.swift in Sources */,
 				A541990921DF428C008D1992 /* BooksTableViewController.swift in Sources */,
 				A541990121DE1060008D1992 /* Book.swift in Sources */,
 			);

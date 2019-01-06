@@ -12,17 +12,28 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var book: BookModel?
+    var book: [BookModel] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                
+                self.tableView.reloadData()
+            }
+        }
+    }
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
-           
+        
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        
+       tableView.reloadData()
+        DispatchQueue.main.async {
+            ModelBookshelf.shared.bookPerformSearch()
+        }
         GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
             if let error = error {
                 NSLog("Authorization failed: \(error)")
@@ -31,17 +42,21 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Model.shared.books.count
+        return Model.shared.numberOfBooks()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BookTableViewCell else { fatalError("no cell") }
         
-        let book = Model.shared.bookAtIndex(at: indexPath)
+        guard let book = Model.shared.book else {return cell}
         
-        guard let booking = book.items[indexPath.row].volumeInfo.subtitle else { return cell }
-        cell.testLabel?.text = booking
+       cell.testLabel?.text = book.items[indexPath.row].volumeInfo.subtitle
         
         cell.bookLabel?.text = book.items[indexPath.row].volumeInfo.title
         
@@ -66,7 +81,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
             guard let indexPath = tableView.indexPathForSelectedRow
                 else {return}
             let destination = segue.destination as! BookDetailViewController
-            let book = Model.shared.book(at: indexPath.row).items[indexPath.row]
+            let book = Model.shared.book?.items[indexPath.row]
             destination.book = book
         }
     }
@@ -80,7 +95,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
             for _ in 1...8 {
                 Model.shared.addNewBook()
             }
-//
+                
 //        if let book = self.book {
 //       self.bookTableViewCell.bookLabel.text = book.items[indexPath.row].volumeInfo.title
            tableView.reloadData()
@@ -103,9 +118,8 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
             }
             DispatchQueue.main.async {
                 Model.shared.clearBooks()
-                 self.update()
+               
                 self.tableView.reloadData()
-                self.searchBar.endEditing(true)
                 //self.update()
                 
                 // Model.shared.addNewBook()
@@ -113,6 +127,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         
     }
 }
+    
 }
 
 
