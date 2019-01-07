@@ -11,7 +11,7 @@ import Foundation
 
     struct BookshelfJson: Codable {
         let items: [Bookshelf]
-    
+}
     struct Bookshelf: Codable {
       
         let title: String?
@@ -20,5 +20,5 @@ import Foundation
         
             }
 
-}
+
 

@@ -12,6 +12,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     
+    var bookDetailViewController = BookDetailViewController()
     var book: [BookModel] = [] {
         didSet {
             DispatchQueue.main.async {
@@ -31,8 +32,10 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         searchBar.delegate = self
        tableView.reloadData()
+        tableView.tableFooterView = UIView()
         DispatchQueue.main.async {
             ModelBookshelf.shared.bookPerformSearch()
+            
         }
         GoogleBooksAuthorizationClient.shared.authorizeIfNeeded(presenter: self) { (error) in
             if let error = error {
@@ -55,8 +58,11 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as? BookTableViewCell else { fatalError("no cell") }
         
         guard let book = Model.shared.book else {return cell}
-        
-       cell.testLabel?.text = book.items[indexPath.row].volumeInfo.subtitle
+        if let subtitle = book.items[indexPath.row].volumeInfo.subtitle {
+       cell.testLabel?.text = subtitle
+        } else {
+            cell.testLabel.text = ""
+        }
         
         cell.bookLabel?.text = book.items[indexPath.row].volumeInfo.title
         

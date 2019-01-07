@@ -58,7 +58,15 @@ class BookshelfTableViewController: UITableViewController {
             cell.bookshelfVolumeCount.text = "Books in shelf: \(String(describing: volumeCount))" }
         return cell
     }
-   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Search" {
+            guard let indexPath = tableView.indexPathForSelectedRow
+                else {return}
+            let destination = segue.destination as! BookshelfDetailViewController
+            let bookshelf = ModelBookshelf.shared.bookshelf?.items[indexPath.row]
+            destination.bookshelf = bookshelf
+        }
+    }
 //    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 //        if editingStyle == .delete {
 //            ModelBookshelf.shared.deleteBookshelf(at: indexPath)

@@ -27,7 +27,7 @@ class Model {
     
     
     func numberOfBooks() -> Int {
-        return book?.items.count ?? 8
+        return book?.items.count ?? 0
     }
     
     func clearBooks() {

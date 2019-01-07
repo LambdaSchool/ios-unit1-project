@@ -31,6 +31,7 @@
 		A57C443921E2AE070080E970 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C443821E2AE070080E970 /* TestTableViewController.swift */; };
 		A57C444021E2E7990080E970 /* Bookshelf_icon_(red_and_green).png in Resources */ = {isa = PBXBuildFile; fileRef = A57C443F21E2E7990080E970 /* Bookshelf_icon_(red_and_green).png */; };
 		A57C444221E2E9910080E970 /* a0f2d9a7ba039a19e41707b4c3e3a768-wooden-bookshelf-icon-by-vexels.png in Resources */ = {isa = PBXBuildFile; fileRef = A57C444121E2E9910080E970 /* a0f2d9a7ba039a19e41707b4c3e3a768-wooden-bookshelf-icon-by-vexels.png */; };
+		A57C444421E2F0200080E970 /* BookshelfDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C444321E2F0200080E970 /* BookshelfDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -73,6 +74,7 @@
 		A57C443821E2AE070080E970 /* TestTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 		A57C443F21E2E7990080E970 /* Bookshelf_icon_(red_and_green).png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Bookshelf_icon_(red_and_green).png"; sourceTree = "<group>"; };
 		A57C444121E2E9910080E970 /* a0f2d9a7ba039a19e41707b4c3e3a768-wooden-bookshelf-icon-by-vexels.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "a0f2d9a7ba039a19e41707b4c3e3a768-wooden-bookshelf-icon-by-vexels.png"; sourceTree = "<group>"; };
+		A57C444321E2F0200080E970 /* BookshelfDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookshelfDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				A57C443021E1D9360080E970 /* BookshelfTableViewController.swift */,
+				A57C444321E2F0200080E970 /* BookshelfDetailViewController.swift */,
 				A57C443221E1D9730080E970 /* BookshelfTableViewCell.swift */,
 				A54198DC21DD3C64008D1992 /* JustForTesting.swift */,
 				A57C443821E2AE070080E970 /* TestTableViewController.swift */,
@@ -257,6 +260,7 @@
 				A541990B21DF4D60008D1992 /* BookTableViewCell.swift in Sources */,
 				A54198FF21DE03EF008D1992 /* BookModel.swift in Sources */,
 				A57C443921E2AE070080E970 /* TestTableViewController.swift in Sources */,
+				A57C444421E2F0200080E970 /* BookshelfDetailViewController.swift in Sources */,
 				A54198DD21DD3C64008D1992 /* JustForTesting.swift in Sources */,
 				A57C443121E1D9360080E970 /* BookshelfTableViewController.swift in Sources */,
 				A541990921DF428C008D1992 /* BooksTableViewController.swift in Sources */,

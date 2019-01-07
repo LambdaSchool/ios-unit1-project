@@ -19,30 +19,65 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
     @IBOutlet weak var pageCountLabel: UILabel!
+    @IBAction func addBookshelf(_ sender: Any) {
+    }
     
     var book: Book?
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-    
+       UpdaiteView()
         
-        guard let book = book else {return}
-        
-        bookTitle.text = book.volumeInfo.title
-        subtitle.text = book.volumeInfo.subtitle
-        if let author = book.volumeInfo.authors?.first {
-            authorLabel.text = "Author: \(author)"
+       
         }
-        bookDescription.text = book.volumeInfo.description
+    
+    
+    func UpdaiteView() {
+        
+        if let book = book {
+        DispatchQueue.main.async {
+            if let title = book.volumeInfo.title {
+        self.bookTitle.text = title
+        self.navigationItem.title = title
+            } else {
+                self.bookTitle.text = "No Title"
+            }
+            if let subtitle = book.volumeInfo.subtitle {
+        self.subtitle.text = subtitle
+            } else {
+                self.subtitle.text = ""
+            }
+        if let author = book.volumeInfo.authors?.first {
+            self.authorLabel.text = "Author: \(author)"
+        } else {
+            self.authorLabel.text = "No Author"
+            }
+            if let description = book.volumeInfo.description {
+        self.bookDescription.text = description
+            } else {
+                self.bookDescription.text = "No Description"
+            }
         guard let url = URL(string: book.volumeInfo.imageLinks?.smallThumbnail ?? "No image"),
             let imageData = try? Data(contentsOf: url) else { return }
-        bookImage.image = UIImage(data: imageData)
+        self.bookImage.image = UIImage(data: imageData)
         if let pages =  book.volumeInfo.pageCount {
-            pageCountLabel.text = "Page count: \(String(describing: pages))"
-        }
+            self.pageCountLabel.text = "Page count: \(String(describing: pages))"
+        } else {
+            self.pageCountLabel.text = ""
+            }
+           
+            }
+        } else {
+             DispatchQueue.main.async {
+            self.bookTitle.text = ""
+            self.subtitle.text = ""
+            self.authorLabel.text = ""
+            self.bookDescription.text = ""
+            self.pageCountLabel.text = ""
+            self.bookImage.image = nil
     }
-    
-
+        }
+}
     /*
     // MARK: - Navigation
 
