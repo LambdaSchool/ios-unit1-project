@@ -13,6 +13,10 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
     @IBOutlet weak var pageCountLabel: UILabel!
+    @IBOutlet weak var readButton: UIButton!
+    @IBAction func readButtonAction(sender: Any) {
+        readButton(readButton)
+    }
     @IBOutlet weak var ratingControl: Rating!
     @IBAction func addBookshelf(_ sender: Any) {
         
@@ -40,7 +44,15 @@ class BookDetailViewController: UIViewController {
     }
     }
   
-    
+    func readButton(_ sender: UIButton) {
+        if sender.isSelected {
+        sender.setTitle("Not Read", for: .normal)
+        sender.isSelected = false
+        } else {
+        sender.setTitle("Read", for: .normal)
+        sender.isSelected = true
+        }
+    }
    
     func UpdaiteView() {
         

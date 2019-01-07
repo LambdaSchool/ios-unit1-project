@@ -33,6 +33,8 @@
 		A57C444621E323D60080E970 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C444521E323D60080E970 /* Rating.swift */; };
 		A57C444821E339FE0080E970 /* BookshelfDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C444721E339FE0080E970 /* BookshelfDetailTableViewController.swift */; };
 		A57C444A21E341370080E970 /* SavedBooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C444921E341370080E970 /* SavedBooks.swift */; };
+		A57C444F21E3705B0080E970 /* FirebaseItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C444E21E3705B0080E970 /* FirebaseItem.swift */; };
+		A57C445121E370730080E970 /* Firebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57C445021E370730080E970 /* Firebase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -77,6 +79,8 @@
 		A57C444521E323D60080E970 /* Rating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rating.swift; sourceTree = "<group>"; };
 		A57C444721E339FE0080E970 /* BookshelfDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookshelfDetailTableViewController.swift; sourceTree = "<group>"; };
 		A57C444921E341370080E970 /* SavedBooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedBooks.swift; sourceTree = "<group>"; };
+		A57C444E21E3705B0080E970 /* FirebaseItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseItem.swift; path = "../../../ios-sprint3-challenge/ios-sprint3-challange-MBP/ios-sprint3-challange-MBP/ios-sprint3-challange-MBP/FirebaseItem.swift"; sourceTree = "<group>"; };
+		A57C445021E370730080E970 /* Firebase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firebase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +117,11 @@
 			isa = PBXGroup;
 			children = (
 				A54198DE21DD3C64008D1992 /* Main.storyboard */,
-				A57C442F21E1D8A60080E970 /* Controllers */,
-				A541991321E1C857008D1992 /* Model */,
+				A57C445221E370D30080E970 /* GoogleBooks */,
 				A541991221E14FB1008D1992 /* Bookshelf */,
 				A54198FC21DD3CD4008D1992 /* AppDelegate.swift */,
+				A57C445021E370730080E970 /* Firebase.swift */,
+				A57C444E21E3705B0080E970 /* FirebaseItem.swift */,
 				A57C444321E2F0200080E970 /* test.swift */,
 				A57C444521E323D60080E970 /* Rating.swift */,
 				A54198E121DD3C66008D1992 /* Assets.xcassets */,
@@ -148,24 +153,24 @@
 			path = Bookshelf;
 			sourceTree = "<group>";
 		};
-		A541991321E1C857008D1992 /* Model */ = {
+		A541991321E1C857008D1992 /* BookModel */ = {
 			isa = PBXGroup;
 			children = (
 				A54198FE21DE03EF008D1992 /* BookModel.swift */,
 				A541990021DE1060008D1992 /* Book.swift */,
 				A54198FA21DD3CB7008D1992 /* GoogleBooksAuthorizationClient.swift */,
 			);
-			path = Model;
+			path = BookModel;
 			sourceTree = "<group>";
 		};
-		A57C442F21E1D8A60080E970 /* Controllers */ = {
+		A57C442F21E1D8A60080E970 /* BookControllers */ = {
 			isa = PBXGroup;
 			children = (
 				A541990C21E07B91008D1992 /* BookDetailViewController.swift */,
 				A541990821DF428C008D1992 /* BooksTableViewController.swift */,
 				A541990A21DF4D60008D1992 /* BookTableViewCell.swift */,
 			);
-			path = Controllers;
+			path = BookControllers;
 			sourceTree = "<group>";
 		};
 		A57C443A21E2C9A30080E970 /* Model */ = {
@@ -186,6 +191,15 @@
 				A57C444721E339FE0080E970 /* BookshelfDetailTableViewController.swift */,
 			);
 			path = BookshalfController;
+			sourceTree = "<group>";
+		};
+		A57C445221E370D30080E970 /* GoogleBooks */ = {
+			isa = PBXGroup;
+			children = (
+				A57C442F21E1D8A60080E970 /* BookControllers */,
+				A541991321E1C857008D1992 /* BookModel */,
+			);
+			path = GoogleBooks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,8 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A54198FD21DD3CD4008D1992 /* AppDelegate.swift in Sources */,
+				A57C444F21E3705B0080E970 /* FirebaseItem.swift in Sources */,
 				A57C443321E1D9730080E970 /* BookshelfTableViewCell.swift in Sources */,
 				A54198FB21DD3CB7008D1992 /* GoogleBooksAuthorizationClient.swift in Sources */,
+				A57C445121E370730080E970 /* Firebase.swift in Sources */,
 				A57C443521E1E5310080E970 /* Bookshelf.swift in Sources */,
 				A541990721DF367C008D1992 /* BookshelfModel.swift in Sources */,
 				A541990D21E07B91008D1992 /* BookDetailViewController.swift in Sources */,

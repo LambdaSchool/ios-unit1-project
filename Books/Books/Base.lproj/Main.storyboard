@@ -167,20 +167,32 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wCD-QP-OOx">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="277"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SdH-IU-3BT" customClass="Rating" customModule="Books" customModuleProvider="target">
-                                                        <rect key="frame" x="61.5" y="0.0" width="252" height="50"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="252" id="Rs9-Hp-L0b"/>
-                                                            <constraint firstAttribute="height" constant="50" id="lUw-oy-oz3"/>
-                                                        </constraints>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="size" keyPath="starSize">
-                                                                <size key="value" width="44" height="44"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                            <userDefinedRuntimeAttribute type="number" keyPath="starCount">
-                                                                <integer key="value" value="5"/>
-                                                            </userDefinedRuntimeAttribute>
-                                                        </userDefinedRuntimeAttributes>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yjk-DH-sY1">
+                                                        <rect key="frame" x="8" y="0.0" width="359" height="50"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1lR-Iz-xRq">
+                                                                <rect key="frame" x="0.0" y="0.0" width="64" height="50"/>
+                                                                <state key="normal" title="Not Read"/>
+                                                                <connections>
+                                                                    <action selector="readButtonActionWithSender:" destination="UJA-mw-wca" eventType="touchUpInside" id="ed6-oT-2Xc"/>
+                                                                </connections>
+                                                            </button>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SdH-IU-3BT" customClass="Rating" customModule="Books" customModuleProvider="target">
+                                                                <rect key="frame" x="107" y="0.0" width="252" height="50"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="252" id="Rs9-Hp-L0b"/>
+                                                                    <constraint firstAttribute="height" constant="50" id="lUw-oy-oz3"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="size" keyPath="starSize">
+                                                                        <size key="value" width="44" height="44"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="starCount">
+                                                                        <integer key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </stackView>
+                                                        </subviews>
                                                     </stackView>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zSz-Tv-fUa">
                                                         <rect key="frame" x="0.0" y="58" width="375" height="219"/>
@@ -193,6 +205,8 @@
                                                     </textView>
                                                 </subviews>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Yjk-DH-sY1" secondAttribute="trailing" constant="8" id="4BL-N7-pV6"/>
+                                                    <constraint firstItem="Yjk-DH-sY1" firstAttribute="leading" secondItem="wCD-QP-OOx" secondAttribute="leading" constant="8" id="BJg-fs-3AM"/>
                                                     <constraint firstItem="zSz-Tv-fUa" firstAttribute="leading" secondItem="wCD-QP-OOx" secondAttribute="leading" id="LOq-4L-7CL"/>
                                                     <constraint firstAttribute="trailing" secondItem="zSz-Tv-fUa" secondAttribute="trailing" id="eVn-KS-z8T"/>
                                                     <constraint firstAttribute="bottom" secondItem="zSz-Tv-fUa" secondAttribute="bottom" id="fdP-vf-19X"/>
@@ -236,6 +250,7 @@
                         <outlet property="bookTitle" destination="RoF-Tm-Jai" id="J4b-Zr-sFN"/>
                         <outlet property="pageCountLabel" destination="In1-Vi-teO" id="dcL-7P-oYb"/>
                         <outlet property="ratingControl" destination="SdH-IU-3BT" id="jsy-05-of1"/>
+                        <outlet property="readButton" destination="1lR-Iz-xRq" id="Ddn-7l-MbK"/>
                         <outlet property="subtitle" destination="hUY-O5-kem" id="7Nn-H4-LPn"/>
                         <outletCollection property="imageLink" destination="mO5-G3-cec" collectionClass="NSMutableArray" id="rBm-t0-qdd"/>
                     </connections>
@@ -292,7 +307,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UcJ-31-XPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="233" y="9"/>
+            <point key="canvasLocation" x="1444" y="537"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="0rQ-C2-sE2">
@@ -324,7 +339,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rxr-eD-BOo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1917.5999999999999" y="-427.73613193403304"/>
+            <point key="canvasLocation" x="1114" y="-428"/>
         </scene>
         <!--Bookshelf Table View Controller-->
         <scene sceneID="qiu-IY-SHh">
@@ -406,7 +421,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7gR-kz-wiE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="-428"/>
+            <point key="canvasLocation" x="1945" y="-428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ofm-Ch-lq9">
