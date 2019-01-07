@@ -8,14 +8,17 @@
 
 import UIKit
 
+
 class BookDetailViewController: UIViewController {
 
     
+    @IBOutlet var imageLink: [UIImageView]!
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var bookTitle: UILabel!
     @IBOutlet weak var subtitle: UILabel!
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
+    @IBOutlet weak var pageCountLabel: UILabel!
     
     var book: Book?
     
@@ -27,12 +30,16 @@ class BookDetailViewController: UIViewController {
         
         bookTitle.text = book.volumeInfo.title
         subtitle.text = book.volumeInfo.subtitle
-        authorLabel.text = "\(String(describing: book.volumeInfo.authors))"
+        if let author = book.volumeInfo.authors?.first {
+            authorLabel.text = "Author: \(author)"
+        }
         bookDescription.text = book.volumeInfo.description
         guard let url = URL(string: book.volumeInfo.imageLinks?.smallThumbnail ?? "No image"),
             let imageData = try? Data(contentsOf: url) else { return }
         bookImage.image = UIImage(data: imageData)
-        
+        if let pages =  book.volumeInfo.pageCount {
+            pageCountLabel.text = "Page count: \(String(describing: pages))"
+        }
     }
     
 

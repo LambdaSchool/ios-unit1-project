@@ -52,10 +52,19 @@ class BookshelfTableViewController: UITableViewController {
 
         // Configure the cell...
         guard let bookshelf = ModelBookshelf.shared.bookshelf else {return cell}
-        cell.bookshelfLabel.text = bookshelf.items[indexPath.row].title
+        cell.bookshelfTitle.text = bookshelf.items[indexPath.row].title
+        cell.bookshelfId.text = "ID: \(bookshelf.items[indexPath.row].id)"
+        if let volumeCount = bookshelf.items[indexPath.row].volumeCount {
+            cell.bookshelfVolumeCount.text = "Books in shelf: \(String(describing: volumeCount))" }
         return cell
     }
    
+//    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            ModelBookshelf.shared.deleteBookshelf(at: indexPath)
+//            tableView.deleteRows(at: [indexPath], with: .fade)
+//    }
+//    }
 
     /*
     // Override to support conditional editing of the table view.

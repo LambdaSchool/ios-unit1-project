@@ -69,13 +69,6 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            Model.shared.deleteBook(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Search" {
             guard let indexPath = tableView.indexPathForSelectedRow
@@ -86,23 +79,6 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    
-    
-    func update() {
-        
-        //guard let indexPath = self.tableView.indexPathForSelectedRow else {return}
-        
-            for _ in 1...8 {
-                Model.shared.addNewBook()
-            }
-                
-//        if let book = self.book {
-//       self.bookTableViewCell.bookLabel.text = book.items[indexPath.row].volumeInfo.title
-           tableView.reloadData()
-        
-            }
-    
-    
     func searchBarSearchButtonClicked(_  searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         guard let searchTerm = searchBar.text, !searchTerm.isEmpty
@@ -110,7 +86,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
         searchBar.text = ""
         
         Model.shared.performSearch(with: searchTerm) { (error) in
-            //Model.shared.clearBooks()
+           // Model.shared.clearBooks()
             if let error = error {
                
                 NSLog("Error fetching data: \(error)")
@@ -120,9 +96,7 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
                 Model.shared.clearBooks()
                
                 self.tableView.reloadData()
-                //self.update()
                 
-                // Model.shared.addNewBook()
             }
         
     }

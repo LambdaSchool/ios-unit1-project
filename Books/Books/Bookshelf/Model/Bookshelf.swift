@@ -13,10 +13,21 @@ class ModelBookshelf {
     static let shared = ModelBookshelf()
     private init() {}
     
+    private(set) var booksshelf: [BookshelfJson] = []
+    
     var bookshelf: BookshelfJson? {
         didSet {
             ModelBookshelf.shared.bookshelf = self.bookshelf
         }
+    }
+    
+    
+    
+    func bookshelfAtIndex(at indexPath: IndexPath) ->  BookshelfJson {
+        return booksshelf[indexPath.row]
+    }
+    func bookshelf(at index: Int) -> BookshelfJson {
+        return booksshelf[index]
     }
     
     func addNewBookshelf() {
@@ -25,7 +36,12 @@ class ModelBookshelf {
         
     }
     
-    private(set) var booksshelf: [BookshelfJson] = []
+    
+    func deleteBookshelf(at indexPath: IndexPath) {
+        booksshelf.remove(at: indexPath.row)
+        
+        
+    }
     
     func bookPerformSearch () {
         let url = URL(string: "https://www.googleapis.com/books/v1/mylibrary/bookshelves")!
