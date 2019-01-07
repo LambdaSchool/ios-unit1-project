@@ -1,12 +1,6 @@
-//
-//  BookDetailViewController.swift
-//  Books
-//
-//  Created by Sergey Osipyan on 1/4/19.
-//  Copyright © 2019 Sergey Osipyan. All rights reserved.
-//
 
 import UIKit
+import SafariServices
 
 
 class BookDetailViewController: UIViewController {
@@ -19,6 +13,7 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var authorLabel: UILabel!
     @IBOutlet weak var bookDescription: UITextView!
     @IBOutlet weak var pageCountLabel: UILabel!
+    @IBOutlet weak var ratingControl: Rating!
     @IBAction func addBookshelf(_ sender: Any) {
     }
     
@@ -27,10 +22,19 @@ class BookDetailViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
        UpdaiteView()
-        
        
-        }
-    
+        let tap = UITapGestureRecognizer(target: self, action: #selector(BookDetailViewController.tappedMe))
+        bookImage.addGestureRecognizer(tap)
+        bookImage.isUserInteractionEnabled = true
+    }
+    @objc func tappedMe()
+    {
+        if let url = book?.volumeInfo.infoLink {
+            guard let baseURL = URL(string: url) else { fatalError("Unable to construct baseURL") }
+            let svc = SFSafariViewController(url: baseURL); self.present(svc, animated: true, completion: nil)
+    }
+    }
+
     
     func UpdaiteView() {
         

@@ -44,7 +44,7 @@ class TestTableViewController: UITableViewController {
         
         
        
-        cell.textLabel?.text = book.items[indexPath.row].volumeInfo.title
+        cell.textLabel?.text = book.items[indexPath.row].volumeInfo.description
         
         return cell
     }

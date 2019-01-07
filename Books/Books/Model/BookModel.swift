@@ -7,7 +7,6 @@ struct BookModel: Codable {
 }
 struct Book: Codable {
     let volumeInfo: VolumeInfo
-    let selfLink: String?
     
         struct VolumeInfo: Codable {
             let title: String?
@@ -15,7 +14,7 @@ struct Book: Codable {
             let authors: [String]?
             let imageLinks: ImageLink?
             let description: String?
-            let previewLink: String?
+            let infoLink: String?
             let pageCount: Int?
                 
             struct ImageLink: Codable {
