@@ -15,6 +15,11 @@ class BookDetailViewController: UIViewController {
     @IBOutlet weak var pageCountLabel: UILabel!
     @IBOutlet weak var ratingControl: Rating!
     @IBAction func addBookshelf(_ sender: Any) {
+        
+      // Model.shared.addNewBook()
+       // createNewArray()
+        
+        
     }
     
     var book: Book?
@@ -34,8 +39,9 @@ class BookDetailViewController: UIViewController {
             let svc = SFSafariViewController(url: baseURL); self.present(svc, animated: true, completion: nil)
     }
     }
-
+  
     
+   
     func UpdaiteView() {
         
         if let book = book {
@@ -43,6 +49,7 @@ class BookDetailViewController: UIViewController {
             if let title = book.volumeInfo.title {
         self.bookTitle.text = title
         self.navigationItem.title = title
+                
             } else {
                 self.bookTitle.text = "No Title"
             }

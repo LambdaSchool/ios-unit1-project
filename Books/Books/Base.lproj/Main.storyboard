@@ -110,7 +110,7 @@
                                 <state key="normal" title="Add to BookShelf"/>
                                 <connections>
                                     <action selector="addBookshelf:" destination="UJA-mw-wca" eventType="touchUpInside" id="ptb-hr-LdJ"/>
-                                    <segue destination="eu4-vl-yKz" kind="show" id="Nln-yl-hOd"/>
+                                    <segue destination="xFY-tU-fId" kind="show" identifier="savedBook" id="hkh-g5-A1C"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="aCi-me-MfP">
@@ -268,13 +268,13 @@
         <!--Item-->
         <scene sceneID="pNA-2v-11x">
             <objects>
-                <tableViewController id="xFY-tU-fId" customClass="TestTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="xFY-tU-fId" customClass="BookshelfDetailTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xVS-vr-Gx3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="test" id="ihg-fu-VDz">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookshelf" id="ihg-fu-VDz" customClass="BookshelfTableViewCell" customModule="Books" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ihg-fu-VDz" id="LYt-38-3XT">
@@ -331,15 +331,15 @@
             <objects>
                 <tableViewController id="eu4-vl-yKz" customClass="BookshelfTableViewController" customModule="Books" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="WPd-3d-H6W">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="359" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="bookshelf" rowHeight="211" id="YMS-fc-jf5" customClass="BookshelfTableViewCell" customModule="Books" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="211"/>
+                                <rect key="frame" x="0.0" y="28" width="359" height="211"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="YMS-fc-jf5" id="im2-rB-7oV">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="210.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="359" height="210.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Hij-0L-cDg">
@@ -406,7 +406,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7gR-kz-wiE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2774" y="-423"/>
+            <point key="canvasLocation" x="2786" y="-428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Ofm-Ch-lq9">
@@ -438,6 +438,6 @@
         <image name="a0f2d9a7ba039a19e41707b4c3e3a768-wooden-bookshelf-icon-by-vexels.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Nln-yl-hOd"/>
+        <segue reference="hkh-g5-A1C"/>
     </inferredMetricsTieBreakers>
 </document>

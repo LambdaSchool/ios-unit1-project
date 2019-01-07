@@ -8,21 +8,19 @@
 
 import UIKit
 
-class TestTableViewController: UITableViewController {
+class BookshelfDetailTableViewController: UITableViewController {
 
-    var book: BookModel?
+    
+    var book: Book?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.reloadData()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+       
     }
-
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -32,19 +30,21 @@ class TestTableViewController: UITableViewController {
    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 5
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "test", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bookshelf", for: indexPath)
 
+       
         // Configure the cell...
-        guard let book = Model.shared.book else {return cell}
-        
         
        
-        cell.textLabel?.text = book.items[indexPath.row].volumeInfo.description
+       
+     cell.textLabel?.text = "TESTING"
+//        Model.shared.book?.items[indexPath.row].volumeInfo.title
+        
         
         return cell
     }

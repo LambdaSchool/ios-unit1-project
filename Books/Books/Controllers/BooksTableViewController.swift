@@ -75,8 +75,20 @@ class BooksTableViewController: UITableViewController, UISearchBarDelegate {
             let destination = segue.destination as! BookDetailViewController
             let book = Model.shared.book?.items[indexPath.row]
             destination.book = book
+        } else {
+            if segue.identifier == "savedBook" {
+                guard let indexPath = tableView.indexPathForSelectedRow
+                    else {return}
+                let destination = segue.destination as! BookshelfDetailTableViewController
+                let book = Model.shared.book?.items[indexPath.row]
+                destination.book = book
+            }
         }
     }
+    
+   
+    
+    
     
     func searchBarSearchButtonClicked(_  searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
