@@ -1,0 +1,16 @@
+Required UI Elements:
+
+-BookSearchCollectionView: with searchbar. Each cell will contain a UIImage and a label of a book from the search results.+
+-BookshelvesCollectionView: each cell will contain a UIImage and a label. Each cell's image and label be randomly chosen from the array of that bookshelf's books
+-BookshelvesDetailCollectionView: each cell will contain a label containing book title and an image with book image.+
+-BookDetailView: UIImage with book image, label with book title along with a toggle-able label or image indicating whether or not the book has been read and a textfield to write review. There will be three buttons for Insert, Update and Delete to the side. When insert or delete pressed an embedded collection view becomes unhidden a the bottom of the screen. The update button updates the user review and whether or not he has read the book.
+
+Required Files:
+
+-Books.swift+
+-NetworkingClient.swift+
+-Model.swift+
+-BookSearchCollectionView.swift+
+-BookShelvesCollectionView.swit+
+-BookshelvesDetailCollectionView.swift+
+-BookDetailView.swift+
